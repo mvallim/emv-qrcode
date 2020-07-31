@@ -27,7 +27,7 @@ class AdditionalDataFieldTemplateParser extends Parser<AdditionalDataFieldTempla
     mapConsumers.put(AdditionalDataFieldCodes.ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC, AdditionalDataFieldTemplate::addPaymentSystemSpecific);
   }
 
-  AdditionalDataFieldTemplateParser(final String source) {
+  public AdditionalDataFieldTemplateParser(final String source) {
     super(source);
   }
 

@@ -19,7 +19,7 @@ class MerchantAccountInformationValueParser extends Parser<MerchantAccountInform
     mapConsumers.put(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC, MerchantAccountInformationValue::addPaymentNetworkSpecific);
   }
 
-  MerchantAccountInformationValueParser(final String source) {
+  public MerchantAccountInformationValueParser(final String source) {
     super(source);
   }
 
@@ -42,7 +42,8 @@ class MerchantAccountInformationValueParser extends Parser<MerchantAccountInform
   }
 
   private static boolean betweenPaymentNetworkSpecificRange(final String value) {
-    return value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_START) >= 0 && value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_END) <= 0;
+    return value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_START) >= 0
+        && value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_END) <= 0;
   }
 
 }

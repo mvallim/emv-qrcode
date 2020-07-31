@@ -21,7 +21,7 @@ class MerchantInformationLanguageTemplateParser extends Parser<MerchantInformati
     mapConsumers.put(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_RFUFOR_EMVCO, MerchantInformationLanguageTemplate::addRFUforEMVCO);
   }
 
-  MerchantInformationLanguageTemplateParser(final String source) {
+  public MerchantInformationLanguageTemplateParser(final String source) {
     super(source);
   }
 

@@ -75,7 +75,7 @@ public class EMVQR implements Serializable, DrawData {
   private final Map<String, UnreservedTemplate> unreservedTemplates = new LinkedHashMap<>();
  
   public void setPayloadFormatIndicator(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.payloadFormatIndicator = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value));
+    Optional.ofNullable(value).ifPresent(v -> this.payloadFormatIndicator = new TagLengthString(EMVQRFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR, value));
   }
 
   public void setPointOfInitiationMethod(final String value) {

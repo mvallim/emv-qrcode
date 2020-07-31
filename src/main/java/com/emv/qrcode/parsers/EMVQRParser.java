@@ -35,7 +35,7 @@ class EMVQRParser extends Parser<EMVQR> {
     mapConsumers.put(EMVQRFieldCodes.ID_UNRESERVED_TEMPLATES, EMVQR::addUnreservedTemplates);
   }
 
-  EMVQRParser(final String source) {
+  public EMVQRParser(final String source) {
     super(source);
   }
 

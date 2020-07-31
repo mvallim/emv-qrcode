@@ -54,7 +54,9 @@ public abstract class Parser<T> implements Iterator<String> {
 
   @Override
   public boolean hasNext() {
-    return current + valueLength() + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT <= max;
+    final Integer start = current + ID_WORD_COUNT;
+    final Integer end = start + VALUE_LENGTH_WORD_COUNT;
+    return end <= max && current + valueLength() + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT <= max;
   }
 
   @Override

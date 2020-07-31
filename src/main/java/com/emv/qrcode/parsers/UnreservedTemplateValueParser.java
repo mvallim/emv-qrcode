@@ -19,7 +19,7 @@ class UnreservedTemplateValueParser extends Parser<UnreservedTemplateValue> {
     mapConsumers.put(UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_CONTEXT_SPECIFIC_DATA, UnreservedTemplateValue::addContextSpecificData);
   }
 
-  UnreservedTemplateValueParser(final String source) {
+  public UnreservedTemplateValueParser(final String source) {
     super(source);
   }
 
