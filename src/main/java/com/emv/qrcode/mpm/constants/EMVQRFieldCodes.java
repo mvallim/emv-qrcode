@@ -19,10 +19,15 @@ public final class EMVQRFieldCodes {
   public static final String ID_ADDITIONAL_DATA_FIELD_TEMPLATE = "62"; // (O) Additional Data Field Template
   public static final String ID_CRC = "63"; // (M) CRC
   public static final String ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE = "64"; // (O) Merchant Information— Language Template
-  public static final String ID_RFU_FOR_EMV_CORANGE_START = "65"; // (O) 65-79 RFU for EMVCo
-  public static final String ID_RFU_FOR_EMV_CORANGE_END = "79"; // (O) 65-79 RFU for EMVCo
+  public static final String ID_RFU_FOR_EMVCO_RANGE_START = "65"; // (O) 65-79 RFU for EMVCo
+  public static final String ID_RFU_FOR_EMVCO_RANGE_END = "79"; // (O) 65-79 RFU for EMVCo
   public static final String ID_UNRESERVED_TEMPLATES_RANGE_START = "80"; // (O) 80-99 Unreserved Templates
   public static final String ID_UNRESERVED_TEMPLATES_RANGE_END = "99"; // (O) 80-99 Unreserved Templates
+
+  // Reserved
+  public static final String ID_MERCHANT_ACCOUNT_INFORMATION = ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_START;
+  public static final String ID_RFU_FOR_EMVCO = ID_RFU_FOR_EMVCO_RANGE_START;
+  public static final String ID_UNRESERVED_TEMPLATES = ID_UNRESERVED_TEMPLATES_RANGE_START;
 
   private EMVQRFieldCodes() {
     super();

@@ -24,6 +24,10 @@ public class MerchantAccountInformation implements Serializable, DrawData, TagLe
 
   private MerchantAccountInformationValue value;
   
+  public MerchantAccountInformation(final String value) {
+    // TODO Auto-generated constructor stub
+  }
+
   @Override
   public String toString() {
     return String.format("%s%s%s", tag, length, value.toString());

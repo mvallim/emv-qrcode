@@ -3,12 +3,14 @@ package com.emv.qrcode.mpm.model;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
+import com.emv.qrcode.core.Parser;
+import com.emv.qrcode.core.ParserMerchantInformationLanguageTemplate;
 import com.emv.qrcode.core.model.DataType;
 import com.emv.qrcode.core.model.DrawData;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
+import com.emv.qrcode.mpm.constants.MerchantInformationFieldCodes;
 
 import lombok.Getter;
 
@@ -29,30 +31,24 @@ public class MerchantInformationLanguageTemplate implements Serializable, DrawDa
   // RFU for EMVCo
   private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
 
-  // TODO: Implements this after
+  MerchantInformationLanguageTemplate(final String value) {
+    ParserMerchantInformationLanguageTemplate.parse(value, this);
+  }
+
   public void setLanguagePreference(final String languagePreference) {
-    this.languagePreference = new TagLengthString("", languagePreference);
+    this.languagePreference = new TagLengthString(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_LANGUAGE_PREFERENCE, languagePreference);
   }
 
-  // TODO: Implements this after
   public void setMerchantName(final String merchantName) {
-    this.merchantName = new TagLengthString("", merchantName);
+    this.merchantName = new TagLengthString(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_MERCHANT_NAME, merchantName);
   }
 
-  // TODO: Implements this after
   public void setMerchantCity(final String merchantCity) {
-    this.merchantCity = new TagLengthString("", merchantCity);
+    this.merchantCity = new TagLengthString(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_MERCHANT_CITY, merchantCity);
   }
 
-  // TODO: Implements this after
   public void addRFUforEMVCO(final String value) {
-    rFUforEMVCo.add(new TagLengthString("", value));
-  }
-
-  public void addRFUforEMVCOs(final List<String> values) {
-    if (Objects.nonNull(values) && !values.isEmpty()) {
-      values.forEach(this::addRFUforEMVCO);
-    }
+    rFUforEMVCo.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT)));
   }
 
   @Override

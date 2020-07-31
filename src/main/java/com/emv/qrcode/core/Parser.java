@@ -6,19 +6,19 @@ import java.util.NoSuchElementException;
 import lombok.Getter;
 
 @Getter
-public final class Parser implements Iterator<String> {
+public abstract class Parser implements Iterator<String> {
   
-  private static final Integer ID_WORD_COUNT = 2; // 01 - 99
+  public static final Integer ID_WORD_COUNT = 2; // 01 - 99
   
-  private static final Integer VALUE_LENGTH_WORD_COUNT = 2; // 01 - 99
+  public static final Integer VALUE_LENGTH_WORD_COUNT = 2; // 01 - 99
 
   private Integer current;
 
-  private Integer max;
+  private final Integer max;
 
   private final String source;
 
-  private Parser(final String source) {
+  Parser(final String source) {
     this.current = 0;
     this.max = source.length();
     this.source = source;
@@ -55,10 +55,6 @@ public final class Parser implements Iterator<String> {
     current = end;
     
     return source.substring(start, end);
-  }
-
-  public static Parser parse(final String sequence) {
-    return new Parser(sequence);
   }
   
 }

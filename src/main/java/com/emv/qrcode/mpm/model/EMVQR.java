@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 
 import com.emv.qrcode.core.Parser;
+import com.emv.qrcode.core.ParserEMVQR;
 import com.emv.qrcode.core.model.DataType;
 import com.emv.qrcode.core.model.DrawData;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
@@ -75,111 +76,81 @@ public class EMVQR implements Serializable, DrawData {
   private final Map<String, UnreservedTemplate> unreservedTemplates = new LinkedHashMap<>();
 
   public EMVQR(final String value) {
-    final Parser parser = Parser.parse(value);
-
-    while (parser.hasNext()) {
-      switch (parser.getId()) {
-        case EMVQRFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR:
-          setPayloadFormatIndicator(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_POINT_OF_INITIATION_METHOD:
-          setPointOfInitiationMethod(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_MERCHANT_CATEGORY_CODE:
-          setMerchantCategoryCode(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_TRANSACTION_CURRENCY:
-          setTransactionCurrency(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_TRANSACTION_AMOUNT:
-          setTransactionAmount(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_TIP_OR_CONVENIENCE_INDICATOR:
-          setTipOrConvenienceIndicator(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED:
-          setValueOfConvenienceFeeFixed(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE:
-          setValueOfConvenienceFeePercentage(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_COUNTRY_CODE:
-          setCountryCode(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_MERCHANT_NAME:
-          setMerchantName(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_MERCHANT_CITY:
-          setMerchantCity(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_POSTAL_CODE:
-          setPostalCode(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_CRC:
-          setCRC(parser.next());
-          break;
-        case EMVQRFieldCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE:
-          break;
-        case EMVQRFieldCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE:
-          break;
-        default:
-          break;
-      }
-    }
+    ParserEMVQR.parse(value, this);
   }
-
+  
   public void setPayloadFormatIndicator(final String value) {
-    payloadFormatIndicator = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
+    this.payloadFormatIndicator = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
   }
 
   public void setPointOfInitiationMethod(final String value) {
-    pointOfInitiationMethod = new TagLengthString(EMVQRFieldCodes.ID_POINT_OF_INITIATION_METHOD, value);
+    this.pointOfInitiationMethod = new TagLengthString(EMVQRFieldCodes.ID_POINT_OF_INITIATION_METHOD, value);
   }
 
   public void setMerchantCategoryCode(final String value) {
-    merchantCategoryCode = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CATEGORY_CODE, value);
+    this.merchantCategoryCode = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CATEGORY_CODE, value);
   }
 
   public void setTransactionCurrency(final String value) {
-    transactionCurrency = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_CURRENCY, value);
+    this.transactionCurrency = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_CURRENCY, value);
   }
 
   public void setTransactionAmount(final String value) {
-    transactionAmount = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_AMOUNT, value);
+    this.transactionAmount = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_AMOUNT, value);
   }
 
   public void setTipOrConvenienceIndicator(final String value) {
-    tipOrConvenienceIndicator = new TagLengthString(EMVQRFieldCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, value);
+    this.tipOrConvenienceIndicator = new TagLengthString(EMVQRFieldCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, value);
   }
 
   public void setValueOfConvenienceFeeFixed(final String value) {
-    valueOfConvenienceFeeFixed = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, value);
+    this.valueOfConvenienceFeeFixed = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, value);
   }
 
   public void setValueOfConvenienceFeePercentage(final String value) {
-    valueOfConvenienceFeePercentage = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, value);
+    this.valueOfConvenienceFeePercentage = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, value);
   }
 
   public void setCountryCode(final String value) {
-    countryCode = new TagLengthString(EMVQRFieldCodes.ID_COUNTRY_CODE, value);
+    this.countryCode = new TagLengthString(EMVQRFieldCodes.ID_COUNTRY_CODE, value);
   }
 
   public void setMerchantName(final String value) {
-    merchantName = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
+    this.merchantName = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
   }
 
   public void setMerchantCity(final String value) {
-    merchantCity = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CITY, value);
+    this.merchantCity = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CITY, value);
   }
 
   public void setPostalCode(final String value) {
-    postalCode = new TagLengthString(EMVQRFieldCodes.ID_POSTAL_CODE, value);
+    this.postalCode = new TagLengthString(EMVQRFieldCodes.ID_POSTAL_CODE, value);
   }
 
   public void setCRC(final String value) {
-    cRC = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
+    this.cRC = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
   }
 
+  public void setAdditionalDataFieldTemplate(final String value) {
+    this.additionalDataFieldTemplate = new AdditionalDataFieldTemplate(value);
+  }
+
+  public void setMerchantInformationLanguageTemplate(final String value) {
+    this.merchantInformationLanguageTemplate = new MerchantInformationLanguageTemplate(value);
+  }
+  
+  public void addMerchantAccountInformation(final String value) {
+    merchantAccountInformation.put(value.substring(0, Parser.ID_WORD_COUNT), new MerchantAccountInformation(value.substring(Parser.ID_WORD_COUNT)));
+  }
+  
+  public void addRFUforEMVCo(final String value) {
+    rFUforEMVCo.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT)));
+  }
+  
+  public void addUnreservedTemplates(final String value) {
+    unreservedTemplates.put(value.substring(0, Parser.ID_WORD_COUNT), new UnreservedTemplate(value.substring(Parser.ID_WORD_COUNT)));
+  }
+  
   public String binaryData() {
     return draw(DataType.BINARY);
   }

@@ -24,6 +24,10 @@ public class UnreservedTemplate implements Serializable, DrawData, TagLengthValu
 
   private UnreservedTemplateValue value;
 
+  public UnreservedTemplate(final String value) {
+    // TODO Auto-generated constructor stub
+  }
+
   @Override
   public String toString() {
     return String.format("%s%02d%s", tag, length, value.toString());

@@ -8,6 +8,9 @@ public class MerchantInformationFieldCodes {
   public static final String MERCHANT_INFORMATION_ID_RFUFOR_EMVCO_RANGE_START = "03"; // (O) 03-99 RFU for EMVCo
   public static final String MERCHANT_INFORMATION_ID_RFUFOR_EMVCO_RANGE_END = "99"; // (O) 03-99 RFU for EMVCo
 
+  // Reserved
+  public static final String MERCHANT_INFORMATION_ID_RFUFOR_EMVCO = MERCHANT_INFORMATION_ID_RFUFOR_EMVCO_RANGE_START;
+
   private MerchantInformationFieldCodes() {
     super();
   }

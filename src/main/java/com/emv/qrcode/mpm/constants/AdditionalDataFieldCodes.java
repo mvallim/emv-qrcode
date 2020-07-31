@@ -16,6 +16,10 @@ public final class AdditionalDataFieldCodes {
   public static final String ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START = "50"; // (O) Payment System Specific Templates
   public static final String ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_END = "99"; // (O) Payment System Specific Templates
 
+  // Reserved
+  public static final String ADDITIONAL_ID_RFUFOR_EMVCO = ADDITIONAL_ID_RFUFOR_EMVCO_RANGE_START;
+  public static final String ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC = ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START;
+
   private AdditionalDataFieldCodes() {
     super();
   }
