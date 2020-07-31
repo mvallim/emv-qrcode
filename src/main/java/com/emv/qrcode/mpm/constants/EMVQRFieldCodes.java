@@ -1,6 +1,6 @@
 package com.emv.qrcode.mpm.constants;
 
-public final class EMVQRConstants {
+public final class EMVQRFieldCodes {
 
   public static final String ID_PAYLOAD_FORMAT_INDICATOR = "00"; // (M) Payload Format Indicator
   public static final String ID_POINT_OF_INITIATION_METHOD = "01"; // (O) Point of Initiation Method
@@ -24,7 +24,7 @@ public final class EMVQRConstants {
   public static final String ID_UNRESERVED_TEMPLATES_RANGE_START = "80"; // (O) 80-99 Unreserved Templates
   public static final String ID_UNRESERVED_TEMPLATES_RANGE_END = "99"; // (O) 80-99 Unreserved Templates
 
-  private EMVQRConstants() {
+  private EMVQRFieldCodes() {
     super();
   }
 

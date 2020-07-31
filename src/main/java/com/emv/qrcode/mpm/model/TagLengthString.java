@@ -5,17 +5,13 @@ import java.io.Serializable;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.DataType;
-import com.emv.qrcode.core.DrawData;
-import com.emv.qrcode.core.TagLengthValue;
+import com.emv.qrcode.core.model.DataType;
+import com.emv.qrcode.core.model.DrawData;
+import com.emv.qrcode.core.model.TagLengthValue;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
-@AllArgsConstructor
 public class TagLengthString implements Serializable, DrawData, TagLengthValue<String> {
 
   private static final long serialVersionUID = -6482977134879939277L;
@@ -25,7 +21,13 @@ public class TagLengthString implements Serializable, DrawData, TagLengthValue<S
   private Integer length;
 
   private String value;
-
+  
+  public TagLengthString(final String tag, final String value) {
+    this.tag = tag;
+    this.value = value;
+    this.length = value.length();
+  }
+  
   @Override
   public String toString() {
     return String.format("%s%02d%s", tag, length, value);
@@ -51,5 +53,6 @@ public class TagLengthString implements Serializable, DrawData, TagLengthValue<S
     }
     
   }
+
 
 }

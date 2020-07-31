@@ -1,4 +1,4 @@
-package com.emv.qrcode.core;
+package com.emv.qrcode.core.model;
 
 public interface TagLengthValue<T> {
 

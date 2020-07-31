@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.emv.qrcode.core.DataType;
-import com.emv.qrcode.core.DrawData;
-import com.emv.qrcode.mpm.constants.EMVQRConstants;
+import com.emv.qrcode.core.model.DataType;
+import com.emv.qrcode.core.model.DrawData;
+import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -56,7 +56,7 @@ public class AdditionalDataFieldTemplate implements Serializable, DrawData {
     
     final StringBuilder sb = new StringBuilder();
     
-    sb.append(EMVQRConstants.ID_ADDITIONAL_DATA_FIELD_TEMPLATE);
+    sb.append(EMVQRFieldCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE);
 
     Optional.ofNullable(billNumber).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(mobileNumber).ifPresent(tlv -> sb.append(tlv.toString()));
@@ -103,7 +103,7 @@ public class AdditionalDataFieldTemplate implements Serializable, DrawData {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.draw(type)));
     }
     
-    return String.format("%s %02d \n%s", EMVQRConstants.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, toString().length(), sb.toString());
+    return String.format("%s %02d \n%s", EMVQRFieldCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, toString().length(), sb.toString());
   }
 
 }

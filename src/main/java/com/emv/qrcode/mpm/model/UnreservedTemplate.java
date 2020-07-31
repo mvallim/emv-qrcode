@@ -5,9 +5,9 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.DataType;
-import com.emv.qrcode.core.DrawData;
-import com.emv.qrcode.core.TagLengthValue;
+import com.emv.qrcode.core.model.DataType;
+import com.emv.qrcode.core.model.DrawData;
+import com.emv.qrcode.core.model.TagLengthValue;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.emv.qrcode.mpm.constants;
 
-public final class AdditionalDataFieldConstants {
+public final class AdditionalDataFieldCodes {
 
   public static final String ADDITIONAL_ID_BILL_NUMBER = "01"; // (O) Bill Number
   public static final String ADDITIONAL_ID_MOBILE_NUMBER = "02"; // (O) Mobile Number
@@ -16,7 +16,7 @@ public final class AdditionalDataFieldConstants {
   public static final String ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START = "50"; // (O) Payment System Specific Templates
   public static final String ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_END = "99"; // (O) Payment System Specific Templates
 
-  private AdditionalDataFieldConstants() {
+  private AdditionalDataFieldCodes() {
     super();
   }
 
