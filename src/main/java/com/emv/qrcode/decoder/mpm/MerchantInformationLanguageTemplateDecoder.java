@@ -13,10 +13,10 @@ public final class MerchantInformationLanguageTemplateDecoder extends Decoder<Me
   private static final Map<String, BiConsumer<MerchantInformationLanguageTemplate, String>> mapConsumers = new HashMap<>();
 
   static {
-    mapConsumers.put(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_LANGUAGE_PREFERENCE, MerchantInformationLanguageTemplate::setLanguagePreference);
-    mapConsumers.put(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_MERCHANT_NAME, MerchantInformationLanguageTemplate::setMerchantName);
-    mapConsumers.put(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_MERCHANT_CITY, MerchantInformationLanguageTemplate::setMerchantCity);
-    mapConsumers.put(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_RFUFOR_EMVCO, MerchantInformationLanguageTemplate::addRFUforEMVCO);
+    mapConsumers.put(MerchantInformationFieldCodes.ID_LANGUAGE_PREFERENCE, MerchantInformationLanguageTemplate::setLanguagePreference);
+    mapConsumers.put(MerchantInformationFieldCodes.ID_MERCHANT_NAME, MerchantInformationLanguageTemplate::setMerchantName);
+    mapConsumers.put(MerchantInformationFieldCodes.ID_MERCHANT_CITY, MerchantInformationLanguageTemplate::setMerchantCity);
+    mapConsumers.put(MerchantInformationFieldCodes.ID_RFU_FOR_EMVCO, MerchantInformationLanguageTemplate::addRFUforEMVCO);
   }
 
   public MerchantInformationLanguageTemplateDecoder(final String source) {
@@ -35,14 +35,14 @@ public final class MerchantInformationLanguageTemplateDecoder extends Decoder<Me
   private String derivateId(final String id) {
 
     if (betweenRFUForEMVCORange(id)) {
-      return MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_RFUFOR_EMVCO;
+      return MerchantInformationFieldCodes.ID_RFU_FOR_EMVCO;
     }
 
     return id;
   }
 
   private boolean betweenRFUForEMVCORange(final String value) {
-    return value.compareTo(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_RFUFOR_EMVCO_RANGE_START) >= 0 && value.compareTo(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_RFUFOR_EMVCO_RANGE_END) <= 0;
+    return value.compareTo(MerchantInformationFieldCodes.ID_RFU_FOR_EMVCO_RANGE_START) >= 0 && value.compareTo(MerchantInformationFieldCodes.ID_RFU_FOR_EMVCO_RANGE_END) <= 0;
   }
 
 }

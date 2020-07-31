@@ -54,39 +54,39 @@ public class AdditionalDataFieldTemplate implements Serializable {
   private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
 
   public void setBillNumber(final String value) {
-    this.billNumber = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_BILL_NUMBER, value);
+    this.billNumber = new TagLengthString(AdditionalDataFieldCodes.ID_BILL_NUMBER, value);
   }
 
   public void setMobileNumber(final String value) {
-    this.mobileNumber = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_MOBILE_NUMBER, value);
+    this.mobileNumber = new TagLengthString(AdditionalDataFieldCodes.ID_MOBILE_NUMBER, value);
   }
 
   public void setStoreLabel(final String value) {
-    this.storeLabel = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_STORE_LABEL, value);
+    this.storeLabel = new TagLengthString(AdditionalDataFieldCodes.ID_STORE_LABEL, value);
   }
 
   public void setLoyaltyNumber(final String value) {
-    this.loyaltyNumber = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_LOYALTY_NUMBER, value);
+    this.loyaltyNumber = new TagLengthString(AdditionalDataFieldCodes.ID_LOYALTY_NUMBER, value);
   }
 
   public void setReferenceLabel(final String value) {
-    this.referenceLabel = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_REFERENCE_LABEL, value);
+    this.referenceLabel = new TagLengthString(AdditionalDataFieldCodes.ID_REFERENCE_LABEL, value);
   }
 
   public void setCustomerLabel(final String value) {
-    this.customerLabel = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_CUSTOMER_LABEL, value);
+    this.customerLabel = new TagLengthString(AdditionalDataFieldCodes.ID_CUSTOMER_LABEL, value);
   }
 
   public void setTerminalLabel(final String value) {
-    this.terminalLabel = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_TERMINAL_LABEL, value);
+    this.terminalLabel = new TagLengthString(AdditionalDataFieldCodes.ID_TERMINAL_LABEL, value);
   }
 
   public void setPurposeTransaction(final String value) {
-    this.purposeTransaction = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_PURPOSE_TRANSACTION, value);
+    this.purposeTransaction = new TagLengthString(AdditionalDataFieldCodes.ID_PURPOSE_TRANSACTION, value);
   }
 
   public void setAdditionalConsumerDataRequest(final String value) {
-    this.additionalConsumerDataRequest = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_ADDITIONAL_CONSUMER_DATA_REQUEST, value);
+    this.additionalConsumerDataRequest = new TagLengthString(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, value);
   }
   
   public void addRFUforEMVCo(final String value) {

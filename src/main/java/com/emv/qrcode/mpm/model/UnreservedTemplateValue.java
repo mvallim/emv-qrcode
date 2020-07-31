@@ -26,7 +26,7 @@ public class UnreservedTemplateValue implements Serializable {
   private final List<TagLengthString> contextSpecificData = new LinkedList<>();
 
   public void setGloballyUniqueIdentifier(final String value) {
-    globallyUniqueIdentifier = new TagLengthString(UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_GLOBALLY_UNIQUE_IDENTIFIER, value);
+    globallyUniqueIdentifier = new TagLengthString(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, value);
   }
 
   public void addContextSpecificData(final String value) {

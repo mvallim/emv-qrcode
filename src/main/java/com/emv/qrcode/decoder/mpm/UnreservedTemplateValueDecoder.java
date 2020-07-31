@@ -13,8 +13,8 @@ public final class UnreservedTemplateValueDecoder extends Decoder<UnreservedTemp
   private static final Map<String, BiConsumer<UnreservedTemplateValue, String>> mapConsumers = new HashMap<>();
 
   static {
-    mapConsumers.put(UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_GLOBALLY_UNIQUE_IDENTIFIER, UnreservedTemplateValue::setGloballyUniqueIdentifier);
-    mapConsumers.put(UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_CONTEXT_SPECIFIC_DATA, UnreservedTemplateValue::addContextSpecificData);
+    mapConsumers.put(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, UnreservedTemplateValue::setGloballyUniqueIdentifier);
+    mapConsumers.put(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA, UnreservedTemplateValue::addContextSpecificData);
   }
 
   public UnreservedTemplateValueDecoder(final String source) {
@@ -33,14 +33,14 @@ public final class UnreservedTemplateValueDecoder extends Decoder<UnreservedTemp
   private String derivateId(final String id) {
 
     if (betweenContextSpecificDataRange(id)) {
-      return UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_CONTEXT_SPECIFIC_DATA;
+      return UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA;
     }
 
     return id;
   }
 
   private boolean betweenContextSpecificDataRange(final String value) {
-    return value.compareTo(UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_CONTEXT_SPECIFIC_DATA_START) >= 0 && value.compareTo(UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_CONTEXT_SPECIFIC_DATA_END) <= 0;
+    return value.compareTo(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA_START) >= 0 && value.compareTo(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA_END) <= 0;
   }
 
 }

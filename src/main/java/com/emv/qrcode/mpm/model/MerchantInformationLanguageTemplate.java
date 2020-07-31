@@ -33,15 +33,15 @@ public class MerchantInformationLanguageTemplate implements Serializable {
   private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
 
   public void setLanguagePreference(final String languagePreference) {
-    this.languagePreference = new TagLengthString(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_LANGUAGE_PREFERENCE, languagePreference);
+    this.languagePreference = new TagLengthString(MerchantInformationFieldCodes.ID_LANGUAGE_PREFERENCE, languagePreference);
   }
 
   public void setMerchantName(final String merchantName) {
-    this.merchantName = new TagLengthString(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_MERCHANT_NAME, merchantName);
+    this.merchantName = new TagLengthString(MerchantInformationFieldCodes.ID_MERCHANT_NAME, merchantName);
   }
 
   public void setMerchantCity(final String merchantCity) {
-    this.merchantCity = new TagLengthString(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_MERCHANT_CITY, merchantCity);
+    this.merchantCity = new TagLengthString(MerchantInformationFieldCodes.ID_MERCHANT_CITY, merchantCity);
   }
 
   public void addRFUforEMVCO(final String value) {

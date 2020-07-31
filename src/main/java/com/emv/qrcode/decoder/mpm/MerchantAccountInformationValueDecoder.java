@@ -13,8 +13,8 @@ public final class MerchantAccountInformationValueDecoder extends Decoder<Mercha
   private static final Map<String, BiConsumer<MerchantAccountInformationValue, String>> mapConsumers = new HashMap<>();
 
   static {
-    mapConsumers.put(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_GLOBALLY_UNIQUE_IDENTIFIER, MerchantAccountInformationValue::setGloballyUniqueIdentifier);
-    mapConsumers.put(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC, MerchantAccountInformationValue::addPaymentNetworkSpecific);
+    mapConsumers.put(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, MerchantAccountInformationValue::setGloballyUniqueIdentifier);
+    mapConsumers.put(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC, MerchantAccountInformationValue::addPaymentNetworkSpecific);
   }
 
   public MerchantAccountInformationValueDecoder(final String source) {
@@ -33,15 +33,15 @@ public final class MerchantAccountInformationValueDecoder extends Decoder<Mercha
   private String derivateId(final String id) {
 
     if (betweenPaymentNetworkSpecificRange(id)) {
-      return MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC;
+      return MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC;
     }
 
     return id;
   }
 
   private boolean betweenPaymentNetworkSpecificRange(final String value) {
-    return value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_START) >= 0
-        && value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_END) <= 0;
+    return value.compareTo(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC_START) >= 0
+        && value.compareTo(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC_END) <= 0;
   }
 
 }

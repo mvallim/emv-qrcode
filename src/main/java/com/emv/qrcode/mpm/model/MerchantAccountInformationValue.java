@@ -26,7 +26,7 @@ public class MerchantAccountInformationValue implements Serializable {
   private final List<TagLengthString> paymentNetworkSpecific = new LinkedList<>();
 
   public void setGloballyUniqueIdentifier(final String value) {
-    globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_GLOBALLY_UNIQUE_IDENTIFIER, value);
+    globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, value);
   }
 
   public void addPaymentNetworkSpecific(final String value) {
