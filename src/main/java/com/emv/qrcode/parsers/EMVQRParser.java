@@ -1,4 +1,4 @@
-package com.emv.qrcode.core;
+package com.emv.qrcode.parsers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import com.emv.qrcode.mpm.model.EMVQR;
 import lombok.Getter;
 
 @Getter
-public class ParserEMVQR extends Parser {
+class EMVQRParser extends Parser<EMVQR> {
 
   private static final Map<String, BiConsumer<EMVQR, String>> mapConsumers = new HashMap<>();
 
@@ -35,15 +35,17 @@ public class ParserEMVQR extends Parser {
     mapConsumers.put(EMVQRFieldCodes.ID_UNRESERVED_TEMPLATES, EMVQR::addUnreservedTemplates);
   }
 
-  ParserEMVQR(final String source) {
+  EMVQRParser(final String source) {
     super(source);
   }
 
-  public static void parse(final String source, final EMVQR emvqr) {
-    final Parser parser = new ParserEMVQR(source);
-    while (parser.hasNext()) {
-      mapConsumers.get(derivateId(parser.getId())).accept(emvqr, parser.next());
+  @Override
+  protected EMVQR parse() {
+    final EMVQR result = new EMVQR();
+    while (hasNext()) {
+      mapConsumers.get(derivateId(getId())).accept(result, next());
     }
+    return result;
   }
 
   private static String derivateId(final String id) {

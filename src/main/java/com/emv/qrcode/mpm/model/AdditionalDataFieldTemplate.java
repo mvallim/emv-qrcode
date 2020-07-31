@@ -5,12 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.emv.qrcode.core.Parser;
-import com.emv.qrcode.core.ParserAdditionalDataFieldTemplate;
 import com.emv.qrcode.core.model.DataType;
 import com.emv.qrcode.core.model.DrawData;
 import com.emv.qrcode.mpm.constants.AdditionalDataFieldCodes;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
+import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
 
@@ -51,10 +50,6 @@ public class AdditionalDataFieldTemplate implements Serializable, DrawData {
 
   // Payment System specific templates
   private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
-
-  AdditionalDataFieldTemplate(final String value) {
-    ParserAdditionalDataFieldTemplate.parse(value, this);
-  }
 
   public void setBillNumber(final String value) {
     this.billNumber = new TagLengthString(AdditionalDataFieldCodes.ADDITIONAL_ID_BILL_NUMBER, value);

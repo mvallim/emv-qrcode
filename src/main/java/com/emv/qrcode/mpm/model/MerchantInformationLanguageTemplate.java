@@ -5,12 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.emv.qrcode.core.Parser;
-import com.emv.qrcode.core.ParserMerchantInformationLanguageTemplate;
 import com.emv.qrcode.core.model.DataType;
 import com.emv.qrcode.core.model.DrawData;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
 import com.emv.qrcode.mpm.constants.MerchantInformationFieldCodes;
+import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
 
@@ -30,10 +29,6 @@ public class MerchantInformationLanguageTemplate implements Serializable, DrawDa
 
   // RFU for EMVCo
   private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
-
-  MerchantInformationLanguageTemplate(final String value) {
-    ParserMerchantInformationLanguageTemplate.parse(value, this);
-  }
 
   public void setLanguagePreference(final String languagePreference) {
     this.languagePreference = new TagLengthString(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_LANGUAGE_PREFERENCE, languagePreference);

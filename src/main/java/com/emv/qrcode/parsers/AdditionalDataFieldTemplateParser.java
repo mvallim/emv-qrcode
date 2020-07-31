@@ -1,4 +1,4 @@
-package com.emv.qrcode.core;
+package com.emv.qrcode.parsers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import com.emv.qrcode.mpm.model.AdditionalDataFieldTemplate;
 import lombok.Getter;
 
 @Getter
-public class ParserAdditionalDataFieldTemplate extends Parser {
+class AdditionalDataFieldTemplateParser extends Parser<AdditionalDataFieldTemplate> {
 
   private static final Map<String, BiConsumer<AdditionalDataFieldTemplate, String>> mapConsumers = new HashMap<>();
 
@@ -27,15 +27,17 @@ public class ParserAdditionalDataFieldTemplate extends Parser {
     mapConsumers.put(AdditionalDataFieldCodes.ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC, AdditionalDataFieldTemplate::addPaymentSystemSpecific);
   }
 
-  ParserAdditionalDataFieldTemplate(final String source) {
+  AdditionalDataFieldTemplateParser(final String source) {
     super(source);
   }
 
-  public static void parse(final String source, final AdditionalDataFieldTemplate additionalDataFieldTemplate) {
-    final Parser parser = new ParserAdditionalDataFieldTemplate(source);
-    while (parser.hasNext()) {
-      mapConsumers.get(derivateId(parser.getId())).accept(additionalDataFieldTemplate, parser.next());
+  @Override
+  protected AdditionalDataFieldTemplate parse() {
+    final AdditionalDataFieldTemplate result = new AdditionalDataFieldTemplate();
+    while (hasNext()) {
+      mapConsumers.get(derivateId(getId())).accept(result, next());
     }
+    return result;
   }
 
   private static String derivateId(final String id) {

@@ -3,12 +3,12 @@ package com.emv.qrcode.mpm.model;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import com.emv.qrcode.core.model.DataType;
 import com.emv.qrcode.core.model.DrawData;
 import com.emv.qrcode.mpm.constants.UnreservedTemplateFieldCodes;
+import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
 
@@ -27,15 +27,8 @@ public class UnreservedTemplateValue implements Serializable, DrawData {
     globallyUniqueIdentifier = new TagLengthString(UnreservedTemplateFieldCodes.UNRESERVED_TEMPLATE_ID_GLOBALLY_UNIQUE_IDENTIFIER, value);
   }
 
-  // TODO: Implements this after
   public void addContextSpecificData(final String value) {
-    contextSpecificData.add(new TagLengthString("", value));
-  }
-
-  public void addContextSpecificDatas(final List<String> values) {
-    if (Objects.nonNull(values) && !values.isEmpty()) {
-      values.forEach(this::addContextSpecificData);
-    }
+    contextSpecificData.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT)));
   }
 
   @Override

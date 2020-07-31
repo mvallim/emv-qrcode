@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.emv.qrcode.core.model.DataType;
 import com.emv.qrcode.core.model.DrawData;
 import com.emv.qrcode.core.model.TagLengthValue;
+import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +25,10 @@ public class UnreservedTemplate implements Serializable, DrawData, TagLengthValu
 
   private UnreservedTemplateValue value;
 
-  public UnreservedTemplate(final String value) {
-    // TODO Auto-generated constructor stub
+  public UnreservedTemplate(final String tag, final String value) {
+    this.tag = tag;
+    this.length = value.length();
+    this.value = Parser.parse(value, UnreservedTemplateValue.class);
   }
 
   @Override

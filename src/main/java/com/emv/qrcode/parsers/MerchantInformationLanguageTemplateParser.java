@@ -1,4 +1,4 @@
-package com.emv.qrcode.core;
+package com.emv.qrcode.parsers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import com.emv.qrcode.mpm.model.MerchantInformationLanguageTemplate;
 import lombok.Getter;
 
 @Getter
-public class ParserMerchantInformationLanguageTemplate extends Parser {
+class MerchantInformationLanguageTemplateParser extends Parser<MerchantInformationLanguageTemplate> {
 
   private static final Map<String, BiConsumer<MerchantInformationLanguageTemplate, String>> mapConsumers = new HashMap<>();
 
@@ -21,15 +21,17 @@ public class ParserMerchantInformationLanguageTemplate extends Parser {
     mapConsumers.put(MerchantInformationFieldCodes.MERCHANT_INFORMATION_ID_RFUFOR_EMVCO, MerchantInformationLanguageTemplate::addRFUforEMVCO);
   }
 
-  ParserMerchantInformationLanguageTemplate(final String source) {
+  MerchantInformationLanguageTemplateParser(final String source) {
     super(source);
   }
 
-  public static void parse(final String source, final MerchantInformationLanguageTemplate merchantInformationLanguageTemplate) {
-    final Parser parser = new ParserMerchantInformationLanguageTemplate(source);
-    while (parser.hasNext()) {
-      mapConsumers.get(derivateId(parser.getId())).accept(merchantInformationLanguageTemplate, parser.next());
+  @Override
+  protected MerchantInformationLanguageTemplate parse() {
+    final MerchantInformationLanguageTemplate result = new MerchantInformationLanguageTemplate();
+    while (hasNext()) {
+      mapConsumers.get(derivateId(getId())).accept(result, next());
     }
+    return result;
   }
 
   private static String derivateId(final String id) {
