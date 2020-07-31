@@ -1,4 +1,4 @@
-package com.emv.qrcode.parsers;
+package com.emv.qrcode.decoder.mpm;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.not;
@@ -7,13 +7,14 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.model.EMVQR;
 
-public class EMVQRParserTest {
+public class EMVQRDecoderTest {
 
   @Test
-  public void testSuccessParsePayloadFormatIndicator() {
-    final EMVQR emvqr = Parser.parse("000201", EMVQR.class);
+  public void testSuccessDecodePayloadFormatIndicator() {
+    final EMVQR emvqr = Decoder.decode("000201", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getPayloadFormatIndicator(), not(nullValue()));
@@ -23,8 +24,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParsePointOfInitiationMethod() {
-    final EMVQR emvqr = Parser.parse("010211", EMVQR.class);
+  public void testSuccessDecodePointOfInitiationMethod() {
+    final EMVQR emvqr = Decoder.decode("010211", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getPointOfInitiationMethod(), not(nullValue()));
@@ -34,8 +35,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseMerchantCategoryCode() {
-    final EMVQR emvqr = Parser.parse("52044111", EMVQR.class);
+  public void testSuccessDecodeMerchantCategoryCode() {
+    final EMVQR emvqr = Decoder.decode("52044111", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getMerchantCategoryCode(), not(nullValue()));
@@ -45,8 +46,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseTransactionCurrency() {
-    final EMVQR emvqr = Parser.parse("5303156", EMVQR.class);
+  public void testSuccessDecodeTransactionCurrency() {
+    final EMVQR emvqr = Decoder.decode("5303156", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getTransactionCurrency(), not(nullValue()));
@@ -56,8 +57,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseTransactionAmount() {
-    final EMVQR emvqr = Parser.parse("540523.72", EMVQR.class);
+  public void testSuccessDecodeTransactionAmount() {
+    final EMVQR emvqr = Decoder.decode("540523.72", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getTransactionAmount(), not(nullValue()));
@@ -67,8 +68,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseTipOrConvenienceIndicator() {
-    final EMVQR emvqr = Parser.parse("550201", EMVQR.class);
+  public void testSuccessDecodeTipOrConvenienceIndicator() {
+    final EMVQR emvqr = Decoder.decode("550201", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getTipOrConvenienceIndicator(), not(nullValue()));
@@ -78,8 +79,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseValueOfConvenienceFeeFixed() {
-    final EMVQR emvqr = Parser.parse("5603500", EMVQR.class);
+  public void testSuccessDecodeValueOfConvenienceFeeFixed() {
+    final EMVQR emvqr = Decoder.decode("5603500", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getValueOfConvenienceFeeFixed(), not(nullValue()));
@@ -89,8 +90,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseValueOfConvenienceFeePercentage() {
-    final EMVQR emvqr = Parser.parse("57015", EMVQR.class);
+  public void testSuccessDecodeValueOfConvenienceFeePercentage() {
+    final EMVQR emvqr = Decoder.decode("57015", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getValueOfConvenienceFeePercentage(), not(nullValue()));
@@ -100,8 +101,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseCountryCode() {
-    final EMVQR emvqr = Parser.parse("5802CN", EMVQR.class);
+  public void testSuccessDecodeCountryCode() {
+    final EMVQR emvqr = Decoder.decode("5802CN", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getCountryCode(), not(nullValue()));
@@ -111,8 +112,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseMerchantName() {
-    final EMVQR emvqr = Parser.parse("5914BEST TRANSPORT", EMVQR.class);
+  public void testSuccessDecodeMerchantName() {
+    final EMVQR emvqr = Decoder.decode("5914BEST TRANSPORT", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getMerchantName(), not(nullValue()));
@@ -122,8 +123,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseMerchantCity() {
-    final EMVQR emvqr = Parser.parse("6007BEIJING", EMVQR.class);
+  public void testSuccessDecodeMerchantCity() {
+    final EMVQR emvqr = Decoder.decode("6007BEIJING", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getMerchantCity(), not(nullValue()));
@@ -133,8 +134,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParsePostalCode() {
-    final EMVQR emvqr = Parser.parse("61071234567", EMVQR.class);
+  public void testSuccessDecodePostalCode() {
+    final EMVQR emvqr = Decoder.decode("61071234567", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getPostalCode(), not(nullValue()));
@@ -144,8 +145,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseCRC() {
-    final EMVQR emvqr = Parser.parse("6304A13A", EMVQR.class);
+  public void testSuccessDecodeCRC() {
+    final EMVQR emvqr = Decoder.decode("6304A13A", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getCRC(), not(nullValue()));
@@ -155,8 +156,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseAdditionalDataFieldTemplate() {
-    final EMVQR emvqr = Parser.parse("6233030412340603***0708A60086670902ME", EMVQR.class);
+  public void testSuccessDecodeAdditionalDataFieldTemplate() {
+    final EMVQR emvqr = Decoder.decode("6233030412340603***0708A60086670902ME", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getAdditionalDataFieldTemplate(), not(nullValue()));
@@ -184,8 +185,8 @@ public class EMVQRParserTest {
   }
 
   @Test
-  public void testSuccessParseMerchantInformationLanguageTemplate() {
-    final EMVQR emvqr = Parser.parse("64200002ZH0104最佳运输0202北京", EMVQR.class);
+  public void testSuccessDecodeMerchantInformationLanguageTemplate() {
+    final EMVQR emvqr = Decoder.decode("64200002ZH0104最佳运输0202北京", EMVQR.class);
 
     assertThat(emvqr, not(nullValue()));
     assertThat(emvqr.getMerchantInformationLanguageTemplate(), not(nullValue()));
@@ -204,19 +205,6 @@ public class EMVQRParserTest {
     assertThat(emvqr.getMerchantInformationLanguageTemplate().getMerchantCity().getTag(), equalTo("02"));
     assertThat(emvqr.getMerchantInformationLanguageTemplate().getMerchantCity().getLength(), equalTo(2));
     assertThat(emvqr.getMerchantInformationLanguageTemplate().getMerchantCity().getValue(), equalTo("北京"));
-
-    System.out.println(emvqr.rawData());
-    System.out.println(emvqr.binaryData());
-  }
-
-  @Test
-  public void test() {
-    final EMVQR emvqr = Parser.parse("000201010211520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING610712345676304A13A6233030412340603***0708A60086670902ME64200002ZH0104最佳运输0202北京", EMVQR.class);
-
-    System.out.println(emvqr.toString());
-    System.out.println(emvqr.rawData());
-    System.out.println(emvqr.binaryData());
-
   }
 
 }

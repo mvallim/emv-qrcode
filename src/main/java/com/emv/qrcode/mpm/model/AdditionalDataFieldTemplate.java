@@ -7,13 +7,15 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.AdditionalDataFieldCodes;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
-import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class AdditionalDataFieldTemplate implements Serializable {
 
   private static final long serialVersionUID = -6651622119486438559L;
@@ -88,11 +90,11 @@ public class AdditionalDataFieldTemplate implements Serializable {
   }
   
   public void addRFUforEMVCo(final String value) {
-    this.rFUforEMVCo.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT)));
+    this.rFUforEMVCo.add(new TagLengthString(value.substring(0, Decoder.ID_WORD_COUNT), value.substring(Decoder.ID_WORD_COUNT)));
   }
   
   public void addPaymentSystemSpecific(final String value) {
-    this.paymentSystemSpecific.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT)));
+    this.paymentSystemSpecific.add(new TagLengthString(value.substring(0, Decoder.ID_WORD_COUNT), value.substring(Decoder.ID_WORD_COUNT)));
   }
   
   @Override

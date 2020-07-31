@@ -7,12 +7,14 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.UnreservedTemplateFieldCodes;
-import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class UnreservedTemplateValue implements Serializable {
 
   private static final long serialVersionUID = -3465559955367881407L;
@@ -28,7 +30,7 @@ public class UnreservedTemplateValue implements Serializable {
   }
 
   public void addContextSpecificData(final String value) {
-    contextSpecificData.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT)));
+    contextSpecificData.add(new TagLengthString(value.substring(0, Decoder.ID_WORD_COUNT), value.substring(Decoder.ID_WORD_COUNT)));
   }
 
   @Override

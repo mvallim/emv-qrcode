@@ -11,12 +11,14 @@ import java.util.Optional;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
+import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
-import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class EMVQR implements Serializable {
 
   private static final long serialVersionUID = 485352878727448583L;
@@ -76,81 +78,77 @@ public class EMVQR implements Serializable {
   private final Map<String, UnreservedTemplate> unreservedTemplates = new LinkedHashMap<>();
  
   public void setPayloadFormatIndicator(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.payloadFormatIndicator = new TagLengthString(EMVQRFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR, value));
+    this.payloadFormatIndicator = new TagLengthString(EMVQRFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR, value);
   }
 
   public void setPointOfInitiationMethod(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.pointOfInitiationMethod = new TagLengthString(EMVQRFieldCodes.ID_POINT_OF_INITIATION_METHOD, value));
+    this.pointOfInitiationMethod = new TagLengthString(EMVQRFieldCodes.ID_POINT_OF_INITIATION_METHOD, value);
   }
 
   public void setMerchantCategoryCode(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.merchantCategoryCode = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CATEGORY_CODE, value));
+    this.merchantCategoryCode = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CATEGORY_CODE, value);
   }
 
   public void setTransactionCurrency(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.transactionCurrency = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_CURRENCY, value));
+    this.transactionCurrency = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_CURRENCY, value);
   }
 
   public void setTransactionAmount(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.transactionAmount = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_AMOUNT, value));
+    this.transactionAmount = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_AMOUNT, value);
   }
 
   public void setTipOrConvenienceIndicator(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.tipOrConvenienceIndicator = new TagLengthString(EMVQRFieldCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, value));
+    this.tipOrConvenienceIndicator = new TagLengthString(EMVQRFieldCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, value);
   }
 
   public void setValueOfConvenienceFeeFixed(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.valueOfConvenienceFeeFixed = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, value));
+    this.valueOfConvenienceFeeFixed = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, value);
   }
 
   public void setValueOfConvenienceFeePercentage(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.valueOfConvenienceFeePercentage = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, value));
+    this.valueOfConvenienceFeePercentage = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, value);
   }
 
   public void setCountryCode(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.countryCode = new TagLengthString(EMVQRFieldCodes.ID_COUNTRY_CODE, value));
+    this.countryCode = new TagLengthString(EMVQRFieldCodes.ID_COUNTRY_CODE, value);
   }
 
   public void setMerchantName(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.merchantName = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value));
+    this.merchantName = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
   }
 
   public void setMerchantCity(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.merchantCity = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CITY, value));
+    this.merchantCity = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CITY, value);
   }
 
   public void setPostalCode(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.postalCode = new TagLengthString(EMVQRFieldCodes.ID_POSTAL_CODE, value));
+    this.postalCode = new TagLengthString(EMVQRFieldCodes.ID_POSTAL_CODE, value);
   }
 
   public void setCRC(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.cRC = new TagLengthString(EMVQRFieldCodes.ID_CRC, value));
+    this.cRC = new TagLengthString(EMVQRFieldCodes.ID_CRC, value);
   }
 
   public void setAdditionalDataFieldTemplate(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.additionalDataFieldTemplate = Parser.parse(value, AdditionalDataFieldTemplate.class));
+    this.additionalDataFieldTemplate = Decoder.decode(value, AdditionalDataFieldTemplate.class);
   }
 
   public void setMerchantInformationLanguageTemplate(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> this.merchantInformationLanguageTemplate = Parser.parse(value, MerchantInformationLanguageTemplate.class));
+    this.merchantInformationLanguageTemplate = Decoder.decode(value, MerchantInformationLanguageTemplate.class);
   }
   
   public void addMerchantAccountInformation(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> {
-      final String id = value.substring(0, Parser.ID_WORD_COUNT);
-      merchantAccountInformation.put(id, new MerchantAccountInformation(id, value.substring(Parser.ID_WORD_COUNT)));
-    });
+    final String id = value.substring(0, Decoder.ID_WORD_COUNT);
+    merchantAccountInformation.put(id, new MerchantAccountInformation(id, value.substring(Decoder.ID_WORD_COUNT)));
   }
   
   public void addRFUforEMVCo(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> rFUforEMVCo.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT))));
+    rFUforEMVCo.add(new TagLengthString(value.substring(0, Decoder.ID_WORD_COUNT), value.substring(Decoder.ID_WORD_COUNT)));
   }
   
   public void addUnreservedTemplates(final String value) {
-    Optional.ofNullable(value).ifPresent(v -> {
-      final String id = value.substring(0, Parser.ID_WORD_COUNT);
-      unreservedTemplates.put(id, new UnreservedTemplate(id, value.substring(Parser.ID_WORD_COUNT)));
-    });
+    final String id = value.substring(0, Decoder.ID_WORD_COUNT);
+    unreservedTemplates.put(id, new UnreservedTemplate(id, value.substring(Decoder.ID_WORD_COUNT)));
   }
   
   public String binaryData() {

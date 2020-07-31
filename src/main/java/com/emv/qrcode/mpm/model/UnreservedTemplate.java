@@ -6,7 +6,7 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TagLengthValue;
-import com.emv.qrcode.parsers.Parser;
+import com.emv.qrcode.decoder.Decoder;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class UnreservedTemplate implements Serializable, TagLengthValue<Unreserv
   public UnreservedTemplate(final String tag, final String value) {
     this.tag = tag;
     this.length = value.length();
-    this.value = Parser.parse(value, UnreservedTemplateValue.class);
+    this.value = Decoder.decode(value, UnreservedTemplateValue.class);
   }
   
   @Override

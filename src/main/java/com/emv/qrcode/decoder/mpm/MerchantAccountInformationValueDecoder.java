@@ -1,16 +1,14 @@
-package com.emv.qrcode.parsers;
+package com.emv.qrcode.decoder.mpm;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.MerchantAccountInformationFieldCodes;
 import com.emv.qrcode.mpm.model.MerchantAccountInformationValue;
 
-import lombok.Getter;
-
-@Getter
-class MerchantAccountInformationValueParser extends Parser<MerchantAccountInformationValue> {
+public final class MerchantAccountInformationValueDecoder extends Decoder<MerchantAccountInformationValue> {
 
   private static final Map<String, BiConsumer<MerchantAccountInformationValue, String>> mapConsumers = new HashMap<>();
 
@@ -19,20 +17,20 @@ class MerchantAccountInformationValueParser extends Parser<MerchantAccountInform
     mapConsumers.put(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC, MerchantAccountInformationValue::addPaymentNetworkSpecific);
   }
 
-  public MerchantAccountInformationValueParser(final String source) {
+  public MerchantAccountInformationValueDecoder(final String source) {
     super(source);
   }
 
   @Override
-  protected MerchantAccountInformationValue parse() {
+  protected MerchantAccountInformationValue decode() {
     final MerchantAccountInformationValue result = new MerchantAccountInformationValue();
-    while (hasNext()) {
-      mapConsumers.get(derivateId(getId())).accept(result, next());
+    while (super.hasNext()) {
+      mapConsumers.get(derivateId(super.getId())).accept(result, super.next());
     }
     return result;
   }
 
-  private static String derivateId(final String id) {
+  private String derivateId(final String id) {
 
     if (betweenPaymentNetworkSpecificRange(id)) {
       return MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC;
@@ -41,7 +39,7 @@ class MerchantAccountInformationValueParser extends Parser<MerchantAccountInform
     return id;
   }
 
-  private static boolean betweenPaymentNetworkSpecificRange(final String value) {
+  private boolean betweenPaymentNetworkSpecificRange(final String value) {
     return value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_START) >= 0
         && value.compareTo(MerchantAccountInformationFieldCodes.MERCHANT_ACCOUNT_INFORMATION_ID_PAYMENT_NETWORK_SPECIFIC_END) <= 0;
   }

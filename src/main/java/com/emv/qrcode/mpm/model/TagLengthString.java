@@ -7,8 +7,10 @@ import org.apache.commons.lang3.StringUtils;
 import com.emv.qrcode.core.model.TagLengthValue;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class TagLengthString implements Serializable, TagLengthValue<String> {
 
   private static final long serialVersionUID = -6482977134879939277L;

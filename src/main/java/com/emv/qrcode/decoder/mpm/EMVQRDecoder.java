@@ -1,16 +1,14 @@
-package com.emv.qrcode.parsers;
+package com.emv.qrcode.decoder.mpm;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
 import com.emv.qrcode.mpm.model.EMVQR;
 
-import lombok.Getter;
-
-@Getter
-class EMVQRParser extends Parser<EMVQR> {
+public final class EMVQRDecoder extends Decoder<EMVQR> {
 
   private static final Map<String, BiConsumer<EMVQR, String>> mapConsumers = new HashMap<>();
 
@@ -35,20 +33,20 @@ class EMVQRParser extends Parser<EMVQR> {
     mapConsumers.put(EMVQRFieldCodes.ID_UNRESERVED_TEMPLATES, EMVQR::addUnreservedTemplates);
   }
 
-  public EMVQRParser(final String source) {
+  public EMVQRDecoder(final String source) {
     super(source);
   }
 
   @Override
-  protected EMVQR parse() {
+  protected EMVQR decode() {
     final EMVQR result = new EMVQR();
-    while (hasNext()) {
-      mapConsumers.get(derivateId(getId())).accept(result, next());
+    while (super.hasNext()) {
+      mapConsumers.get(derivateId(super.getId())).accept(result, super.next());
     }
     return result;
   }
 
-  private static String derivateId(final String id) {
+  private String derivateId(final String id) {
 
     if (betweenAccountInformationRange(id)) {
       return EMVQRFieldCodes.ID_MERCHANT_ACCOUNT_INFORMATION;
@@ -65,15 +63,15 @@ class EMVQRParser extends Parser<EMVQR> {
     return id;
   }
 
-  private static boolean betweenAccountInformationRange(final String value) {
+  private boolean betweenAccountInformationRange(final String value) {
     return value.compareTo(EMVQRFieldCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_START) >= 0 && value.compareTo(EMVQRFieldCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_END) <= 0;
   }
 
-  private static boolean betweenRFUForEMVCORange(final String value) {
+  private boolean betweenRFUForEMVCORange(final String value) {
     return value.compareTo(EMVQRFieldCodes.ID_RFU_FOR_EMVCO_RANGE_START) >= 0 && value.compareTo(EMVQRFieldCodes.ID_RFU_FOR_EMVCO_RANGE_END) <= 0;
   }
 
-  private static boolean betweenUnreservedTemplatesRange(final String value) {
+  private boolean betweenUnreservedTemplatesRange(final String value) {
     return value.compareTo(EMVQRFieldCodes.ID_UNRESERVED_TEMPLATES_RANGE_START) >= 0 && value.compareTo(EMVQRFieldCodes.ID_UNRESERVED_TEMPLATES_RANGE_END) <= 0;
   }
 

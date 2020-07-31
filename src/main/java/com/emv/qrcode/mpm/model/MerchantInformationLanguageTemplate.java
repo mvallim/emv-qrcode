@@ -7,13 +7,15 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
 import com.emv.qrcode.mpm.constants.MerchantInformationFieldCodes;
-import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class MerchantInformationLanguageTemplate implements Serializable {
 
   private static final long serialVersionUID = 6163271793010568887L;
@@ -43,7 +45,7 @@ public class MerchantInformationLanguageTemplate implements Serializable {
   }
 
   public void addRFUforEMVCO(final String value) {
-    rFUforEMVCo.add(new TagLengthString(value.substring(0, Parser.ID_WORD_COUNT), value.substring(Parser.ID_WORD_COUNT)));
+    rFUforEMVCo.add(new TagLengthString(value.substring(0, Decoder.ID_WORD_COUNT), value.substring(Decoder.ID_WORD_COUNT)));
   }
 
   @Override
