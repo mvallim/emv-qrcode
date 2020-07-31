@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.emv.qrcode.core.model.DataType;
-import com.emv.qrcode.core.model.DrawData;
+import org.apache.commons.lang3.StringUtils;
+
 import com.emv.qrcode.mpm.constants.AdditionalDataFieldCodes;
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
 import com.emv.qrcode.parsers.Parser;
@@ -14,7 +14,7 @@ import com.emv.qrcode.parsers.Parser;
 import lombok.Getter;
 
 @Getter
-public class AdditionalDataFieldTemplate implements Serializable, DrawData {
+public class AdditionalDataFieldTemplate implements Serializable {
 
   private static final long serialVersionUID = -6651622119486438559L;
 
@@ -100,8 +100,6 @@ public class AdditionalDataFieldTemplate implements Serializable, DrawData {
 
     final StringBuilder sb = new StringBuilder();
 
-    sb.append(EMVQRFieldCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE);
-
     Optional.ofNullable(billNumber).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(mobileNumber).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(storeLabel).ifPresent(tlv -> sb.append(tlv.toString()));
@@ -120,34 +118,13 @@ public class AdditionalDataFieldTemplate implements Serializable, DrawData {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
-    return sb.toString();
-  }
+    final String string = sb.toString();
 
-  @Override
-  @SuppressWarnings("all")
-  public String draw(final DataType type) {
-
-    final StringBuilder sb = new StringBuilder();
-
-    Optional.ofNullable(billNumber).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(mobileNumber).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(storeLabel).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(loyaltyNumber).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(referenceLabel).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(customerLabel).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(terminalLabel).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(purposeTransaction).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(additionalConsumerDataRequest).ifPresent(tlv -> sb.append(tlv.draw(type)));
-
-    for (final TagLengthString tagLengthString : rFUforEMVCo) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.draw(type)));
+    if (StringUtils.isBlank(string)) {
+      return StringUtils.EMPTY;
     }
-
-    for (final TagLengthString tagLengthString : paymentSystemSpecific) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    }
-
-    return String.format("%s %02d \n%s", EMVQRFieldCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, toString().length(), sb.toString());
+    
+    return String.format("%s%02d%s", EMVQRFieldCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, string.length(), string);
   }
 
 }

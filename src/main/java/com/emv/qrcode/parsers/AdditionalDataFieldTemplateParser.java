@@ -25,6 +25,7 @@ class AdditionalDataFieldTemplateParser extends Parser<AdditionalDataFieldTempla
     mapConsumers.put(AdditionalDataFieldCodes.ADDITIONAL_ID_PURPOSE_TRANSACTION, AdditionalDataFieldTemplate::setPurposeTransaction);
     mapConsumers.put(AdditionalDataFieldCodes.ADDITIONAL_ID_RFUFOR_EMVCO, AdditionalDataFieldTemplate::addRFUforEMVCo);
     mapConsumers.put(AdditionalDataFieldCodes.ADDITIONAL_ID_PAYMENT_SYSTEM_SPECIFIC, AdditionalDataFieldTemplate::addPaymentSystemSpecific);
+    mapConsumers.put(AdditionalDataFieldCodes.ADDITIONAL_ID_ADDITIONAL_CONSUMER_DATA_REQUEST, AdditionalDataFieldTemplate::setAdditionalConsumerDataRequest);
   }
 
   public AdditionalDataFieldTemplateParser(final String source) {

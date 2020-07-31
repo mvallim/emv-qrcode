@@ -5,15 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.emv.qrcode.core.model.DataType;
-import com.emv.qrcode.core.model.DrawData;
+import org.apache.commons.lang3.StringUtils;
+
 import com.emv.qrcode.mpm.constants.UnreservedTemplateFieldCodes;
 import com.emv.qrcode.parsers.Parser;
 
 import lombok.Getter;
 
 @Getter
-public class UnreservedTemplateValue implements Serializable, DrawData {
+public class UnreservedTemplateValue implements Serializable {
 
   private static final long serialVersionUID = -3465559955367881407L;
 
@@ -42,21 +42,13 @@ public class UnreservedTemplateValue implements Serializable, DrawData {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
-    return sb.toString();
-  }
+    final String string = sb.toString();
 
-  @Override
-  public String draw(final DataType type) {
-
-    final StringBuilder sb = new StringBuilder();
-
-    Optional.ofNullable(globallyUniqueIdentifier).ifPresent(tlv -> sb.append(tlv.draw(type)));
-
-    for (final TagLengthString tagLengthString : contextSpecificData) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.draw(type)));
+    if (StringUtils.isBlank(string)) {
+      return StringUtils.EMPTY;
     }
 
-    return sb.toString();
+    return string;
   }
 
 }

@@ -48,7 +48,6 @@ public abstract class Parser<T> implements Iterator<String> {
   public String getId() {
     final Integer start = current;
     final Integer end = start + ID_WORD_COUNT;
-
     return source.substring(start, end);
   }
 

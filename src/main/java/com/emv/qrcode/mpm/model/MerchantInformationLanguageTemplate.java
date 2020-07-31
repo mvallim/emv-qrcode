@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.emv.qrcode.core.model.DataType;
-import com.emv.qrcode.core.model.DrawData;
+import org.apache.commons.lang3.StringUtils;
+
 import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
 import com.emv.qrcode.mpm.constants.MerchantInformationFieldCodes;
 import com.emv.qrcode.parsers.Parser;
@@ -14,7 +14,7 @@ import com.emv.qrcode.parsers.Parser;
 import lombok.Getter;
 
 @Getter
-public class MerchantInformationLanguageTemplate implements Serializable, DrawData {
+public class MerchantInformationLanguageTemplate implements Serializable {
 
   private static final long serialVersionUID = 6163271793010568887L;
 
@@ -51,8 +51,6 @@ public class MerchantInformationLanguageTemplate implements Serializable, DrawDa
 
     final StringBuilder sb = new StringBuilder();
 
-    sb.append(EMVQRFieldCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE);
-
     Optional.ofNullable(languagePreference).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantName).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantCity).ifPresent(tlv -> sb.append(tlv.toString()));
@@ -61,24 +59,13 @@ public class MerchantInformationLanguageTemplate implements Serializable, DrawDa
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
-    return sb.toString();
-  }
+    final String string = sb.toString();
 
-  @Override
-  @SuppressWarnings("all")
-  public String draw(final DataType type) {
-
-    final StringBuilder sb = new StringBuilder();
-
-    Optional.ofNullable(languagePreference).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(merchantName).ifPresent(tlv -> sb.append(tlv.draw(type)));
-    Optional.ofNullable(merchantCity).ifPresent(tlv -> sb.append(tlv.draw(type)));
-
-    for (final TagLengthString tagLengthString : rFUforEMVCo) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.draw(type)));
+    if (StringUtils.isBlank(string)) {
+      return StringUtils.EMPTY;
     }
 
-    return String.format("%s %02d \n%s", EMVQRFieldCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE, toString().length(), sb.toString());
+    return String.format("%s%02d%s", EMVQRFieldCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE, string.length(), string);
   }
 
 }
