@@ -61,7 +61,7 @@ public class MerchantInformationLanguageTemplate implements Serializable, DrawDa
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.draw(type)));
     }
     
-    return String.format("%s %d \n%s", EMVQRConstants.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE, toString().length(), sb.toString());
+    return String.format("%s %02d \n%s", EMVQRConstants.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE, toString().length(), sb.toString());
   }
 
 }

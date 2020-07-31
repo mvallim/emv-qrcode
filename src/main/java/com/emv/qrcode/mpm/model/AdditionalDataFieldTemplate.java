@@ -103,7 +103,7 @@ public class AdditionalDataFieldTemplate implements Serializable, DrawData {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.draw(type)));
     }
     
-    return String.format("%s %d \n%s", EMVQRConstants.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, toString().length(), sb.toString());
+    return String.format("%s %02d \n%s", EMVQRConstants.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, toString().length(), sb.toString());
   }
 
 }

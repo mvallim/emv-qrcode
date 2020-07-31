@@ -20,13 +20,13 @@ public class UnreservedTemplate implements Serializable, DrawData, TagLengthValu
 
   private String tag;
 
-  private String length;
+  private Integer length;
 
   private UnreservedTemplateValue value;
 
   @Override
   public String toString() {
-    return String.format("%s%s%s", tag, length, value.toString());
+    return String.format("%s%02d%s", tag, length, value.toString());
   }
 
   @Override
@@ -37,7 +37,7 @@ public class UnreservedTemplate implements Serializable, DrawData, TagLengthValu
       return StringUtils.EMPTY;
     }
     
-    return String.format("%s %s\n%s", tag, length, value.draw(type));
+    return String.format("%s %02d\n%s", tag, length, value.draw(type));
   }
 
 }

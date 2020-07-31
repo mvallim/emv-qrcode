@@ -20,7 +20,7 @@ public class MerchantAccountInformation implements Serializable, DrawData, TagLe
 
   private String tag;
 
-  private String length;
+  private Integer length;
 
   private MerchantAccountInformationValue value;
   
@@ -37,7 +37,7 @@ public class MerchantAccountInformation implements Serializable, DrawData, TagLe
       return StringUtils.EMPTY;
     }
     
-    return String.format("%s %s\n%s", tag, length, value.draw(type));
+    return String.format("%s %02d\n%s", tag, length, value.draw(type));
     
   }
 
