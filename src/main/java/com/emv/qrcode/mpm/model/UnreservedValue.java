@@ -1,20 +1,20 @@
 package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.TagLengthValue;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UnreservedTemplateValue implements Serializable {
+public class UnreservedValue implements Serializable {
 
   private static final long serialVersionUID = -3465559955367881407L;
 
@@ -22,7 +22,7 @@ public class UnreservedTemplateValue implements Serializable {
   private TagLengthString globallyUniqueIdentifier;
 
   // Context Specific Data
-  private final List<TagLengthString> contextSpecificData = new LinkedList<>();
+  private ListTagLengthString contextSpecificData = new ListTagLengthString();
 
   @Override
   public String toString() {
@@ -31,7 +31,7 @@ public class UnreservedTemplateValue implements Serializable {
 
     Optional.ofNullable(globallyUniqueIdentifier).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TagLengthString tagLengthString : contextSpecificData) {
+    for (final TagLengthValue<String> tagLengthString : contextSpecificData) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

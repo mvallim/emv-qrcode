@@ -1,18 +1,19 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.mpm.model.Unreserved;
+import com.emv.qrcode.mpm.model.UnreservedValue;
 
 // @formatter:off
-public final class TagLengthStringDecoder extends Decoder<TagLengthString> {
+public final class UnreservedDecoder extends Decoder<Unreserved> {
 
-  public TagLengthStringDecoder(final String source) {
+  public UnreservedDecoder(final String source) {
     super(source);
   }
 
   @Override
-  protected TagLengthString decode() {
-    final TagLengthString result = new TagLengthString();
+  protected Unreserved decode() {
+    final Unreserved result = new Unreserved();
 
     forEachRemaining(value -> {
       final String tag = value.substring(0, Decoder.ID_WORD_COUNT);
@@ -20,12 +21,11 @@ public final class TagLengthStringDecoder extends Decoder<TagLengthString> {
       final String string = value.substring(Decoder.ID_WORD_COUNT + Decoder.VALUE_LENGTH_WORD_COUNT, Decoder.ID_WORD_COUNT + Decoder.VALUE_LENGTH_WORD_COUNT + length);
       result.setTag(tag);
       result.setLength(length);
-      result.setValue(string);
+      result.setValue(Decoder.decode(string, UnreservedValue.class));
     });
 
     return result;
   }
 
 }
-
 // @formatter:on

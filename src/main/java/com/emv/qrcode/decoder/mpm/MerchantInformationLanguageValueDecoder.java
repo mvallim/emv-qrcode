@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
+import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.MerchantInformationFieldCodes;
@@ -19,7 +20,7 @@ public final class MerchantInformationLanguageValueDecoder extends Decoder<Merch
     mapConsumers.put(MerchantInformationFieldCodes.ID_LANGUAGE_PREFERENCE, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguageValue::setLanguagePreference));
     mapConsumers.put(MerchantInformationFieldCodes.ID_MERCHANT_NAME, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguageValue::setMerchantName));
     mapConsumers.put(MerchantInformationFieldCodes.ID_MERCHANT_CITY, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguageValue::setMerchantCity));
-//    mapConsumers.put(MerchantInformationFieldCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguageValue::addRFUforEMVCO));
+    mapConsumers.put(MerchantInformationFieldCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(ListTagLengthString.class, MerchantInformationLanguageValue::setRFUforEMVCo));
   }
 
   public MerchantInformationLanguageValueDecoder(final String source) {

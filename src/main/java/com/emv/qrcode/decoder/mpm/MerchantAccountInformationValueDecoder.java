@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
+import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.MerchantAccountInformationFieldCodes;
@@ -17,7 +18,7 @@ public final class MerchantAccountInformationValueDecoder extends Decoder<Mercha
 
   static {
     mapConsumers.put(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, consumerTagLengthValue(TagLengthString.class, MerchantAccountInformationValue::setGloballyUniqueIdentifier));
-    //mapConsumers.put(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC, consumerTagLengthValue(TagLengthString.class, MerchantAccountInformationValue::addPaymentNetworkSpecific));
+    mapConsumers.put(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC, consumerTagLengthValue(ListTagLengthString.class, MerchantAccountInformationValue::setPaymentNetworkSpecific));
   }
 
   public MerchantAccountInformationValueDecoder(final String source) {

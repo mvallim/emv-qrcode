@@ -1,8 +1,6 @@
 package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
@@ -29,7 +27,7 @@ public class MerchantPresentMode implements Serializable {
   private TagLengthString pointOfInitiationMethod;
 
   // Merchant Account Information
-  private final Map<String, MerchantAccountInformation> merchantAccountInformation = new LinkedHashMap<>();
+  private MapMerchantAccountInformation merchantAccountInformation = new MapMerchantAccountInformation();
 
   // Merchant Category Code
   private TagLengthString merchantCategoryCode;
@@ -71,10 +69,10 @@ public class MerchantPresentMode implements Serializable {
   private MerchantInformationLanguage merchantInformationLanguage;
 
   // RFU for EMVCo
-  private final ListTagLengthString rFUforEMVCo = new ListTagLengthString();
+  private ListTagLengthString rFUforEMVCo = new ListTagLengthString();
 
   // Unreserved Templates
-  private final Map<String, UnreservedTemplate> unreservedTemplates = new LinkedHashMap<>();
+  private MapUnreserved unreserveds = new MapUnreserved();
   
   public String binaryData() {
     return Hex.encodeHexString(toString().getBytes(), false);
@@ -118,7 +116,7 @@ public class MerchantPresentMode implements Serializable {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
-    for (final Entry<String, UnreservedTemplate> entry : unreservedTemplates.entrySet()) {
+    for (final Entry<String, Unreserved> entry : unreserveds.entrySet()) {
       Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

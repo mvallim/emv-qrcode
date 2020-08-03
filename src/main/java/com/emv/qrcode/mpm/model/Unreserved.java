@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UnreservedTemplate implements Serializable, TagLengthValue<UnreservedTemplateValue> {
+public class Unreserved implements Serializable, TagLengthValue<UnreservedValue> {
 
   private static final long serialVersionUID = -1445641777082739037L;
 
@@ -21,12 +21,16 @@ public class UnreservedTemplate implements Serializable, TagLengthValue<Unreserv
 
   private Integer length;
 
-  private UnreservedTemplateValue value;
+  private UnreservedValue value;
 
-  public UnreservedTemplate(final String tag, final String value) {
+  public Unreserved() {
+    super();
+  }
+      
+  public Unreserved(final String tag, final String value) {
     this.tag = tag;
     this.length = value.length();
-    this.value = Decoder.decode(value, UnreservedTemplateValue.class);
+    this.value = Decoder.decode(value, UnreservedValue.class);
   }
   
   @Override
@@ -44,5 +48,5 @@ public class UnreservedTemplate implements Serializable, TagLengthValue<Unreserv
     
     return String.format("%s%02d%s", tag, string.length(), string);
   }
-
+  
 }

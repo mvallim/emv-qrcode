@@ -21,7 +21,11 @@ public class MerchantAccountInformation implements Serializable, TagLengthValue<
 
   private Integer length;
 
-  private MerchantAccountInformationValue value;
+  private MerchantAccountInformationValue value; 
+  
+  public MerchantAccountInformation() {
+    super();
+  }
   
   public MerchantAccountInformation(final String tag, final String value) {
     this.tag = tag;

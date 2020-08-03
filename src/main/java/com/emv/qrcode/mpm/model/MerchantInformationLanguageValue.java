@@ -28,7 +28,7 @@ public class MerchantInformationLanguageValue implements Serializable {
   private TagLengthString merchantCity;
 
   // RFU for EMVCo
-  private final ListTagLengthString rFUforEMVCo = new ListTagLengthString();
+  private ListTagLengthString rFUforEMVCo = new ListTagLengthString();
 
   @Override
   public String toString() {

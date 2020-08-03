@@ -22,7 +22,7 @@ public class MerchantAccountInformationValue implements Serializable {
   private TagLengthString globallyUniqueIdentifier;
 
   // Payment network specific
-  private final ListTagLengthString paymentNetworkSpecific = new ListTagLengthString();
+  private ListTagLengthString paymentNetworkSpecific = new ListTagLengthString();
 
   @Override
   public String toString() {
