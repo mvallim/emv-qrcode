@@ -1,19 +1,19 @@
-package com.emv.qrcode.mpm.model;
+package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TagLengthValue;
-import com.emv.qrcode.mpm.constants.MerchantPresentModeCodes;
+import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.model.mpm.constants.MerchantPresentModeCodes;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MerchantInformationLanguage implements Serializable, TagLengthValue<MerchantInformationLanguageValue> {
+public class MerchantInformationLanguage extends SimpleTLV<MerchantInformationLanguageValue> implements Serializable {
 
   private static final long serialVersionUID = -5894790923682120529L;
 

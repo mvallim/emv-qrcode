@@ -1,8 +1,8 @@
 package com.emv.qrcode.decoder.mpm;
 
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.model.Unreserved;
-import com.emv.qrcode.mpm.model.UnreservedValue;
+import com.emv.qrcode.model.mpm.Unreserved;
+import com.emv.qrcode.model.mpm.UnreservedValue;
 
 // @formatter:off
 public final class UnreservedDecoder extends Decoder<Unreserved> {

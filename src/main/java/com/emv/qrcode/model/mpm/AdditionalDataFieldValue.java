@@ -1,4 +1,4 @@
-package com.emv.qrcode.mpm.model;
+package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.core.model.TagLengthValue;
+import com.emv.qrcode.core.model.SimpleTLV;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -75,11 +75,11 @@ public class AdditionalDataFieldValue implements Serializable {
     Optional.ofNullable(purposeTransaction).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(additionalConsumerDataRequest).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TagLengthValue<String> tagLengthString : rFUforEMVCo) {
+    for (final SimpleTLV<String> tagLengthString : rFUforEMVCo) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
-    for (final TagLengthValue<String> tagLengthString : paymentSystemSpecific) {
+    for (final SimpleTLV<String> tagLengthString : paymentSystemSpecific) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

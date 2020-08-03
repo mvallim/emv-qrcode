@@ -1,8 +1,8 @@
 package com.emv.qrcode.decoder.mpm;
 
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.model.AdditionalDataField;
-import com.emv.qrcode.mpm.model.AdditionalDataFieldValue;
+import com.emv.qrcode.model.mpm.AdditionalDataField;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldValue;
 
 // @formatter:off
 public final class AdditionalDataFieldDecoder extends Decoder<AdditionalDataField> {

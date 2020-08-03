@@ -7,12 +7,12 @@ import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.constants.MerchantPresentModeCodes;
-import com.emv.qrcode.mpm.model.AdditionalDataField;
-import com.emv.qrcode.mpm.model.MerchantAccountInformation;
-import com.emv.qrcode.mpm.model.MerchantInformationLanguage;
-import com.emv.qrcode.mpm.model.MerchantPresentMode;
-import com.emv.qrcode.mpm.model.Unreserved;
+import com.emv.qrcode.model.mpm.AdditionalDataField;
+import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
+import com.emv.qrcode.model.mpm.MerchantPresentMode;
+import com.emv.qrcode.model.mpm.Unreserved;
+import com.emv.qrcode.model.mpm.constants.MerchantPresentModeCodes;
 
 // @formatter:off
 public final class MerchantPresentModeDecoder extends Decoder<MerchantPresentMode> {

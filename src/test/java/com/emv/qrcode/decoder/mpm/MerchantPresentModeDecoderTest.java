@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.model.MerchantPresentMode;
+import com.emv.qrcode.model.mpm.MerchantPresentMode;
 
 public class MerchantPresentModeDecoderTest {
 
@@ -220,7 +220,7 @@ public class MerchantPresentModeDecoderTest {
 
     final MerchantPresentMode merchantPresentMode = Decoder.decode(encoded, MerchantPresentMode.class);
 
-    merchantPresentMode.getAdditionalDataField();
+    assertThat(merchantPresentMode.toString().length(), equalTo(encoded.length()));
   }
 
 }

@@ -7,8 +7,8 @@ import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.constants.UnreservedTemplateFieldCodes;
-import com.emv.qrcode.mpm.model.UnreservedValue;
+import com.emv.qrcode.model.mpm.UnreservedValue;
+import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
 
 // @formatter:off
 public final class UnreservedValueDecoder extends Decoder<UnreservedValue> {

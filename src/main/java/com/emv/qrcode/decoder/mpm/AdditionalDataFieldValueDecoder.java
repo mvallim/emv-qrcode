@@ -7,8 +7,8 @@ import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.constants.AdditionalDataFieldCodes;
-import com.emv.qrcode.mpm.model.AdditionalDataFieldValue;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldValue;
+import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
 
 // @formatter:off
 public final class AdditionalDataFieldValueDecoder extends Decoder<AdditionalDataFieldValue> {

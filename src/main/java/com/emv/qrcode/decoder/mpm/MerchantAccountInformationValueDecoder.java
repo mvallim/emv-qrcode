@@ -7,8 +7,8 @@ import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.constants.MerchantAccountInformationFieldCodes;
-import com.emv.qrcode.mpm.model.MerchantAccountInformationValue;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationValue;
+import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 // @formatter:off
 public final class MerchantAccountInformationValueDecoder extends Decoder<MerchantAccountInformationValue> {

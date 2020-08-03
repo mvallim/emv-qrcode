@@ -1,4 +1,4 @@
-package com.emv.qrcode.mpm.constants;
+package com.emv.qrcode.model.mpm.constants;
 
 public class MerchantInformationFieldCodes {
 

@@ -1,4 +1,4 @@
-package com.emv.qrcode.mpm.model;
+package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -8,25 +8,25 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.core.model.TagLengthValue;
+import com.emv.qrcode.core.model.SimpleTLV;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MerchantAccountInformationValue implements Serializable {
+public class UnreservedValue implements Serializable {
 
-  private static final long serialVersionUID = 3394308551644415429L;
+  private static final long serialVersionUID = -3465559955367881407L;
 
   // Globally Unique Identifier
   private TagLengthString globallyUniqueIdentifier;
 
-  // Payment network specific
-  private List<TagLengthString> paymentNetworkSpecific = new LinkedList<>();
+  // Context Specific Data
+  private List<TagLengthString> contextSpecificData = new LinkedList<>();
   
-  public void addPaymentNetworkSpecific(final TagLengthString tagLengthString) {
-    paymentNetworkSpecific.add(tagLengthString);
+  public void addContextSpecificData(final TagLengthString tagLengthString) {
+    contextSpecificData.add(tagLengthString);
   }
 
   @Override
@@ -36,7 +36,7 @@ public class MerchantAccountInformationValue implements Serializable {
 
     Optional.ofNullable(globallyUniqueIdentifier).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TagLengthValue<String> tagLengthString : paymentNetworkSpecific) {
+    for (final SimpleTLV<String> tagLengthString : contextSpecificData) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

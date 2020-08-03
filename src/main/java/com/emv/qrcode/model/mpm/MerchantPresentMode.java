@@ -1,4 +1,4 @@
-package com.emv.qrcode.mpm.model;
+package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
@@ -12,7 +12,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.core.model.TagLengthValue;
+import com.emv.qrcode.core.model.SimpleTLV;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -127,7 +127,7 @@ public class MerchantPresentMode implements Serializable {
     Optional.ofNullable(additionalDataField).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantInformationLanguage).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TagLengthValue<String> tagLengthString : rFUforEMVCos) {
+    for (final SimpleTLV<String> tagLengthString : rFUforEMVCos) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

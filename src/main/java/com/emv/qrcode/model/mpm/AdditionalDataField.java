@@ -1,19 +1,19 @@
-package com.emv.qrcode.mpm.model;
+package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TagLengthValue;
-import com.emv.qrcode.mpm.constants.MerchantPresentModeCodes;
+import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.model.mpm.constants.MerchantPresentModeCodes;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AdditionalDataField implements Serializable, TagLengthValue<AdditionalDataFieldValue>{
+public class AdditionalDataField extends SimpleTLV<AdditionalDataFieldValue> implements Serializable {
 
   private static final long serialVersionUID = 2232991556283235445L;
 
@@ -29,13 +29,13 @@ public class AdditionalDataField implements Serializable, TagLengthValue<Additio
     if (Objects.isNull(value)) {
       return StringUtils.EMPTY;
     }
-    
+
     final String string = value.toString();
-    
+
     if (StringUtils.isBlank(string)) {
       return StringUtils.EMPTY;
     }
-    
+
     return String.format("%s%02d%s", tag, string.length(), string);
   }
 

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TagLengthString implements Serializable, TagLengthValue<String> {
+public class TagLengthString extends SimpleTLV<String> implements Serializable {
 
   private static final long serialVersionUID = -6482977134879939277L;
 

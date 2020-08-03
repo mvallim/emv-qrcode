@@ -1,8 +1,8 @@
 package com.emv.qrcode.decoder.mpm;
 
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.model.MerchantInformationLanguage;
-import com.emv.qrcode.mpm.model.MerchantInformationLanguageValue;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageValue;
 
 // @formatter:off
 public final class MerchantInformationLanguageDecoder extends Decoder<MerchantInformationLanguage> {

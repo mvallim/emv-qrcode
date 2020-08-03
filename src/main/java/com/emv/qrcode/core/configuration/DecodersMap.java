@@ -15,15 +15,15 @@ import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageValueDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantPresentModeDecoder;
 import com.emv.qrcode.decoder.mpm.UnreservedDecoder;
 import com.emv.qrcode.decoder.mpm.UnreservedValueDecoder;
-import com.emv.qrcode.mpm.model.AdditionalDataField;
-import com.emv.qrcode.mpm.model.AdditionalDataFieldValue;
-import com.emv.qrcode.mpm.model.MerchantAccountInformation;
-import com.emv.qrcode.mpm.model.MerchantAccountInformationValue;
-import com.emv.qrcode.mpm.model.MerchantInformationLanguage;
-import com.emv.qrcode.mpm.model.MerchantInformationLanguageValue;
-import com.emv.qrcode.mpm.model.MerchantPresentMode;
-import com.emv.qrcode.mpm.model.Unreserved;
-import com.emv.qrcode.mpm.model.UnreservedValue;
+import com.emv.qrcode.model.mpm.AdditionalDataField;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldValue;
+import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationValue;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageValue;
+import com.emv.qrcode.model.mpm.MerchantPresentMode;
+import com.emv.qrcode.model.mpm.Unreserved;
+import com.emv.qrcode.model.mpm.UnreservedValue;
 
 public final class DecodersMap {
 

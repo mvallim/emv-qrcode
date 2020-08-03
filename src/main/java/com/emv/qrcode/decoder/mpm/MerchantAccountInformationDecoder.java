@@ -1,8 +1,8 @@
 package com.emv.qrcode.decoder.mpm;
 
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.model.MerchantAccountInformation;
-import com.emv.qrcode.mpm.model.MerchantAccountInformationValue;
+import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationValue;
 
 // @formatter:off
 public final class MerchantAccountInformationDecoder extends Decoder<MerchantAccountInformation> {
