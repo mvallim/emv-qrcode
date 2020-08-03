@@ -1,11 +1,12 @@
 package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.TagLengthValue;
 
@@ -22,7 +23,11 @@ public class MerchantAccountInformationValue implements Serializable {
   private TagLengthString globallyUniqueIdentifier;
 
   // Payment network specific
-  private ListTagLengthString paymentNetworkSpecific = new ListTagLengthString();
+  private List<TagLengthString> paymentNetworkSpecific = new LinkedList<>();
+  
+  public void addPaymentNetworkSpecific(final TagLengthString tagLengthString) {
+    paymentNetworkSpecific.add(tagLengthString);
+  }
 
   @Override
   public String toString() {

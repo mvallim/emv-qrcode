@@ -3,15 +3,11 @@ package com.emv.qrcode.core.configuration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.decoder.common.ListTagLengthStringDecoder;
 import com.emv.qrcode.decoder.common.TagLengthStringDecoder;
 import com.emv.qrcode.decoder.mpm.AdditionalDataFieldDecoder;
 import com.emv.qrcode.decoder.mpm.AdditionalDataFieldValueDecoder;
-import com.emv.qrcode.decoder.mpm.MapMerchantAccountInformationDecoder;
-import com.emv.qrcode.decoder.mpm.MapUnreservedDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantAccountInformationDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantAccountInformationValueDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageDecoder;
@@ -21,8 +17,6 @@ import com.emv.qrcode.decoder.mpm.UnreservedDecoder;
 import com.emv.qrcode.decoder.mpm.UnreservedValueDecoder;
 import com.emv.qrcode.mpm.model.AdditionalDataField;
 import com.emv.qrcode.mpm.model.AdditionalDataFieldValue;
-import com.emv.qrcode.mpm.model.MapMerchantAccountInformation;
-import com.emv.qrcode.mpm.model.MapUnreserved;
 import com.emv.qrcode.mpm.model.MerchantAccountInformation;
 import com.emv.qrcode.mpm.model.MerchantAccountInformationValue;
 import com.emv.qrcode.mpm.model.MerchantInformationLanguage;
@@ -37,16 +31,13 @@ public final class DecodersMap {
 
   static {
     MAP_DECODERS.put(TagLengthString.class, TagLengthStringDecoder.class);
-    MAP_DECODERS.put(ListTagLengthString.class, ListTagLengthStringDecoder.class);
     MAP_DECODERS.put(MerchantPresentMode.class, MerchantPresentModeDecoder.class);
     MAP_DECODERS.put(AdditionalDataField.class, AdditionalDataFieldDecoder.class);
     MAP_DECODERS.put(AdditionalDataFieldValue.class, AdditionalDataFieldValueDecoder.class);
     MAP_DECODERS.put(MerchantInformationLanguage.class, MerchantInformationLanguageDecoder.class);
-    MAP_DECODERS.put(MapMerchantAccountInformation.class, MapMerchantAccountInformationDecoder.class);
     MAP_DECODERS.put(MerchantAccountInformation.class, MerchantAccountInformationDecoder.class);
     MAP_DECODERS.put(MerchantAccountInformationValue.class, MerchantAccountInformationValueDecoder.class);
     MAP_DECODERS.put(MerchantInformationLanguageValue.class, MerchantInformationLanguageValueDecoder.class);
-    MAP_DECODERS.put(MapUnreserved.class, MapUnreservedDecoder.class);
     MAP_DECODERS.put(Unreserved.class, UnreservedDecoder.class);
     MAP_DECODERS.put(UnreservedValue.class, UnreservedValueDecoder.class);
   }

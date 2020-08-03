@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.AdditionalDataFieldCodes;
@@ -25,8 +24,8 @@ public final class AdditionalDataFieldValueDecoder extends Decoder<AdditionalDat
     mapConsumers.put(AdditionalDataFieldCodes.ID_CUSTOMER_LABEL, consumerTagLengthValue(TagLengthString.class, AdditionalDataFieldValue::setCustomerLabel));
     mapConsumers.put(AdditionalDataFieldCodes.ID_TERMINAL_LABEL, consumerTagLengthValue(TagLengthString.class, AdditionalDataFieldValue::setTerminalLabel));
     mapConsumers.put(AdditionalDataFieldCodes.ID_PURPOSE_TRANSACTION, consumerTagLengthValue(TagLengthString.class, AdditionalDataFieldValue::setPurposeTransaction));
-    mapConsumers.put(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(ListTagLengthString.class, AdditionalDataFieldValue::setRFUforEMVCo));
-    mapConsumers.put(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC, consumerTagLengthValue(ListTagLengthString.class, AdditionalDataFieldValue::setPaymentSystemSpecific));
+    mapConsumers.put(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(TagLengthString.class, AdditionalDataFieldValue::addRFUforEMVCo));
+    mapConsumers.put(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC, consumerTagLengthValue(TagLengthString.class, AdditionalDataFieldValue::addPaymentSystemSpecific));
     mapConsumers.put(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, consumerTagLengthValue(TagLengthString.class, AdditionalDataFieldValue::setAdditionalConsumerDataRequest));
   }
 

@@ -1,11 +1,12 @@
 package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.TagLengthValue;
 
@@ -22,7 +23,11 @@ public class UnreservedValue implements Serializable {
   private TagLengthString globallyUniqueIdentifier;
 
   // Context Specific Data
-  private ListTagLengthString contextSpecificData = new ListTagLengthString();
+  private List<TagLengthString> contextSpecificData = new LinkedList<>();
+  
+  public void addContextSpecificData(final TagLengthString tagLengthString) {
+    contextSpecificData.add(tagLengthString);
+  }
 
   @Override
   public String toString() {

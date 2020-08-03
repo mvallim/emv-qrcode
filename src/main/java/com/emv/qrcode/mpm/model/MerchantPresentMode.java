@@ -1,13 +1,16 @@
 package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.TagLengthValue;
 
@@ -27,7 +30,7 @@ public class MerchantPresentMode implements Serializable {
   private TagLengthString pointOfInitiationMethod;
 
   // Merchant Account Information
-  private MapMerchantAccountInformation merchantAccountInformation = new MapMerchantAccountInformation();
+  private Map<String, MerchantAccountInformation> merchantAccountInformations = new LinkedHashMap<>();
 
   // Merchant Category Code
   private TagLengthString merchantCategoryCode;
@@ -69,10 +72,22 @@ public class MerchantPresentMode implements Serializable {
   private MerchantInformationLanguage merchantInformationLanguage;
 
   // RFU for EMVCo
-  private ListTagLengthString rFUforEMVCo = new ListTagLengthString();
+  private List<TagLengthString> rFUforEMVCos = new LinkedList<>();
 
   // Unreserved Templates
-  private MapUnreserved unreserveds = new MapUnreserved();
+  private Map<String, Unreserved> unreserveds = new LinkedHashMap<>();
+  
+  public void addUnreserved(final Unreserved unreserved) {
+    unreserveds.put(unreserved.getTag(), unreserved);
+  }
+  
+  public void addMerchantAccountInformation(final MerchantAccountInformation merchantAccountInformation) {
+    merchantAccountInformations.put(merchantAccountInformation.getTag(), merchantAccountInformation);
+  }
+  
+  public void addRFUforEMVCo(final TagLengthString tagLengthString) {
+    rFUforEMVCos.add(tagLengthString);
+  }
   
   public String binaryData() {
     return Hex.encodeHexString(toString().getBytes(), false);
@@ -95,7 +110,7 @@ public class MerchantPresentMode implements Serializable {
     Optional.ofNullable(payloadFormatIndicator).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(pointOfInitiationMethod).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final Entry<String, MerchantAccountInformation> entry : merchantAccountInformation.entrySet()) {
+    for (final Entry<String, MerchantAccountInformation> entry : merchantAccountInformations.entrySet()) {
       Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
@@ -112,7 +127,7 @@ public class MerchantPresentMode implements Serializable {
     Optional.ofNullable(additionalDataField).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantInformationLanguage).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TagLengthValue<String> tagLengthString : rFUforEMVCo) {
+    for (final TagLengthValue<String> tagLengthString : rFUforEMVCos) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

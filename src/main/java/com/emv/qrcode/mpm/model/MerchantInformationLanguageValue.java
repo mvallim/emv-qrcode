@@ -1,11 +1,12 @@
 package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.TagLengthValue;
 
@@ -28,7 +29,11 @@ public class MerchantInformationLanguageValue implements Serializable {
   private TagLengthString merchantCity;
 
   // RFU for EMVCo
-  private ListTagLengthString rFUforEMVCo = new ListTagLengthString();
+  private List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  
+  public void addRFUforEMVCo(final TagLengthString tagLengthString) {
+    rFUforEMVCo.add(tagLengthString);
+  }
 
   @Override
   public String toString() {

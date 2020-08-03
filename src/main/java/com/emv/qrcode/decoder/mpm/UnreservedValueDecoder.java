@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.UnreservedTemplateFieldCodes;
@@ -18,7 +17,7 @@ public final class UnreservedValueDecoder extends Decoder<UnreservedValue> {
 
   static {
     mapConsumers.put(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, consumerTagLengthValue(TagLengthString.class, UnreservedValue::setGloballyUniqueIdentifier));
-    mapConsumers.put(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA, consumerTagLengthValue(ListTagLengthString.class, UnreservedValue::setContextSpecificData));
+    mapConsumers.put(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA, consumerTagLengthValue(TagLengthString.class, UnreservedValue::addContextSpecificData));
   }
 
   public UnreservedValueDecoder(final String source) {

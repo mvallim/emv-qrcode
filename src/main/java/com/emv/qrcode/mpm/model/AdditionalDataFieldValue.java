@@ -1,11 +1,12 @@
 package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.ListTagLengthString;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.TagLengthValue;
 
@@ -46,10 +47,18 @@ public class AdditionalDataFieldValue implements Serializable {
   private TagLengthString additionalConsumerDataRequest;
 
   // RFU for EMVCo
-  private ListTagLengthString rFUforEMVCo = new ListTagLengthString();
+  private List<TagLengthString> rFUforEMVCo = new LinkedList<>();
 
   // Payment System specific templates
-  private ListTagLengthString paymentSystemSpecific = new ListTagLengthString();
+  private List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
+  
+  public void addRFUforEMVCo(final TagLengthString tagLengthString) {
+    rFUforEMVCo.add(tagLengthString);
+  }
+  
+  public void addPaymentSystemSpecific(final TagLengthString tagLengthString) {
+    paymentSystemSpecific.add(tagLengthString);
+  }
 
   @Override
   public String toString() {
