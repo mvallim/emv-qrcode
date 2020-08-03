@@ -1,7 +1,5 @@
 package com.emv.qrcode.core.model;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.Getter;
@@ -9,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TagLengthString extends SimpleTLV<String> implements Serializable {
+public class TagLengthString implements SimpleTLV<String> {
 
   private static final long serialVersionUID = -6482977134879939277L;
 

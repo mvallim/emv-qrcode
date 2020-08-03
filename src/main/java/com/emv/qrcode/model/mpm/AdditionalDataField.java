@@ -1,6 +1,5 @@
 package com.emv.qrcode.model.mpm;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdditionalDataField extends SimpleTLV<AdditionalDataFieldValue> implements Serializable {
+public class AdditionalDataField implements SimpleTLV<AdditionalDataFieldValue> {
 
   private static final long serialVersionUID = 2232991556283235445L;
 

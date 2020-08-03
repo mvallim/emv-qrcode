@@ -1,6 +1,5 @@
 package com.emv.qrcode.model.mpm;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MerchantAccountInformation extends SimpleTLV<MerchantAccountInformationValue> implements Serializable {
+public class MerchantAccountInformation implements SimpleTLV<MerchantAccountInformationValue> {
 
   private static final long serialVersionUID = 1504801865799183162L;
 

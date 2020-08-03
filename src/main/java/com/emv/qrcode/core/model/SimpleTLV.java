@@ -1,16 +1,13 @@
 package com.emv.qrcode.core.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
 
-@Getter
-@Setter
-public class SimpleTLV<T> {
+public interface SimpleTLV<T> extends Serializable {
 
-  private String tag;
+  public String getTag();
 
-  private Integer length;
+  public Integer getLength();
 
-  private T value;
+  public T getValue();
 
 }
