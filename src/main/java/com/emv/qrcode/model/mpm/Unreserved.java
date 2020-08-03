@@ -5,7 +5,6 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.SimpleTLV;
-import com.emv.qrcode.decoder.Decoder;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,16 +21,6 @@ public class Unreserved implements SimpleTLV<UnreservedValue> {
 
   private UnreservedValue value;
 
-  public Unreserved() {
-    super();
-  }
-      
-  public Unreserved(final String tag, final String value) {
-    this.tag = tag;
-    this.length = value.length();
-    this.value = Decoder.decode(value, UnreservedValue.class);
-  }
-  
   @Override
   public String toString() {
     

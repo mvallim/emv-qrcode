@@ -21,12 +21,6 @@ public class TagLengthString implements SimpleTLV<String> {
     super();
   }
     
-  public TagLengthString(final String tag, final Integer length, final String value) {
-    this.tag = tag;
-    this.length = length;
-    this.value = value;
-  }
-  
   @Override
   public String toString() {
     

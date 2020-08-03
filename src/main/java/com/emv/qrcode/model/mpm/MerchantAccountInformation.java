@@ -5,7 +5,6 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.SimpleTLV;
-import com.emv.qrcode.decoder.Decoder;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,16 +20,6 @@ public class MerchantAccountInformation implements SimpleTLV<MerchantAccountInfo
   private Integer length;
 
   private MerchantAccountInformationValue value;
-
-  public MerchantAccountInformation() {
-    super();
-  }
-
-  public MerchantAccountInformation(final String tag, final String value) {
-    this.tag = tag;
-    this.length = value.length();
-    this.value = Decoder.decode(value, MerchantAccountInformationValue.class);
-  }
 
   @Override
   public String toString() {

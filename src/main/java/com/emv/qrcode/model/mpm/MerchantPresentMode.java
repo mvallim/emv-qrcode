@@ -11,8 +11,10 @@ import java.util.Optional;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.CRC;
 import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.model.mpm.constants.MerchantPresentModeCodes;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -76,19 +78,19 @@ public class MerchantPresentMode implements Serializable {
 
   // Unreserved Templates
   private Map<String, Unreserved> unreserveds = new LinkedHashMap<>();
-  
+
   public void addUnreserved(final Unreserved unreserved) {
     unreserveds.put(unreserved.getTag(), unreserved);
   }
-  
+
   public void addMerchantAccountInformation(final MerchantAccountInformation merchantAccountInformation) {
     merchantAccountInformations.put(merchantAccountInformation.getTag(), merchantAccountInformation);
   }
-  
+
   public void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCos.add(tagLengthString);
   }
-  
+
   public String binaryData() {
     return Hex.encodeHexString(toString().getBytes(), false);
   }
@@ -134,16 +136,18 @@ public class MerchantPresentMode implements Serializable {
     for (final Entry<String, Unreserved> entry : unreserveds.entrySet()) {
       Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
-
-    Optional.ofNullable(cRC).ifPresent(tlv -> sb.append(tlv.toString()));
     
-    final String string = sb.toString();
+    final String string = sb.toString();   
 
     if (StringUtils.isBlank(string)) {
       return StringUtils.EMPTY;
     }
+    
+    sb.append(MerchantPresentModeCodes.ID_CRC + "04");
+    
+    sb.append(Integer.toHexString(CRC.crc16(sb.toString().getBytes())).toUpperCase());
 
-    return string;
+    return sb.toString();
   }
 
 }

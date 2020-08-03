@@ -46,10 +46,6 @@ public final class DecodersMap {
     super();
   }
 
-  public static synchronized <T> void addDecoder(final Class<T> clazz, final Class<? extends Decoder<T>> decoder) {
-    MAP_DECODERS.put(clazz, decoder);
-  }
-
   public static Class<? extends Decoder<?>> getDecoder(final Class<?> clazz) {
     return MAP_DECODERS.get(clazz);
   }
