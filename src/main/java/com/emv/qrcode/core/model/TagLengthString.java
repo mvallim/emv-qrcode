@@ -1,10 +1,8 @@
-package com.emv.qrcode.mpm.model;
+package com.emv.qrcode.core.model;
 
 import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.emv.qrcode.core.model.TagLengthValue;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +19,14 @@ public class TagLengthString implements Serializable, TagLengthValue<String> {
 
   private String value;
   
-  public TagLengthString(final String tag, final String value) {
+  public TagLengthString() {
+    super();
+  }
+    
+  public TagLengthString(final String tag, final Integer length, final String value) {
     this.tag = tag;
+    this.length = length;
     this.value = value;
-    this.length = value.length();
   }
   
   @Override

@@ -2,8 +2,6 @@ package com.emv.qrcode.mpm.model;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -11,15 +9,16 @@ import java.util.Optional;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.constants.EMVQRFieldCodes;
+import com.emv.qrcode.core.model.ListTagLengthString;
+import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.TagLengthValue;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class EMVQR implements Serializable {
+public class MerchantPresentMode implements Serializable {
 
   private static final long serialVersionUID = 485352878727448583L;
 
@@ -63,93 +62,19 @@ public class EMVQR implements Serializable {
   private TagLengthString postalCode;
 
   // Additional Data Field Template
-  private AdditionalDataFieldTemplate additionalDataFieldTemplate;
+  private AdditionalDataField additionalDataField;
 
   // CRC
   private TagLengthString cRC;
 
   // Merchant Information - Language Template
-  private MerchantInformationLanguageTemplate merchantInformationLanguageTemplate;
+  private MerchantInformationLanguage merchantInformationLanguage;
 
   // RFU for EMVCo
-  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  private final ListTagLengthString rFUforEMVCo = new ListTagLengthString();
 
   // Unreserved Templates
   private final Map<String, UnreservedTemplate> unreservedTemplates = new LinkedHashMap<>();
- 
-  public void setPayloadFormatIndicator(final String value) {
-    this.payloadFormatIndicator = new TagLengthString(EMVQRFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR, value);
-  }
-
-  public void setPointOfInitiationMethod(final String value) {
-    this.pointOfInitiationMethod = new TagLengthString(EMVQRFieldCodes.ID_POINT_OF_INITIATION_METHOD, value);
-  }
-
-  public void setMerchantCategoryCode(final String value) {
-    this.merchantCategoryCode = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CATEGORY_CODE, value);
-  }
-
-  public void setTransactionCurrency(final String value) {
-    this.transactionCurrency = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_CURRENCY, value);
-  }
-
-  public void setTransactionAmount(final String value) {
-    this.transactionAmount = new TagLengthString(EMVQRFieldCodes.ID_TRANSACTION_AMOUNT, value);
-  }
-
-  public void setTipOrConvenienceIndicator(final String value) {
-    this.tipOrConvenienceIndicator = new TagLengthString(EMVQRFieldCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, value);
-  }
-
-  public void setValueOfConvenienceFeeFixed(final String value) {
-    this.valueOfConvenienceFeeFixed = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, value);
-  }
-
-  public void setValueOfConvenienceFeePercentage(final String value) {
-    this.valueOfConvenienceFeePercentage = new TagLengthString(EMVQRFieldCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, value);
-  }
-
-  public void setCountryCode(final String value) {
-    this.countryCode = new TagLengthString(EMVQRFieldCodes.ID_COUNTRY_CODE, value);
-  }
-
-  public void setMerchantName(final String value) {
-    this.merchantName = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_NAME, value);
-  }
-
-  public void setMerchantCity(final String value) {
-    this.merchantCity = new TagLengthString(EMVQRFieldCodes.ID_MERCHANT_CITY, value);
-  }
-
-  public void setPostalCode(final String value) {
-    this.postalCode = new TagLengthString(EMVQRFieldCodes.ID_POSTAL_CODE, value);
-  }
-
-  public void setCRC(final String value) {
-    this.cRC = new TagLengthString(EMVQRFieldCodes.ID_CRC, value);
-  }
-
-  public void setAdditionalDataFieldTemplate(final String value) {
-    this.additionalDataFieldTemplate = Decoder.decode(value, AdditionalDataFieldTemplate.class);
-  }
-
-  public void setMerchantInformationLanguageTemplate(final String value) {
-    this.merchantInformationLanguageTemplate = Decoder.decode(value, MerchantInformationLanguageTemplate.class);
-  }
-  
-  public void addMerchantAccountInformation(final String value) {
-    final String id = value.substring(0, Decoder.ID_WORD_COUNT);
-    merchantAccountInformation.put(id, new MerchantAccountInformation(id, value.substring(Decoder.ID_WORD_COUNT)));
-  }
-  
-  public void addRFUforEMVCo(final String value) {
-    rFUforEMVCo.add(new TagLengthString(value.substring(0, Decoder.ID_WORD_COUNT), value.substring(Decoder.ID_WORD_COUNT)));
-  }
-  
-  public void addUnreservedTemplates(final String value) {
-    final String id = value.substring(0, Decoder.ID_WORD_COUNT);
-    unreservedTemplates.put(id, new UnreservedTemplate(id, value.substring(Decoder.ID_WORD_COUNT)));
-  }
   
   public String binaryData() {
     return Hex.encodeHexString(toString().getBytes(), false);
@@ -186,10 +111,10 @@ public class EMVQR implements Serializable {
     Optional.ofNullable(merchantName).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantCity).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(postalCode).ifPresent(tlv -> sb.append(tlv.toString()));
-    Optional.ofNullable(additionalDataFieldTemplate).ifPresent(tlv -> sb.append(tlv.toString()));
-    Optional.ofNullable(merchantInformationLanguageTemplate).ifPresent(tlv -> sb.append(tlv.toString()));
+    Optional.ofNullable(additionalDataField).ifPresent(tlv -> sb.append(tlv.toString()));
+    Optional.ofNullable(merchantInformationLanguage).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TagLengthString tagLengthString : rFUforEMVCo) {
+    for (final TagLengthValue<String> tagLengthString : rFUforEMVCo) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

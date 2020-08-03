@@ -2,19 +2,22 @@ package com.emv.qrcode.decoder.mpm;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
+import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.mpm.constants.UnreservedTemplateFieldCodes;
 import com.emv.qrcode.mpm.model.UnreservedTemplateValue;
 
+// @formatter:off
 public final class UnreservedTemplateValueDecoder extends Decoder<UnreservedTemplateValue> {
 
-  private static final Map<String, BiConsumer<UnreservedTemplateValue, String>> mapConsumers = new HashMap<>();
+  private static final Map<String, Entry<Class<?>, BiConsumer<UnreservedTemplateValue, ?>>> mapConsumers = new HashMap<>();
 
   static {
-    mapConsumers.put(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, UnreservedTemplateValue::setGloballyUniqueIdentifier);
-    mapConsumers.put(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA, UnreservedTemplateValue::addContextSpecificData);
+    mapConsumers.put(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, consumerTagLengthValue(TagLengthString.class, UnreservedTemplateValue::setGloballyUniqueIdentifier));
+    // mapConsumers.put(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA, consumerTagLengthValue(TagLengthString.class, UnreservedTemplateValue::addContextSpecificData));
   }
 
   public UnreservedTemplateValueDecoder(final String source) {
@@ -22,11 +25,22 @@ public final class UnreservedTemplateValueDecoder extends Decoder<UnreservedTemp
   }
 
   @Override
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   protected UnreservedTemplateValue decode() {
     final UnreservedTemplateValue result = new UnreservedTemplateValue();
-    while (super.hasNext()) {
-      mapConsumers.get(derivateId(super.getId())).accept(result, super.next());
-    }
+
+    forEachRemaining(value -> {
+      final String tag = derivateId(value.substring(0, Decoder.ID_WORD_COUNT));
+
+      final Entry<Class<?>, BiConsumer<UnreservedTemplateValue, ?>> entry = mapConsumers.get(tag);
+
+      final Class<?> clazz = entry.getKey();
+
+      final BiConsumer consumer = entry.getValue();
+
+      consumer.accept(result, Decoder.decode(value, clazz));
+    });
+
     return result;
   }
 
@@ -44,3 +58,4 @@ public final class UnreservedTemplateValueDecoder extends Decoder<UnreservedTemp
   }
 
 }
+// @formatter:on

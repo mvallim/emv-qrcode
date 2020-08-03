@@ -7,8 +7,7 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.mpm.constants.UnreservedTemplateFieldCodes;
+import com.emv.qrcode.core.model.TagLengthString;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,14 +23,6 @@ public class UnreservedTemplateValue implements Serializable {
 
   // Context Specific Data
   private final List<TagLengthString> contextSpecificData = new LinkedList<>();
-
-  public void setGloballyUniqueIdentifier(final String value) {
-    globallyUniqueIdentifier = new TagLengthString(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, value);
-  }
-
-  public void addContextSpecificData(final String value) {
-    contextSpecificData.add(new TagLengthString(value.substring(0, Decoder.ID_WORD_COUNT), value.substring(Decoder.ID_WORD_COUNT)));
-  }
 
   @Override
   public String toString() {

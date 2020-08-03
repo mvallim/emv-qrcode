@@ -2,30 +2,17 @@ package com.emv.qrcode.decoder;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
-import com.emv.qrcode.decoder.mpm.AdditionalDataFieldTemplateDecoder;
-import com.emv.qrcode.decoder.mpm.EMVQRDecoder;
-import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageTemplateDecoder;
-import com.emv.qrcode.decoder.mpm.UnreservedTemplateValueDecoder;
-import com.emv.qrcode.mpm.model.AdditionalDataFieldTemplate;
-import com.emv.qrcode.mpm.model.EMVQR;
-import com.emv.qrcode.mpm.model.MerchantInformationLanguageTemplate;
-import com.emv.qrcode.mpm.model.UnreservedTemplateValue;
+import com.emv.qrcode.core.configuration.DecodersMap;
 
+// @formatter:off
 public abstract class Decoder<T> implements Iterator<String> {
-
-  private static final Map<Class<?>, Class<? extends Decoder<?>>> mapParsers = new ConcurrentHashMap<>();
-
-  static {
-    mapParsers.put(EMVQR.class, EMVQRDecoder.class);
-    mapParsers.put(AdditionalDataFieldTemplate.class, AdditionalDataFieldTemplateDecoder.class);
-    mapParsers.put(MerchantInformationLanguageTemplate.class, MerchantInformationLanguageTemplateDecoder.class);
-    mapParsers.put(UnreservedTemplateValue.class, UnreservedTemplateValueDecoder.class);
-  }
 
   public static final Integer ID_WORD_COUNT = 2; // 01 - 99
 
@@ -49,16 +36,17 @@ public abstract class Decoder<T> implements Iterator<String> {
     return Integer.valueOf(source.substring(start, end));
   }
 
-  protected String getId() {
-    final Integer start = current;
-    final Integer end = start + ID_WORD_COUNT;
-    return source.substring(start, end);
+  @Override
+  public boolean hasNext() {
+    return current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT <= max
+        && current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength() <= max;
   }
 
   @Override
-  public boolean hasNext() {
-    final Integer end = current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT;
-    return end <= max && current + valueLength() + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT <= max;
+  public void forEachRemaining(final Consumer<? super String> action) {
+    while (hasNext()) {
+      action.accept(next());
+    }
   }
 
   @Override
@@ -68,23 +56,24 @@ public abstract class Decoder<T> implements Iterator<String> {
       throw new NoSuchElementException();
     }
 
-    final Integer start = current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT;
-    final Integer end = start + valueLength();
+    final Integer valueLength = valueLength();
 
-    current = end;
+    final String value = source.substring(current, current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength);
 
-    return source.substring(start, end);
+    current += ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength;
+
+    return value;
   }
 
   protected abstract T decode();
 
-  public static synchronized void addDecoder(final Class<?> clazz, final Class<? extends Decoder<?>> decoder) {
-    mapParsers.put(clazz, decoder);
+  protected static <C, T> Entry<Class<?>, BiConsumer<C, ?>> consumerTagLengthValue(final Class<T> clazz, final BiConsumer<C, T> consumer) {
+    return new SimpleEntry<>(clazz, consumer);
   }
 
   public static <T> T decode(final String source, final Class<T> clazz) {
     try {
-      final Class<? extends Decoder<?>> parserClass = mapParsers.get(clazz);
+      final Class<? extends Decoder<?>> parserClass = DecodersMap.getDecoder(clazz);
       final Constructor<? extends Decoder<?>> ctor = parserClass.getConstructor(String.class);
       final Decoder<?> parser = ctor.newInstance(source);
       return clazz.cast(parser.decode());
@@ -94,3 +83,4 @@ public abstract class Decoder<T> implements Iterator<String> {
   }
 
 }
+// @formatter:on
