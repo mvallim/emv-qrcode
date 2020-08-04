@@ -15,6 +15,8 @@ public final class CRC {
    *
    * Implements CRC-16/CCITT-FALSE
    *
+   * @see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
+   *
    * @param value
    * @return CRC16 integer
    */

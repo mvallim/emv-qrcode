@@ -26,7 +26,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
       .must(isNumeric(TagLengthString::getValue))
         .withMessage("PayloadFormatIndicator is must be number");
 
-    ruleFor(MerchantPresentMode::getMerchantAccountInformations)
+    ruleFor(MerchantPresentMode::getMerchantAccountInformation)
       .must(map -> greaterThan(0).test(map.size()))
         .withMessage("MerchantAccountInformation is mandatory");
 

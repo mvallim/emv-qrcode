@@ -32,7 +32,7 @@ public class MerchantPresentMode implements Serializable {
   private TagLengthString pointOfInitiationMethod;
 
   // Merchant Account Information
-  private Map<String, MerchantAccountInformation> merchantAccountInformations = new LinkedHashMap<>();
+  private Map<String, MerchantAccountInformation> merchantAccountInformation = new LinkedHashMap<>();
 
   // Merchant Category Code
   private TagLengthString merchantCategoryCode;
@@ -74,21 +74,21 @@ public class MerchantPresentMode implements Serializable {
   private MerchantInformationLanguage merchantInformationLanguage;
 
   // RFU for EMVCo
-  private List<TagLengthString> rFUforEMVCos = new LinkedList<>();
+  private List<TagLengthString> rFUforEMVCo = new LinkedList<>();
 
   // Unreserved Templates
   private Map<String, Unreserved> unreserveds = new LinkedHashMap<>();
 
   public void addUnreserved(final Unreserved unreserved) {
-    unreserveds.put(unreserved.getTag(), unreserved);
+    this.unreserveds.put(unreserved.getTag(), unreserved);
   }
 
   public void addMerchantAccountInformation(final MerchantAccountInformation merchantAccountInformation) {
-    merchantAccountInformations.put(merchantAccountInformation.getTag(), merchantAccountInformation);
+    this.merchantAccountInformation.put(merchantAccountInformation.getTag(), merchantAccountInformation);
   }
 
   public void addRFUforEMVCo(final TagLengthString tagLengthString) {
-    rFUforEMVCos.add(tagLengthString);
+    this.rFUforEMVCo.add(tagLengthString);
   }
 
   public String binaryData() {
@@ -112,7 +112,7 @@ public class MerchantPresentMode implements Serializable {
     Optional.ofNullable(payloadFormatIndicator).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(pointOfInitiationMethod).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final Entry<String, MerchantAccountInformation> entry : merchantAccountInformations.entrySet()) {
+    for (final Entry<String, MerchantAccountInformation> entry : merchantAccountInformation.entrySet()) {
       Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
@@ -129,7 +129,7 @@ public class MerchantPresentMode implements Serializable {
     Optional.ofNullable(additionalDataField).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantInformationLanguage).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final SimpleTLV<String> tagLengthString : rFUforEMVCos) {
+    for (final SimpleTLV<String> tagLengthString : rFUforEMVCo) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
