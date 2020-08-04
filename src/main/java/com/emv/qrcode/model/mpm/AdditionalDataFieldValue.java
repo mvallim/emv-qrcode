@@ -52,12 +52,12 @@ public class AdditionalDataFieldValue implements Serializable {
   // Payment System specific templates
   private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
 
-  public void addRFUforEMVCo(final TagLengthString tagLengthString) {
-    rFUforEMVCo.add(tagLengthString);
+  public void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
+    this.rFUforEMVCo.add(rFUforEMVCo);
   }
 
-  public void addPaymentSystemSpecific(final TagLengthString tagLengthString) {
-    paymentSystemSpecific.add(tagLengthString);
+  public void addPaymentSystemSpecific(final TagLengthString paymentSystemSpecific) {
+    this.paymentSystemSpecific.add(paymentSystemSpecific);
   }
 
   @Override
