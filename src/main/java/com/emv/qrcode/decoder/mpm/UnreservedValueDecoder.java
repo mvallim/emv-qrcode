@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.decoder.DecodeIterator;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.model.mpm.UnreservedValue;
 import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
@@ -29,8 +30,8 @@ public final class UnreservedValueDecoder extends Decoder<UnreservedValue> {
   protected UnreservedValue decode() {
     final UnreservedValue result = new UnreservedValue();
 
-    forEachRemaining(value -> {
-      final String tag = derivateId(value.substring(0, Decoder.ID_WORD_COUNT));
+    iterator.forEachRemaining(value -> {
+      final String tag = derivateId(value.substring(0, DecodeIterator.ID_WORD_COUNT));
 
       final Entry<Class<?>, BiConsumer<UnreservedValue, ?>> entry = mapConsumers.get(tag);
 

@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.decoder.DecodeIterator;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationValue;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
@@ -29,8 +30,8 @@ public final class MerchantAccountInformationValueDecoder extends Decoder<Mercha
   protected MerchantAccountInformationValue decode() {
     final MerchantAccountInformationValue result = new MerchantAccountInformationValue();
 
-    forEachRemaining(value -> {
-      final String tag = derivateId(value.substring(0, Decoder.ID_WORD_COUNT));
+    iterator.forEachRemaining(value -> {
+      final String tag = derivateId(value.substring(0, DecodeIterator.ID_WORD_COUNT));
 
       final Entry<Class<?>, BiConsumer<MerchantAccountInformationValue, ?>> entry = mapConsumers.get(tag);
 

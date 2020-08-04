@@ -1,5 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
+import com.emv.qrcode.decoder.DecodeIterator;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageValue;
@@ -15,9 +16,9 @@ public final class MerchantInformationLanguageDecoder extends Decoder<MerchantIn
   protected MerchantInformationLanguage decode() {
     final MerchantInformationLanguage result = new MerchantInformationLanguage();
 
-    forEachRemaining(value -> {
-      final Integer length = Integer.valueOf(value.substring(Decoder.ID_WORD_COUNT, Decoder.ID_WORD_COUNT + Decoder.VALUE_LENGTH_WORD_COUNT));
-      final String string = value.substring(Decoder.ID_WORD_COUNT + Decoder.VALUE_LENGTH_WORD_COUNT, Decoder.ID_WORD_COUNT + Decoder.VALUE_LENGTH_WORD_COUNT + length);
+    iterator.forEachRemaining(value -> {
+      final Integer length = Integer.valueOf(value.substring(DecodeIterator.ID_WORD_COUNT, DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT));
+      final String string = value.substring(DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT, DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT + length);
       result.setLength(length);
       result.setValue(Decoder.decode(string, MerchantInformationLanguageValue.class));
     });

@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.decoder.DecodeIterator;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageValue;
 import com.emv.qrcode.model.mpm.constants.MerchantInformationFieldCodes;
@@ -31,8 +32,8 @@ public final class MerchantInformationLanguageValueDecoder extends Decoder<Merch
   protected MerchantInformationLanguageValue decode() {
     final MerchantInformationLanguageValue result = new MerchantInformationLanguageValue();
 
-    forEachRemaining(value -> {
-      final String tag = derivateId(value.substring(0, Decoder.ID_WORD_COUNT));
+    iterator.forEachRemaining(value -> {
+      final String tag = derivateId(value.substring(0, DecodeIterator.ID_WORD_COUNT));
 
       final Entry<Class<?>, BiConsumer<MerchantInformationLanguageValue, ?>> entry = mapConsumers.get(tag);
 
