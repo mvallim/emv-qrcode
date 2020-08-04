@@ -1,6 +1,7 @@
 package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.CRC;
@@ -90,6 +93,14 @@ public class MerchantPresentMode implements Serializable {
     this.rFUforEMVCo.add(rFUforEMVCo);
   }
 
+  public String toHex() {
+    return Hex.encodeHexString(toString().getBytes(StandardCharsets.UTF_8), false);
+  }
+
+  public String toBase64() {
+    return Base64.encodeBase64String(toString().getBytes(StandardCharsets.UTF_8));
+  }
+
   @Override
   public String toString() {
 
@@ -131,7 +142,7 @@ public class MerchantPresentMode implements Serializable {
 
     sb.append(MerchantPresentModeCodes.ID_CRC + "04");
 
-    sb.append(Integer.toHexString(CRC.crc16(sb.toString().getBytes())).toUpperCase());
+    sb.append(Integer.toHexString(CRC.crc16(sb.toString().getBytes(StandardCharsets.UTF_8))).toUpperCase());
 
     return sb.toString();
   }
