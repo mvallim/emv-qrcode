@@ -51,7 +51,7 @@ public class MerchantPresentModeTest {
     merchantPresentMode.addUnreserved(unreserved);
 
     assertThat(merchantPresentMode.toString(), equalTo(
-        "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl64280002ZH0202北京0104最佳运输0304abcd65020091320016A0112233449988770708123456786304D5CE"));
+        "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C395"));
   }
 
   private MerchantAccountInformation getMerchanAccountInformation() {
@@ -88,7 +88,7 @@ public class MerchantPresentModeTest {
 
     final Unreserved unreserved = new Unreserved();
     unreserved.setValue(value);
-    unreserved.setTag("91");
+    unreserved.setTag("80");
     return unreserved;
   }
 
@@ -97,13 +97,13 @@ public class MerchantPresentModeTest {
     languagePreference.setTag("00");
     languagePreference.setValue("ZH");
 
-    final TagLengthString merchantCity = new TagLengthString();
-    merchantCity.setTag("01");
-    merchantCity.setValue("最佳运输");
-
     final TagLengthString merchantName = new TagLengthString();
-    merchantName.setTag("02");
+    merchantName.setTag("01");
     merchantName.setValue("北京");
+
+    final TagLengthString merchantCity = new TagLengthString();
+    merchantCity.setTag("02");
+    merchantCity.setValue("最佳运输");
 
     final TagLengthString rFUforEMVCo = new TagLengthString();
     rFUforEMVCo.setTag("03");
@@ -111,8 +111,8 @@ public class MerchantPresentModeTest {
 
     final MerchantInformationLanguageValue merchantInformationLanguageValue = new MerchantInformationLanguageValue();
     merchantInformationLanguageValue.setLanguagePreference(languagePreference);
-    merchantInformationLanguageValue.setMerchantCity(merchantCity);
     merchantInformationLanguageValue.setMerchantName(merchantName);
+    merchantInformationLanguageValue.setMerchantCity(merchantCity);
     merchantInformationLanguageValue.addRFUforEMVCo(rFUforEMVCo);
 
     final MerchantInformationLanguage merchantInformationLanguage = new MerchantInformationLanguage();
