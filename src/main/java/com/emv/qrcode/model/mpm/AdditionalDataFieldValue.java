@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TagLengthString;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -51,11 +51,11 @@ public class AdditionalDataFieldValue implements Serializable {
 
   // Payment System specific templates
   private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
-  
+
   public void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCo.add(tagLengthString);
   }
-  
+
   public void addPaymentSystemSpecific(final TagLengthString tagLengthString) {
     paymentSystemSpecific.add(tagLengthString);
   }
@@ -88,7 +88,7 @@ public class AdditionalDataFieldValue implements Serializable {
     if (StringUtils.isBlank(string)) {
       return StringUtils.EMPTY;
     }
-    
+
     return string;
   }
 

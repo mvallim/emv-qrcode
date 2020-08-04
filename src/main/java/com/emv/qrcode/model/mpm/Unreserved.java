@@ -23,18 +23,18 @@ public class Unreserved implements SimpleTLV<UnreservedValue> {
 
   @Override
   public String toString() {
-    
+
     if (Objects.isNull(value)) {
       return StringUtils.EMPTY;
     }
-    
+
     final String string = value.toString();
-    
+
     if (StringUtils.isBlank(string)) {
       return StringUtils.EMPTY;
     }
-    
+
     return String.format("%s%02d%s", tag, string.length(), string);
   }
-  
+
 }

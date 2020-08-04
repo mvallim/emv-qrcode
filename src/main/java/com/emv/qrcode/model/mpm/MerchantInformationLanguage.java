@@ -28,7 +28,7 @@ public class MerchantInformationLanguage implements SimpleTLV<MerchantInformatio
     if (Objects.isNull(value)) {
       return StringUtils.EMPTY;
     }
-    
+
     final String string = value.toString();
 
     if (StringUtils.isBlank(string)) {

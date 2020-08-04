@@ -136,15 +136,15 @@ public class MerchantPresentMode implements Serializable {
     for (final Entry<String, Unreserved> entry : unreserveds.entrySet()) {
       Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
-    
-    final String string = sb.toString();   
+
+    final String string = sb.toString();
 
     if (StringUtils.isBlank(string)) {
       return StringUtils.EMPTY;
     }
-    
+
     sb.append(MerchantPresentModeCodes.ID_CRC + "04");
-    
+
     sb.append(Integer.toHexString(CRC.crc16(sb.toString().getBytes())).toUpperCase());
 
     return sb.toString();

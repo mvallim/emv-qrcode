@@ -16,18 +16,18 @@ public class TagLengthString implements SimpleTLV<String> {
   private Integer length;
 
   private String value;
-  
+
   public TagLengthString() {
     super();
   }
-    
+
   @Override
   public String toString() {
-    
+
     if (StringUtils.isBlank(value)) {
       return StringUtils.EMPTY;
     }
-    
+
     return String.format("%s%02d%s", tag, value.length(), value);
   }
 

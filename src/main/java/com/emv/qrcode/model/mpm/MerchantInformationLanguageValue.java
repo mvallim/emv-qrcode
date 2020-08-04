@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TagLengthString;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,7 @@ public class MerchantInformationLanguageValue implements Serializable {
 
   // RFU for EMVCo
   private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
-  
+
   public void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCo.add(tagLengthString);
   }

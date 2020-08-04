@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TagLengthString;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,7 @@ public class MerchantAccountInformationValue implements Serializable {
 
   // Payment network specific
   private final List<TagLengthString> paymentNetworkSpecific = new LinkedList<>();
-  
+
   public void addPaymentNetworkSpecific(final TagLengthString tagLengthString) {
     paymentNetworkSpecific.add(tagLengthString);
   }
