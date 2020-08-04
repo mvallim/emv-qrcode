@@ -63,7 +63,7 @@
 		<dependency>
 			<groupId>com.github.mvallim</groupId>
 			<artifactId>java-fluent-validator</artifactId>
-			<version>1.8.0</version>
+			<version>1.8.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
