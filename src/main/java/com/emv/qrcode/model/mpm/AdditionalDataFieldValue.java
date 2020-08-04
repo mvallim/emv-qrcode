@@ -47,10 +47,10 @@ public class AdditionalDataFieldValue implements Serializable {
   private TagLengthString additionalConsumerDataRequest;
 
   // RFU for EMVCo
-  private List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
 
   // Payment System specific templates
-  private List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
+  private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
   
   public void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCo.add(tagLengthString);

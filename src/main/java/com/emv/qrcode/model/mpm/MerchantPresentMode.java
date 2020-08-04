@@ -32,7 +32,7 @@ public class MerchantPresentMode implements Serializable {
   private TagLengthString pointOfInitiationMethod;
 
   // Merchant Account Information
-  private Map<String, MerchantAccountInformation> merchantAccountInformation = new LinkedHashMap<>();
+  private final Map<String, MerchantAccountInformation> merchantAccountInformation = new LinkedHashMap<>();
 
   // Merchant Category Code
   private TagLengthString merchantCategoryCode;
@@ -74,10 +74,10 @@ public class MerchantPresentMode implements Serializable {
   private MerchantInformationLanguage merchantInformationLanguage;
 
   // RFU for EMVCo
-  private List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
 
   // Unreserved Templates
-  private Map<String, Unreserved> unreserveds = new LinkedHashMap<>();
+  private final Map<String, Unreserved> unreserveds = new LinkedHashMap<>();
 
   public void addUnreserved(final Unreserved unreserved) {
     this.unreserveds.put(unreserved.getTag(), unreserved);

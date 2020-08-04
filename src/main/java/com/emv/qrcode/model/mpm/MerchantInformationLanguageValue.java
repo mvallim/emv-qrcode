@@ -29,7 +29,7 @@ public class MerchantInformationLanguageValue implements Serializable {
   private TagLengthString merchantCity;
 
   // RFU for EMVCo
-  private List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
   
   public void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCo.add(tagLengthString);

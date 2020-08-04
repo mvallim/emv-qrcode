@@ -23,7 +23,7 @@ public class UnreservedValue implements Serializable {
   private TagLengthString globallyUniqueIdentifier;
 
   // Context Specific Data
-  private List<TagLengthString> contextSpecificData = new LinkedList<>();
+  private final List<TagLengthString> contextSpecificData = new LinkedList<>();
   
   public void addContextSpecificData(final TagLengthString tagLengthString) {
     contextSpecificData.add(tagLengthString);
