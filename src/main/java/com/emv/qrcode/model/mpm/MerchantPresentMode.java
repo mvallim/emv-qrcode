@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.CRC;
@@ -87,21 +86,8 @@ public class MerchantPresentMode implements Serializable {
     this.merchantAccountInformation.put(merchantAccountInformation.getTag(), merchantAccountInformation);
   }
 
-  public void addRFUforEMVCo(final TagLengthString tagLengthString) {
-    this.rFUforEMVCo.add(tagLengthString);
-  }
-
-  public String binaryData() {
-    return Hex.encodeHexString(toString().getBytes(), false);
-  }
-
-  public String rawData() {
-    return toString();
-  }
-
-  // TODO: Implements this after
-  public String jsonData() {
-    return null;
+  public void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
+    this.rFUforEMVCo.add(rFUforEMVCo);
   }
 
   @Override

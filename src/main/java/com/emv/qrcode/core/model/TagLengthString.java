@@ -20,7 +20,13 @@ public class TagLengthString implements SimpleTLV<String> {
   public TagLengthString() {
     super();
   }
-
+  
+  public TagLengthString(final String value) {
+    this.tag = value.substring(0, 2);
+    this.length = Integer.valueOf(value.substring(2, 4));
+    this.value = value.substring(4, 4 + length);
+  }
+  
   @Override
   public String toString() {
 
