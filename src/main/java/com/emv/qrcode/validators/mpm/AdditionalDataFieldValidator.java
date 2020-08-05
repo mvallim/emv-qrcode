@@ -1,15 +1,26 @@
 package com.emv.qrcode.validators.mpm;
 
+import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
+import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
+
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 
 import br.com.fluentvalidator.AbstractValidator;
 
-public class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField> {
+// @formatter:off
+class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField> {
 
   @Override
   public void rules() {
-    // TODO Auto-generated method stub
+
+    /**
+    *
+    */
+   ruleFor(AdditionalDataField::getValue)
+     .whenever(not(nullValue()))
+       .withValidator(new AdditionalDataFieldValueValidator());
 
   }
 
 }
+// @formatter:on

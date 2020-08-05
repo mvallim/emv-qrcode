@@ -1,5 +1,7 @@
 package com.emv.qrcode.validators.mpm;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
@@ -21,7 +23,14 @@ public class MerchantPresentModeValidatorTest {
 
   @Test
   public void testSuccessValidate() {
+    final MerchantPresentMode merchantPresentMode = getValidMerchantPresentMode();
 
+    final ValidationResult validationResult = validator.validate(merchantPresentMode);
+
+    assertTrue(validationResult.isValid());
+  }
+
+  private MerchantPresentMode getValidMerchantPresentMode() {
     final AdditionalDataField additionalDataField = getAddtionalDataField();
     final MerchantAccountInformation merchantAccountInformation = getMerchanAccountInformation();
     final MerchantInformationLanguage merchantInformationLanguage = getMerchantInformationLanguage();
@@ -33,11 +42,10 @@ public class MerchantPresentModeValidatorTest {
     final TagLengthString payloadFormatIndicator = new TagLengthString("000201");
     final TagLengthString pointOfInitiationMethod = new TagLengthString("010211");
     final TagLengthString postalCode = new TagLengthString("61071234567");
-    final TagLengthString tipOrConvenienceIndicator = new TagLengthString("550201");
+    final TagLengthString tipOrConvenienceIndicator = new TagLengthString("550202");
     final TagLengthString transactionAmount = new TagLengthString("540523.72");
     final TagLengthString transactionCurrency = new TagLengthString("5303156");
     final TagLengthString valueOfConvenienceFeeFixed = new TagLengthString("5603500");
-    final TagLengthString valueOfConvenienceFeePercentage = new TagLengthString("57015");
     final TagLengthString rFUforEMVCo = new TagLengthString("650200");
 
     final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
@@ -54,12 +62,10 @@ public class MerchantPresentModeValidatorTest {
     merchantPresentMode.setTransactionAmount(transactionAmount);
     merchantPresentMode.setTransactionCurrency(transactionCurrency);
     merchantPresentMode.setValueOfConvenienceFeeFixed(valueOfConvenienceFeeFixed);
-    merchantPresentMode.setValueOfConvenienceFeePercentage(valueOfConvenienceFeePercentage);
     merchantPresentMode.addMerchantAccountInformation(merchantAccountInformation);
     merchantPresentMode.addRFUforEMVCo(rFUforEMVCo);
     merchantPresentMode.addUnreserved(unreserved);
-
-    final ValidationResult validationResult = validator.validate(merchantPresentMode);
+    return merchantPresentMode;
   }
 
   private MerchantAccountInformation getMerchanAccountInformation() {
@@ -129,9 +135,10 @@ public class MerchantPresentModeValidatorTest {
   }
 
   private AdditionalDataField getAddtionalDataField() {
+
     final TagLengthString additionalConsumerDataRequest = new TagLengthString();
     additionalConsumerDataRequest.setTag("09");
-    additionalConsumerDataRequest.setValue("tuvxy");
+    additionalConsumerDataRequest.setValue("tuv");
 
     final TagLengthString billNumber = new TagLengthString();
     billNumber.setTag("01");
