@@ -1,6 +1,6 @@
 package com.emv.qrcode.model.mpm.constants;
 
-public class MerchantInformationFieldCodes {
+public class MerchantInformationLanguageFieldCodes {
 
   public static final String ID_LANGUAGE_PREFERENCE = "00"; // (M) Language Preference
   public static final String ID_MERCHANT_NAME = "01"; // (M) Merchant Name
@@ -11,7 +11,7 @@ public class MerchantInformationFieldCodes {
   // Reserved
   public static final String ID_RFU_FOR_EMVCO = ID_RFU_FOR_EMVCO_RANGE_START;
 
-  private MerchantInformationFieldCodes() {
+  private MerchantInformationLanguageFieldCodes() {
     super();
   }
 
