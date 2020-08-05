@@ -627,7 +627,12 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
         .withValidator(new MerchantInformationLanguageValidator());
 
     /**
+     * Tip or Convenience Indicator
      *
+     * If present, the Tip or Convenience Indicator shall contain a value of "01", "02" or "03".
+     *   - A value of "01" shall be used if the mobile application should prompt the consumer to enter a tip to be paid to the merchant.
+     *   - A value of "02" shall be used to indicate inclusion of the data object Value of Convenience Fee Fixed (ID "56").
+     *   - A value of “03” shall be used to indicate inclusion of the data object Value of Convenience Fee Percentage (ID “57”).
      */
     ruleFor(merchantPresentMode -> merchantPresentMode)
 
@@ -644,6 +649,16 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
       .must(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed)))
         .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
         .withMessage("When TipOrConvenienceIndicator is '03' ValueOfConvenienceFeeFixed must be null")
+        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+
+      .must(not(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed))))
+        .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "02"))
+        .withMessage("When TipOrConvenienceIndicator is '02' ValueOfConvenienceFeeFixed is mandatory")
+        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+
+      .must(not(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))))
+        .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
+        .withMessage("When TipOrConvenienceIndicator is '03' ValueOfConvenienceFeePercentage is mandatory")
         .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue));
 
     /**
