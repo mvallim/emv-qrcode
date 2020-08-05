@@ -9,12 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.SimpleTLV;
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class UnreservedValue implements Serializable {
 
   private static final long serialVersionUID = -3465559955367881407L;
@@ -24,6 +23,14 @@ public class UnreservedValue implements Serializable {
 
   // Context Specific Data
   private final List<TagLengthString> contextSpecificData = new LinkedList<>();
+
+  public void setGloballyUniqueIdentifier(final TagLengthString globallyUniqueIdentifier) {
+    this.globallyUniqueIdentifier = globallyUniqueIdentifier;
+  }
+
+  public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier) {
+    this.globallyUniqueIdentifier = new TagLengthString(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
+  }
 
   public void addContextSpecificData(final TagLengthString tagLengthString) {
     contextSpecificData.add(tagLengthString);

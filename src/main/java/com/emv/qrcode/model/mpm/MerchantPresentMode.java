@@ -19,10 +19,8 @@ import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentModeCodes;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class MerchantPresentMode implements Serializable {
 
   private static final long serialVersionUID = 485352878727448583L;
@@ -80,6 +78,118 @@ public class MerchantPresentMode implements Serializable {
 
   // Unreserved Templates
   private final Map<String, Unreserved> unreserveds = new LinkedHashMap<>();
+  
+  public void setPayloadFormatIndicator(final TagLengthString payloadFormatIndicator) {
+    this.payloadFormatIndicator = payloadFormatIndicator;
+  }
+
+  public void setPointOfInitiationMethod(final TagLengthString pointOfInitiationMethod) {
+    this.pointOfInitiationMethod = pointOfInitiationMethod;
+  }
+
+  public void setMerchantCategoryCode(final TagLengthString merchantCategoryCode) {
+    this.merchantCategoryCode = merchantCategoryCode;
+  }
+
+  public void setTransactionCurrency(final TagLengthString transactionCurrency) {
+    this.transactionCurrency = transactionCurrency;
+  }
+
+  public void setTransactionAmount(final TagLengthString transactionAmount) {
+    this.transactionAmount = transactionAmount;
+  }
+
+  public void setTipOrConvenienceIndicator(final TagLengthString tipOrConvenienceIndicator) {
+    this.tipOrConvenienceIndicator = tipOrConvenienceIndicator;
+  }
+
+  public void setValueOfConvenienceFeeFixed(final TagLengthString valueOfConvenienceFeeFixed) {
+    this.valueOfConvenienceFeeFixed = valueOfConvenienceFeeFixed;
+  }
+
+  public void setValueOfConvenienceFeePercentage(final TagLengthString valueOfConvenienceFeePercentage) {
+    this.valueOfConvenienceFeePercentage = valueOfConvenienceFeePercentage;
+  }
+
+  public void setCountryCode(final TagLengthString countryCode) {
+    this.countryCode = countryCode;
+  }
+
+  public void setMerchantName(final TagLengthString merchantName) {
+    this.merchantName = merchantName;
+  }
+
+  public void setMerchantCity(final TagLengthString merchantCity) {
+    this.merchantCity = merchantCity;
+  }
+
+  public void setPostalCode(final TagLengthString postalCode) {
+    this.postalCode = postalCode;
+  }
+
+  public void setAdditionalDataField(final AdditionalDataField additionalDataField) {
+    this.additionalDataField = additionalDataField;
+  }
+
+  public void setCRC(final TagLengthString cRC) {
+    this.cRC = cRC;
+  }
+
+  public void setMerchantInformationLanguage(final MerchantInformationLanguage merchantInformationLanguage) {
+    this.merchantInformationLanguage = merchantInformationLanguage;
+  }
+  
+  public final void setPayloadFormatIndicator(final String payloadFormatIndicator) {
+    this.payloadFormatIndicator = new TagLengthString(MerchantPresentModeCodes.ID_PAYLOAD_FORMAT_INDICATOR, payloadFormatIndicator);
+  }
+
+  public final void setPointOfInitiationMethod(final String pointOfInitiationMethod) {
+    this.pointOfInitiationMethod = new TagLengthString(MerchantPresentModeCodes.ID_POINT_OF_INITIATION_METHOD, pointOfInitiationMethod);
+  }
+
+  public final void setMerchantCategoryCode(final String merchantCategoryCode) {
+    this.merchantCategoryCode = new TagLengthString(MerchantPresentModeCodes.ID_MERCHANT_CATEGORY_CODE, merchantCategoryCode);
+  }
+
+  public final void setTransactionCurrency(final String transactionCurrency) {
+    this.transactionCurrency = new TagLengthString(MerchantPresentModeCodes.ID_TRANSACTION_CURRENCY, transactionCurrency);
+  }
+
+  public final void setTransactionAmount(final String transactionAmount) {
+    this.transactionAmount = new TagLengthString(MerchantPresentModeCodes.ID_TRANSACTION_AMOUNT, transactionAmount);
+  }
+
+  public final void setTipOrConvenienceIndicator(final String tipOrConvenienceIndicator) {
+    this.tipOrConvenienceIndicator = new TagLengthString(MerchantPresentModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, tipOrConvenienceIndicator);
+  }
+
+  public final void setValueOfConvenienceFeeFixed(final String valueOfConvenienceFeeFixed) {
+    this.valueOfConvenienceFeeFixed = new TagLengthString(MerchantPresentModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, valueOfConvenienceFeeFixed);
+  }
+
+  public final void setValueOfConvenienceFeePercentage(final String valueOfConvenienceFeePercentage) {
+    this.valueOfConvenienceFeePercentage = new TagLengthString(MerchantPresentModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, valueOfConvenienceFeePercentage);
+  }
+
+  public final void setCountryCode(final String countryCode) {
+    this.countryCode = new TagLengthString(MerchantPresentModeCodes.ID_COUNTRY_CODE, countryCode);
+  }
+
+  public final void setMerchantName(final String merchantName) {
+    this.merchantName = new TagLengthString(MerchantPresentModeCodes.ID_MERCHANT_NAME, merchantName);
+  }
+
+  public final void setMerchantCity(final String merchantCity) {
+    this.merchantCity = new TagLengthString(MerchantPresentModeCodes.ID_MERCHANT_CITY, merchantCity);
+  }
+
+  public final void setPostalCode(final String postalCode) {
+    this.postalCode = new TagLengthString(MerchantPresentModeCodes.ID_POSTAL_CODE, postalCode);
+  }
+  
+  public final void setCRC(final String cRC) {
+    this.cRC = new TagLengthString(MerchantPresentModeCodes.ID_CRC, cRC);;
+  }
 
   public void addUnreserved(final Unreserved unreserved) {
     this.unreserveds.put(unreserved.getTag(), unreserved);

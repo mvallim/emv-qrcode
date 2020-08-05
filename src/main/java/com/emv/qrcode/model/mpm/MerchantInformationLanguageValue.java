@@ -9,12 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.SimpleTLV;
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class MerchantInformationLanguageValue implements Serializable {
 
   private static final long serialVersionUID = 6163271793010568887L;
@@ -30,6 +29,30 @@ public class MerchantInformationLanguageValue implements Serializable {
 
   // RFU for EMVCo
   private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+
+  public final void setLanguagePreference(final String languagePreference) {
+    this.languagePreference = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_LANGUAGE_PREFERENCE, languagePreference);
+  }
+
+  public final void setMerchantName(final String merchantName) {
+    this.merchantName = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_MERCHANT_NAME, merchantName);
+  }
+
+  public final void setMerchantCity(final String merchantCity) {
+    this.merchantCity = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_MERCHANT_CITY, merchantCity);
+  }
+
+  public void setLanguagePreference(final TagLengthString languagePreference) {
+    this.languagePreference = languagePreference;
+  }
+
+  public void setMerchantName(final TagLengthString merchantName) {
+    this.merchantName = merchantName;
+  }
+
+  public void setMerchantCity(final TagLengthString merchantCity) {
+    this.merchantCity = merchantCity;
+  }
 
   public void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCo.add(tagLengthString);

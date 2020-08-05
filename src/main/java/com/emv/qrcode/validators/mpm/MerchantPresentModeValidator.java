@@ -15,7 +15,10 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessTha
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 import com.emv.qrcode.core.model.TagLengthString;
@@ -35,7 +38,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getPayloadFormatIndicator)
+    ruleFor("PayloadFormatIndicator", MerchantPresentMode::getPayloadFormatIndicator)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("PayloadFormatIndicator tag is mandatory")
@@ -80,7 +83,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getPointOfInitiationMethod)
+    ruleFor("PointOfInitiationMethod", MerchantPresentMode::getPointOfInitiationMethod)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
@@ -127,7 +130,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getMerchantCategoryCode)
+    ruleFor("MerchantCategoryCode", MerchantPresentMode::getMerchantCategoryCode)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("MerchantCategoryCode tag is mandatory")
@@ -167,7 +170,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getTransactionCurrency)
+    ruleFor("TransactionCurrency", MerchantPresentMode::getTransactionCurrency)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("TransactionCurrency tag is mandatory")
@@ -207,7 +210,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getTransactionAmount)
+    ruleFor("TransactionAmount", MerchantPresentMode::getTransactionAmount)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
@@ -260,7 +263,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getTipOrConvenienceIndicator)
+    ruleFor("TipOrConvenienceIndicator", MerchantPresentMode::getTipOrConvenienceIndicator)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
@@ -313,7 +316,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getValueOfConvenienceFeeFixed)
+    ruleFor("ValueOfConvenienceFeeFixed", MerchantPresentMode::getValueOfConvenienceFeeFixed)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
@@ -360,7 +363,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getValueOfConvenienceFeePercentage)
+    ruleFor("ValueOfConvenienceFeePercentage", MerchantPresentMode::getValueOfConvenienceFeePercentage)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
@@ -413,7 +416,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getCountryCode)
+    ruleFor("CountryCode", MerchantPresentMode::getCountryCode)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("CountryCode tag is mandatory")
@@ -448,7 +451,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getMerchantName)
+    ruleFor("MerchantName", MerchantPresentMode::getMerchantName)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("MerchantName tag is mandatory")
@@ -483,7 +486,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getMerchantCity)
+    ruleFor("MerchantCity", MerchantPresentMode::getMerchantCity)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("MerchantCity tag is mandatory")
@@ -518,7 +521,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getPostalCode)
+    ruleFor("PostalCode", MerchantPresentMode::getPostalCode)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
@@ -559,7 +562,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getAdditionalDataField)
+    ruleFor("AdditionalDataField", MerchantPresentMode::getAdditionalDataField)
 
       .must(not(stringEmptyOrNull(AdditionalDataField::getTag)))
         .when(not(nullValue()))
@@ -597,7 +600,7 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getMerchantInformationLanguage)
+    ruleFor("MerchantInformationLanguage", MerchantPresentMode::getMerchantInformationLanguage)
 
       .must(not(stringEmptyOrNull(MerchantInformationLanguage::getTag)))
         .when(not(nullValue()))
@@ -639,46 +642,61 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
       .must(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed)).and(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))))
         .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "01"))
         .withMessage("When TipOrConvenienceIndicator is '01' ValueOfConvenienceFeeFixed and ValueOfConvenienceFeePercentage must be null")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(merchantPresentMode -> {
+          final List<String> attemptedValue = new LinkedList<>();
+          Optional.ofNullable(merchantPresentMode.getValueOfConvenienceFeeFixed()).ifPresent(obj -> attemptedValue.add(obj.toString()));
+          Optional.ofNullable(merchantPresentMode.getValueOfConvenienceFeePercentage()).ifPresent(obj -> attemptedValue.add(obj.toString()));
+          return attemptedValue;
+        })
+        .withFieldName(merchantPresentMode -> {
+          final List<String> fieldNames = new LinkedList<>();
+          Optional.ofNullable(merchantPresentMode.getValueOfConvenienceFeeFixed()).ifPresent(obj -> fieldNames.add("ValueOfConvenienceFeeFixed"));
+          Optional.ofNullable(merchantPresentMode.getValueOfConvenienceFeePercentage()).ifPresent(obj -> fieldNames.add("ValueOfConvenienceFeePercentage"));
+          return String.join(",", fieldNames);
+        })
 
       .must(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage)))
         .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "02"))
         .withMessage("When TipOrConvenienceIndicator is '02' ValueOfConvenienceFeePercentage must be null")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))
+        .withFieldName("ValueOfConvenienceFeePercentage")
 
       .must(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed)))
         .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
         .withMessage("When TipOrConvenienceIndicator is '03' ValueOfConvenienceFeeFixed must be null")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed))
+        .withFieldName("ValueOfConvenienceFeeFixed")
 
       .must(not(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed))))
         .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "02"))
         .withMessage("When TipOrConvenienceIndicator is '02' ValueOfConvenienceFeeFixed is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed))
+        .withFieldName("ValueOfConvenienceFeeFixed")
 
       .must(not(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))))
         .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
         .withMessage("When TipOrConvenienceIndicator is '03' ValueOfConvenienceFeePercentage is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue));
+        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))
+        .withFieldName("ValueOfConvenienceFeePercentage");
 
     /**
      *
      */
-    ruleFor(MerchantPresentMode::getMerchantAccountInformation)
+    ruleFor("MerchantAccountInformation", MerchantPresentMode::getMerchantAccountInformation)
       .must(greaterThan(Map::size, 0))
         .withMessage("MerchantAccountInformation size must have at least one")
         .critical();
 
-    ruleFor(MerchantPresentMode::getRFUforEMVCo)
+    ruleFor("RFUforEMVCo", MerchantPresentMode::getRFUforEMVCo)
       .must(betweenInclusive(Collection::size, 1, 17))
         .when(greaterThan(Collection::size, 0))
         .withMessage("RFUforEMVCo list size must be between one and seventeen")
         .critical();
 
-    ruleFor(MerchantPresentMode::getUnreserveds)
+    ruleFor("Unreserveds", MerchantPresentMode::getUnreserveds)
       .must(betweenInclusive(Map::size, 1, 17))
         .when(greaterThan(Map::size, 0))
-        .withMessage("RFUforEMVCo list size must be between one and seventeen");
+        .withMessage("Unreserveds list size must be between one and seventeen");
 
   }
 

@@ -9,12 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.SimpleTLV;
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class MerchantAccountInformationValue implements Serializable {
 
   private static final long serialVersionUID = 3394308551644415429L;
@@ -24,6 +23,14 @@ public class MerchantAccountInformationValue implements Serializable {
 
   // Payment network specific
   private final List<TagLengthString> paymentNetworkSpecific = new LinkedList<>();
+
+  public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier) {
+    this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
+  }
+
+  public void setGloballyUniqueIdentifier(final TagLengthString globallyUniqueIdentifier) {
+    this.globallyUniqueIdentifier = globallyUniqueIdentifier;
+  }
 
   public void addPaymentNetworkSpecific(final TagLengthString tagLengthString) {
     paymentNetworkSpecific.add(tagLengthString);

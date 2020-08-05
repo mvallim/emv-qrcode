@@ -21,6 +21,21 @@ public class TagLengthString implements SimpleTLV<String> {
     super();
   }
   
+  /**
+   * 
+   * @param tag Tag of TLV
+   * @param value Value without tag and length
+   */
+  public TagLengthString(final String tag, final String value) {
+    this.tag = tag;
+    this.length = value.length();
+    this.value = value;
+  }
+  
+  /**
+   * 
+   * @param value Value with tag, length and value (positional)
+   */
   public TagLengthString(final String value) {
     this.tag = value.substring(0, 2);
     this.length = Integer.valueOf(value.substring(2, 4));
