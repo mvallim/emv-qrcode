@@ -33,7 +33,7 @@ class UnreservedTemplateValidator extends AbstractValidator<UnreservedTemplate> 
     ruleFor("UnreservedTemplate", of(UnreservedTemplate::getValue).andThen(Unreserved::toString))
       .must(stringSizeBetween(1, maxSizeValue));
 
-    ruleFor("UnreservedTemplate", UnreservedTemplate::getValue)
+    ruleFor(UnreservedTemplate::getValue)
       .whenever(not(nullValue()))
         .withValidator(new UnreservedValidator());
 

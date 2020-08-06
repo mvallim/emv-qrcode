@@ -35,7 +35,7 @@ class MerchantAccountInformationTemplateValidator extends AbstractValidator<Merc
      .must(stringSizeBetween(1, maxSizeValue))
        .critical();
 
-    ruleFor("MerchantAccountInformationTemplate", MerchantAccountInformationTemplate::getValue)
+    ruleFor(MerchantAccountInformationTemplate::getValue)
       .whenever(not(nullValue()))
         .withValidator(new MerchantAccountInformationValidator());
 

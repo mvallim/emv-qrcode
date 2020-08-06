@@ -5,27 +5,26 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
-import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
-import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;
-import com.emv.qrcode.model.mpm.UnreservedTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
+import com.emv.qrcode.model.mpm.UnreservedTemplate;
+import com.emv.qrcode.validators.MerchantPresentedModeValidate;
 
 import br.com.fluentvalidator.context.ValidationResult;
 
 public class MerchantPresentedModeValidatorTest {
 
-  private final MerchantPresentedModeValidator validator = new MerchantPresentedModeValidator();
-
   @Test
   public void testSuccessValidate() {
     final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
 
-    final ValidationResult validationResult = validator.validate(merchantPresentMode);
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
 
     assertTrue(validationResult.isValid());
   }

@@ -687,7 +687,7 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .withMessage("MerchantAccountInformation size must have at least one")
         .critical();
 
-    ruleForEach("MerchantAccountInformation", of(MerchantPresentedMode::getMerchantAccountInformation).andThen(Map::values))
+    ruleForEach(of(MerchantPresentedMode::getMerchantAccountInformation).andThen(Map::values))
       .whenever(greaterThan(Collection::size, 0))
         .withValidator(new MerchantAccountInformationTemplateValidator("02", "51", 99));
 
@@ -712,7 +712,7 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .when(greaterThan(Map::size, 0))
         .withMessage("Unreserveds list size must be between one and seventeen");
 
-    ruleForEach("Unreserveds", of(MerchantPresentedMode::getUnreserveds).andThen(Map::values))
+    ruleForEach(of(MerchantPresentedMode::getUnreserveds).andThen(Map::values))
       .whenever(greaterThan(Collection::size, 0))
         .withValidator(new UnreservedTemplateValidator("80", "99", 99));
 
