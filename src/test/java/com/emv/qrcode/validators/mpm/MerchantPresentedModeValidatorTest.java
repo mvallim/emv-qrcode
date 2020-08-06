@@ -5,36 +5,36 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
-import com.emv.qrcode.model.mpm.AdditionalDataFieldValue;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
-import com.emv.qrcode.model.mpm.MerchantAccountInformationValue;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
-import com.emv.qrcode.model.mpm.MerchantInformationLanguageValue;
-import com.emv.qrcode.model.mpm.MerchantPresentMode;
+import com.emv.qrcode.model.mpm.MerchantPresentedMode;
+import com.emv.qrcode.model.mpm.UnreservedTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
-import com.emv.qrcode.model.mpm.UnreservedValue;
 
 import br.com.fluentvalidator.context.ValidationResult;
 
-public class MerchantPresentModeValidatorTest {
+public class MerchantPresentedModeValidatorTest {
 
-  private final MerchantPresentModeValidator validator = new MerchantPresentModeValidator();
+  private final MerchantPresentedModeValidator validator = new MerchantPresentedModeValidator();
 
   @Test
   public void testSuccessValidate() {
-    final MerchantPresentMode merchantPresentMode = getValidMerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
 
     final ValidationResult validationResult = validator.validate(merchantPresentMode);
 
     assertTrue(validationResult.isValid());
   }
 
-  private MerchantPresentMode getValidMerchantPresentMode() {
-    final AdditionalDataField additionalDataField = getAddtionalDataField();
-    final MerchantAccountInformation merchantAccountInformation = getMerchanAccountInformation();
-    final MerchantInformationLanguage merchantInformationLanguage = getMerchantInformationLanguage();
-    final Unreserved unreserved = getUnreserved();
+  private MerchantPresentedMode getValidMerchantPresentMode() {
+    final AdditionalDataFieldTemplate additionalDataField = getAddtionalDataField();
+    final MerchantAccountInformationTemplate merchantAccountInformation = getMerchanAccountInformation();
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = getMerchantInformationLanguage();
+    final UnreservedTemplate unreserved = getUnreserved();
     final TagLengthString countryCode = new TagLengthString("5802CN");
     final TagLengthString merchantCategoryCode = new TagLengthString("52044111");
     final TagLengthString merchantCity = new TagLengthString("6007BEIJING");
@@ -48,7 +48,7 @@ public class MerchantPresentModeValidatorTest {
     final TagLengthString valueOfConvenienceFeeFixed = new TagLengthString("5603500");
     final TagLengthString rFUforEMVCo = new TagLengthString("650200");
 
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
     merchantPresentMode.setAdditionalDataField(additionalDataField);
     merchantPresentMode.setCountryCode(countryCode);
     merchantPresentMode.setMerchantCategoryCode(merchantCategoryCode);
@@ -68,7 +68,7 @@ public class MerchantPresentModeValidatorTest {
     return merchantPresentMode;
   }
 
-  private MerchantAccountInformation getMerchanAccountInformation() {
+  private MerchantAccountInformationTemplate getMerchanAccountInformation() {
     final TagLengthString globallyUniqueIdentifier = new TagLengthString();
     globallyUniqueIdentifier.setTag("00");
     globallyUniqueIdentifier.setValue("hoge");
@@ -77,17 +77,17 @@ public class MerchantPresentModeValidatorTest {
     paymentNetworkSpecific.setTag("01");
     paymentNetworkSpecific.setValue("abcd");
 
-    final MerchantAccountInformationValue merchantAccountInformationValue = new MerchantAccountInformationValue();
+    final MerchantAccountInformation merchantAccountInformationValue = new MerchantAccountInformation();
     merchantAccountInformationValue.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     merchantAccountInformationValue.addPaymentNetworkSpecific(paymentNetworkSpecific);
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setValue(merchantAccountInformationValue);
     merchantAccountInformation.setTag("02");
     return merchantAccountInformation;
   }
 
-  private Unreserved getUnreserved() {
+  private UnreservedTemplate getUnreserved() {
     final TagLengthString globallyUniqueIdentifier = new TagLengthString();
     globallyUniqueIdentifier.setTag("00");
     globallyUniqueIdentifier.setValue("A011223344998877");
@@ -96,17 +96,17 @@ public class MerchantPresentModeValidatorTest {
     contextSpecificData.setTag("07");
     contextSpecificData.setValue("12345678");
 
-    final UnreservedValue value = new UnreservedValue();
+    final Unreserved value = new Unreserved();
     value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     value.addContextSpecificData(contextSpecificData);
 
-    final Unreserved unreserved = new Unreserved();
+    final UnreservedTemplate unreserved = new UnreservedTemplate();
     unreserved.setValue(value);
     unreserved.setTag("80");
     return unreserved;
   }
 
-  private MerchantInformationLanguage getMerchantInformationLanguage() {
+  private MerchantInformationLanguageTemplate getMerchantInformationLanguage() {
     final TagLengthString languagePreference = new TagLengthString();
     languagePreference.setTag("00");
     languagePreference.setValue("ZH");
@@ -123,18 +123,18 @@ public class MerchantPresentModeValidatorTest {
     rFUforEMVCo.setTag("03");
     rFUforEMVCo.setValue("abcd");
 
-    final MerchantInformationLanguageValue merchantInformationLanguageValue = new MerchantInformationLanguageValue();
+    final MerchantInformationLanguage merchantInformationLanguageValue = new MerchantInformationLanguage();
     merchantInformationLanguageValue.setLanguagePreference(languagePreference);
     merchantInformationLanguageValue.setMerchantName(merchantName);
     merchantInformationLanguageValue.setMerchantCity(merchantCity);
     merchantInformationLanguageValue.addRFUforEMVCo(rFUforEMVCo);
 
-    final MerchantInformationLanguage merchantInformationLanguage = new MerchantInformationLanguage();
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = new MerchantInformationLanguageTemplate();
     merchantInformationLanguage.setValue(merchantInformationLanguageValue);
     return merchantInformationLanguage;
   }
 
-  private AdditionalDataField getAddtionalDataField() {
+  private AdditionalDataFieldTemplate getAddtionalDataField() {
 
     final TagLengthString additionalConsumerDataRequest = new TagLengthString();
     additionalConsumerDataRequest.setTag("09");
@@ -180,7 +180,7 @@ public class MerchantPresentModeValidatorTest {
     rFUforEMVCo.setTag("10");
     rFUforEMVCo.setValue("abcd");
 
-    final AdditionalDataFieldValue additionalDataFieldValue = new AdditionalDataFieldValue();
+    final AdditionalDataField additionalDataFieldValue = new AdditionalDataField();
     additionalDataFieldValue.setAdditionalConsumerDataRequest(additionalConsumerDataRequest);
     additionalDataFieldValue.setBillNumber(billNumber);
     additionalDataFieldValue.setCustomerLabel(customerLabel);
@@ -193,7 +193,7 @@ public class MerchantPresentModeValidatorTest {
     additionalDataFieldValue.addPaymentSystemSpecific(paymentSystemSpecific);
     additionalDataFieldValue.addRFUforEMVCo(rFUforEMVCo);
 
-    final AdditionalDataField additionalDataField = new AdditionalDataField();
+    final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(additionalDataFieldValue);
     return additionalDataField;
   }

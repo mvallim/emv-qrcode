@@ -22,15 +22,15 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.model.mpm.AdditionalDataField;
-import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
-import com.emv.qrcode.model.mpm.MerchantPresentMode;
-import com.emv.qrcode.model.mpm.constants.MerchantPresentModeCodes;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
+import com.emv.qrcode.model.mpm.MerchantPresentedMode;
+import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
 // @formatter:off
-public class MerchantPresentModeValidator extends AbstractValidator<MerchantPresentMode> {
+public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPresentedMode> {
 
   @Override
   public void rules() {
@@ -38,592 +38,592 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
     /**
      *
      */
-    ruleFor("PayloadFormatIndicator", MerchantPresentMode::getPayloadFormatIndicator)
+    ruleFor("PayloadFormatIndicator", MerchantPresentedMode::getPayloadFormatIndicator)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("PayloadFormatIndicator tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .withMessage("PayloadFormatIndicator tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .withMessage("PayloadFormatIndicator tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_PAYLOAD_FORMAT_INDICATOR))
-        .withMessage(String.format("PayloadFormatIndicator tag must be '%s'", MerchantPresentModeCodes.ID_PAYLOAD_FORMAT_INDICATOR))
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_PAYLOAD_FORMAT_INDICATOR))
+        .withMessage(String.format("PayloadFormatIndicator tag must be '%s'", MerchantPresentedModeCodes.ID_PAYLOAD_FORMAT_INDICATOR))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .withMessage("PayloadFormatIndicator value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
         .critical()
 
       .must(isNumeric(TagLengthString::getValue))
         .withMessage("PayloadFormatIndicator value must be number")
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSize(TagLengthString::getValue, 2))
         .withMessage("PayloadFormatIndicator value must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
         .critical()
 
       .must(equalTo(TagLengthString::getValue, "01"))
         .withMessage("PayloadFormatIndicator value must be '01'")
-        .withAttempedValue(of(MerchantPresentMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPayloadFormatIndicator).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("PointOfInitiationMethod", MerchantPresentMode::getPointOfInitiationMethod)
+    ruleFor("PointOfInitiationMethod", MerchantPresentedMode::getPointOfInitiationMethod)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
         .withMessage("PointOfInitiationMethod tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .when(not(nullValue()))
         .withMessage("PointOfInitiationMethod tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .when(not(nullValue()))
         .withMessage("PointOfInitiationMethod tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_POINT_OF_INITIATION_METHOD))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_POINT_OF_INITIATION_METHOD))
         .when(not(nullValue()))
-        .withMessage(String.format("PointOfInitiationMethod tag must be '%s'", MerchantPresentModeCodes.ID_POINT_OF_INITIATION_METHOD))
-        .withAttempedValue(of(MerchantPresentMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
+        .withMessage(String.format("PointOfInitiationMethod tag must be '%s'", MerchantPresentedModeCodes.ID_POINT_OF_INITIATION_METHOD))
+        .withAttempedValue(of(MerchantPresentedMode::getPointOfInitiationMethod).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getValue))
         .when(not(nullValue()))
         .withMessage("PointOfInitiationMethod value should be numeric")
-        .withAttempedValue(of(MerchantPresentMode::getPointOfInitiationMethod).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPointOfInitiationMethod).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSize(TagLengthString::getValue, 2))
         .when(not(nullValue()))
         .withMessage("PointOfInitiationMethod value must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getPointOfInitiationMethod).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPointOfInitiationMethod).andThen(TagLengthString::getValue))
         .critical()
 
       .must(equalTo(TagLengthString::getValue, "11").or(equalTo(TagLengthString::getValue, "12")))
         .when(not(nullValue()))
         .withMessage("PointOfInitiationMethod value should be '11' or '12'")
-        .withAttempedValue(of(MerchantPresentMode::getPointOfInitiationMethod).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPointOfInitiationMethod).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("MerchantCategoryCode", MerchantPresentMode::getMerchantCategoryCode)
+    ruleFor("MerchantCategoryCode", MerchantPresentedMode::getMerchantCategoryCode)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("MerchantCategoryCode tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .withMessage("MerchantCategoryCode tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .withMessage("MerchantCategoryCode tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_MERCHANT_CATEGORY_CODE))
-        .withMessage(String.format("MerchantCategoryCode tag must be '%s'", MerchantPresentModeCodes.ID_MERCHANT_CATEGORY_CODE))
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_MERCHANT_CATEGORY_CODE))
+        .withMessage(String.format("MerchantCategoryCode tag must be '%s'", MerchantPresentedModeCodes.ID_MERCHANT_CATEGORY_CODE))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCategoryCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .withMessage("MerchantCategoryCode value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCategoryCode).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCategoryCode).andThen(TagLengthString::getValue))
         .critical()
 
       .must(isNumeric(TagLengthString::getValue))
         .withMessage("MerchantCategoryCode value must be number")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCategoryCode).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCategoryCode).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSize(TagLengthString::getValue, 4))
         .withMessage("MerchantCategoryCode value must be size equal four")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCategoryCode).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCategoryCode).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("TransactionCurrency", MerchantPresentMode::getTransactionCurrency)
+    ruleFor("TransactionCurrency", MerchantPresentedMode::getTransactionCurrency)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("TransactionCurrency tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionCurrency).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionCurrency).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .withMessage("TransactionCurrency tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionCurrency).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionCurrency).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .withMessage("TransactionCurrency tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionCurrency).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionCurrency).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_TRANSACTION_CURRENCY))
-        .withMessage(String.format("TransactionCurrency tag must be '%s'", MerchantPresentModeCodes.ID_TRANSACTION_CURRENCY))
-        .withAttempedValue(of(MerchantPresentMode::getTransactionCurrency).andThen(TagLengthString::getTag))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_TRANSACTION_CURRENCY))
+        .withMessage(String.format("TransactionCurrency tag must be '%s'", MerchantPresentedModeCodes.ID_TRANSACTION_CURRENCY))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionCurrency).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .withMessage("TransactionCurrency value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionCurrency).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionCurrency).andThen(TagLengthString::getValue))
         .critical()
 
       .must(isNumeric(TagLengthString::getValue))
         .withMessage("TransactionCurrency value must be number")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionCurrency).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionCurrency).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSize(TagLengthString::getValue, 3))
         .withMessage("TransactionCurrency value must be size equal three")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionCurrency).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionCurrency).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("TransactionAmount", MerchantPresentMode::getTransactionAmount)
+    ruleFor("TransactionAmount", MerchantPresentedMode::getTransactionAmount)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
         .withMessage("TransactionAmount tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .when(not(nullValue()))
         .withMessage("TransactionAmount tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .when(not(nullValue()))
         .withMessage("TransactionAmount tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_TRANSACTION_AMOUNT))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_TRANSACTION_AMOUNT))
         .when(not(nullValue()))
-        .withMessage(String.format("TransactionAmount tag must be '%s'", MerchantPresentModeCodes.ID_TRANSACTION_AMOUNT))
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getTag))
+        .withMessage(String.format("TransactionAmount tag must be '%s'", MerchantPresentedModeCodes.ID_TRANSACTION_AMOUNT))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .when(not(nullValue()))
         .withMessage("TransactionAmount value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 13))
         .when(not(nullValue()))
         .withMessage("TransactionAmount value must be less then or equal size thirteen")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
         .critical()
 
       .must(greaterThan(convertToBigDecimal(TagLengthString::getValue), BigDecimal.ZERO))
         .when(not(nullValue()))
         .withMessage("TransactionAmount value must be number")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
         .critical()
 
       .must(isNumber(TagLengthString::getValue))
         .when(not(nullValue()))
         .withMessage("TransactionAmount value must be number")
-        .withAttempedValue(of(MerchantPresentMode::getTransactionAmount).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("TipOrConvenienceIndicator", MerchantPresentMode::getTipOrConvenienceIndicator)
+    ruleFor("TipOrConvenienceIndicator", MerchantPresentedMode::getTipOrConvenienceIndicator)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
         .withMessage("TipOrConvenienceIndicator tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .when(not(nullValue()))
         .withMessage("TipOrConvenienceIndicator tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .when(not(nullValue()))
         .withMessage("TipOrConvenienceIndicator tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR))
         .when(not(nullValue()))
-        .withMessage(String.format("TipOrConvenienceIndicator tag must be '%s'", MerchantPresentModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR))
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
+        .withMessage(String.format("TipOrConvenienceIndicator tag must be '%s'", MerchantPresentedModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .when(not(nullValue()))
         .withMessage("TipOrConvenienceIndicator value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
         .critical()
 
       .must(isNumeric(TagLengthString::getValue))
         .when(not(nullValue()))
         .withMessage("TipOrConvenienceIndicator value must be number")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSize(TagLengthString::getValue, 2))
         .when(not(nullValue()))
         .withMessage("TipOrConvenienceIndicator value must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringEquals(TagLengthString::getValue, "01").or(stringEquals(TagLengthString::getValue, "02").or(stringEquals(TagLengthString::getValue, "03"))))
         .when(not(nullValue()))
         .withMessage("TipOrConvenienceIndicator value shall contain a value of '01', '02' or '03'")
-        .withAttempedValue(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("ValueOfConvenienceFeeFixed", MerchantPresentMode::getValueOfConvenienceFeeFixed)
+    ruleFor("ValueOfConvenienceFeeFixed", MerchantPresentedMode::getValueOfConvenienceFeeFixed)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED))
         .when(not(nullValue()))
-        .withMessage(String.format("ValueOfConvenienceFeeFixed tag must be '%s'", MerchantPresentModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED))
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
+        .withMessage(String.format("ValueOfConvenienceFeeFixed tag must be '%s'", MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 13))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed value must be less then or equal size thirteen")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
         .critical()
 
       .must(isNumber(TagLengthString::getValue))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed value must be a valid number")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("ValueOfConvenienceFeePercentage", MerchantPresentMode::getValueOfConvenienceFeePercentage)
+    ruleFor("ValueOfConvenienceFeePercentage", MerchantPresentedMode::getValueOfConvenienceFeePercentage)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeePercentage tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeePercentage tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeePercentage tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE))
         .when(not(nullValue()))
-        .withMessage(String.format("ValueOfConvenienceFeePercentage tag must be '%s'", MerchantPresentModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE))
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
+        .withMessage(String.format("ValueOfConvenienceFeePercentage tag must be '%s'", MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeePercentage value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 5))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeePercentage value must be less then or equal size five")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
         .critical()
 
       .must(isNumber(TagLengthString::getValue))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeePercentage value must be a valid number")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
         .critical()
 
       .must(betweenInclusive(convertToBigDecimal(TagLengthString::getValue), new BigDecimal("00.01"), new BigDecimal("99.99")))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeePercentage value must be between '00.01' and '99.99'")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("CountryCode", MerchantPresentMode::getCountryCode)
+    ruleFor("CountryCode", MerchantPresentedMode::getCountryCode)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("CountryCode tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getCountryCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getCountryCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .withMessage("CountryCode tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getCountryCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getCountryCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .withMessage("CountryCode tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getCountryCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getCountryCode).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_COUNTRY_CODE))
-        .withMessage(String.format("CountryCode tag must be '%s'", MerchantPresentModeCodes.ID_COUNTRY_CODE))
-        .withAttempedValue(of(MerchantPresentMode::getCountryCode).andThen(TagLengthString::getTag))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_COUNTRY_CODE))
+        .withMessage(String.format("CountryCode tag must be '%s'", MerchantPresentedModeCodes.ID_COUNTRY_CODE))
+        .withAttempedValue(of(MerchantPresentedMode::getCountryCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .withMessage("CountryCode value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getCountryCode).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getCountryCode).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSize(TagLengthString::getValue, 2))
         .withMessage("CountryCode value must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getCountryCode).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getCountryCode).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("MerchantName", MerchantPresentMode::getMerchantName)
+    ruleFor("MerchantName", MerchantPresentedMode::getMerchantName)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("MerchantName tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantName).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantName).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .withMessage("MerchantName tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantName).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantName).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .withMessage("MerchantName tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantName).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantName).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_MERCHANT_NAME))
-        .withMessage(String.format("MerchantName tag must be '%s'", MerchantPresentModeCodes.ID_MERCHANT_NAME))
-        .withAttempedValue(of(MerchantPresentMode::getMerchantName).andThen(TagLengthString::getTag))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_MERCHANT_NAME))
+        .withMessage(String.format("MerchantName tag must be '%s'", MerchantPresentedModeCodes.ID_MERCHANT_NAME))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantName).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .withMessage("MerchantName value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantName).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantName).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 25))
         .withMessage("MerchantName value must less than or equal size equal twenty-five")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantName).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantName).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("MerchantCity", MerchantPresentMode::getMerchantCity)
+    ruleFor("MerchantCity", MerchantPresentedMode::getMerchantCity)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .withMessage("MerchantCity tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCity).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCity).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .withMessage("MerchantCity tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCity).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCity).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .withMessage("MerchantCity tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCity).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCity).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_MERCHANT_CITY))
-        .withMessage(String.format("MerchantCity tag must be '%s'", MerchantPresentModeCodes.ID_MERCHANT_CITY))
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCity).andThen(TagLengthString::getTag))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_MERCHANT_CITY))
+        .withMessage(String.format("MerchantCity tag must be '%s'", MerchantPresentedModeCodes.ID_MERCHANT_CITY))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCity).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .withMessage("MerchantCity value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCity).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCity).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 15))
         .withMessage("MerchantCity value is must less than or equal size fifteen")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantCity).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantCity).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("PostalCode", MerchantPresentMode::getPostalCode)
+    ruleFor("PostalCode", MerchantPresentedMode::getPostalCode)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
         .when(not(nullValue()))
         .withMessage("PostalCode tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getPostalCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPostalCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(stringSize(TagLengthString::getTag, 2))
         .when(not(nullValue()))
         .withMessage("PostalCode tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getPostalCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPostalCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(isNumeric(TagLengthString::getTag))
         .when(not(nullValue()))
         .withMessage("PostalCode tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getPostalCode).andThen(TagLengthString::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getPostalCode).andThen(TagLengthString::getTag))
         .critical()
 
-      .must(stringEquals(TagLengthString::getTag, MerchantPresentModeCodes.ID_POSTAL_CODE))
+      .must(stringEquals(TagLengthString::getTag, MerchantPresentedModeCodes.ID_POSTAL_CODE))
         .when(not(nullValue()))
-        .withMessage(String.format("PostalCode tag must be '%s'", MerchantPresentModeCodes.ID_POSTAL_CODE))
-        .withAttempedValue(of(MerchantPresentMode::getPostalCode).andThen(TagLengthString::getTag))
+        .withMessage(String.format("PostalCode tag must be '%s'", MerchantPresentedModeCodes.ID_POSTAL_CODE))
+        .withAttempedValue(of(MerchantPresentedMode::getPostalCode).andThen(TagLengthString::getTag))
         .critical()
 
       .must(not(stringEmptyOrNull(TagLengthString::getValue)))
         .when(not(nullValue()))
         .withMessage("PostalCode value is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getPostalCode).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPostalCode).andThen(TagLengthString::getValue))
         .critical()
 
       .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 10))
         .when(not(nullValue()))
         .withMessage("PostalCode value must less then or equal size ten")
-        .withAttempedValue(of(MerchantPresentMode::getPostalCode).andThen(TagLengthString::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getPostalCode).andThen(TagLengthString::getValue))
         .critical();
 
     /**
      *
      */
-    ruleFor("AdditionalDataField", MerchantPresentMode::getAdditionalDataField)
+    ruleFor("AdditionalDataField", MerchantPresentedMode::getAdditionalDataField)
 
-      .must(not(stringEmptyOrNull(AdditionalDataField::getTag)))
+      .must(not(stringEmptyOrNull(AdditionalDataFieldTemplate::getTag)))
         .when(not(nullValue()))
         .withMessage("AdditionalDataField tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getAdditionalDataField).andThen(AdditionalDataField::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::getTag))
         .critical()
 
-      .must(stringSize(AdditionalDataField::getTag, 2))
+      .must(stringSize(AdditionalDataFieldTemplate::getTag, 2))
         .when(not(nullValue()))
         .withMessage("AdditionalDataField tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getAdditionalDataField).andThen(AdditionalDataField::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::getTag))
         .critical()
 
-      .must(isNumeric(AdditionalDataField::getTag))
+      .must(isNumeric(AdditionalDataFieldTemplate::getTag))
         .when(not(nullValue()))
         .withMessage("AdditionalDataField tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getAdditionalDataField).andThen(AdditionalDataField::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::getTag))
         .critical()
 
-      .must(stringEquals(AdditionalDataField::getTag, MerchantPresentModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE))
+      .must(stringEquals(AdditionalDataFieldTemplate::getTag, MerchantPresentedModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE))
         .when(not(nullValue()))
-        .withMessage(String.format("AdditionalDataField tag must be '%s'", MerchantPresentModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE))
-        .withAttempedValue(of(MerchantPresentMode::getAdditionalDataField).andThen(AdditionalDataField::getTag))
+        .withMessage(String.format("AdditionalDataField tag must be '%s'", MerchantPresentedModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE))
+        .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::getTag))
         .critical()
 
-      .must(not(nullValue(AdditionalDataField::getValue)))
+      .must(not(nullValue(AdditionalDataFieldTemplate::getValue)))
         .when(not(nullValue()))
         .withMessage("AdditionalDataField value must be not null")
-        .withAttempedValue(of(MerchantPresentMode::getAdditionalDataField).andThen(AdditionalDataField::getValue))
+        .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::getValue))
         .critical()
 
-      .whenever(not(nullValue(AdditionalDataField::getValue)))
+      .whenever(not(nullValue(AdditionalDataFieldTemplate::getValue)))
         .withValidator(new AdditionalDataFieldValidator());
 
     /**
      *
      */
-    ruleFor("MerchantInformationLanguage", MerchantPresentMode::getMerchantInformationLanguage)
+    ruleFor("MerchantInformationLanguage", MerchantPresentedMode::getMerchantInformationLanguage)
 
-      .must(not(stringEmptyOrNull(MerchantInformationLanguage::getTag)))
+      .must(not(stringEmptyOrNull(MerchantInformationLanguageTemplate::getTag)))
         .when(not(nullValue()))
         .withMessage("MerchantInformationLanguage tag is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguage::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguageTemplate::getTag))
         .critical()
 
-      .must(stringSize(MerchantInformationLanguage::getTag, 2))
+      .must(stringSize(MerchantInformationLanguageTemplate::getTag, 2))
         .when(not(nullValue()))
         .withMessage("MerchantInformationLanguage tag must be size equal two")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguage::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguageTemplate::getTag))
         .critical()
 
-      .must(isNumeric(MerchantInformationLanguage::getTag))
+      .must(isNumeric(MerchantInformationLanguageTemplate::getTag))
         .when(not(nullValue()))
         .withMessage("MerchantInformationLanguage tag must be number")
-        .withAttempedValue(of(MerchantPresentMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguage::getTag))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguageTemplate::getTag))
         .critical()
 
-      .must(stringEquals(MerchantInformationLanguage::getTag, MerchantPresentModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE))
+      .must(stringEquals(MerchantInformationLanguageTemplate::getTag, MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE))
         .when(not(nullValue()))
-        .withMessage(String.format("MerchantInformationLanguage tag must be '%s'", MerchantPresentModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE))
-        .withAttempedValue(of(MerchantPresentMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguage::getTag))
+        .withMessage(String.format("MerchantInformationLanguage tag must be '%s'", MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE))
+        .withAttempedValue(of(MerchantPresentedMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguageTemplate::getTag))
         .critical()
 
       .whenever(not(nullValue()))
@@ -639,8 +639,8 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
      */
     ruleFor(merchantPresentMode -> merchantPresentMode)
 
-      .must(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed)).and(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))))
-        .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "01"))
+      .must(nullValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed)).and(nullValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage))))
+        .when(stringEquals(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "01"))
         .withMessage("When TipOrConvenienceIndicator is '01' ValueOfConvenienceFeeFixed and ValueOfConvenienceFeePercentage must be null")
         .withAttempedValue(merchantPresentMode -> {
           final List<String> attemptedValue = new LinkedList<>();
@@ -655,45 +655,45 @@ public class MerchantPresentModeValidator extends AbstractValidator<MerchantPres
           return String.join(",", fieldNames);
         })
 
-      .must(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage)))
-        .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "02"))
+      .must(nullValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage)))
+        .when(stringEquals(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "02"))
         .withMessage("When TipOrConvenienceIndicator is '02' ValueOfConvenienceFeePercentage must be null")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage))
         .withFieldName("ValueOfConvenienceFeePercentage")
 
-      .must(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed)))
-        .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
+      .must(nullValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed)))
+        .when(stringEquals(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
         .withMessage("When TipOrConvenienceIndicator is '03' ValueOfConvenienceFeeFixed must be null")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed))
         .withFieldName("ValueOfConvenienceFeeFixed")
 
-      .must(not(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed))))
-        .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "02"))
+      .must(not(nullValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed))))
+        .when(stringEquals(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "02"))
         .withMessage("When TipOrConvenienceIndicator is '02' ValueOfConvenienceFeeFixed is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeeFixed))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed))
         .withFieldName("ValueOfConvenienceFeeFixed")
 
-      .must(not(nullValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))))
-        .when(stringEquals(of(MerchantPresentMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
+      .must(not(nullValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage))))
+        .when(stringEquals(of(MerchantPresentedMode::getTipOrConvenienceIndicator).andThen(TagLengthString::getValue), "03"))
         .withMessage("When TipOrConvenienceIndicator is '03' ValueOfConvenienceFeePercentage is mandatory")
-        .withAttempedValue(of(MerchantPresentMode::getValueOfConvenienceFeePercentage))
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage))
         .withFieldName("ValueOfConvenienceFeePercentage");
 
     /**
      *
      */
-    ruleFor("MerchantAccountInformation", MerchantPresentMode::getMerchantAccountInformation)
+    ruleFor("MerchantAccountInformation", MerchantPresentedMode::getMerchantAccountInformation)
       .must(greaterThan(Map::size, 0))
         .withMessage("MerchantAccountInformation size must have at least one")
         .critical();
 
-    ruleFor("RFUforEMVCo", MerchantPresentMode::getRFUforEMVCo)
+    ruleFor("RFUforEMVCo", MerchantPresentedMode::getRFUforEMVCo)
       .must(betweenInclusive(Collection::size, 1, 17))
         .when(greaterThan(Collection::size, 0))
         .withMessage("RFUforEMVCo list size must be between one and seventeen")
         .critical();
 
-    ruleFor("Unreserveds", MerchantPresentMode::getUnreserveds)
+    ruleFor("Unreserveds", MerchantPresentedMode::getUnreserveds)
       .must(betweenInclusive(Map::size, 1, 17))
         .when(greaterThan(Map::size, 0))
         .withMessage("Unreserveds list size must be between one and seventeen");

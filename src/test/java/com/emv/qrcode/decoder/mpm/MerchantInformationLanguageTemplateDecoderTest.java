@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
-import com.emv.qrcode.model.mpm.MerchantInformationLanguageValue;
 
-public class MerchantInformationLanguageDecoderTest {
+public class MerchantInformationLanguageTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final MerchantInformationLanguage merchantInformationLanguage = Decoder.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguage.class);
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = Decoder.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
 
     assertThat(merchantInformationLanguage.getValue(), not(nullValue()));
 
@@ -49,7 +49,7 @@ public class MerchantInformationLanguageDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final MerchantInformationLanguage merchantInformationLanguage = Decoder.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguage.class);
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = Decoder.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
 
     assertThat(merchantInformationLanguage.toString(), equalTo("64280002ZH0104最佳运输0202北京0304abcd"));
   }
@@ -73,13 +73,13 @@ public class MerchantInformationLanguageDecoderTest {
     tagLengthString.setTag("03");
     tagLengthString.setValue("abcd");
 
-    final MerchantInformationLanguageValue value = new MerchantInformationLanguageValue();
+    final MerchantInformationLanguage value = new MerchantInformationLanguage();
     value.setLanguagePreference(languagePreference);
     value.setMerchantCity(merchantCity);
     value.setMerchantName(merchantName);
     value.addRFUforEMVCo(tagLengthString);
 
-    final MerchantInformationLanguage merchantInformationLanguage = new MerchantInformationLanguage();
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = new MerchantInformationLanguageTemplate();
     merchantInformationLanguage.setValue(value);
 
     assertThat(merchantInformationLanguage.toString(), equalTo("64280002ZH0202北京0104最佳运输0304abcd"));

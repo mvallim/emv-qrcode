@@ -8,13 +8,13 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.model.mpm.MerchantPresentMode;
+import com.emv.qrcode.model.mpm.MerchantPresentedMode;
 
-public class MerchantPresentModeDecoderTest {
+public class MerchantPresentedModeDecoderTest {
 
   @Test
   public void testSuccessDecodePayloadFormatIndicator() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("000201", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("000201", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getPayloadFormatIndicator(), not(nullValue()));
@@ -25,7 +25,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodePointOfInitiationMethod() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("010211", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("010211", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getPointOfInitiationMethod(), not(nullValue()));
@@ -36,7 +36,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeMerchantCategoryCode() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("52044111", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("52044111", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getMerchantCategoryCode(), not(nullValue()));
@@ -47,7 +47,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeTransactionCurrency() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("5303156", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("5303156", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getTransactionCurrency(), not(nullValue()));
@@ -58,7 +58,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeTransactionAmount() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("540523.72", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("540523.72", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getTransactionAmount(), not(nullValue()));
@@ -69,7 +69,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeTipOrConvenienceIndicator() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("550201", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("550201", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getTipOrConvenienceIndicator(), not(nullValue()));
@@ -80,7 +80,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeValueOfConvenienceFeeFixed() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("5603500", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("5603500", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getValueOfConvenienceFeeFixed(), not(nullValue()));
@@ -91,7 +91,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeValueOfConvenienceFeePercentage() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("57015", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("57015", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getValueOfConvenienceFeePercentage(), not(nullValue()));
@@ -102,7 +102,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeCountryCode() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("5802CN", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("5802CN", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getCountryCode(), not(nullValue()));
@@ -113,7 +113,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeMerchantName() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("5914BEST TRANSPORT", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("5914BEST TRANSPORT", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getMerchantName(), not(nullValue()));
@@ -124,7 +124,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeMerchantCity() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("6007BEIJING", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("6007BEIJING", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getMerchantCity(), not(nullValue()));
@@ -135,7 +135,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodePostalCode() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("61071234567", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("61071234567", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getPostalCode(), not(nullValue()));
@@ -146,7 +146,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeCRC() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("6304A13A", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("6304A13A", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getCRC(), not(nullValue()));
@@ -157,7 +157,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeAdditionalDataFieldTemplate() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("6233030412340603***0708A60086670902ME", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("6233030412340603***0708A60086670902ME", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
 
@@ -190,7 +190,7 @@ public class MerchantPresentModeDecoderTest {
 
   @Test
   public void testSuccessDecodeMerchantInformationLanguageTemplate() {
-    final MerchantPresentMode merchantPresentMode = Decoder.decode("64200002ZH0104最佳运输0202北京", MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode("64200002ZH0104最佳运输0202北京", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
     assertThat(merchantPresentMode.getMerchantInformationLanguage(), not(nullValue()));
@@ -218,7 +218,7 @@ public class MerchantPresentModeDecoderTest {
   public void testeSuccessToString() {
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C395";
 
-    final MerchantPresentMode merchantPresentMode = Decoder.decode(encoded, MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode(encoded, MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode.toString().length(), equalTo(303));
     assertThat(merchantPresentMode.toString(), equalTo(

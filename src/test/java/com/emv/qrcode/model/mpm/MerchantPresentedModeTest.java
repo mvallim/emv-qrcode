@@ -14,15 +14,15 @@ import org.junit.Test;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 
-public class MerchantPresentModeTest {
+public class MerchantPresentedModeTest {
 
   @Test
   public void testSuccessToString() {
 
-    final AdditionalDataField additionalDataField = getAddtionalDataField();
-    final MerchantAccountInformation merchantAccountInformation = getMerchanAccountInformation();
-    final MerchantInformationLanguage merchantInformationLanguage = getMerchantInformationLanguage();
-    final Unreserved unreserved = getUnreserved();
+    final AdditionalDataFieldTemplate additionalDataField = getAddtionalDataField();
+    final MerchantAccountInformationTemplate merchantAccountInformation = getMerchanAccountInformation();
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = getMerchantInformationLanguage();
+    final UnreservedTemplate unreserved = getUnreserved();
     final TagLengthString countryCode = new TagLengthString("5802CN");
     final TagLengthString merchantCategoryCode = new TagLengthString("52044111");
     final TagLengthString merchantCity = new TagLengthString("6007BEIJING");
@@ -37,7 +37,7 @@ public class MerchantPresentModeTest {
     final TagLengthString valueOfConvenienceFeePercentage = new TagLengthString("57015");
     final TagLengthString rFUforEMVCo = new TagLengthString("650200");
 
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
     merchantPresentMode.setAdditionalDataField(additionalDataField);
     merchantPresentMode.setCountryCode(countryCode);
     merchantPresentMode.setMerchantCategoryCode(merchantCategoryCode);
@@ -60,7 +60,7 @@ public class MerchantPresentModeTest {
         "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C395"));
   }
 
-  private MerchantAccountInformation getMerchanAccountInformation() {
+  private MerchantAccountInformationTemplate getMerchanAccountInformation() {
     final TagLengthString globallyUniqueIdentifier = new TagLengthString();
     globallyUniqueIdentifier.setTag("00");
     globallyUniqueIdentifier.setValue("hoge");
@@ -69,17 +69,17 @@ public class MerchantPresentModeTest {
     paymentNetworkSpecific.setTag("01");
     paymentNetworkSpecific.setValue("abcd");
 
-    final MerchantAccountInformationValue merchantAccountInformationValue = new MerchantAccountInformationValue();
+    final MerchantAccountInformation merchantAccountInformationValue = new MerchantAccountInformation();
     merchantAccountInformationValue.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     merchantAccountInformationValue.addPaymentNetworkSpecific(paymentNetworkSpecific);
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setValue(merchantAccountInformationValue);
     merchantAccountInformation.setTag("02");
     return merchantAccountInformation;
   }
 
-  private Unreserved getUnreserved() {
+  private UnreservedTemplate getUnreserved() {
     final TagLengthString globallyUniqueIdentifier = new TagLengthString();
     globallyUniqueIdentifier.setTag("00");
     globallyUniqueIdentifier.setValue("A011223344998877");
@@ -88,17 +88,17 @@ public class MerchantPresentModeTest {
     contextSpecificData.setTag("07");
     contextSpecificData.setValue("12345678");
 
-    final UnreservedValue value = new UnreservedValue();
+    final Unreserved value = new Unreserved();
     value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     value.addContextSpecificData(contextSpecificData);
 
-    final Unreserved unreserved = new Unreserved();
+    final UnreservedTemplate unreserved = new UnreservedTemplate();
     unreserved.setValue(value);
     unreserved.setTag("80");
     return unreserved;
   }
 
-  private MerchantInformationLanguage getMerchantInformationLanguage() {
+  private MerchantInformationLanguageTemplate getMerchantInformationLanguage() {
     final TagLengthString languagePreference = new TagLengthString();
     languagePreference.setTag("00");
     languagePreference.setValue("ZH");
@@ -115,18 +115,18 @@ public class MerchantPresentModeTest {
     rFUforEMVCo.setTag("03");
     rFUforEMVCo.setValue("abcd");
 
-    final MerchantInformationLanguageValue merchantInformationLanguageValue = new MerchantInformationLanguageValue();
+    final MerchantInformationLanguage merchantInformationLanguageValue = new MerchantInformationLanguage();
     merchantInformationLanguageValue.setLanguagePreference(languagePreference);
     merchantInformationLanguageValue.setMerchantName(merchantName);
     merchantInformationLanguageValue.setMerchantCity(merchantCity);
     merchantInformationLanguageValue.addRFUforEMVCo(rFUforEMVCo);
 
-    final MerchantInformationLanguage merchantInformationLanguage = new MerchantInformationLanguage();
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = new MerchantInformationLanguageTemplate();
     merchantInformationLanguage.setValue(merchantInformationLanguageValue);
     return merchantInformationLanguage;
   }
 
-  private AdditionalDataField getAddtionalDataField() {
+  private AdditionalDataFieldTemplate getAddtionalDataField() {
     final TagLengthString additionalConsumerDataRequest = new TagLengthString();
     additionalConsumerDataRequest.setTag("09");
     additionalConsumerDataRequest.setValue("tuvxy");
@@ -171,7 +171,7 @@ public class MerchantPresentModeTest {
     rFUforEMVCo.setTag("10");
     rFUforEMVCo.setValue("abcd");
 
-    final AdditionalDataFieldValue additionalDataFieldValue = new AdditionalDataFieldValue();
+    final AdditionalDataField additionalDataFieldValue = new AdditionalDataField();
     additionalDataFieldValue.setAdditionalConsumerDataRequest(additionalConsumerDataRequest);
     additionalDataFieldValue.setBillNumber(billNumber);
     additionalDataFieldValue.setCustomerLabel(customerLabel);
@@ -184,7 +184,7 @@ public class MerchantPresentModeTest {
     additionalDataFieldValue.addPaymentSystemSpecific(paymentSystemSpecific);
     additionalDataFieldValue.addRFUforEMVCo(rFUforEMVCo);
 
-    final AdditionalDataField additionalDataField = new AdditionalDataField();
+    final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(additionalDataFieldValue);
     return additionalDataField;
   }
@@ -192,7 +192,7 @@ public class MerchantPresentModeTest {
   @Test
   public void testSuccessToStringWhenValueIsNull() {
 
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
     merchantPresentMode.setAdditionalDataField(null);
     merchantPresentMode.setCountryCode((TagLengthString) null);
     merchantPresentMode.setCRC((TagLengthString) null);
@@ -214,14 +214,14 @@ public class MerchantPresentModeTest {
 
   @Test
   public void testSuccessToStringWhenValueIsEmpty() {
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
 
-    merchantPresentMode.setAdditionalDataField(new AdditionalDataField());
+    merchantPresentMode.setAdditionalDataField(new AdditionalDataFieldTemplate());
     merchantPresentMode.setCountryCode(new TagLengthString());
     merchantPresentMode.setCRC(new TagLengthString());
     merchantPresentMode.setMerchantCategoryCode(new TagLengthString());
     merchantPresentMode.setMerchantCity(new TagLengthString());
-    merchantPresentMode.setMerchantInformationLanguage(new MerchantInformationLanguage());
+    merchantPresentMode.setMerchantInformationLanguage(new MerchantInformationLanguageTemplate());
     merchantPresentMode.setMerchantName(new TagLengthString());
     merchantPresentMode.setPayloadFormatIndicator(new TagLengthString());
     merchantPresentMode.setPointOfInitiationMethod(new TagLengthString());
@@ -231,9 +231,9 @@ public class MerchantPresentModeTest {
     merchantPresentMode.setTransactionCurrency(new TagLengthString());
     merchantPresentMode.setValueOfConvenienceFeeFixed(new TagLengthString());
     merchantPresentMode.setValueOfConvenienceFeePercentage(new TagLengthString());
-    merchantPresentMode.addMerchantAccountInformation(new MerchantAccountInformation());
+    merchantPresentMode.addMerchantAccountInformation(new MerchantAccountInformationTemplate());
     merchantPresentMode.addRFUforEMVCo(new TagLengthString());
-    merchantPresentMode.addUnreserved(new Unreserved());
+    merchantPresentMode.addUnreserved(new UnreservedTemplate());
 
     assertThat(merchantPresentMode.toString(), equalTo(StringUtils.EMPTY));
   }
@@ -242,7 +242,7 @@ public class MerchantPresentModeTest {
   public void testSuccessToBase64() {
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C395";
 
-    final MerchantPresentMode merchantPresentMode = Decoder.decode(encoded, MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode(encoded, MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode.toBase64(), equalTo(
         "MDAwMjAxMDEwMjExMDIxNjAwMDRob2dlMDEwNGFiY2Q1MjA0NDExMTUzMDMxNTY1NDA1MjMuNzI1NTAyMDE1NjAzNTAwNTcwMTU1ODAyQ041OTE0QkVTVCBUUkFOU1BPUlQ2MDA3QkVJSklORzYxMDcxMjM0NTY3NjI5NzAxMDUxMjM0NTAyMDU2Nzg5MDAzMDUwOTg3NjA0MDU1NDMyMTA1MDVhYmNkZTA2MDVmZ2hpajA3MDVrbG1ubzA4MDVwcXJlczA5MDV0dXZ4eTEwMDRhYmNkNTAwNGlqa2w2NDI4MDAwMlpIMDEwMuWMl+S6rDAyMDTmnIDkvbPov5DovpMwMzA0YWJjZDY1MDIwMDgwMzIwMDE2QTAxMTIyMzM0NDk5ODg3NzA3MDgxMjM0NTY3ODYzMDRDMzk1"));
@@ -252,7 +252,7 @@ public class MerchantPresentModeTest {
   @Test
   public void testSuccessToBase64WhenValueIsNull() {
 
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
     merchantPresentMode.setAdditionalDataField(null);
     merchantPresentMode.setCountryCode((TagLengthString) null);
     merchantPresentMode.setCRC((TagLengthString) null);
@@ -274,14 +274,14 @@ public class MerchantPresentModeTest {
 
   @Test
   public void testSuccessToBase64WhenValueIsEmpty() {
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
 
-    merchantPresentMode.setAdditionalDataField(new AdditionalDataField());
+    merchantPresentMode.setAdditionalDataField(new AdditionalDataFieldTemplate());
     merchantPresentMode.setCountryCode(new TagLengthString());
     merchantPresentMode.setCRC(new TagLengthString());
     merchantPresentMode.setMerchantCategoryCode(new TagLengthString());
     merchantPresentMode.setMerchantCity(new TagLengthString());
-    merchantPresentMode.setMerchantInformationLanguage(new MerchantInformationLanguage());
+    merchantPresentMode.setMerchantInformationLanguage(new MerchantInformationLanguageTemplate());
     merchantPresentMode.setMerchantName(new TagLengthString());
     merchantPresentMode.setPayloadFormatIndicator(new TagLengthString());
     merchantPresentMode.setPointOfInitiationMethod(new TagLengthString());
@@ -291,9 +291,9 @@ public class MerchantPresentModeTest {
     merchantPresentMode.setTransactionCurrency(new TagLengthString());
     merchantPresentMode.setValueOfConvenienceFeeFixed(new TagLengthString());
     merchantPresentMode.setValueOfConvenienceFeePercentage(new TagLengthString());
-    merchantPresentMode.addMerchantAccountInformation(new MerchantAccountInformation());
+    merchantPresentMode.addMerchantAccountInformation(new MerchantAccountInformationTemplate());
     merchantPresentMode.addRFUforEMVCo(new TagLengthString());
-    merchantPresentMode.addUnreserved(new Unreserved());
+    merchantPresentMode.addUnreserved(new UnreservedTemplate());
 
     assertThat(merchantPresentMode.toBase64(), equalTo(StringUtils.EMPTY));
   }
@@ -302,7 +302,7 @@ public class MerchantPresentModeTest {
   public void testSuccessToHex() throws DecoderException {
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C395";
 
-    final MerchantPresentMode merchantPresentMode = Decoder.decode(encoded, MerchantPresentMode.class);
+    final MerchantPresentedMode merchantPresentMode = Decoder.decode(encoded, MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode.toHex(), equalTo(
         "3030303230313031303231313032313630303034686F676530313034616263643532303434313131353330333135363534303532332E373235353032303135363033353030353730313535383032434E3539313442455354205452414E53504F5254363030374245494A494E4736313037313233343536373632393730313035313233343530323035363738393030333035303938373630343035353433323130353035616263646530363035666768696A303730356B6C6D6E6F303830357071726573303930357475767879313030346162636435303034696A6B6C36343238303030325A4830313032E58C97E4BAAC30323034E69C80E4BDB3E8BF90E8BE9330333034616263643635303230303830333230303136413031313232333334343939383837373037303831323334353637383633303443333935"));
@@ -312,7 +312,7 @@ public class MerchantPresentModeTest {
   @Test
   public void testSuccessToHexWhenValueIsNull() {
 
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
     merchantPresentMode.setAdditionalDataField(null);
     merchantPresentMode.setCountryCode((TagLengthString) null);
     merchantPresentMode.setCRC((TagLengthString) null);
@@ -334,14 +334,14 @@ public class MerchantPresentModeTest {
 
   @Test
   public void testSuccessToHexWhenValueIsEmpty() {
-    final MerchantPresentMode merchantPresentMode = new MerchantPresentMode();
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
 
-    merchantPresentMode.setAdditionalDataField(new AdditionalDataField());
+    merchantPresentMode.setAdditionalDataField(new AdditionalDataFieldTemplate());
     merchantPresentMode.setCountryCode(new TagLengthString());
     merchantPresentMode.setCRC(new TagLengthString());
     merchantPresentMode.setMerchantCategoryCode(new TagLengthString());
     merchantPresentMode.setMerchantCity(new TagLengthString());
-    merchantPresentMode.setMerchantInformationLanguage(new MerchantInformationLanguage());
+    merchantPresentMode.setMerchantInformationLanguage(new MerchantInformationLanguageTemplate());
     merchantPresentMode.setMerchantName(new TagLengthString());
     merchantPresentMode.setPayloadFormatIndicator(new TagLengthString());
     merchantPresentMode.setPointOfInitiationMethod(new TagLengthString());
@@ -351,9 +351,9 @@ public class MerchantPresentModeTest {
     merchantPresentMode.setTransactionCurrency(new TagLengthString());
     merchantPresentMode.setValueOfConvenienceFeeFixed(new TagLengthString());
     merchantPresentMode.setValueOfConvenienceFeePercentage(new TagLengthString());
-    merchantPresentMode.addMerchantAccountInformation(new MerchantAccountInformation());
+    merchantPresentMode.addMerchantAccountInformation(new MerchantAccountInformationTemplate());
     merchantPresentMode.addRFUforEMVCo(new TagLengthString());
-    merchantPresentMode.addUnreserved(new Unreserved());
+    merchantPresentMode.addUnreserved(new UnreservedTemplate());
 
     assertThat(merchantPresentMode.toHex(), equalTo(StringUtils.EMPTY));
   }

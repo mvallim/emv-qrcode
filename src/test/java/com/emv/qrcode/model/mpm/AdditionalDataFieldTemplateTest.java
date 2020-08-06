@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 
-public class AdditionalDataFieldTest {
+public class AdditionalDataFieldTemplateTest {
 
   @Test
   public void testSuccessToString() {
@@ -57,7 +57,7 @@ public class AdditionalDataFieldTest {
     rFUforEMVCo.setTag("10");
     rFUforEMVCo.setValue("abcd");
 
-    final AdditionalDataFieldValue value = new AdditionalDataFieldValue();
+    final AdditionalDataField value = new AdditionalDataField();
     value.setAdditionalConsumerDataRequest(additionalConsumerDataRequest);
     value.setBillNumber(billNumber);
     value.setCustomerLabel(customerLabel);
@@ -70,7 +70,7 @@ public class AdditionalDataFieldTest {
     value.addPaymentSystemSpecific(paymentSystemSpecific);
     value.addRFUforEMVCo(rFUforEMVCo);
 
-    final AdditionalDataField additionalDataField = new AdditionalDataField();
+    final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(value);
 
     assertThat(additionalDataField.toString(), equalTo("62970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl"));
@@ -80,7 +80,7 @@ public class AdditionalDataFieldTest {
   @Test
   public void testSuccessToStringWhenValueIsNull() {
 
-    final AdditionalDataField additionalDataField = new AdditionalDataField();
+    final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(null);
 
     assertThat(additionalDataField.toString(), equalTo(StringUtils.EMPTY));
@@ -89,8 +89,8 @@ public class AdditionalDataFieldTest {
   @Test
   public void testSuccessToStringWhenValueIsEmpty() {
 
-    final AdditionalDataField additionalDataField = new AdditionalDataField();
-    additionalDataField.setValue(new AdditionalDataFieldValue());
+    final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
+    additionalDataField.setValue(new AdditionalDataField());
 
     assertThat(additionalDataField.toString(), equalTo(StringUtils.EMPTY));
   }

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 
-public class MerchantAccountInformationTest {
+public class MerchantAccountInformationTemplateTest {
 
   @Test
   public void testSuccessToString() {
@@ -21,11 +21,11 @@ public class MerchantAccountInformationTest {
     tagLengthString.setTag("01");
     tagLengthString.setValue("abcd");
 
-    final MerchantAccountInformationValue value = new MerchantAccountInformationValue();
+    final MerchantAccountInformation value = new MerchantAccountInformation();
     value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     value.addPaymentNetworkSpecific(tagLengthString);
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setValue(value);
     merchantAccountInformation.setTag("02");
 
@@ -35,7 +35,7 @@ public class MerchantAccountInformationTest {
   @Test
   public void testSuccessToStringWhenValueIsNull() {
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setTag("02");
     merchantAccountInformation.setValue(null);
 
@@ -45,8 +45,8 @@ public class MerchantAccountInformationTest {
   @Test
   public void testSuccessToStringWhenValueIsEmpty() {
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
-    merchantAccountInformation.setValue(new MerchantAccountInformationValue());
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
+    merchantAccountInformation.setValue(new MerchantAccountInformation());
 
     assertThat(merchantAccountInformation.toString(), equalTo(StringUtils.EMPTY));
   }

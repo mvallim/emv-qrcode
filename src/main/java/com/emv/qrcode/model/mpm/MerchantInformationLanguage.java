@@ -1,41 +1,83 @@
 package com.emv.qrcode.model.mpm;
 
-import java.util.Objects;
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.SimpleTLV;
-import com.emv.qrcode.model.mpm.constants.MerchantPresentModeCodes;
+import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
-public class MerchantInformationLanguage implements SimpleTLV<MerchantInformationLanguageValue> {
+public class MerchantInformationLanguage implements Serializable {
 
-  private static final long serialVersionUID = -5894790923682120529L;
+  private static final long serialVersionUID = 6163271793010568887L;
 
-  private final String tag = MerchantPresentModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE;
+  // Language Preference
+  private TagLengthString languagePreference;
 
-  private Integer length;
+  // Merchant Name
+  private TagLengthString merchantName;
 
-  private MerchantInformationLanguageValue value;
+  // Merchant City
+  private TagLengthString merchantCity;
+
+  // RFU for EMVCo
+  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+
+  public final void setLanguagePreference(final String languagePreference) {
+    this.languagePreference = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_LANGUAGE_PREFERENCE, languagePreference);
+  }
+
+  public final void setMerchantName(final String merchantName) {
+    this.merchantName = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_MERCHANT_NAME, merchantName);
+  }
+
+  public final void setMerchantCity(final String merchantCity) {
+    this.merchantCity = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_MERCHANT_CITY, merchantCity);
+  }
+
+  public void setLanguagePreference(final TagLengthString languagePreference) {
+    this.languagePreference = languagePreference;
+  }
+
+  public void setMerchantName(final TagLengthString merchantName) {
+    this.merchantName = merchantName;
+  }
+
+  public void setMerchantCity(final TagLengthString merchantCity) {
+    this.merchantCity = merchantCity;
+  }
+
+  public void addRFUforEMVCo(final TagLengthString tagLengthString) {
+    rFUforEMVCo.add(tagLengthString);
+  }
 
   @Override
   public String toString() {
 
-    if (Objects.isNull(value)) {
-      return StringUtils.EMPTY;
+    final StringBuilder sb = new StringBuilder();
+
+    Optional.ofNullable(languagePreference).ifPresent(tlv -> sb.append(tlv.toString()));
+    Optional.ofNullable(merchantName).ifPresent(tlv -> sb.append(tlv.toString()));
+    Optional.ofNullable(merchantCity).ifPresent(tlv -> sb.append(tlv.toString()));
+
+    for (final SimpleTLV<String> tagLengthString : rFUforEMVCo) {
+      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
-    final String string = value.toString();
+    final String string = sb.toString();
 
     if (StringUtils.isBlank(string)) {
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02d%s", tag, string.length(), string);
+    return string;
   }
 
 }

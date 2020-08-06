@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 
-public class MerchantInformationLanguageTest {
+public class MerchantInformationLanguageTemplateTest {
 
   @Test
   public void testSuccessToString() {
@@ -29,13 +29,13 @@ public class MerchantInformationLanguageTest {
     tagLengthString.setTag("03");
     tagLengthString.setValue("abcd");
 
-    final MerchantInformationLanguageValue value = new MerchantInformationLanguageValue();
+    final MerchantInformationLanguage value = new MerchantInformationLanguage();
     value.setLanguagePreference(languagePreference);
     value.setMerchantCity(merchantCity);
     value.setMerchantName(merchantName);
     value.addRFUforEMVCo(tagLengthString);
 
-    final MerchantInformationLanguage merchantInformationLanguage = new MerchantInformationLanguage();
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = new MerchantInformationLanguageTemplate();
     merchantInformationLanguage.setValue(value);
 
     assertThat(merchantInformationLanguage.toString(), equalTo("64280002ZH0202北京0104最佳运输0304abcd"));
@@ -44,7 +44,7 @@ public class MerchantInformationLanguageTest {
   @Test
   public void testSuccessToStringWhenValueIsNull() {
 
-    final MerchantInformationLanguage merchantInformationLanguage = new MerchantInformationLanguage();
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = new MerchantInformationLanguageTemplate();
     merchantInformationLanguage.setValue(null);
 
     assertThat(merchantInformationLanguage.toString(), equalTo(StringUtils.EMPTY));
@@ -53,8 +53,8 @@ public class MerchantInformationLanguageTest {
   @Test
   public void testSuccessToStringWhenValueIsEmpty() {
 
-    final MerchantInformationLanguage merchantInformationLanguage = new MerchantInformationLanguage();
-    merchantInformationLanguage.setValue(new MerchantInformationLanguageValue());
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = new MerchantInformationLanguageTemplate();
+    merchantInformationLanguage.setValue(new MerchantInformationLanguage());
 
     assertThat(merchantInformationLanguage.toString(), equalTo(StringUtils.EMPTY));
   }

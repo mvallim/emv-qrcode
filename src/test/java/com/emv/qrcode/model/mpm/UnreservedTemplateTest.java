@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 
-public class UnreservedTest {
+public class UnreservedTemplateTest {
 
   @Test
   public void testSuccessToString() {
@@ -21,11 +21,11 @@ public class UnreservedTest {
     contextSpecificData.setTag("07");
     contextSpecificData.setValue("12345678");
 
-    final UnreservedValue value = new UnreservedValue();
+    final Unreserved value = new Unreserved();
     value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     value.addContextSpecificData(contextSpecificData);
 
-    final Unreserved unreserved = new Unreserved();
+    final UnreservedTemplate unreserved = new UnreservedTemplate();
     unreserved.setValue(value);
     unreserved.setTag("91");
 
@@ -35,7 +35,7 @@ public class UnreservedTest {
   @Test
   public void testSuccessToStringWhenValueIsNull() {
 
-    final Unreserved unreserved = new Unreserved();
+    final UnreservedTemplate unreserved = new UnreservedTemplate();
     unreserved.setTag("91");
     unreserved.setValue(null);
 
@@ -45,9 +45,9 @@ public class UnreservedTest {
   @Test
   public void testSuccessToStringWhenValueIsEmpty() {
 
-    final Unreserved unreserved = new Unreserved();
+    final UnreservedTemplate unreserved = new UnreservedTemplate();
     unreserved.setTag("91");
-    unreserved.setValue(new UnreservedValue());
+    unreserved.setValue(new Unreserved());
 
     assertThat(unreserved.toString(), equalTo(StringUtils.EMPTY));
   }

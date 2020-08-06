@@ -7,23 +7,23 @@ import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.decoder.common.TagLengthStringDecoder;
 import com.emv.qrcode.decoder.mpm.AdditionalDataFieldDecoder;
-import com.emv.qrcode.decoder.mpm.AdditionalDataFieldValueDecoder;
+import com.emv.qrcode.decoder.mpm.AdditionalDataFieldTemplateDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantAccountInformationDecoder;
-import com.emv.qrcode.decoder.mpm.MerchantAccountInformationValueDecoder;
+import com.emv.qrcode.decoder.mpm.MerchantAccountInformationTemplateDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageDecoder;
-import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageValueDecoder;
-import com.emv.qrcode.decoder.mpm.MerchantPresentModeDecoder;
+import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageTemplateDecoder;
+import com.emv.qrcode.decoder.mpm.MerchantPresentedModeDecoder;
 import com.emv.qrcode.decoder.mpm.UnreservedDecoder;
-import com.emv.qrcode.decoder.mpm.UnreservedValueDecoder;
+import com.emv.qrcode.decoder.mpm.UnreservedTemplateDecoder;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
-import com.emv.qrcode.model.mpm.AdditionalDataFieldValue;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
-import com.emv.qrcode.model.mpm.MerchantAccountInformationValue;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
-import com.emv.qrcode.model.mpm.MerchantInformationLanguageValue;
-import com.emv.qrcode.model.mpm.MerchantPresentMode;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
+import com.emv.qrcode.model.mpm.MerchantPresentedMode;
 import com.emv.qrcode.model.mpm.Unreserved;
-import com.emv.qrcode.model.mpm.UnreservedValue;
+import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
 public final class DecodersMap {
 
@@ -31,15 +31,15 @@ public final class DecodersMap {
 
   static {
     MAP_DECODERS.put(TagLengthString.class, TagLengthStringDecoder.class);
-    MAP_DECODERS.put(MerchantPresentMode.class, MerchantPresentModeDecoder.class);
+    MAP_DECODERS.put(MerchantPresentedMode.class, MerchantPresentedModeDecoder.class);
+    MAP_DECODERS.put(AdditionalDataFieldTemplate.class, AdditionalDataFieldTemplateDecoder.class);
     MAP_DECODERS.put(AdditionalDataField.class, AdditionalDataFieldDecoder.class);
-    MAP_DECODERS.put(AdditionalDataFieldValue.class, AdditionalDataFieldValueDecoder.class);
+    MAP_DECODERS.put(MerchantInformationLanguageTemplate.class, MerchantInformationLanguageTemplateDecoder.class);
     MAP_DECODERS.put(MerchantInformationLanguage.class, MerchantInformationLanguageDecoder.class);
+    MAP_DECODERS.put(MerchantAccountInformationTemplate.class, MerchantAccountInformationTemplateDecoder.class);
     MAP_DECODERS.put(MerchantAccountInformation.class, MerchantAccountInformationDecoder.class);
-    MAP_DECODERS.put(MerchantAccountInformationValue.class, MerchantAccountInformationValueDecoder.class);
-    MAP_DECODERS.put(MerchantInformationLanguageValue.class, MerchantInformationLanguageValueDecoder.class);
+    MAP_DECODERS.put(UnreservedTemplate.class, UnreservedTemplateDecoder.class);
     MAP_DECODERS.put(Unreserved.class, UnreservedDecoder.class);
-    MAP_DECODERS.put(UnreservedValue.class, UnreservedValueDecoder.class);
   }
 
   private DecodersMap() {

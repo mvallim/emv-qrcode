@@ -3,12 +3,12 @@ package com.emv.qrcode.validators.mpm;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
 
-import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 
 import br.com.fluentvalidator.AbstractValidator;
 
 // @formatter:off
-class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInformationLanguage> {
+class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInformationLanguageTemplate> {
 
   @Override
   public void rules() {
@@ -16,7 +16,7 @@ class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInf
     /**
      *
      */
-    ruleFor(MerchantInformationLanguage::getValue)
+    ruleFor(MerchantInformationLanguageTemplate::getValue)
       .whenever(not(nullValue()))
         .withValidator(new MerchantInformationLanguageValueValidator());
 

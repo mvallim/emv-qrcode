@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
-import com.emv.qrcode.model.mpm.MerchantAccountInformationValue;
 
-public class MerchantAccountInformationDecoderTest {
+public class MerchantAccountInformationTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final MerchantAccountInformation merchantAccountInformation = Decoder.decode("02160004hoge0104abcd", MerchantAccountInformation.class);
+    final MerchantAccountInformationTemplate merchantAccountInformation = Decoder.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
 
     assertThat(merchantAccountInformation.getValue(), not(nullValue()));
 
@@ -39,7 +39,7 @@ public class MerchantAccountInformationDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final MerchantAccountInformation merchantAccountInformation = Decoder.decode("02160004hoge0104abcd", MerchantAccountInformation.class);
+    final MerchantAccountInformationTemplate merchantAccountInformation = Decoder.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
 
     assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));
   }
@@ -55,11 +55,11 @@ public class MerchantAccountInformationDecoderTest {
     tagLengthString.setTag("01");
     tagLengthString.setValue("abcd");
 
-    final MerchantAccountInformationValue value = new MerchantAccountInformationValue();
+    final MerchantAccountInformation value = new MerchantAccountInformation();
     value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     value.addPaymentNetworkSpecific(tagLengthString);
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setValue(value);
     merchantAccountInformation.setTag("02");
 

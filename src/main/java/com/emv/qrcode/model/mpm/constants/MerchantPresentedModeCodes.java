@@ -1,6 +1,6 @@
 package com.emv.qrcode.model.mpm.constants;
 
-public final class MerchantPresentModeCodes {
+public final class MerchantPresentedModeCodes {
 
   public static final String ID_PAYLOAD_FORMAT_INDICATOR = "00"; // (M) Payload Format Indicator
   public static final String ID_POINT_OF_INITIATION_METHOD = "01"; // (O) Point of Initiation Method
@@ -29,7 +29,7 @@ public final class MerchantPresentModeCodes {
   public static final String ID_RFU_FOR_EMVCO = ID_RFU_FOR_EMVCO_RANGE_START;
   public static final String ID_UNRESERVED_TEMPLATES = ID_UNRESERVED_TEMPLATES_RANGE_START;
 
-  private MerchantPresentModeCodes() {
+  private MerchantPresentedModeCodes() {
     super();
   }
 

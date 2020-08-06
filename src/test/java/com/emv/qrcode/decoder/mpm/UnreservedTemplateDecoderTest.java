@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.model.mpm.UnreservedTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
-import com.emv.qrcode.model.mpm.UnreservedValue;
 
-public class UnreservedDecoderTest {
+public class UnreservedTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final Unreserved unreserved = Decoder.decode("91320016A011223344998877070812345678", Unreserved.class);
+    final UnreservedTemplate unreserved = Decoder.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
 
     assertThat(unreserved.getValue(), not(nullValue()));
 
@@ -39,7 +39,7 @@ public class UnreservedDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final Unreserved unreserved = Decoder.decode("91320016A011223344998877070812345678", Unreserved.class);
+    final UnreservedTemplate unreserved = Decoder.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
 
     assertThat(unreserved.toString(), equalTo("91320016A011223344998877070812345678"));
   }
@@ -55,11 +55,11 @@ public class UnreservedDecoderTest {
     contextSpecificData.setTag("07");
     contextSpecificData.setValue("12345678");
 
-    final UnreservedValue value = new UnreservedValue();
+    final Unreserved value = new Unreserved();
     value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
     value.addContextSpecificData(contextSpecificData);
 
-    final Unreserved unreserved = new Unreserved();
+    final UnreservedTemplate unreserved = new UnreservedTemplate();
     unreserved.setValue(value);
     unreserved.setTag("91");
 
