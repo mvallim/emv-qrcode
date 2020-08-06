@@ -595,7 +595,7 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .critical()
 
       .whenever(not(nullValue(AdditionalDataFieldTemplate::getValue)))
-        .withValidator(new AdditionalDataFieldValidator());
+        .withValidator(new AdditionalDataFieldTemplateValidator());
 
     /**
      *
@@ -627,7 +627,7 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .critical()
 
       .whenever(not(nullValue()))
-        .withValidator(new MerchantInformationLanguageValidator());
+        .withValidator(new MerchantInformationLanguageTemplateValidator());
 
     /**
      * Tip or Convenience Indicator
@@ -687,16 +687,34 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .withMessage("MerchantAccountInformation size must have at least one")
         .critical();
 
+    ruleForEach("MerchantAccountInformation", of(MerchantPresentedMode::getMerchantAccountInformation).andThen(Map::values))
+      .whenever(greaterThan(Collection::size, 0))
+        .withValidator(new MerchantAccountInformationTemplateValidator("02", "51", 99));
+
+    /**
+     *
+     */
     ruleFor("RFUforEMVCo", MerchantPresentedMode::getRFUforEMVCo)
       .must(betweenInclusive(Collection::size, 1, 17))
         .when(greaterThan(Collection::size, 0))
         .withMessage("RFUforEMVCo list size must be between one and seventeen")
         .critical();
 
+    ruleForEach("RFUforEMVCo", MerchantPresentedMode::getRFUforEMVCo)
+      .whenever(greaterThan(Collection::size, 0))
+        .withValidator(new TagLengthStringValidator("MerchantPresentedMode.RFUforEMVCo", "65", "79", 99));
+
+    /**
+     *
+     */
     ruleFor("Unreserveds", MerchantPresentedMode::getUnreserveds)
       .must(betweenInclusive(Map::size, 1, 17))
         .when(greaterThan(Map::size, 0))
         .withMessage("Unreserveds list size must be between one and seventeen");
+
+    ruleForEach("Unreserveds", of(MerchantPresentedMode::getUnreserveds).andThen(Map::values))
+      .whenever(greaterThan(Collection::size, 0))
+        .withValidator(new UnreservedTemplateValidator("80", "99", 99));
 
   }
 
