@@ -24,16 +24,16 @@ public class BERTLString implements BERTLV<Integer, String> {
     super();
   }
   
-  @Override
-  public Integer getLength() {
-    return value.length();
-  }
-  
   public BERTLString(final Integer tag, final String value) {
     this.tag = tag;
     this.value = value;
   }
 
+  @Override
+  public Integer getLength() {
+    return value.length();
+  }
+  
   @Override
   public byte[] getBytes() throws IOException {
     
@@ -50,6 +50,7 @@ public class BERTLString implements BERTLV<Integer, String> {
     
   }
   
+  @Override
   public String toHex() throws IOException {
     return Hex.encodeHexString(getBytes(), false);
   }

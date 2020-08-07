@@ -1,5 +1,7 @@
 package com.emv.qrcode.core.model;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.Getter;
@@ -21,25 +23,10 @@ public class TagLengthString implements TLV<String, String> {
     super();
   }
   
-  /**
-   * 
-   * @param tag Tag of TLV
-   * @param value Value without tag and length
-   */
   public TagLengthString(final String tag, final String value) {
     this.tag = tag;
-    this.length = value.length();
+    this.length = Optional.ofNullable(value).map(String::length).orElse(0);
     this.value = value;
-  }
-  
-  /**
-   * 
-   * @param value Value with tag, length and value (positional)
-   */
-  public TagLengthString(final String value) {
-    this.tag = value.substring(0, 2);
-    this.length = Integer.valueOf(value.substring(2, 4));
-    this.value = value.substring(4, 4 + length);
   }
   
   @Override
