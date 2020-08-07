@@ -17,14 +17,17 @@ public class CommonDataTemplate extends AdditionalData implements BERTLV<String,
 
   private final List<BERTLV<String, String>> commonDataTransparentTemplates = new LinkedList<>();
 
-  private final String tag = ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE;
-
   private Integer length;
 
   private final List<CommonDataTransparentTemplate> value = new LinkedList<>();
 
   public void addCommonDataTransparentTemplate(final CommonDataTransparentTemplate commonDataTransparentTemplate) {
     value.add(commonDataTransparentTemplate);
+  }
+
+  @Override
+  public String getTag() {
+    return ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE;
   }
 
   @Override
@@ -46,7 +49,7 @@ public class CommonDataTemplate extends AdditionalData implements BERTLV<String,
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02X%s", tag, string.length(), string);
+    return String.format("%s%02X%s", getTag(), string.length(), string);
 
   }
 

@@ -16,11 +16,14 @@ public class CommonDataTransparentTemplate implements BERTLV<String, BERTLV<Stri
 
   private static final long serialVersionUID = 5072500891200624780L;
 
-  private final String tag = ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE;
-
   private Integer length;
 
   private BERTLV<String, String> value;
+
+  @Override
+  public String getTag() {
+    return ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE;
+  }
 
   @Override
   public String toString() {
@@ -35,7 +38,7 @@ public class CommonDataTransparentTemplate implements BERTLV<String, BERTLV<Stri
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02X%s", tag, string.length(), Hex.encodeHex(string.getBytes(StandardCharsets.UTF_8), false));
+    return String.format("%s%02X%s", getTag(), string.length(), Hex.encodeHex(string.getBytes(StandardCharsets.UTF_8), false));
 
   }
 

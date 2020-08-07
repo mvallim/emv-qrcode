@@ -16,11 +16,14 @@ public class MerchantInformationLanguageTemplate implements TLV<String, Merchant
 
   private static final long serialVersionUID = -5894790923682120529L;
 
-  private final String tag = MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE;
-
   private Integer length;
 
   private MerchantInformationLanguage value;
+  
+  @Override
+  public String getTag() {
+    return MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE;
+  }
 
   @Override
   public String toString() {
@@ -35,7 +38,7 @@ public class MerchantInformationLanguageTemplate implements TLV<String, Merchant
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02d%s", tag, string.length(), string);
+    return String.format("%s%02d%s", getTag(), string.length(), string);
   }
 
 }

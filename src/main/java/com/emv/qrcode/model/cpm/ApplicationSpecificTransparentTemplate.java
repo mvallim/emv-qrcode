@@ -16,11 +16,14 @@ public class ApplicationSpecificTransparentTemplate implements BERTLV<String, BE
 
   private static final long serialVersionUID = -5306048635485515245L;
 
-  private final String tag = ConsumerPresentedModeFieldCodes.ID_APPLICATION_SPECIFIC_TRANSPARENT_TEMPLATE;
-
   private Integer length;
 
   private BERTLV<String, String> value;
+
+  @Override
+  public String getTag() {
+    return ConsumerPresentedModeFieldCodes.ID_APPLICATION_SPECIFIC_TRANSPARENT_TEMPLATE;
+  }
 
   @Override
   public String toString() {
@@ -35,7 +38,7 @@ public class ApplicationSpecificTransparentTemplate implements BERTLV<String, BE
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02X%s", tag, string.length(), Hex.encodeHex(string.getBytes(StandardCharsets.UTF_8), false));
+    return String.format("%s%02X%s", getTag(), string.length(), Hex.encodeHex(string.getBytes(StandardCharsets.UTF_8), false));
 
   }
 

@@ -15,14 +15,17 @@ public class ApplicationTemplate extends AdditionalData implements BERTLV<String
 
   private static final long serialVersionUID = 2418153324275018348L;
 
-  private final String tag = ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE;
-
   private Integer length;
 
   private final List<ApplicationSpecificTransparentTemplate> value = new LinkedList<>();
 
   public void addApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
     value.add(applicationSpecificTransparentTemplate);
+  }
+
+  @Override
+  public String getTag() {
+    return ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE;
   }
 
   @Override
@@ -44,7 +47,7 @@ public class ApplicationTemplate extends AdditionalData implements BERTLV<String
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02X%s", tag, string.length(), string);
+    return String.format("%s%02X%s", getTag(), string.length(), string);
 
   }
 

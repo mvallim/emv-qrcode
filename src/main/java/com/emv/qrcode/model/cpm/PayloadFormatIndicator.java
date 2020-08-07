@@ -15,11 +15,14 @@ public class PayloadFormatIndicator implements BERTLV<String, String> {
 
   private static final long serialVersionUID = 780284119561670846L;
 
-  private final String tag = ConsumerPresentedModeFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR;
-
   private Integer length;
 
   private String value;
+
+  @Override
+  public String getTag() {
+    return ConsumerPresentedModeFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR;
+  }
 
   @Override
   public String toString() {
@@ -28,7 +31,7 @@ public class PayloadFormatIndicator implements BERTLV<String, String> {
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02X%s", tag, value.length(), Hex.encodeHex(value.getBytes(StandardCharsets.UTF_8), false));
+    return String.format("%s%02X%s", getTag(), value.length(), Hex.encodeHex(value.getBytes(StandardCharsets.UTF_8), false));
 
   }
 

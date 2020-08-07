@@ -16,11 +16,14 @@ public class AdditionalDataFieldTemplate implements TLV<String, AdditionalDataFi
 
   private static final long serialVersionUID = 2232991556283235445L;
 
-  private final String tag = MerchantPresentedModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE;
-
   private Integer length;
 
   private AdditionalDataField value;
+  
+  @Override
+  public String getTag() {
+    return MerchantPresentedModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE;
+  }
 
   @Override
   public String toString() {
@@ -35,7 +38,7 @@ public class AdditionalDataFieldTemplate implements TLV<String, AdditionalDataFi
       return StringUtils.EMPTY;
     }
 
-    return String.format("%s%02d%s", tag, string.length(), string);
+    return String.format("%s%02d%s", getTag(), string.length(), string);
   }
 
 }

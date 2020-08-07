@@ -188,7 +188,7 @@ public class MerchantPresentedMode implements Serializable {
   }
   
   public final void setCRC(final String cRC) {
-    this.cRC = new TagLengthString(MerchantPresentedModeCodes.ID_CRC, cRC);;
+    this.cRC = new TagLengthString(MerchantPresentedModeCodes.ID_CRC, cRC); 
   }
 
   public void addUnreserved(final UnreservedTemplate unreserved) {
