@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
 
@@ -43,7 +43,7 @@ public class Unreserved implements Serializable {
 
     Optional.ofNullable(globallyUniqueIdentifier).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final SimpleTLV<String> tagLengthString : contextSpecificData) {
+    for (final TLV<String, String> tagLengthString : contextSpecificData) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

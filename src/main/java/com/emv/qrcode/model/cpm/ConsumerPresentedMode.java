@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.emv.qrcode.core.model.TagLengthString;
-
 import lombok.Getter;
 
 @Getter
@@ -14,7 +12,7 @@ public class ConsumerPresentedMode implements Serializable {
   private static final long serialVersionUID = -1395429978639674565L;
 
   // Payload Format Indicator
-  private TagLengthString payloadFormatIndicator;
+  private PayloadFormatIndicator payloadFormatIndicator;
 
   // Application Template
   private final List<ApplicationTemplate> applicationTemplates = new LinkedList<>();

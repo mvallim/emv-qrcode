@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TagLengthString implements SimpleTLV<String> {
+public class TagLengthString implements TLV<String, String> {
 
   private static final long serialVersionUID = -6482977134879939277L;
 

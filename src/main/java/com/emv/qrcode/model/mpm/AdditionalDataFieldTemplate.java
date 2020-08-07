@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdditionalDataFieldTemplate implements SimpleTLV<AdditionalDataField> {
+public class AdditionalDataFieldTemplate implements TLV<String, AdditionalDataField> {
 
   private static final long serialVersionUID = 2232991556283235445L;
 

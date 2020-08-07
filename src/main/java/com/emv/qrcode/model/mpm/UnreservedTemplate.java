@@ -4,14 +4,14 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TLV;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UnreservedTemplate implements SimpleTLV<Unreserved> {
+public class UnreservedTemplate implements TLV<String, Unreserved> {
 
   private static final long serialVersionUID = -1445641777082739037L;
 

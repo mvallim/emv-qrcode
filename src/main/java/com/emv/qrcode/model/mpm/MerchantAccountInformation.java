@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
@@ -43,7 +43,7 @@ public class MerchantAccountInformation implements Serializable {
 
     Optional.ofNullable(globallyUniqueIdentifier).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final SimpleTLV<String> tagLengthString : paymentNetworkSpecific) {
+    for (final TLV<String, String> tagLengthString : paymentNetworkSpecific) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

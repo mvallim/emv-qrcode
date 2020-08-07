@@ -14,7 +14,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.CRC;
-import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
@@ -236,7 +236,7 @@ public class MerchantPresentedMode implements Serializable {
     Optional.ofNullable(additionalDataField).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantInformationLanguage).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final SimpleTLV<String> tagLengthString : rFUforEMVCo) {
+    for (final TLV<String, String> tagLengthString : rFUforEMVCo) {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 

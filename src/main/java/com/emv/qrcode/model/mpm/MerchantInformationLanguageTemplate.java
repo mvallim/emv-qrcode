@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.SimpleTLV;
+import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MerchantInformationLanguageTemplate implements SimpleTLV<MerchantInformationLanguage> {
+public class MerchantInformationLanguageTemplate implements TLV<String, MerchantInformationLanguage> {
 
   private static final long serialVersionUID = -5894790923682120529L;
 
