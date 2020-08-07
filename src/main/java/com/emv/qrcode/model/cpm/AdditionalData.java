@@ -10,7 +10,7 @@ import com.emv.qrcode.core.model.BERTLV;
 import lombok.Getter;
 
 @Getter
-public class AdditionalData implements Serializable {
+public abstract class AdditionalData implements Serializable {
 
   private static final long serialVersionUID = -2275311356136693642L;
 
