@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.ArrayUtils;
 
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
@@ -39,7 +40,7 @@ public class ApplicationSpecificTransparentTemplate implements BERTLV<Integer, B
 
     final byte[] bytes = value.getBytes();
 
-    if (bytes.length == 0) {
+    if (ArrayUtils.isEmpty(bytes)) {
       return EMPTY_BYTES;
     }
 
