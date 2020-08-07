@@ -79,60 +79,8 @@ public class MerchantPresentedMode implements Serializable {
   // Unreserved Templates
   private final Map<String, UnreservedTemplate> unreserveds = new LinkedHashMap<>();
   
-  public void setPayloadFormatIndicator(final TagLengthString payloadFormatIndicator) {
-    this.payloadFormatIndicator = payloadFormatIndicator;
-  }
-
-  public void setPointOfInitiationMethod(final TagLengthString pointOfInitiationMethod) {
-    this.pointOfInitiationMethod = pointOfInitiationMethod;
-  }
-
-  public void setMerchantCategoryCode(final TagLengthString merchantCategoryCode) {
-    this.merchantCategoryCode = merchantCategoryCode;
-  }
-
-  public void setTransactionCurrency(final TagLengthString transactionCurrency) {
-    this.transactionCurrency = transactionCurrency;
-  }
-
-  public void setTransactionAmount(final TagLengthString transactionAmount) {
-    this.transactionAmount = transactionAmount;
-  }
-
-  public void setTipOrConvenienceIndicator(final TagLengthString tipOrConvenienceIndicator) {
-    this.tipOrConvenienceIndicator = tipOrConvenienceIndicator;
-  }
-
-  public void setValueOfConvenienceFeeFixed(final TagLengthString valueOfConvenienceFeeFixed) {
-    this.valueOfConvenienceFeeFixed = valueOfConvenienceFeeFixed;
-  }
-
-  public void setValueOfConvenienceFeePercentage(final TagLengthString valueOfConvenienceFeePercentage) {
-    this.valueOfConvenienceFeePercentage = valueOfConvenienceFeePercentage;
-  }
-
-  public void setCountryCode(final TagLengthString countryCode) {
-    this.countryCode = countryCode;
-  }
-
-  public void setMerchantName(final TagLengthString merchantName) {
-    this.merchantName = merchantName;
-  }
-
-  public void setMerchantCity(final TagLengthString merchantCity) {
-    this.merchantCity = merchantCity;
-  }
-
-  public void setPostalCode(final TagLengthString postalCode) {
-    this.postalCode = postalCode;
-  }
-
   public void setAdditionalDataField(final AdditionalDataFieldTemplate additionalDataField) {
     this.additionalDataField = additionalDataField;
-  }
-
-  public void setCRC(final TagLengthString cRC) {
-    this.cRC = cRC;
   }
 
   public void setMerchantInformationLanguage(final MerchantInformationLanguageTemplate merchantInformationLanguage) {
@@ -191,15 +139,15 @@ public class MerchantPresentedMode implements Serializable {
     this.cRC = new TagLengthString(MerchantPresentedModeCodes.ID_CRC, cRC); 
   }
 
-  public void addUnreserved(final UnreservedTemplate unreserved) {
+  public final void addUnreserved(final UnreservedTemplate unreserved) {
     this.unreserveds.put(unreserved.getTag(), unreserved);
   }
 
-  public void addMerchantAccountInformation(final MerchantAccountInformationTemplate merchantAccountInformation) {
+  public final void addMerchantAccountInformation(final MerchantAccountInformationTemplate merchantAccountInformation) {
     this.merchantAccountInformation.put(merchantAccountInformation.getTag(), merchantAccountInformation);
   }
 
-  public void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
+  public final void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
     this.rFUforEMVCo.add(rFUforEMVCo);
   }
 

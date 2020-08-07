@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.model.mpm.UnreservedTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
+import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
 public class UnreservedTemplateDecoderTest {
 
@@ -47,16 +47,12 @@ public class UnreservedTemplateDecoderTest {
   @Test
   public void testSuccessEncode() {
 
-    final TagLengthString globallyUniqueIdentifier = new TagLengthString();
-    globallyUniqueIdentifier.setTag("00");
-    globallyUniqueIdentifier.setValue("A011223344998877");
-
     final TagLengthString contextSpecificData = new TagLengthString();
     contextSpecificData.setTag("07");
     contextSpecificData.setValue("12345678");
 
     final Unreserved value = new Unreserved();
-    value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
+    value.setGloballyUniqueIdentifier("A011223344998877");
     value.addContextSpecificData(contextSpecificData);
 
     final UnreservedTemplate unreserved = new UnreservedTemplate();

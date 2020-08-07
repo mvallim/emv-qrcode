@@ -13,16 +13,12 @@ public class MerchantAccountInformationTemplateTest {
   @Test
   public void testSuccessToString() {
 
-    final TagLengthString globallyUniqueIdentifier = new TagLengthString();
-    globallyUniqueIdentifier.setTag("00");
-    globallyUniqueIdentifier.setValue("hoge");
-
     final TagLengthString tagLengthString = new TagLengthString();
     tagLengthString.setTag("01");
     tagLengthString.setValue("abcd");
 
     final MerchantAccountInformation value = new MerchantAccountInformation();
-    value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
+    value.setGloballyUniqueIdentifier("hoge");
     value.addPaymentNetworkSpecific(tagLengthString);
 
     final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();

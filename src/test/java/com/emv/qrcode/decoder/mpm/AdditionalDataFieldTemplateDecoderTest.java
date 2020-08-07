@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
+import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 
 public class AdditionalDataFieldTemplateDecoderTest {
 
@@ -87,42 +87,6 @@ public class AdditionalDataFieldTemplateDecoderTest {
   @Test
   public void testSuccessEncode() {
 
-    final TagLengthString additionalConsumerDataRequest = new TagLengthString();
-    additionalConsumerDataRequest.setTag("09");
-    additionalConsumerDataRequest.setValue("tuvxy");
-
-    final TagLengthString billNumber = new TagLengthString();
-    billNumber.setTag("01");
-    billNumber.setValue("12345");
-
-    final TagLengthString customerLabel = new TagLengthString();
-    customerLabel.setTag("06");
-    customerLabel.setValue("fghij");
-
-    final TagLengthString loyaltyNumber = new TagLengthString();
-    loyaltyNumber.setTag("04");
-    loyaltyNumber.setValue("54321");
-
-    final TagLengthString mobileNumber = new TagLengthString();
-    mobileNumber.setTag("02");
-    mobileNumber.setValue("67890");
-
-    final TagLengthString purposeTransaction = new TagLengthString();
-    purposeTransaction.setTag("08");
-    purposeTransaction.setValue("pqres");
-
-    final TagLengthString referenceLabel = new TagLengthString();
-    referenceLabel.setTag("05");
-    referenceLabel.setValue("abcde");
-
-    final TagLengthString storeLabel = new TagLengthString();
-    storeLabel.setTag("03");
-    storeLabel.setValue("09876");
-
-    final TagLengthString terminalLabel = new TagLengthString();
-    terminalLabel.setTag("07");
-    terminalLabel.setValue("klmno");
-
     final TagLengthString paymentSystemSpecific = new TagLengthString();
     paymentSystemSpecific.setTag("50");
     paymentSystemSpecific.setValue("ijkl");
@@ -132,15 +96,15 @@ public class AdditionalDataFieldTemplateDecoderTest {
     rFUforEMVCo.setValue("abcd");
 
     final AdditionalDataField value = new AdditionalDataField();
-    value.setAdditionalConsumerDataRequest(additionalConsumerDataRequest);
-    value.setBillNumber(billNumber);
-    value.setCustomerLabel(customerLabel);
-    value.setLoyaltyNumber(loyaltyNumber);
-    value.setMobileNumber(mobileNumber);
-    value.setPurposeTransaction(purposeTransaction);
-    value.setReferenceLabel(referenceLabel);
-    value.setStoreLabel(storeLabel);
-    value.setTerminalLabel(terminalLabel);
+    value.setAdditionalConsumerDataRequest("tuvxy");
+    value.setBillNumber("12345");
+    value.setCustomerLabel("fghij");
+    value.setLoyaltyNumber("54321");
+    value.setMobileNumber("67890");
+    value.setPurposeTransaction("pqres");
+    value.setReferenceLabel("abcde");
+    value.setStoreLabel("09876");
+    value.setTerminalLabel("klmno");
     value.addPaymentSystemSpecific(paymentSystemSpecific);
     value.addRFUforEMVCo(rFUforEMVCo);
 

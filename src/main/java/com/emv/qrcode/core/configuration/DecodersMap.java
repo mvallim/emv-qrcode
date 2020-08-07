@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.common.StringDecoder;
 import com.emv.qrcode.decoder.common.TagLengthStringDecoder;
 import com.emv.qrcode.decoder.mpm.AdditionalDataFieldDecoder;
 import com.emv.qrcode.decoder.mpm.AdditionalDataFieldTemplateDecoder;
@@ -30,6 +31,7 @@ public final class DecodersMap {
   private static final Map<Class<?>, Class<? extends Decoder<?>>> MAP_DECODERS = new ConcurrentHashMap<>();
 
   static {
+    MAP_DECODERS.put(String.class, StringDecoder.class);
     MAP_DECODERS.put(TagLengthString.class, TagLengthStringDecoder.class);
     MAP_DECODERS.put(MerchantPresentedMode.class, MerchantPresentedModeDecoder.class);
     MAP_DECODERS.put(AdditionalDataFieldTemplate.class, AdditionalDataFieldTemplateDecoder.class);

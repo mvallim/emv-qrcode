@@ -13,32 +13,20 @@ public class MerchantInformationLanguageTemplateTest {
   @Test
   public void testSuccessToString() {
 
-    final TagLengthString languagePreference = new TagLengthString();
-    languagePreference.setTag("00");
-    languagePreference.setValue("ZH");
-
-    final TagLengthString merchantCity = new TagLengthString();
-    merchantCity.setTag("01");
-    merchantCity.setValue("最佳运输");
-
-    final TagLengthString merchantName = new TagLengthString();
-    merchantName.setTag("02");
-    merchantName.setValue("北京");
-
-    final TagLengthString tagLengthString = new TagLengthString();
-    tagLengthString.setTag("03");
-    tagLengthString.setValue("abcd");
+    final TagLengthString rFUforEMVCo = new TagLengthString();
+    rFUforEMVCo.setTag("03");
+    rFUforEMVCo.setValue("abcd");
 
     final MerchantInformationLanguage value = new MerchantInformationLanguage();
-    value.setLanguagePreference(languagePreference);
-    value.setMerchantCity(merchantCity);
-    value.setMerchantName(merchantName);
-    value.addRFUforEMVCo(tagLengthString);
+    value.setLanguagePreference("ZH");
+    value.setMerchantCity("最佳运输");
+    value.setMerchantName("北京");
+    value.addRFUforEMVCo(rFUforEMVCo);
 
     final MerchantInformationLanguageTemplate merchantInformationLanguage = new MerchantInformationLanguageTemplate();
     merchantInformationLanguage.setValue(value);
 
-    assertThat(merchantInformationLanguage.toString(), equalTo("64280002ZH0202北京0104最佳运输0304abcd"));
+    assertThat(merchantInformationLanguage.toString(), equalTo("64280002ZH0102北京0204最佳运输0304abcd"));
   }
 
   @Test

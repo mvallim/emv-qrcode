@@ -42,19 +42,7 @@ public class MerchantInformationLanguage implements Serializable {
     this.merchantCity = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_MERCHANT_CITY, merchantCity);
   }
 
-  public void setLanguagePreference(final TagLengthString languagePreference) {
-    this.languagePreference = languagePreference;
-  }
-
-  public void setMerchantName(final TagLengthString merchantName) {
-    this.merchantName = merchantName;
-  }
-
-  public void setMerchantCity(final TagLengthString merchantCity) {
-    this.merchantCity = merchantCity;
-  }
-
-  public void addRFUforEMVCo(final TagLengthString tagLengthString) {
+  public final void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCo.add(tagLengthString);
   }
 

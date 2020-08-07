@@ -14,12 +14,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class ConsumerPresentedMode implements Serializable {
 
   private static final long serialVersionUID = -1395429978639674565L;
 
   // Payload Format Indicator
+  @Setter
   private PayloadFormatIndicator payloadFormatIndicator;
 
   // Application Template

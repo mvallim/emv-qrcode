@@ -24,15 +24,11 @@ public class Unreserved implements Serializable {
   // Context Specific Data
   private final List<TagLengthString> contextSpecificData = new LinkedList<>();
 
-  public void setGloballyUniqueIdentifier(final TagLengthString globallyUniqueIdentifier) {
-    this.globallyUniqueIdentifier = globallyUniqueIdentifier;
-  }
-
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier) {
     this.globallyUniqueIdentifier = new TagLengthString(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
   }
 
-  public void addContextSpecificData(final TagLengthString tagLengthString) {
+  public final void addContextSpecificData(final TagLengthString tagLengthString) {
     contextSpecificData.add(tagLengthString);
   }
 

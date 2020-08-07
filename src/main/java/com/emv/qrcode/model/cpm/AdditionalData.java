@@ -47,66 +47,6 @@ public abstract class AdditionalData implements Serializable {
 
   private BERTLString issuerApplicationData;
 
-  public void setApplicationDefinitionFileName(final BERTLString applicationDefinitionFileName) {
-    this.applicationDefinitionFileName = applicationDefinitionFileName;
-  }
-
-  public void setApplicationLabel(final BERTLString applicationLabel) {
-    this.applicationLabel = applicationLabel;
-  }
-
-  public void setTrack2EquivalentData(final BERTLString track2EquivalentData) {
-    this.track2EquivalentData = track2EquivalentData;
-  }
-
-  public void setApplicationPAN(final BERTLString applicationPAN) {
-    this.applicationPAN = applicationPAN;
-  }
-
-  public void setCardholderName(final BERTLString cardholderName) {
-    this.cardholderName = cardholderName;
-  }
-
-  public void setLanguagePreference(final BERTLString languagePreference) {
-    this.languagePreference = languagePreference;
-  }
-
-  public void setIssuerURL(final BERTLString issuerURL) {
-    this.issuerURL = issuerURL;
-  }
-
-  public void setApplicationVersionNumber(final BERTLString applicationVersionNumber) {
-    this.applicationVersionNumber = applicationVersionNumber;
-  }
-
-  public void setTokenRequestorID(final BERTLString tokenRequestorID) {
-    this.tokenRequestorID = tokenRequestorID;
-  }
-
-  public void setPaymentAccountReference(final BERTLString paymentAccountReference) {
-    this.paymentAccountReference = paymentAccountReference;
-  }
-
-  public void setLast4DigitsOfPAN(final BERTLString last4DigitsOfPAN) {
-    this.last4DigitsOfPAN = last4DigitsOfPAN;
-  }
-
-  public void setCryptogramInformationData(final BERTLString cryptogramInformationData) {
-    this.cryptogramInformationData = cryptogramInformationData;
-  }
-
-  public void setApplicationTransactionCounter(final BERTLString applicationTransactionCounter) {
-    this.applicationTransactionCounter = applicationTransactionCounter;
-  }
-
-  public void setApplicationCryptogram(final BERTLString applicationCryptogram) {
-    this.applicationCryptogram = applicationCryptogram;
-  }
-
-  public void setIssuerApplicationData(final BERTLString issuerApplicationData) {
-    this.issuerApplicationData = issuerApplicationData;
-  }
-
   public final void setApplicationDefinitionFileName(final String applicationDefinitionFileName) {
     this.applicationDefinitionFileName = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName);
   }

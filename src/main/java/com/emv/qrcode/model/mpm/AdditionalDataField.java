@@ -51,42 +51,6 @@ public class AdditionalDataField implements Serializable {
   // Payment System specific templates
   private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
 
-  public void setBillNumber(final TagLengthString billNumber) {
-    this.billNumber = billNumber;
-  }
-
-  public void setMobileNumber(final TagLengthString mobileNumber) {
-    this.mobileNumber = mobileNumber;
-  }
-
-  public void setStoreLabel(final TagLengthString storeLabel) {
-    this.storeLabel = storeLabel;
-  }
-
-  public void setLoyaltyNumber(final TagLengthString loyaltyNumber) {
-    this.loyaltyNumber = loyaltyNumber;
-  }
-
-  public void setReferenceLabel(final TagLengthString referenceLabel) {
-    this.referenceLabel = referenceLabel;
-  }
-
-  public void setCustomerLabel(final TagLengthString customerLabel) {
-    this.customerLabel = customerLabel;
-  }
-
-  public void setTerminalLabel(final TagLengthString terminalLabel) {
-    this.terminalLabel = terminalLabel;
-  }
-
-  public void setPurposeTransaction(final TagLengthString purposeTransaction) {
-    this.purposeTransaction = purposeTransaction;
-  }
-
-  public void setAdditionalConsumerDataRequest(final TagLengthString additionalConsumerDataRequest) {
-    this.additionalConsumerDataRequest = additionalConsumerDataRequest;
-  }
-
   public final void setBillNumber(final String billNumber) {
     this.billNumber = new TagLengthString(AdditionalDataFieldCodes.ID_BILL_NUMBER, billNumber);
   }
@@ -123,11 +87,11 @@ public class AdditionalDataField implements Serializable {
     this.additionalConsumerDataRequest = new TagLengthString(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, additionalConsumerDataRequest);
   }
 
-  public void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
+  public final void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
     this.rFUforEMVCo.add(rFUforEMVCo);
   }
 
-  public void addPaymentSystemSpecific(final TagLengthString paymentSystemSpecific) {
+  public final void addPaymentSystemSpecific(final TagLengthString paymentSystemSpecific) {
     this.paymentSystemSpecific.add(paymentSystemSpecific);
   }
 

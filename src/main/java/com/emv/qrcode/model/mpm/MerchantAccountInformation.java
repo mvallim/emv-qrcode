@@ -28,10 +28,6 @@ public class MerchantAccountInformation implements Serializable {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
   }
 
-  public void setGloballyUniqueIdentifier(final TagLengthString globallyUniqueIdentifier) {
-    this.globallyUniqueIdentifier = globallyUniqueIdentifier;
-  }
-
   public void addPaymentNetworkSpecific(final TagLengthString tagLengthString) {
     paymentNetworkSpecific.add(tagLengthString);
   }

@@ -21,19 +21,19 @@ public final class MerchantPresentedModeDecoder extends Decoder<MerchantPresente
   private static final Map<String, Entry<Class<?>, BiConsumer<MerchantPresentedMode, ?>>> mapConsumers = new HashMap<>();
 
   static {
-    mapConsumers.put(MerchantPresentedModeCodes.ID_PAYLOAD_FORMAT_INDICATOR, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setPayloadFormatIndicator));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_POINT_OF_INITIATION_METHOD, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setPointOfInitiationMethod));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_CATEGORY_CODE, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setMerchantCategoryCode));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_TRANSACTION_CURRENCY, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setTransactionCurrency));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_TRANSACTION_AMOUNT, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setTransactionAmount));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setTipOrConvenienceIndicator));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setValueOfConvenienceFeeFixed));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setValueOfConvenienceFeePercentage));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_COUNTRY_CODE, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setCountryCode));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_NAME, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setMerchantName));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_CITY, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setMerchantCity));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_POSTAL_CODE, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setPostalCode));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_CRC, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::setCRC));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_PAYLOAD_FORMAT_INDICATOR, consumerTagLengthValue(String.class, MerchantPresentedMode::setPayloadFormatIndicator));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_POINT_OF_INITIATION_METHOD, consumerTagLengthValue(String.class, MerchantPresentedMode::setPointOfInitiationMethod));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_CATEGORY_CODE, consumerTagLengthValue(String.class, MerchantPresentedMode::setMerchantCategoryCode));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_TRANSACTION_CURRENCY, consumerTagLengthValue(String.class, MerchantPresentedMode::setTransactionCurrency));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_TRANSACTION_AMOUNT, consumerTagLengthValue(String.class, MerchantPresentedMode::setTransactionAmount));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, consumerTagLengthValue(String.class, MerchantPresentedMode::setTipOrConvenienceIndicator));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, consumerTagLengthValue(String.class, MerchantPresentedMode::setValueOfConvenienceFeeFixed));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, consumerTagLengthValue(String.class, MerchantPresentedMode::setValueOfConvenienceFeePercentage));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_COUNTRY_CODE, consumerTagLengthValue(String.class, MerchantPresentedMode::setCountryCode));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_NAME, consumerTagLengthValue(String.class, MerchantPresentedMode::setMerchantName));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_CITY, consumerTagLengthValue(String.class, MerchantPresentedMode::setMerchantCity));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_POSTAL_CODE, consumerTagLengthValue(String.class, MerchantPresentedMode::setPostalCode));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_CRC, consumerTagLengthValue(String.class, MerchantPresentedMode::setCRC));
     mapConsumers.put(MerchantPresentedModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, consumerTagLengthValue(AdditionalDataFieldTemplate.class, MerchantPresentedMode::setAdditionalDataField));
     mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE, consumerTagLengthValue(MerchantInformationLanguageTemplate.class, MerchantPresentedMode::setMerchantInformationLanguage));
     mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION, consumerTagLengthValue(MerchantAccountInformationTemplate.class, MerchantPresentedMode::addMerchantAccountInformation));

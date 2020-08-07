@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
-import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 
 public class MerchantAccountInformationTemplateDecoderTest {
 
@@ -47,17 +47,13 @@ public class MerchantAccountInformationTemplateDecoderTest {
   @Test
   public void testSuccessEncode() {
 
-    final TagLengthString globallyUniqueIdentifier = new TagLengthString();
-    globallyUniqueIdentifier.setTag("00");
-    globallyUniqueIdentifier.setValue("hoge");
-
-    final TagLengthString tagLengthString = new TagLengthString();
-    tagLengthString.setTag("01");
-    tagLengthString.setValue("abcd");
+    final TagLengthString paymentNetworkSpecific = new TagLengthString();
+    paymentNetworkSpecific.setTag("01");
+    paymentNetworkSpecific.setValue("abcd");
 
     final MerchantAccountInformation value = new MerchantAccountInformation();
-    value.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
-    value.addPaymentNetworkSpecific(tagLengthString);
+    value.setGloballyUniqueIdentifier("hoge");
+    value.addPaymentNetworkSpecific(paymentNetworkSpecific);
 
     final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setValue(value);

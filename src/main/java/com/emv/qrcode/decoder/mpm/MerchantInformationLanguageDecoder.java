@@ -17,9 +17,9 @@ public final class MerchantInformationLanguageDecoder extends Decoder<MerchantIn
   private static final Map<String, Entry<Class<?>, BiConsumer<MerchantInformationLanguage, ?>>> mapConsumers = new HashMap<>();
 
   static {
-    mapConsumers.put(MerchantInformationLanguageFieldCodes.ID_LANGUAGE_PREFERENCE, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguage::setLanguagePreference));
-    mapConsumers.put(MerchantInformationLanguageFieldCodes.ID_MERCHANT_NAME, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguage::setMerchantName));
-    mapConsumers.put(MerchantInformationLanguageFieldCodes.ID_MERCHANT_CITY, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguage::setMerchantCity));
+    mapConsumers.put(MerchantInformationLanguageFieldCodes.ID_LANGUAGE_PREFERENCE, consumerTagLengthValue(String.class, MerchantInformationLanguage::setLanguagePreference));
+    mapConsumers.put(MerchantInformationLanguageFieldCodes.ID_MERCHANT_NAME, consumerTagLengthValue(String.class, MerchantInformationLanguage::setMerchantName));
+    mapConsumers.put(MerchantInformationLanguageFieldCodes.ID_MERCHANT_CITY, consumerTagLengthValue(String.class, MerchantInformationLanguage::setMerchantCity));
     mapConsumers.put(MerchantInformationLanguageFieldCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(TagLengthString.class, MerchantInformationLanguage::addRFUforEMVCo));
   }
 
