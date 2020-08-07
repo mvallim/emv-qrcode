@@ -16,6 +16,7 @@ public class TagLengthStringTest {
     tagLengthString.setValue("1234");
 
     assertThat(tagLengthString.toString(), equalTo("02041234"));
+    assertThat(new TagLengthString("02", "1234").toString(), equalTo("02041234"));
   }
 
   @Test

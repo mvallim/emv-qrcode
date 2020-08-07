@@ -1,17 +1,20 @@
 package com.emv.qrcode.model.cpm;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.codec.binary.Hex;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class ConsumerPresentedMode implements Serializable {
 
   private static final long serialVersionUID = -1395429978639674565L;
@@ -32,33 +35,32 @@ public class ConsumerPresentedMode implements Serializable {
   public void addCommonDataTemplate(final CommonDataTemplate commonDataTemplate) {
     commonDataTemplates.add(commonDataTemplate);
   }
+  
+  public byte[] getBytes() throws IOException {
+    try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+      
+      if(Objects.nonNull(payloadFormatIndicator)) {
+        out.write(payloadFormatIndicator.getBytes());
+      }
+      
+      for (final ApplicationTemplate applicationTemplate : applicationTemplates) {
+        out.write(applicationTemplate.getBytes());
+      }
 
-  public String toBase64() {
-    return Base64.encodeBase64String(toString().getBytes(StandardCharsets.UTF_8));
+      for (final CommonDataTemplate commonDataTemplate : commonDataTemplates) {
+        out.write(commonDataTemplate.getBytes());
+      }   
+      
+      return out.toByteArray();
+    }
+  }
+  
+  public String toBase64() throws IOException {
+    return Base64.encodeBase64String(getBytes());
   }
 
-  @Override
-  public String toString() {
-
-    final StringBuilder sb = new StringBuilder();
-
-    Optional.ofNullable(payloadFormatIndicator).ifPresent(tlv -> sb.append(tlv.toString()));
-
-    for (final ApplicationTemplate applicationTemplate : applicationTemplates) {
-      sb.append(applicationTemplate.toString());
-    }
-
-    for (final CommonDataTemplate commonDataTemplate : commonDataTemplates) {
-      sb.append(commonDataTemplate.toString());
-    }
-
-    final String string = sb.toString();
-
-    if (StringUtils.isBlank(string)) {
-      return StringUtils.EMPTY;
-    }
-
-    return sb.toString();
+  public String toHex() throws IOException {
+    return Hex.encodeHexString(getBytes(), false);
   }
 
 }

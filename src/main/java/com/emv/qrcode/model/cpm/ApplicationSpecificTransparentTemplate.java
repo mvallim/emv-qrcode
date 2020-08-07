@@ -1,45 +1,60 @@
 package com.emv.qrcode.model.cpm;
 
-import java.nio.charset.StandardCharsets;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class ApplicationSpecificTransparentTemplate implements BERTLV<String, BERTLV<String, String>> {
+public class ApplicationSpecificTransparentTemplate implements BERTLV<Integer, BERTLV<Integer, String>> {
 
   private static final long serialVersionUID = -5306048635485515245L;
 
-  private Integer length;
-
-  private BERTLV<String, String> value;
+  @Setter
+  private BERTLV<Integer, String> value;
 
   @Override
-  public String getTag() {
+  public Integer getTag() {
     return ConsumerPresentedModeFieldCodes.ID_APPLICATION_SPECIFIC_TRANSPARENT_TEMPLATE;
   }
 
   @Override
-  public String toString() {
+  public Integer getLength() {
+    return value.getValue().length();
+  }
+
+  @Override
+  public byte[] getBytes() throws IOException {
 
     if (Objects.isNull(value)) {
-      return StringUtils.EMPTY;
+      return EMPTY_BYTES;
     }
 
-    final String string = value.toString();
+    final byte[] bytes = value.getBytes();
 
-    if (StringUtils.isBlank(string)) {
-      return StringUtils.EMPTY;
+    if (bytes.length == 0) {
+      return EMPTY_BYTES;
     }
 
-    return String.format("%s%02X%s", getTag(), string.length(), Hex.encodeHex(string.getBytes(StandardCharsets.UTF_8), false));
+    try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+      out.write(getTag());
+      out.write(bytes.length);
+      out.write(bytes);
+      return out.toByteArray();
+    }
 
+  }
+
+  @Override
+  public String toHex() throws IOException {
+    return Hex.encodeHexString(getBytes(), false);
   }
 
 }
