@@ -1,5 +1,10 @@
 package com.emv.qrcode.model.cpm;
 
+import java.nio.charset.StandardCharsets;
+
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.StringUtils;
+
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
@@ -15,5 +20,16 @@ public class PayloadFormatIndicator implements BERTLV<String, String> {
   private Integer length;
 
   private String value;
+
+  @Override
+  public String toString() {
+
+    if (StringUtils.isBlank(value)) {
+      return StringUtils.EMPTY;
+    }
+
+    return String.format("%s%02X%s", tag, value.length(), Hex.encodeHex(value.getBytes(StandardCharsets.UTF_8), false));
+
+  }
 
 }
