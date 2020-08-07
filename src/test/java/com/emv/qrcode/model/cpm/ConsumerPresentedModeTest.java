@@ -14,7 +14,7 @@ public class ConsumerPresentedModeTest {
   public void testSuccessToHex() throws IOException {
     final ConsumerPresentedMode consumerPresentedMode = new ConsumerPresentedMode();
 
-    consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator("CPV01"));
+    consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(new ApplicationTemplate());
     consumerPresentedMode.addCommonDataTemplate(new CommonDataTemplate());
 
@@ -32,20 +32,10 @@ public class ConsumerPresentedModeTest {
   }
 
   @Test
-  public void testSuccessToHexWhenValueIsEmpty() throws IOException {
-
-    final ConsumerPresentedMode consumerPresentedMode = new ConsumerPresentedMode();
-
-    consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator(""));
-
-    assertThat(consumerPresentedMode.toHex(), equalTo(StringUtils.EMPTY));
-  }
-
-  @Test
   public void testSuccessToBase64() throws IOException {
     final ConsumerPresentedMode consumerPresentedMode = new ConsumerPresentedMode();
 
-    consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator("CPV01"));
+    consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(new ApplicationTemplate());
     consumerPresentedMode.addCommonDataTemplate(new CommonDataTemplate());
 
@@ -58,16 +48,6 @@ public class ConsumerPresentedModeTest {
     final ConsumerPresentedMode consumerPresentedMode = new ConsumerPresentedMode();
 
     consumerPresentedMode.setPayloadFormatIndicator(null);
-
-    assertThat(consumerPresentedMode.toBase64(), equalTo(StringUtils.EMPTY));
-  }
-
-  @Test
-  public void testSuccessToBase64WhenValueIsEmpty() throws IOException {
-
-    final ConsumerPresentedMode consumerPresentedMode = new ConsumerPresentedMode();
-
-    consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator(""));
 
     assertThat(consumerPresentedMode.toBase64(), equalTo(StringUtils.EMPTY));
   }
