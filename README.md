@@ -1,5 +1,11 @@
 # EMV QRCode
 
+[![Build Status](https://travis-ci.org/mvallim/emv-qrcode.svg?branch=master)](https://travis-ci.org/mvallim/emv-qrcode)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=emv-qrcode&metric=alert_status)](https://sonarcloud.io/dashboard?id=emv-qrcode)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=emv-qrcode&metric=coverage)](https://sonarcloud.io/dashboard?id=emv-qrcode)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mvallim/emv-qrcode/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mvallim/emv-qrcode)
+[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+
 Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Specification
