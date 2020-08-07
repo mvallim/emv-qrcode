@@ -1,10 +1,13 @@
-<p align="center">
-   <img src="images/emvco-logo.jpg">
-</p>
-
 # EMV QRCode
 
 Java Based EMV QR Code Generator and Parser (MPM, CPM)
+
+## Specification
+
+- [EMV QR Code Specification for Payment Systems: Merchant-Presented Mode](docs/EMVCo-Merchant-Presented-QR-Specification-v1-1.pdf)
+- [EMV QR Code Specification for Payment Systems: Consumer Presented Mode](docs/EMVCo-Consumer-Presented-QR-Specification-v1-1.pdf)
+- [EMV_Book_3_Application_Specification](docs/EMV_v4.3_Book_3_Application_Specification_20120607062110791.pdf)
+- [EMV_Book_4_Other_Interfaces](docs/EMV_v4.3_Book_4_Other_Interfaces_20120607062305603.pdf)
 
 ## Contributing
 
