@@ -18,5 +18,5 @@ script:
 #   - git fetch --unshallow
 
 after_success:
-  - mvn clean test jacoco:report org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.projectKey=emv-qrcode
+  - mvn clean test jacoco:report org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.projectKey=emv-qrcode -Dsonar.login=${SONAR_TOKEN}
 
