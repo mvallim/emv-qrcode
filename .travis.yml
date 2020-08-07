@@ -14,8 +14,8 @@ script:
   - mvn clean compile
   - mvn test
 
-install:
-  - git fetch --unshallow
+# install:
+#   - git fetch --unshallow
 
 after_success:
   - mvn clean test jacoco:report org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.projectKey=emv-qrcode
