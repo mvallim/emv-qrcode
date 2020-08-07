@@ -4,7 +4,7 @@ addons:
   sonarcloud:
     organization: "mvallim"
     token:
-      secure: "iSiO25H/ZuK68y4gtNbBqv+QRvf7Da3mI80wuUQn6zl7LFXpjSYne/LxiMfbbFtbWSrg3jGl0IP/ZI2GFVqs5dDTA+gRuqvgsp34/L2o9o/ICTyuJsjYng6O9X0LYgXvwdOhUg6ynTizd/szdxgy9OxXwSVey/nWFDgGJEkIjxa3nYWd5wM55xPNnhu3T8few5AD7WMVR640RroQdxFZVrB7wS1N77ob12MaqUkPvi5Y8PbcS77SJJj4GGrh7uiMMUtNy4UhrUOldVKRZfNSquj7X9QOGqgnPcvRz8Bh2OI/45taG8T1Nwbtq2pX3JoJ/qe+pDq3cBwDpH/0XBTbsIFnv3UKsQpLSTzYp11Iig0MW5aa7ER9h+WRtgTvQKCRZ0Am8JbirqqdvAIsZDeUEW9MDLV3GThNU8AEPWepU+ONNJkARI7i2+h52vts1K5dd8ea1KwNj5HNZquJSsTFF5bSfAmsQZC7MmqHsS7lpfcCu2MvZ3NZ/ZcZIyH83jvZCjXPyjeMWwNwx6VfdJ5hs0MM5q/aTkRY2s5Pyx7u2Tio7jbQGKpzyX+N7EqX0AADPx2dcIRUT4OKuynKIPyX8o1yqDJuFWLGNIgEHte9xHAYotrAF7HcNJ0x7lIdN8B4rMqnhfuvfi9a4vqLcQ68Bn4O9zLTWbxsKgaBZjeXLP1c="
+      secure: ${SONAR_TOKEN} 
 
 cache:
   directories:
