@@ -1,4 +1,4 @@
-package com.emv.qrcode.core.iso;
+package com.emv.qrcode.core.isos;
 
 import java.util.EnumSet;
 import java.util.HashMap;
