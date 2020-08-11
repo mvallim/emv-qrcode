@@ -1,7 +1,6 @@
 package com.emv.qrcode.decoder;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -30,8 +29,8 @@ public abstract class Decoder<T> {
       final Constructor<? extends Decoder<?>> ctor = parserClass.getConstructor(String.class);
       final Decoder<?> parser = ctor.newInstance(source);
       return clazz.cast(parser.decode());
-    } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-      throw new RuntimeException(e);
+    } catch (final Exception ex) {
+      throw new RuntimeException(ex);
     }
   }
 
