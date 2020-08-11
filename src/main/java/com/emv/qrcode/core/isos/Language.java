@@ -54,11 +54,11 @@ public enum Language {
   }
 
   public static Language entryOf(final String lang) {
-    return StringUtils.isNoneBlank(lang) ? mapString.get(lang) : null;
+    return StringUtils.isNoneBlank(lang) ? mapString.get(lang.toUpperCase()) : null;
   }
 
   public static boolean exists(final String lang) {
-    return StringUtils.isNoneBlank(lang) && mapString.containsKey(lang);
+    return StringUtils.isNoneBlank(lang) && mapString.containsKey(lang.toUpperCase());
   }
 
 }

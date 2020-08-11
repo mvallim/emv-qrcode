@@ -83,7 +83,7 @@ public enum Country {
 
   static {
     for (final Country country : EnumSet.allOf(Country.class)) {
-      mapString.put(country.getCode(), country);
+      mapString.put(country.getAlpha2(), country);
     }
   }
 
@@ -101,15 +101,15 @@ public enum Country {
 
   @Override
   public String toString() {
-    return code;
+    return alpha2;
   }
 
   public static Country entryOf(final String code) {
-    return StringUtils.isNoneBlank(code) ? mapString.get(code) : null;
+    return StringUtils.isNoneBlank(code) ? mapString.get(code.toUpperCase()) : null;
   }
 
   public static boolean exists(final String lang) {
-    return StringUtils.isNoneBlank(lang) && mapString.containsKey(lang);
+    return StringUtils.isNoneBlank(lang) && mapString.containsKey(lang.toUpperCase());
   }
 
 }

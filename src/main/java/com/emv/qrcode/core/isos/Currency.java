@@ -69,11 +69,11 @@ public enum Currency {
   }
 
   public static Currency entryOf(final String code) {
-    return StringUtils.isNoneBlank(code) ? mapString.get(code) : null;
+    return StringUtils.isNoneBlank(code) ? mapString.get(code.toUpperCase()) : null;
   }
 
   public static boolean exists(final String code) {
-    return StringUtils.isNoneBlank(code) && mapString.containsKey(code);
+    return StringUtils.isNoneBlank(code) && mapString.containsKey(code.toUpperCase());
   }
 
 }
