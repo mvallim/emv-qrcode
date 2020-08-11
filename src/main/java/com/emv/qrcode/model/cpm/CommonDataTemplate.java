@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Hex;
-
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
@@ -56,11 +54,6 @@ public class CommonDataTemplate extends AdditionalData implements BERTLV<Integer
         return out.toByteArray();
       }
     }
-  }
-
-  @Override
-  public String toHex() throws IOException {
-    return Hex.encodeHexString(getBytes(), false);
   }
 
 }

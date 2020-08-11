@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.emv.qrcode.core.model.BERTLV;
@@ -46,11 +45,6 @@ public class ApplicationSpecificTransparentTemplate implements BERTLV<Integer, B
       return out.toByteArray();
     }
 
-  }
-
-  @Override
-  public String toHex() throws IOException {
-    return Hex.encodeHexString(getBytes(), false);
   }
 
 }

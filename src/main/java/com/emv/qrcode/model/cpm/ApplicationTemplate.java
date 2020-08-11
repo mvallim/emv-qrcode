@@ -5,21 +5,21 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Hex;
-
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
 
 @Getter
-public class ApplicationTemplate extends AdditionalData implements BERTLV<Integer, List<ApplicationSpecificTransparentTemplate>> {
+public class ApplicationTemplate extends AdditionalData
+    implements BERTLV<Integer, List<ApplicationSpecificTransparentTemplate>> {
 
   private static final long serialVersionUID = 2418153324275018348L;
 
   private final List<ApplicationSpecificTransparentTemplate> value = new LinkedList<>();
 
-  public void addApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
+  public void addApplicationSpecificTransparentTemplate(
+      final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
     value.add(applicationSpecificTransparentTemplate);
   }
 
@@ -54,11 +54,6 @@ public class ApplicationTemplate extends AdditionalData implements BERTLV<Intege
         return out.toByteArray();
       }
     }
-  }
-
-  @Override
-  public String toHex() throws IOException {
-    return Hex.encodeHexString(getBytes(), false);
   }
 
 }
