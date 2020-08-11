@@ -27,11 +27,6 @@ public class ApplicationSpecificTransparentTemplate implements BERTLV<Integer, B
   }
 
   @Override
-  public Integer getLength() {
-    return value.getValue().length();
-  }
-
-  @Override
   public byte[] getBytes() throws IOException {
 
     if (Objects.isNull(value)) {

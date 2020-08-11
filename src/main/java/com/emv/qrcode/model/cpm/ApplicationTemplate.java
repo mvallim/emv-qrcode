@@ -17,8 +17,6 @@ public class ApplicationTemplate extends AdditionalData implements BERTLV<Intege
 
   private static final long serialVersionUID = 2418153324275018348L;
 
-  private Integer length;
-
   private final List<ApplicationSpecificTransparentTemplate> value = new LinkedList<>();
 
   public void addApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {

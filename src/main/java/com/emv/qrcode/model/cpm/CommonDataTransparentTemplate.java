@@ -27,11 +27,6 @@ public class CommonDataTransparentTemplate implements BERTLV<Integer, BERTLV<Int
   }
 
   @Override
-  public Integer getLength() {
-    return value.getValue().length();
-  }
-
-  @Override
   public byte[] getBytes() throws IOException {
 
     if (Objects.isNull(value)) {

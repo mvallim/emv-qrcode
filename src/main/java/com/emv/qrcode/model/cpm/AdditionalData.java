@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.apache.commons.codec.binary.Hex;
-
 import com.emv.qrcode.core.model.BERTLString;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
@@ -48,7 +46,8 @@ public abstract class AdditionalData implements Serializable {
   private BERTLString issuerApplicationData;
 
   public final void setApplicationDefinitionFileName(final String applicationDefinitionFileName) {
-    this.applicationDefinitionFileName = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName);
+    this.applicationDefinitionFileName = new BERTLString(
+        TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName);
   }
 
   public final void setApplicationLabel(final String applicationLabel) {
@@ -56,7 +55,8 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setTrack2EquivalentData(final String track2EquivalentData) {
-    this.track2EquivalentData = new BERTLString(TagTransactionProcessingCodes.ID_TRACK_2_EQUIVALENT_DATA, track2EquivalentData);
+    this.track2EquivalentData = new BERTLString(TagTransactionProcessingCodes.ID_TRACK_2_EQUIVALENT_DATA,
+        track2EquivalentData);
   }
 
   public final void setApplicationPAN(final String applicationPAN) {
@@ -76,7 +76,8 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setApplicationVersionNumber(final String applicationVersionNumber) {
-    this.applicationVersionNumber = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER, applicationVersionNumber);
+    this.applicationVersionNumber = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER,
+        applicationVersionNumber);
   }
 
   public final void setTokenRequestorID(final String tokenRequestorID) {
@@ -84,7 +85,8 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setPaymentAccountReference(final String paymentAccountReference) {
-    this.paymentAccountReference = new BERTLString(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE, paymentAccountReference);
+    this.paymentAccountReference = new BERTLString(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE,
+        paymentAccountReference);
   }
 
   public final void setLast4DigitsOfPAN(final String last4DigitsOfPAN) {
@@ -92,19 +94,23 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setCryptogramInformationData(final String cryptogramInformationData) {
-    this.cryptogramInformationData = new BERTLString(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, cryptogramInformationData);
+    this.cryptogramInformationData = new BERTLString(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA,
+        cryptogramInformationData);
   }
 
   public final void setApplicationTransactionCounter(final String applicationTransactionCounter) {
-    this.applicationTransactionCounter = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter);
+    this.applicationTransactionCounter = new BERTLString(
+        TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter);
   }
 
   public final void setApplicationCryptogram(final String applicationCryptogram) {
-    this.applicationCryptogram = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM, applicationCryptogram);
+    this.applicationCryptogram = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM,
+        applicationCryptogram);
   }
 
   public final void setIssuerApplicationData(final String issuerApplicationData) {
-    this.issuerApplicationData = new BERTLString(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, issuerApplicationData);
+    this.issuerApplicationData = new BERTLString(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA,
+        issuerApplicationData);
   }
 
   public byte[] getBytes() throws IOException {
@@ -172,10 +178,6 @@ public abstract class AdditionalData implements Serializable {
 
       return out.toByteArray();
     }
-  }
-
-  public String toHex() throws IOException {
-    return Hex.encodeHexString(getBytes(), false);
   }
 
 }
