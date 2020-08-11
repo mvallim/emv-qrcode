@@ -28,7 +28,7 @@ public final class MerchantInformationLanguageDecoder extends Decoder<MerchantIn
   }
 
   @Override
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({ "rawtypes", "unchecked", "java:S3740" })
   protected MerchantInformationLanguage decode() {
     final MerchantInformationLanguage result = new MerchantInformationLanguage();
 

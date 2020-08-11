@@ -26,7 +26,7 @@ public final class UnreservedDecoder extends Decoder<Unreserved> {
   }
 
   @Override
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({ "rawtypes", "unchecked", "java:S3740" })
   protected Unreserved decode() {
     final Unreserved result = new Unreserved();
 

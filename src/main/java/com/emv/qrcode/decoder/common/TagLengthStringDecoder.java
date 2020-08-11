@@ -20,7 +20,6 @@ public final class TagLengthStringDecoder extends Decoder<TagLengthString> {
       final Integer length = Integer.valueOf(value.substring(DecodeIterator.ID_WORD_COUNT, DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT));
       final String string = value.substring(DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT, DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT + length);
       result.setTag(tag);
-      result.setLength(length);
       result.setValue(string);
     });
 

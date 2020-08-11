@@ -7,22 +7,23 @@ import org.apache.commons.lang3.StringUtils;
 import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
-import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
 public class AdditionalDataFieldTemplate implements TLV<String, AdditionalDataField> {
 
   private static final long serialVersionUID = 2232991556283235445L;
 
-  private Integer length;
-
   private AdditionalDataField value;
-  
+
   @Override
   public String getTag() {
     return MerchantPresentedModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE;
+  }
+
+  @Override
+  public AdditionalDataField getValue() {
+    return value;
   }
 
   @Override

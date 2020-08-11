@@ -7,22 +7,23 @@ import org.apache.commons.lang3.StringUtils;
 import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
-import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
 public class MerchantInformationLanguageTemplate implements TLV<String, MerchantInformationLanguage> {
 
   private static final long serialVersionUID = -5894790923682120529L;
 
-  private Integer length;
-
   private MerchantInformationLanguage value;
-  
+
   @Override
   public String getTag() {
     return MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE;
+  }
+
+  @Override
+  public MerchantInformationLanguage getValue() {
+    return value;
   }
 
   @Override

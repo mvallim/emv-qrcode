@@ -6,10 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TLV;
 
-import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
 public class UnreservedTemplate implements TLV<String, Unreserved> {
 
@@ -17,9 +15,17 @@ public class UnreservedTemplate implements TLV<String, Unreserved> {
 
   private String tag;
 
-  private Integer length;
-
   private Unreserved value;
+
+  @Override
+  public String getTag() {
+    return tag;
+  }
+
+  @Override
+  public Unreserved getValue() {
+    return value;
+  }
 
   @Override
   public String toString() {

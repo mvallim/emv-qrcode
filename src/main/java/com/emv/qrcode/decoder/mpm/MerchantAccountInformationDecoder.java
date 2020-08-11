@@ -26,7 +26,7 @@ public final class MerchantAccountInformationDecoder extends Decoder<MerchantAcc
   }
 
   @Override
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({ "rawtypes", "unchecked", "java:S3740" })
   protected MerchantAccountInformation decode() {
     final MerchantAccountInformation result = new MerchantAccountInformation();
 

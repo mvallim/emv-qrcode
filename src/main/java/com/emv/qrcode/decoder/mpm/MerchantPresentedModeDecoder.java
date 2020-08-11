@@ -46,7 +46,7 @@ public final class MerchantPresentedModeDecoder extends Decoder<MerchantPresente
   }
 
   @Override
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({ "rawtypes", "unchecked", "java:S3740" })
   protected MerchantPresentedMode decode() {
     final MerchantPresentedMode result = new MerchantPresentedMode();
 

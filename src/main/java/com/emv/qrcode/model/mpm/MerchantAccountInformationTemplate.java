@@ -6,10 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TLV;
 
-import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
 public class MerchantAccountInformationTemplate implements TLV<String, MerchantAccountInformation> {
 
@@ -17,9 +15,17 @@ public class MerchantAccountInformationTemplate implements TLV<String, MerchantA
 
   private String tag;
 
-  private Integer length;
-
   private MerchantAccountInformation value;
+
+  @Override
+  public String getTag() {
+    return tag;
+  }
+
+  @Override
+  public MerchantAccountInformation getValue() {
+    return value;
+  }
 
   @Override
   public String toString() {

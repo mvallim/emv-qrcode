@@ -35,8 +35,9 @@ public final class AdditionalDataFieldDecoder extends Decoder<AdditionalDataFiel
   }
 
   @Override
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({ "rawtypes", "unchecked", "java:S3740" })
   protected AdditionalDataField decode() {
+
     final AdditionalDataField result = new AdditionalDataField();
 
     iterator.forEachRemaining(value -> {
