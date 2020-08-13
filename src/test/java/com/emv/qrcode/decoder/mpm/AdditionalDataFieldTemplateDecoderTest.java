@@ -12,22 +12,24 @@ import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
+import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
+import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 
 public class AdditionalDataFieldTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final AdditionalDataFieldTemplate additionalDataField = Decoder.decode("62970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl", AdditionalDataFieldTemplate.class);
+    final AdditionalDataFieldTemplate additionalDataField = Decoder.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
 
     assertThat(additionalDataField.getValue().getAdditionalConsumerDataRequest(), not(nullValue()));
     assertThat(additionalDataField.getValue().getBillNumber(), not(nullValue()));
     assertThat(additionalDataField.getValue().getCustomerLabel(), not(nullValue()));
     assertThat(additionalDataField.getValue().getLoyaltyNumber(), not(nullValue()));
     assertThat(additionalDataField.getValue().getMobileNumber(), not(nullValue()));
-    assertThat(additionalDataField.getValue().getPaymentSystemSpecific(), hasSize(1));
+    assertThat(additionalDataField.getValue().getPaymentSystemSpecific().entrySet(), hasSize(1));
     assertThat(additionalDataField.getValue().getPurposeTransaction(), not(nullValue()));
     assertThat(additionalDataField.getValue().getReferenceLabel(), not(nullValue()));
-    assertThat(additionalDataField.getValue().getRFUforEMVCo(), hasSize(1));
+    assertThat(additionalDataField.getValue().getRFUforEMVCo(), hasSize(0));
     assertThat(additionalDataField.getValue().getStoreLabel(), not(nullValue()));
     assertThat(additionalDataField.getValue().getTerminalLabel(), not(nullValue()));
 
@@ -51,10 +53,6 @@ public class AdditionalDataFieldTemplateDecoderTest {
     assertThat(additionalDataField.getValue().getMobileNumber().getLength(), equalTo(5));
     assertThat(additionalDataField.getValue().getMobileNumber().getValue(), equalTo("67890"));
 
-    assertThat(additionalDataField.getValue().getPaymentSystemSpecific().get(0).getTag(), equalTo("50"));
-    assertThat(additionalDataField.getValue().getPaymentSystemSpecific().get(0).getLength(), equalTo(4));
-    assertThat(additionalDataField.getValue().getPaymentSystemSpecific().get(0).getValue(), equalTo("ijkl"));
-
     assertThat(additionalDataField.getValue().getPurposeTransaction().getTag(), equalTo("08"));
     assertThat(additionalDataField.getValue().getPurposeTransaction().getLength(), equalTo(5));
     assertThat(additionalDataField.getValue().getPurposeTransaction().getValue(), equalTo("pqres"));
@@ -62,10 +60,6 @@ public class AdditionalDataFieldTemplateDecoderTest {
     assertThat(additionalDataField.getValue().getReferenceLabel().getTag(), equalTo("05"));
     assertThat(additionalDataField.getValue().getReferenceLabel().getLength(), equalTo(5));
     assertThat(additionalDataField.getValue().getReferenceLabel().getValue(), equalTo("abcde"));
-
-    assertThat(additionalDataField.getValue().getRFUforEMVCo().get(0).getTag(), equalTo("10"));
-    assertThat(additionalDataField.getValue().getRFUforEMVCo().get(0).getLength(), equalTo(4));
-    assertThat(additionalDataField.getValue().getRFUforEMVCo().get(0).getValue(), equalTo("abcd"));
 
     assertThat(additionalDataField.getValue().getStoreLabel().getTag(), equalTo("03"));
     assertThat(additionalDataField.getValue().getStoreLabel().getLength(), equalTo(5));
@@ -79,21 +73,21 @@ public class AdditionalDataFieldTemplateDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final AdditionalDataFieldTemplate additionalDataField = Decoder.decode("62970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl", AdditionalDataFieldTemplate.class);
+    final AdditionalDataFieldTemplate additionalDataField = Decoder.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
 
-    assertThat(additionalDataField.toString(), equalTo("62970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl"));
+    assertThat(additionalDataField.toString(), equalTo("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));
   }
 
   @Test
   public void testSuccessEncode() {
 
-    final TagLengthString paymentSystemSpecific = new TagLengthString();
-    paymentSystemSpecific.setTag("50");
-    paymentSystemSpecific.setValue("ijkl");
+    final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
+    paymentSystemSpecific.setGloballyUniqueIdentifier("1");
+    paymentSystemSpecific.addPaymentNetworkSpecific(new TagLengthString("01", "i"));
 
-    final TagLengthString rFUforEMVCo = new TagLengthString();
-    rFUforEMVCo.setTag("10");
-    rFUforEMVCo.setValue("abcd");
+    final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
+    paymentSystemSpecificTemplate.setTag("50");
+    paymentSystemSpecificTemplate.setValue(paymentSystemSpecific);
 
     final AdditionalDataField value = new AdditionalDataField();
     value.setAdditionalConsumerDataRequest("tuvxy");
@@ -105,13 +99,13 @@ public class AdditionalDataFieldTemplateDecoderTest {
     value.setReferenceLabel("abcde");
     value.setStoreLabel("09876");
     value.setTerminalLabel("klmno");
-    value.addPaymentSystemSpecific(paymentSystemSpecific);
-    value.addRFUforEMVCo(rFUforEMVCo);
+    value.addPaymentSystemSpecific(paymentSystemSpecificTemplate);
 
     final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(value);
 
-    assertThat(additionalDataField.toString(), equalTo("62970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl"));
+    assertThat(additionalDataField.toString(), equalTo("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));
+
   }
 
 }

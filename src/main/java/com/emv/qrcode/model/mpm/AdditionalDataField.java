@@ -1,8 +1,11 @@
 package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -49,7 +52,7 @@ public class AdditionalDataField implements Serializable {
   private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
 
   // Payment System specific templates
-  private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
+  private final Map<String, PaymentSystemSpecificTemplate> paymentSystemSpecific = new LinkedHashMap<>();
 
   public final void setBillNumber(final String billNumber) {
     this.billNumber = new TagLengthString(AdditionalDataFieldCodes.ID_BILL_NUMBER, billNumber);
@@ -84,15 +87,16 @@ public class AdditionalDataField implements Serializable {
   }
 
   public final void setAdditionalConsumerDataRequest(final String additionalConsumerDataRequest) {
-    this.additionalConsumerDataRequest = new TagLengthString(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, additionalConsumerDataRequest);
+    this.additionalConsumerDataRequest = new TagLengthString(
+        AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, additionalConsumerDataRequest);
   }
 
   public final void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
     this.rFUforEMVCo.add(rFUforEMVCo);
   }
 
-  public final void addPaymentSystemSpecific(final TagLengthString paymentSystemSpecific) {
-    this.paymentSystemSpecific.add(paymentSystemSpecific);
+  public final void addPaymentSystemSpecific(final PaymentSystemSpecificTemplate paymentSystemSpecific) {
+    this.paymentSystemSpecific.put(paymentSystemSpecific.getTag(), paymentSystemSpecific);
   }
 
   @Override
@@ -114,8 +118,8 @@ public class AdditionalDataField implements Serializable {
       Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
-    for (final TLV<String, String> tagLengthString : paymentSystemSpecific) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
+    for (final Entry<String, PaymentSystemSpecificTemplate> entry : paymentSystemSpecific.entrySet()) {
+      Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
     final String string = sb.toString();

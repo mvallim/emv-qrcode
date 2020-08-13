@@ -9,6 +9,7 @@ import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.decoder.DecodeIterator;
 import com.emv.qrcode.decoder.Decoder;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
+import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
 
 // @formatter:off
@@ -26,7 +27,7 @@ public final class AdditionalDataFieldDecoder extends Decoder<AdditionalDataFiel
     mapConsumers.put(AdditionalDataFieldCodes.ID_TERMINAL_LABEL, consumerTagLengthValue(String.class, AdditionalDataField::setTerminalLabel));
     mapConsumers.put(AdditionalDataFieldCodes.ID_PURPOSE_TRANSACTION, consumerTagLengthValue(String.class, AdditionalDataField::setPurposeTransaction));
     mapConsumers.put(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(TagLengthString.class, AdditionalDataField::addRFUforEMVCo));
-    mapConsumers.put(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC, consumerTagLengthValue(TagLengthString.class, AdditionalDataField::addPaymentSystemSpecific));
+    mapConsumers.put(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC, consumerTagLengthValue(PaymentSystemSpecificTemplate.class, AdditionalDataField::addPaymentSystemSpecific));
     mapConsumers.put(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, consumerTagLengthValue(String.class, AdditionalDataField::setAdditionalConsumerDataRequest));
   }
 

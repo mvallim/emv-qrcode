@@ -14,6 +14,8 @@ import com.emv.qrcode.decoder.mpm.MerchantAccountInformationTemplateDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantInformationLanguageTemplateDecoder;
 import com.emv.qrcode.decoder.mpm.MerchantPresentedModeDecoder;
+import com.emv.qrcode.decoder.mpm.PaymentSystemSpecificDecoder;
+import com.emv.qrcode.decoder.mpm.PaymentSystemSpecificTemplateDecoder;
 import com.emv.qrcode.decoder.mpm.UnreservedDecoder;
 import com.emv.qrcode.decoder.mpm.UnreservedTemplateDecoder;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
@@ -23,6 +25,8 @@ import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;
+import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
+import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
@@ -42,6 +46,8 @@ public final class DecodersMap {
     MAP_DECODERS.put(MerchantAccountInformation.class, MerchantAccountInformationDecoder.class);
     MAP_DECODERS.put(UnreservedTemplate.class, UnreservedTemplateDecoder.class);
     MAP_DECODERS.put(Unreserved.class, UnreservedDecoder.class);
+    MAP_DECODERS.put(PaymentSystemSpecificTemplate.class, PaymentSystemSpecificTemplateDecoder.class);
+    MAP_DECODERS.put(PaymentSystemSpecific.class, PaymentSystemSpecificDecoder.class);
   }
 
   private DecodersMap() {

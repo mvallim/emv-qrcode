@@ -2,6 +2,8 @@ package com.emv.qrcode.validators.mpm;
 
 import static br.com.fluentvalidator.function.FunctionBuilder.of;
 import static br.com.fluentvalidator.predicate.CollectionPredicate.empty;
+import static br.com.fluentvalidator.predicate.ComparablePredicate.betweenInclusive;
+import static br.com.fluentvalidator.predicate.ComparablePredicate.greaterThan;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
 import static br.com.fluentvalidator.predicate.StringPredicate.isNumeric;
@@ -9,6 +11,9 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEquals;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSize;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessThanOrEqual;
+
+import java.util.Collection;
+import java.util.Map;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
@@ -391,13 +396,24 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .withAttempedValue(of(AdditionalDataField::getAdditionalConsumerDataRequest).andThen(TagLengthString::getValue))
         .critical();
 
+    /**
+     *
+     */
     ruleForEach(AdditionalDataField::getRFUforEMVCo)
       .whenever(not(empty()))
         .withValidator(new TagLengthStringValidator("AdditionalDataField.RFUforEMVCo", "10", "49", 20));
 
-    ruleForEach(AdditionalDataField::getPaymentSystemSpecific)
-      .whenever(not(empty()))
-        .withValidator(new TagLengthStringValidator("AdditionalDataField.PaymentSystemSpecific", "50", "99", 20));
+    /**
+     *
+     */
+    ruleFor("PaymentSystemSpecific", AdditionalDataField::getPaymentSystemSpecific)
+      .must(betweenInclusive(Map::size, 1, 49))
+        .when(greaterThan(Map::size, 0))
+        .withMessage("PaymentSystemSpecific list size must be between one and forty-nine");
+
+    ruleForEach(of(AdditionalDataField::getPaymentSystemSpecific).andThen(Map::values))
+      .whenever(greaterThan(Collection::size, 0))
+        .withValidator(new PaymentSystemSpecificTemplateValidator("50", "99", 99));
 
    }
 

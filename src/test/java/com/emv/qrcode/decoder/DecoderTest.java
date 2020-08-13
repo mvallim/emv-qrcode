@@ -13,7 +13,7 @@ public class DecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0903tuv1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C659";
+    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863044220";
 
     final MerchantPresentedMode merchantPresentedMode = Decoder.decode(encoded, MerchantPresentedMode.class);
 
@@ -24,7 +24,7 @@ public class DecoderTest {
     assertThat(merchantPresentedMode.getPayloadFormatIndicator().getValue(), equalTo("01"));
     assertThat(merchantPresentedMode.getPointOfInitiationMethod().getValue(), equalTo("11"));
     assertThat(merchantPresentedMode.getPostalCode().getValue(), equalTo("1234567"));
-    assertThat(merchantPresentedMode.getTipOrConvenienceIndicator().getValue(), equalTo("02"));
+    assertThat(merchantPresentedMode.getTipOrConvenienceIndicator().getValue(), equalTo("01"));
     assertThat(merchantPresentedMode.getTransactionAmount().getValue(), equalTo("23.72"));
     assertThat(merchantPresentedMode.getTransactionCurrency().getValue(), equalTo("156"));
     assertThat(merchantPresentedMode.getValueOfConvenienceFeeFixed().getValue(), equalTo("500"));

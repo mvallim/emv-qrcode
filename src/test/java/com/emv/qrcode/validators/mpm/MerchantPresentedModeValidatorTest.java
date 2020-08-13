@@ -12,6 +12,8 @@ import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;
+import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
+import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
 import com.emv.qrcode.validators.MerchantPresentedModeValidate;
@@ -107,9 +109,13 @@ public class MerchantPresentedModeValidatorTest {
 
   private AdditionalDataFieldTemplate getAddtionalDataField() {
 
-    final TagLengthString paymentSystemSpecific = new TagLengthString();
-    paymentSystemSpecific.setTag("50");
-    paymentSystemSpecific.setValue("ijkl");
+    final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
+    paymentSystemSpecific.setGloballyUniqueIdentifier("1234");
+    paymentSystemSpecific.addPaymentNetworkSpecific(new TagLengthString("01", "ijkl"));
+
+    final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
+    paymentSystemSpecificTemplate.setTag("50");
+    paymentSystemSpecificTemplate.setValue(paymentSystemSpecific);
 
     final TagLengthString rFUforEMVCo = new TagLengthString();
     rFUforEMVCo.setTag("10");
@@ -125,7 +131,7 @@ public class MerchantPresentedModeValidatorTest {
     additionalDataFieldValue.setReferenceLabel("abcde");
     additionalDataFieldValue.setStoreLabel("09876");
     additionalDataFieldValue.setTerminalLabel("klmno");
-    additionalDataFieldValue.addPaymentSystemSpecific(paymentSystemSpecific);
+    additionalDataFieldValue.addPaymentSystemSpecific(paymentSystemSpecificTemplate);
     additionalDataFieldValue.addRFUforEMVCo(rFUforEMVCo);
 
     final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();

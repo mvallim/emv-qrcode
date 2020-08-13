@@ -13,9 +13,36 @@ public class AdditionalDataFieldTemplateTest {
   @Test
   public void testSuccessToString() {
 
-    final TagLengthString paymentSystemSpecific = new TagLengthString();
-    paymentSystemSpecific.setTag("50");
-    paymentSystemSpecific.setValue("ijkl");
+    final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
+    paymentSystemSpecific.setGloballyUniqueIdentifier("1");
+    paymentSystemSpecific.addPaymentNetworkSpecific(new TagLengthString("01", "i"));
+
+    final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
+    paymentSystemSpecificTemplate.setTag("50");
+    paymentSystemSpecificTemplate.setValue(paymentSystemSpecific);
+
+    final AdditionalDataField value = new AdditionalDataField();
+    value.setAdditionalConsumerDataRequest("tuvxy");
+    value.setBillNumber("12345");
+    value.setCustomerLabel("fghij");
+    value.setLoyaltyNumber("54321");
+    value.setMobileNumber("67890");
+    value.setPurposeTransaction("pqres");
+    value.setReferenceLabel("abcde");
+    value.setStoreLabel("09876");
+    value.setTerminalLabel("klmno");
+    value.addPaymentSystemSpecific(paymentSystemSpecificTemplate);
+
+    final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
+    additionalDataField.setValue(value);
+
+    assertThat(additionalDataField.toString(),
+        equalTo("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));
+
+  }
+
+  @Test
+  public void testSuccessToStringWithoutPaymentSystemSpecific() {
 
     final TagLengthString rFUforEMVCo = new TagLengthString();
     rFUforEMVCo.setTag("10");
@@ -31,13 +58,13 @@ public class AdditionalDataFieldTemplateTest {
     value.setReferenceLabel("abcde");
     value.setStoreLabel("09876");
     value.setTerminalLabel("klmno");
-    value.addPaymentSystemSpecific(paymentSystemSpecific);
     value.addRFUforEMVCo(rFUforEMVCo);
 
     final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(value);
 
-    assertThat(additionalDataField.toString(), equalTo("62970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl"));
+    assertThat(additionalDataField.toString(),
+        equalTo("62890105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd"));
 
   }
 
