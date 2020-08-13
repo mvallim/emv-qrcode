@@ -28,7 +28,7 @@ public class PaymentSystemSpecific implements Serializable {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
   }
 
-  public void addPaymentNetworkSpecific(final TagLengthString tagLengthString) {
+  public void addPaymentSystemSpecific(final TagLengthString tagLengthString) {
     paymentSystemSpecific.add(tagLengthString);
   }
   

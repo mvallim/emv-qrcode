@@ -111,7 +111,7 @@ public class MerchantPresentedModeValidatorTest {
 
     final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
     paymentSystemSpecific.setGloballyUniqueIdentifier("1234");
-    paymentSystemSpecific.addPaymentNetworkSpecific(new TagLengthString("01", "ijkl"));
+    paymentSystemSpecific.addPaymentSystemSpecific(new TagLengthString("01", "ijkl"));
 
     final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
     paymentSystemSpecificTemplate.setTag("50");

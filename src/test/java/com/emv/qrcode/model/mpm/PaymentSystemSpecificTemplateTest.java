@@ -15,7 +15,7 @@ public class PaymentSystemSpecificTemplateTest {
 
     final PaymentSystemSpecific value = new PaymentSystemSpecific();
     value.setGloballyUniqueIdentifier("hoge");
-    value.addPaymentNetworkSpecific(new TagLengthString("01", "abcd"));
+    value.addPaymentSystemSpecific(new TagLengthString("01", "abcd"));
 
     final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
     paymentSystemSpecificTemplate.setValue(value);

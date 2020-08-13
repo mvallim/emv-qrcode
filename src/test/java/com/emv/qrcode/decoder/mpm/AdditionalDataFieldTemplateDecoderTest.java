@@ -83,7 +83,7 @@ public class AdditionalDataFieldTemplateDecoderTest {
 
     final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
     paymentSystemSpecific.setGloballyUniqueIdentifier("1");
-    paymentSystemSpecific.addPaymentNetworkSpecific(new TagLengthString("01", "i"));
+    paymentSystemSpecific.addPaymentSystemSpecific(new TagLengthString("01", "i"));
 
     final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
     paymentSystemSpecificTemplate.setTag("50");
