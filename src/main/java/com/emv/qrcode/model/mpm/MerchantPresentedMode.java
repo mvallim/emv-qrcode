@@ -198,9 +198,11 @@ public class MerchantPresentedMode implements Serializable {
       return StringUtils.EMPTY;
     }
 
-    sb.append(MerchantPresentedModeCodes.ID_CRC + "04");
+    sb.append(String.format("%s%s", MerchantPresentedModeCodes.ID_CRC, "04"));
 
-    sb.append(Integer.toHexString(CRC.crc16(sb.toString().getBytes(StandardCharsets.UTF_8))).toUpperCase());
+    final int crc16 = CRC.crc16(sb.toString().getBytes(StandardCharsets.UTF_8));
+    
+    sb.append(String.format("%04X", crc16));
 
     return sb.toString();
   }
