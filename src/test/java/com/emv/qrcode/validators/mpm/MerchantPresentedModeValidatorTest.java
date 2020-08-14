@@ -28,8 +28,6 @@ public class MerchantPresentedModeValidatorTest {
 
     final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
 
-    System.out.println(merchantPresentMode.toString());
-
     assertTrue(validationResult.isValid());
   }
 
