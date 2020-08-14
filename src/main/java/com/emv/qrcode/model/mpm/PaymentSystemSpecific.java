@@ -31,7 +31,7 @@ public class PaymentSystemSpecific implements Serializable {
   public void addPaymentSystemSpecific(final TagLengthString tagLengthString) {
     paymentSystemSpecific.add(tagLengthString);
   }
-  
+
   @Override
   public String toString() {
 
@@ -51,5 +51,5 @@ public class PaymentSystemSpecific implements Serializable {
 
     return string;
   }
-  
+
 }

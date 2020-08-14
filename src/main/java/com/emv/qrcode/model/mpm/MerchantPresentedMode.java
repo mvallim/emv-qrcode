@@ -78,7 +78,7 @@ public class MerchantPresentedMode implements Serializable {
 
   // Unreserved Templates
   private final Map<String, UnreservedTemplate> unreserveds = new LinkedHashMap<>();
-  
+
   public void setAdditionalDataField(final AdditionalDataFieldTemplate additionalDataField) {
     this.additionalDataField = additionalDataField;
   }
@@ -86,7 +86,7 @@ public class MerchantPresentedMode implements Serializable {
   public void setMerchantInformationLanguage(final MerchantInformationLanguageTemplate merchantInformationLanguage) {
     this.merchantInformationLanguage = merchantInformationLanguage;
   }
-  
+
   public final void setPayloadFormatIndicator(final String payloadFormatIndicator) {
     this.payloadFormatIndicator = new TagLengthString(MerchantPresentedModeCodes.ID_PAYLOAD_FORMAT_INDICATOR, payloadFormatIndicator);
   }
@@ -134,9 +134,9 @@ public class MerchantPresentedMode implements Serializable {
   public final void setPostalCode(final String postalCode) {
     this.postalCode = new TagLengthString(MerchantPresentedModeCodes.ID_POSTAL_CODE, postalCode);
   }
-  
+
   public final void setCRC(final String cRC) {
-    this.cRC = new TagLengthString(MerchantPresentedModeCodes.ID_CRC, cRC); 
+    this.cRC = new TagLengthString(MerchantPresentedModeCodes.ID_CRC, cRC);
   }
 
   public final void addUnreserved(final UnreservedTemplate unreserved) {

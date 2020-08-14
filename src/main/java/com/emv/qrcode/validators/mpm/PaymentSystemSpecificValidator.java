@@ -16,7 +16,7 @@ import com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes;
 import br.com.fluentvalidator.AbstractValidator;
 
 // @formatter:off
-public class PaymentSystemSpecificValidator extends AbstractValidator<PaymentSystemSpecific> {
+class PaymentSystemSpecificValidator extends AbstractValidator<PaymentSystemSpecific> {
 
   @Override
   public void rules() {

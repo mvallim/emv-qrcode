@@ -35,26 +35,26 @@ public class ConsumerPresentedMode implements Serializable {
   public void addCommonDataTemplate(final CommonDataTemplate commonDataTemplate) {
     commonDataTemplates.add(commonDataTemplate);
   }
-  
+
   public byte[] getBytes() throws IOException {
     try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-      
-      if(Objects.nonNull(payloadFormatIndicator)) {
+
+      if (Objects.nonNull(payloadFormatIndicator)) {
         out.write(payloadFormatIndicator.getBytes());
       }
-      
+
       for (final ApplicationTemplate applicationTemplate : applicationTemplates) {
         out.write(applicationTemplate.getBytes());
       }
 
       for (final CommonDataTemplate commonDataTemplate : commonDataTemplates) {
         out.write(commonDataTemplate.getBytes());
-      }   
-      
+      }
+
       return out.toByteArray();
     }
   }
-  
+
   public String toBase64() throws IOException {
     return Base64.encodeBase64String(getBytes());
   }

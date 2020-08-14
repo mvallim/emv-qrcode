@@ -11,7 +11,8 @@ import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 
 import br.com.fluentvalidator.AbstractValidator;
 
-public class PaymentSystemSpecificTemplateValidator extends AbstractValidator<PaymentSystemSpecificTemplate> {
+// @formatter:off
+class PaymentSystemSpecificTemplateValidator extends AbstractValidator<PaymentSystemSpecificTemplate> {
 
   private final String tagStart;
   private final String tagEnd;
@@ -27,16 +28,18 @@ public class PaymentSystemSpecificTemplateValidator extends AbstractValidator<Pa
   public void rules() {
 
     ruleFor("PaymentSystemSpecificTemplate", PaymentSystemSpecificTemplate::getTag)
-        .must(betweenInclusive(tagStart, tagEnd))
-        .critical();
-    
+      .must(betweenInclusive(tagStart, tagEnd))
+      .critical();
+
     ruleFor("PaymentSystemSpecificTemplate", of(PaymentSystemSpecificTemplate::getValue).andThen(PaymentSystemSpecific::toString))
       .must(stringSizeBetween(1, maxSizeValue))
-        .critical();
+      .critical();
 
-    ruleFor(PaymentSystemSpecificTemplate::getValue).whenever(not(nullValue()))
+    ruleFor(PaymentSystemSpecificTemplate::getValue)
+      .whenever(not(nullValue()))
         .withValidator(new PaymentSystemSpecificValidator());
 
   }
 
 }
+// @formatter:on

@@ -19,11 +19,11 @@ public class BERTLString implements BERTLV<Integer, String> {
   private Integer tag;
 
   private String value;
-  
+
   public BERTLString() {
     super();
   }
-  
+
   public BERTLString(final Integer tag, final String value) {
     this.tag = tag;
     this.value = value;
@@ -33,10 +33,10 @@ public class BERTLString implements BERTLV<Integer, String> {
   public Integer getLength() {
     return value.length();
   }
-  
+
   @Override
   public byte[] getBytes() throws IOException {
-    
+
     if (StringUtils.isBlank(value)) {
       return EMPTY_BYTES;
     }
@@ -44,12 +44,12 @@ public class BERTLString implements BERTLV<Integer, String> {
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
       stream.write(getTag());
       stream.write(getLength());
-      stream.write(getValue().getBytes(StandardCharsets.UTF_8));     
+      stream.write(getValue().getBytes(StandardCharsets.UTF_8));
       return stream.toByteArray();
     }
-    
+
   }
-  
+
   @Override
   public String toHex() throws IOException {
     return Hex.encodeHexString(getBytes(), false);
