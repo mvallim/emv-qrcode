@@ -127,9 +127,9 @@ class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInf
         .withAttempedValue(of(MerchantInformationLanguage::getMerchantCity).andThen(TagLengthString::getValue))
         .critical()
 
-      .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 25))
+      .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 15))
         .when(not(nullValue()))
-        .withMessage("MerchantCity value must be equal size twenty-five")
+        .withMessage("MerchantCity value must be equal size fifteen")
         .withAttempedValue(of(MerchantInformationLanguage::getMerchantCity).andThen(TagLengthString::getValue))
         .critical();
 

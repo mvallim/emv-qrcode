@@ -55,7 +55,7 @@ class MerchantAccountInformationValidator extends AbstractValidator<MerchantAcco
 
     ruleForEach(MerchantAccountInformation::getPaymentNetworkSpecific)
       .whenever(not(empty()))
-        .withValidator(new TagLengthStringValidator("MerchantAccountInformation.PaymentNetworkSpecific", "01", "99", 67));
+        .withValidator(new TagLengthStringValidator("MerchantAccountInformation.PaymentNetworkSpecific", "01", "99", 99));
 
   }
 

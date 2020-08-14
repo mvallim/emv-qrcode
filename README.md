@@ -46,10 +46,9 @@ If you want to try a snapshot version, add the following repository:
 </repository>
 ```
 
-### MPM (Merchant Presented Mode)
+### MPM (Merchant Presented Mode) Encode
 
 ```java
-
 final AdditionalDataFieldTemplate additionalDataField = getAddtionalDataField();
 final MerchantAccountInformationTemplate merchantAccountInformation = getMerchanAccountInformation();
 final MerchantInformationLanguageTemplate merchantInformationLanguage = getMerchantInformationLanguage();
@@ -66,20 +65,18 @@ merchantPresentMode.setMerchantName("BEST TRANSPORT");
 merchantPresentMode.setPayloadFormatIndicator("01");
 merchantPresentMode.setPointOfInitiationMethod("11");
 merchantPresentMode.setPostalCode("1234567");
-merchantPresentMode.setTipOrConvenienceIndicator("01");
+merchantPresentMode.setTipOrConvenienceIndicator("02");
 merchantPresentMode.setTransactionAmount("23.72");
 merchantPresentMode.setTransactionCurrency("156");
 merchantPresentMode.setValueOfConvenienceFeeFixed("500");
-merchantPresentMode.setValueOfConvenienceFeePercentage("5");
 merchantPresentMode.addMerchantAccountInformation(merchantAccountInformation);
 merchantPresentMode.addRFUforEMVCo(rFUforEMVCo);
 merchantPresentMode.addUnreserved(unreserved);
 
 System.out.println(merchantPresentMode.toString());
-    //"00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762970105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C395";
+    //"00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863046325";
 
 private MerchantAccountInformationTemplate getMerchanAccountInformation() {
-
     final TagLengthString paymentNetworkSpecific = new TagLengthString();
     paymentNetworkSpecific.setTag("01");
     paymentNetworkSpecific.setValue("abcd");
@@ -96,7 +93,6 @@ private MerchantAccountInformationTemplate getMerchanAccountInformation() {
 }
 
 private UnreservedTemplate getUnreserved() {
-
     final TagLengthString contextSpecificData = new TagLengthString();
     contextSpecificData.setTag("07");
     contextSpecificData.setValue("12345678");
@@ -113,7 +109,6 @@ private UnreservedTemplate getUnreserved() {
 }
 
 private MerchantInformationLanguageTemplate getMerchantInformationLanguage() {
-
     final TagLengthString rFUforEMVCo = new TagLengthString();
     rFUforEMVCo.setTag("03");
     rFUforEMVCo.setValue("abcd");
@@ -131,36 +126,81 @@ private MerchantInformationLanguageTemplate getMerchantInformationLanguage() {
 }
 
 private AdditionalDataFieldTemplate getAddtionalDataField() {
+    final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
+    paymentSystemSpecific.setGloballyUniqueIdentifier("1234");
+    paymentSystemSpecific.addPaymentSystemSpecific(new TagLengthString("01", "ijkl"));
 
-    final TagLengthString purposeTransaction = new TagLengthString();
-    purposeTransaction.setTag("08");
-    purposeTransaction.setValue("pqres");
-
-    final TagLengthString paymentSystemSpecific = new TagLengthString();
-    paymentSystemSpecific.setTag("50");
-    paymentSystemSpecific.setValue("ijkl");
+    final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
+    paymentSystemSpecificTemplate.setTag("50");
+    paymentSystemSpecificTemplate.setValue(paymentSystemSpecific);
 
     final TagLengthString rFUforEMVCo = new TagLengthString();
     rFUforEMVCo.setTag("10");
     rFUforEMVCo.setValue("abcd");
 
     final AdditionalDataField additionalDataFieldValue = new AdditionalDataField();
-    additionalDataFieldValue.setAdditionalConsumerDataRequest("tuvxy");
-    additionalDataFieldValue.setBillNumber("12345");
-    additionalDataFieldValue.setCustomerLabel("fghij");
-    additionalDataFieldValue.setLoyaltyNumber("54321");
+    additionalDataFieldValue.setAdditionalConsumerDataRequest("tuv");
     additionalDataFieldValue.setMobileNumber("67890");
     additionalDataFieldValue.setPurposeTransaction("pqres");
     additionalDataFieldValue.setReferenceLabel("abcde");
     additionalDataFieldValue.setStoreLabel("09876");
     additionalDataFieldValue.setTerminalLabel("klmno");
-    additionalDataFieldValue.addPaymentSystemSpecific(paymentSystemSpecific);
+    additionalDataFieldValue.addPaymentSystemSpecific(paymentSystemSpecificTemplate);
     additionalDataFieldValue.addRFUforEMVCo(rFUforEMVCo);
 
     final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(additionalDataFieldValue);
 
     return additionalDataField;
+}
+```
+
+### MPM (Merchant Presented Mode) Decode
+
+```java
+@Test
+public void testSuccessDecode() {
+    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863046325";
+
+    final MerchantPresentedMode merchantPresentedMode = Decoder.decode(encoded, MerchantPresentedMode.class);
+
+    assertThat(merchantPresentedMode.getCountryCode().getValue(), equalTo("CN"));
+    assertThat(merchantPresentedMode.getMerchantCategoryCode().getValue(), equalTo("4111"));
+    assertThat(merchantPresentedMode.getMerchantCity().getValue(), equalTo("BEIJING"));
+    assertThat(merchantPresentedMode.getMerchantName().getValue(), equalTo("BEST TRANSPORT"));
+    assertThat(merchantPresentedMode.getPayloadFormatIndicator().getValue(), equalTo("01"));
+    assertThat(merchantPresentedMode.getPointOfInitiationMethod().getValue(), equalTo("11"));
+    assertThat(merchantPresentedMode.getPostalCode().getValue(), equalTo("1234567"));
+    assertThat(merchantPresentedMode.getTipOrConvenienceIndicator().getValue(), equalTo("02"));
+    assertThat(merchantPresentedMode.getTransactionAmount().getValue(), equalTo("23.72"));
+    assertThat(merchantPresentedMode.getTransactionCurrency().getValue(), equalTo("156"));
+    assertThat(merchantPresentedMode.getValueOfConvenienceFeeFixed().getValue(), equalTo("500"));
+}
+```
+
+### MPM (Merchant Presented Mode) Validate
+
+```java
+@Test
+public void testSuccessValidate() {
+
+    final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
+
+    merchantPresentMode.setCountryCode("CN");
+    merchantPresentMode.setMerchantCategoryCode("4111");
+    merchantPresentMode.setMerchantCity("BEIJING");
+    merchantPresentMode.setMerchantName("BEST TRANSPORT");
+    merchantPresentMode.setPayloadFormatIndicator("01");
+    merchantPresentMode.setPointOfInitiationMethod("11");
+    merchantPresentMode.setPostalCode("1234567");
+    merchantPresentMode.setTipOrConvenienceIndicator("02");
+    merchantPresentMode.setTransactionAmount("23.72");
+    merchantPresentMode.setTransactionCurrency("156");
+    merchantPresentMode.setValueOfConvenienceFeeFixed("500");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertTrue(validationResult.isValid());
 }
 ```
 

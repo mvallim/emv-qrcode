@@ -55,7 +55,7 @@ public class PaymentSystemSpecificValidator extends AbstractValidator<PaymentSys
 
     ruleForEach(PaymentSystemSpecific::getPaymentSystemSpecific)
       .whenever(not(empty()))
-        .withValidator(new TagLengthStringValidator("PaymentSystemSpecific.PaymentSystemSpecific", "01", "99", 67));
+        .withValidator(new TagLengthStringValidator("PaymentSystemSpecific.PaymentSystemSpecific", "01", "99", 99));
   }
 
 }

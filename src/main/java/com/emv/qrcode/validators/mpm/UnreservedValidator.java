@@ -55,7 +55,7 @@ class UnreservedValidator extends AbstractValidator<Unreserved> {
 
     ruleForEach(Unreserved::getContextSpecificData)
       .whenever(not(empty()))
-        .withValidator(new TagLengthStringValidator("Unreserved.ContextSpecificData", "01", "99", 67));
+        .withValidator(new TagLengthStringValidator("Unreserved.ContextSpecificData", "01", "99", 99));
 
   }
 

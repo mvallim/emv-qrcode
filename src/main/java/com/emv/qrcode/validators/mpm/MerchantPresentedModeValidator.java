@@ -6,10 +6,10 @@ import static br.com.fluentvalidator.predicate.ComparablePredicate.equalTo;
 import static br.com.fluentvalidator.predicate.ComparablePredicate.greaterThan;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
-import static br.com.fluentvalidator.predicate.StringPredicate.isNumber;
 import static br.com.fluentvalidator.predicate.StringPredicate.isNumeric;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEquals;
+import static br.com.fluentvalidator.predicate.StringPredicate.stringMatches;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSize;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessThanOrEqual;
 
@@ -22,7 +22,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
+import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
@@ -32,8 +34,14 @@ import br.com.fluentvalidator.AbstractValidator;
 // @formatter:off
 public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPresentedMode> {
 
+  private static final String REGEX_NUMBER = "^((\\d*)(\\.)?(\\d{0,2})?)$";
+
+  private static final String REGEX_PERCENTAGE = "^(\\d{0,2}(\\.)?(\\.\\d{0,2})?|100(\\.)?(\\.00?)?)$";
+
   @Override
   public void rules() {
+
+    failFastRule();
 
     /**
      *
@@ -248,15 +256,9 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
         .critical()
 
-      .must(greaterThan(convertToBigDecimal(TagLengthString::getValue), BigDecimal.ZERO))
+      .must(stringMatches(TagLengthString::getValue, REGEX_NUMBER))
         .when(not(nullValue()))
-        .withMessage("TransactionAmount value must be number")
-        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
-        .critical()
-
-      .must(isNumber(TagLengthString::getValue))
-        .when(not(nullValue()))
-        .withMessage("TransactionAmount value must be number")
+        .withMessage("TransactionAmount value must be a valid number")
         .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
         .critical();
 
@@ -354,7 +356,7 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
         .critical()
 
-      .must(isNumber(TagLengthString::getValue))
+      .must(stringMatches(TagLengthString::getValue, REGEX_NUMBER))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed value must be a valid number")
         .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
@@ -401,9 +403,9 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
         .critical()
 
-      .must(isNumber(TagLengthString::getValue))
+      .must(stringMatches(TagLengthString::getValue, REGEX_PERCENTAGE))
         .when(not(nullValue()))
-        .withMessage("ValueOfConvenienceFeePercentage value must be a valid number")
+        .withMessage("ValueOfConvenienceFeePercentage value must be a valid percentage")
         .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeePercentage).andThen(TagLengthString::getValue))
         .critical()
 
@@ -594,6 +596,12 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::getValue))
         .critical()
 
+      .must(stringSizeLessThanOrEqual(of(AdditionalDataFieldTemplate::getValue).andThen(AdditionalDataField::toString), 99))
+        .when(not(nullValue()))
+        .withMessage("AdditionalDataField value must less then or equal size ninety-nine")
+        .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::toString))
+        .critical()
+
       .whenever(not(nullValue(AdditionalDataFieldTemplate::getValue)))
         .withValidator(new AdditionalDataFieldTemplateValidator());
 
@@ -624,6 +632,12 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .when(not(nullValue()))
         .withMessage(String.format("MerchantInformationLanguage tag must be '%s'", MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE))
         .withAttempedValue(of(MerchantPresentedMode::getMerchantInformationLanguage).andThen(MerchantInformationLanguageTemplate::getTag))
+        .critical()
+
+      .must(stringSizeLessThanOrEqual(of(MerchantInformationLanguageTemplate::getValue).andThen(MerchantInformationLanguage::toString), 99))
+        .when(not(nullValue()))
+        .withMessage("MerchantInformationLanguage value must less then or equal size ninety-nine")
+        .withAttempedValue(of(MerchantPresentedMode::getAdditionalDataField).andThen(AdditionalDataFieldTemplate::toString))
         .critical()
 
       .whenever(not(nullValue()))
@@ -685,6 +699,10 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
     ruleFor("MerchantAccountInformation", MerchantPresentedMode::getMerchantAccountInformation)
       .must(greaterThan(Map::size, 0))
         .withMessage("MerchantAccountInformation size must have at least one")
+        .critical()
+      .must(betweenInclusive(Map::size, 1, 49))
+        .when(greaterThan(Map::size, 0))
+        .withMessage("MerchantAccountInformation list size must be between one and forty-nine")
         .critical();
 
     ruleForEach(of(MerchantPresentedMode::getMerchantAccountInformation).andThen(Map::values))
@@ -695,9 +713,9 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
      *
      */
     ruleFor("RFUforEMVCo", MerchantPresentedMode::getRFUforEMVCo)
-      .must(betweenInclusive(Collection::size, 1, 17))
+      .must(betweenInclusive(Collection::size, 1, 14))
         .when(greaterThan(Collection::size, 0))
-        .withMessage("RFUforEMVCo list size must be between one and seventeen")
+        .withMessage("RFUforEMVCo list size must be between one and fourteen")
         .critical();
 
     ruleForEach("RFUforEMVCo", MerchantPresentedMode::getRFUforEMVCo)
@@ -708,9 +726,9 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
      *
      */
     ruleFor("Unreserveds", MerchantPresentedMode::getUnreserveds)
-      .must(betweenInclusive(Map::size, 1, 17))
+      .must(betweenInclusive(Map::size, 1, 19))
         .when(greaterThan(Map::size, 0))
-        .withMessage("Unreserveds list size must be between one and seventeen");
+        .withMessage("Unreserveds list size must be between one and nineteen");
 
     ruleForEach(of(MerchantPresentedMode::getUnreserveds).andThen(Map::values))
       .whenever(greaterThan(Collection::size, 0))

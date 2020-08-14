@@ -28,6 +28,8 @@ public class MerchantPresentedModeValidatorTest {
 
     final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
 
+    System.out.println(merchantPresentMode.toString());
+
     assertTrue(validationResult.isValid());
   }
 
@@ -123,9 +125,6 @@ public class MerchantPresentedModeValidatorTest {
 
     final AdditionalDataField additionalDataFieldValue = new AdditionalDataField();
     additionalDataFieldValue.setAdditionalConsumerDataRequest("tuv");
-    additionalDataFieldValue.setBillNumber("12345");
-    additionalDataFieldValue.setCustomerLabel("fghij");
-    additionalDataFieldValue.setLoyaltyNumber("54321");
     additionalDataFieldValue.setMobileNumber("67890");
     additionalDataFieldValue.setPurposeTransaction("pqres");
     additionalDataFieldValue.setReferenceLabel("abcde");

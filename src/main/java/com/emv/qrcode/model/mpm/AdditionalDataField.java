@@ -87,8 +87,7 @@ public class AdditionalDataField implements Serializable {
   }
 
   public final void setAdditionalConsumerDataRequest(final String additionalConsumerDataRequest) {
-    this.additionalConsumerDataRequest = new TagLengthString(
-        AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, additionalConsumerDataRequest);
+    this.additionalConsumerDataRequest = new TagLengthString(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, additionalConsumerDataRequest);
   }
 
   public final void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
