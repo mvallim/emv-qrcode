@@ -6,15 +6,15 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
-import com.emv.qrcode.core.configuration.DecodersMpmMap;
+import com.emv.qrcode.core.configuration.DecodersCpmMap;
 
 // @formatter:off
-public abstract class DecoderMpm<T> {
+public abstract class DecoderCpm<T> {
 
-  protected final Iterator<String> iterator;
+  protected final Iterator<byte[]> iterator;
 
-  protected DecoderMpm(final String source) {
-    this.iterator = new DecodeMpmIterator(source);
+  protected DecoderCpm(final byte[] source) {
+    this.iterator = new DecodeCpmIterator(source);
   }
 
   protected abstract T decode();
@@ -23,11 +23,11 @@ public abstract class DecoderMpm<T> {
     return new SimpleEntry<>(clazz, consumer);
   }
 
-  public static <T> T decode(final String source, final Class<T> clazz) {
+  public static <T> T decode(final byte[] source, final Class<T> clazz) {
     try {
-      final Class<? extends DecoderMpm<?>> parserClass = DecodersMpmMap.getDecoder(clazz);
-      final Constructor<? extends DecoderMpm<?>> ctor = parserClass.getConstructor(String.class);
-      final DecoderMpm<?> parser = ctor.newInstance(source);
+      final Class<? extends DecoderCpm<?>> parserClass = DecodersCpmMap.getDecoder(clazz);
+      final Constructor<? extends DecoderCpm<?>> ctor = parserClass.getConstructor(byte[].class);
+      final DecoderCpm<?> parser = ctor.newInstance(source);
       return clazz.cast(parser.decode());
     } catch (final Exception ex) {
       throw new RuntimeException(ex);

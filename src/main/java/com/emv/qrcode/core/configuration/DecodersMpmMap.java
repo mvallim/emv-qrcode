@@ -30,7 +30,7 @@ import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
-public final class DecodersMap {
+public final class DecodersMpmMap {
 
   private static final Map<Class<?>, Class<? extends DecoderMpm<?>>> MAP_DECODERS = new ConcurrentHashMap<>();
 
@@ -50,7 +50,7 @@ public final class DecodersMap {
     MAP_DECODERS.put(PaymentSystemSpecific.class, PaymentSystemSpecificDecoder.class);
   }
 
-  private DecodersMap() {
+  private DecodersMpmMap() {
     super();
   }
 
