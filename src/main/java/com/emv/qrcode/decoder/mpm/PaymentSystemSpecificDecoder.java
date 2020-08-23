@@ -6,14 +6,14 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.DecodeIterator;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecodeMpmIterator;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 import com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes;
 
 // @formatter:off
-public final class PaymentSystemSpecificDecoder extends Decoder<PaymentSystemSpecific> {
+public final class PaymentSystemSpecificDecoder extends DecoderMpm<PaymentSystemSpecific> {
 
   private static final Map<String, Entry<Class<?>, BiConsumer<PaymentSystemSpecific, ?>>> mapConsumers = new HashMap<>();
 
@@ -32,7 +32,7 @@ public final class PaymentSystemSpecificDecoder extends Decoder<PaymentSystemSpe
     final PaymentSystemSpecific result = new PaymentSystemSpecific();
 
     iterator.forEachRemaining(value -> {
-      final String tag = derivateId(value.substring(0, DecodeIterator.ID_WORD_COUNT));
+      final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
 
       final Entry<Class<?>, BiConsumer<PaymentSystemSpecific, ?>> entry = mapConsumers.get(tag);
 
@@ -40,7 +40,7 @@ public final class PaymentSystemSpecificDecoder extends Decoder<PaymentSystemSpe
 
       final BiConsumer consumer = entry.getValue();
 
-      consumer.accept(result, Decoder.decode(value, clazz));
+      consumer.accept(result, DecoderMpm.decode(value, clazz));
     });
 
     return result;

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
@@ -17,7 +17,7 @@ public class UnreservedTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final UnreservedTemplate unreserved = Decoder.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
+    final UnreservedTemplate unreserved = DecoderMpm.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
 
     assertThat(unreserved.getValue(), not(nullValue()));
 
@@ -39,7 +39,7 @@ public class UnreservedTemplateDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final UnreservedTemplate unreserved = Decoder.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
+    final UnreservedTemplate unreserved = DecoderMpm.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
 
     assertThat(unreserved.toString(), equalTo("91320016A011223344998877070812345678"));
   }

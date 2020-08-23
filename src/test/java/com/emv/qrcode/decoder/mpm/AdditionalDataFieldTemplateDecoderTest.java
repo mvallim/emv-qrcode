@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
@@ -19,7 +19,7 @@ public class AdditionalDataFieldTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final AdditionalDataFieldTemplate additionalDataField = Decoder.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
+    final AdditionalDataFieldTemplate additionalDataField = DecoderMpm.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
 
     assertThat(additionalDataField.getValue().getAdditionalConsumerDataRequest(), not(nullValue()));
     assertThat(additionalDataField.getValue().getBillNumber(), not(nullValue()));
@@ -73,7 +73,7 @@ public class AdditionalDataFieldTemplateDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final AdditionalDataFieldTemplate additionalDataField = Decoder.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
+    final AdditionalDataFieldTemplate additionalDataField = DecoderMpm.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
 
     assertThat(additionalDataField.toString(), equalTo("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));
   }

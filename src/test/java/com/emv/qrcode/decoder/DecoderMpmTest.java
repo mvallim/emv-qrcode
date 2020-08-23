@@ -9,13 +9,13 @@ import org.junit.Test;
 
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;
 
-public class DecoderTest {
+public class DecoderMpmTest {
 
   @Test
   public void testSuccessDecode() {
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863044220";
 
-    final MerchantPresentedMode merchantPresentedMode = Decoder.decode(encoded, MerchantPresentedMode.class);
+    final MerchantPresentedMode merchantPresentedMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
 
     assertThat(merchantPresentedMode.getCountryCode().getValue(), equalTo("CN"));
     assertThat(merchantPresentedMode.getMerchantCategoryCode().getValue(), equalTo("4111"));
@@ -34,7 +34,7 @@ public class DecoderTest {
   public void testFailDecode() {
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0903tuv1004abcd5004ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304C659";
 
-    final Throwable throwable = catchThrowable(() -> Decoder.decode(encoded, Object.class));
+    final Throwable throwable = catchThrowable(() -> DecoderMpm.decode(encoded, Object.class));
 
     assertThat(throwable).isInstanceOf(RuntimeException.class);
 

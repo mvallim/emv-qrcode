@@ -6,13 +6,13 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.DecodeIterator;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecodeMpmIterator;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
 // @formatter:off
-public final class MerchantInformationLanguageDecoder extends Decoder<MerchantInformationLanguage> {
+public final class MerchantInformationLanguageDecoder extends DecoderMpm<MerchantInformationLanguage> {
 
   private static final Map<String, Entry<Class<?>, BiConsumer<MerchantInformationLanguage, ?>>> mapConsumers = new HashMap<>();
 
@@ -33,7 +33,7 @@ public final class MerchantInformationLanguageDecoder extends Decoder<MerchantIn
     final MerchantInformationLanguage result = new MerchantInformationLanguage();
 
     iterator.forEachRemaining(value -> {
-      final String tag = derivateId(value.substring(0, DecodeIterator.ID_WORD_COUNT));
+      final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
 
       final Entry<Class<?>, BiConsumer<MerchantInformationLanguage, ?>> entry = mapConsumers.get(tag);
 
@@ -41,7 +41,7 @@ public final class MerchantInformationLanguageDecoder extends Decoder<MerchantIn
 
       final BiConsumer consumer = entry.getValue();
 
-      consumer.accept(result, Decoder.decode(value, clazz));
+      consumer.accept(result, DecoderMpm.decode(value, clazz));
     });
 
     return result;

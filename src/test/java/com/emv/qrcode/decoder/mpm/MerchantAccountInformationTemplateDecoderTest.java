@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 
@@ -17,7 +17,7 @@ public class MerchantAccountInformationTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final MerchantAccountInformationTemplate merchantAccountInformation = Decoder.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
+    final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
 
     assertThat(merchantAccountInformation.getValue(), not(nullValue()));
 
@@ -39,7 +39,7 @@ public class MerchantAccountInformationTemplateDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final MerchantAccountInformationTemplate merchantAccountInformation = Decoder.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
+    final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
 
     assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));
   }

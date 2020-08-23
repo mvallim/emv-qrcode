@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 
@@ -17,7 +17,7 @@ public class MerchantInformationLanguageTemplateDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final MerchantInformationLanguageTemplate merchantInformationLanguage = Decoder.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = DecoderMpm.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
 
     assertThat(merchantInformationLanguage.getValue(), not(nullValue()));
 
@@ -49,7 +49,7 @@ public class MerchantInformationLanguageTemplateDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final MerchantInformationLanguageTemplate merchantInformationLanguage = Decoder.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
+    final MerchantInformationLanguageTemplate merchantInformationLanguage = DecoderMpm.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
 
     assertThat(merchantInformationLanguage.toString(), equalTo("64280002ZH0104最佳运输0202北京0304abcd"));
   }

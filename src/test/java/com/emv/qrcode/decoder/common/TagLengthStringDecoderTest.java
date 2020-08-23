@@ -8,13 +8,13 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecoderMpm;
 
 public class TagLengthStringDecoderTest {
 
   @Test
   public void testSuccessDecode() {
-    final TagLengthString tagLengthString = Decoder.decode("02041234", TagLengthString.class);
+    final TagLengthString tagLengthString = DecoderMpm.decode("02041234", TagLengthString.class);
 
     assertThat(tagLengthString, not(nullValue()));
 
@@ -25,7 +25,7 @@ public class TagLengthStringDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() {
-    final TagLengthString tagLengthString = Decoder.decode("02041234", TagLengthString.class);
+    final TagLengthString tagLengthString = DecoderMpm.decode("02041234", TagLengthString.class);
 
     assertThat(tagLengthString.toString(), equalTo("02041234"));
   }

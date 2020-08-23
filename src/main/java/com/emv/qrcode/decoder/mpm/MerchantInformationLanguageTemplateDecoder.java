@@ -1,12 +1,12 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.decoder.DecodeIterator;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecodeMpmIterator;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 
 // @formatter:off
-public final class MerchantInformationLanguageTemplateDecoder extends Decoder<MerchantInformationLanguageTemplate> {
+public final class MerchantInformationLanguageTemplateDecoder extends DecoderMpm<MerchantInformationLanguageTemplate> {
 
   public MerchantInformationLanguageTemplateDecoder(final String source) {
     super(source);
@@ -17,9 +17,9 @@ public final class MerchantInformationLanguageTemplateDecoder extends Decoder<Me
     final MerchantInformationLanguageTemplate result = new MerchantInformationLanguageTemplate();
 
     iterator.forEachRemaining(value -> {
-      final Integer length = Integer.valueOf(value.substring(DecodeIterator.ID_WORD_COUNT, DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT));
-      final String string = value.substring(DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT, DecodeIterator.ID_WORD_COUNT + DecodeIterator.VALUE_LENGTH_WORD_COUNT + length);
-      result.setValue(Decoder.decode(string, MerchantInformationLanguage.class));
+      final Integer length = Integer.valueOf(value.substring(DecodeMpmIterator.ID_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT));
+      final String string = value.substring(DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT + length);
+      result.setValue(DecoderMpm.decode(string, MerchantInformationLanguage.class));
     });
 
     return result;

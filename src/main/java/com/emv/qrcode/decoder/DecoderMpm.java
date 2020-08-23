@@ -9,12 +9,12 @@ import java.util.function.BiConsumer;
 import com.emv.qrcode.core.configuration.DecodersMap;
 
 // @formatter:off
-public abstract class Decoder<T> {
+public abstract class DecoderMpm<T> {
 
   protected final Iterator<String> iterator;
 
-  protected Decoder(final String source) {
-    this.iterator = new DecodeIterator(source);
+  protected DecoderMpm(final String source) {
+    this.iterator = new DecodeMpmIterator(source);
   }
 
   protected abstract T decode();
@@ -25,9 +25,9 @@ public abstract class Decoder<T> {
 
   public static <T> T decode(final String source, final Class<T> clazz) {
     try {
-      final Class<? extends Decoder<?>> parserClass = DecodersMap.getDecoder(clazz);
-      final Constructor<? extends Decoder<?>> ctor = parserClass.getConstructor(String.class);
-      final Decoder<?> parser = ctor.newInstance(source);
+      final Class<? extends DecoderMpm<?>> parserClass = DecodersMap.getDecoder(clazz);
+      final Constructor<? extends DecoderMpm<?>> ctor = parserClass.getConstructor(String.class);
+      final DecoderMpm<?> parser = ctor.newInstance(source);
       return clazz.cast(parser.decode());
     } catch (final Exception ex) {
       throw new RuntimeException(ex);

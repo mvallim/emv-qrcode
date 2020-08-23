@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.DecodeIterator;
-import com.emv.qrcode.decoder.Decoder;
+import com.emv.qrcode.decoder.DecodeMpmIterator;
+import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
@@ -16,7 +16,7 @@ import com.emv.qrcode.model.mpm.UnreservedTemplate;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 // @formatter:off
-public final class MerchantPresentedModeDecoder extends Decoder<MerchantPresentedMode> {
+public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPresentedMode> {
 
   private static final Map<String, Entry<Class<?>, BiConsumer<MerchantPresentedMode, ?>>> mapConsumers = new HashMap<>();
 
@@ -51,7 +51,7 @@ public final class MerchantPresentedModeDecoder extends Decoder<MerchantPresente
     final MerchantPresentedMode result = new MerchantPresentedMode();
 
     iterator.forEachRemaining(value -> {
-      final String tag = derivateId(value.substring(0, DecodeIterator.ID_WORD_COUNT));
+      final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
 
       final Entry<Class<?>, BiConsumer<MerchantPresentedMode, ?>> entry = mapConsumers.get(tag);
 
@@ -59,7 +59,7 @@ public final class MerchantPresentedModeDecoder extends Decoder<MerchantPresente
 
       final BiConsumer consumer = entry.getValue();
 
-      consumer.accept(result, Decoder.decode(value, clazz));
+      consumer.accept(result, DecoderMpm.decode(value, clazz));
     });
 
     return result;

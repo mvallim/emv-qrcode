@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 // @formatter:off
-public final class DecodeIterator implements Iterator<String> {
+public final class DecodeMpmIterator implements Iterator<String> {
 
   public static final Integer ID_WORD_COUNT = 2; // 01 - 99
 
@@ -17,7 +17,7 @@ public final class DecodeIterator implements Iterator<String> {
 
   private final String source;
 
-  public DecodeIterator(final String source) {
+  public DecodeMpmIterator(final String source) {
     current = 0;
     max = source.length();
     this.source = source;
