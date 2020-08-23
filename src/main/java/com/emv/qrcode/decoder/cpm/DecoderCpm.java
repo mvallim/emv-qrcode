@@ -1,4 +1,4 @@
-package com.emv.qrcode.decoder;
+package com.emv.qrcode.decoder.cpm;
 
 import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;

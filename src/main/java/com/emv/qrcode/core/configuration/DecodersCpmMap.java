@@ -3,7 +3,7 @@ package com.emv.qrcode.core.configuration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.emv.qrcode.decoder.DecoderCpm;
+import com.emv.qrcode.decoder.cpm.DecoderCpm;
 
 public final class DecodersCpmMap {
 

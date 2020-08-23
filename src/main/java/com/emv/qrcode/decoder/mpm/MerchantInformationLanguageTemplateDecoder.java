@@ -1,7 +1,5 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.decoder.DecodeMpmIterator;
-import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 

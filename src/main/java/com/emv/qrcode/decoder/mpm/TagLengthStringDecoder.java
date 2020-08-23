@@ -1,27 +1,29 @@
-package com.emv.qrcode.decoder.common;
+package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.decoder.DecodeMpmIterator;
-import com.emv.qrcode.decoder.DecoderMpm;
+import com.emv.qrcode.core.model.TagLengthString;
 
 // @formatter:off
-public final class StringDecoder extends DecoderMpm<String> {
+public final class TagLengthStringDecoder extends DecoderMpm<TagLengthString> {
 
-  public StringDecoder(final String source) {
+  public TagLengthStringDecoder(final String source) {
     super(source);
   }
 
   @Override
-  protected String decode() {
-    final StringBuilder result = new StringBuilder();
+  protected TagLengthString decode() {
+    final TagLengthString result = new TagLengthString();
 
     iterator.forEachRemaining(value -> {
+      final String tag = value.substring(0, DecodeMpmIterator.ID_WORD_COUNT);
       final Integer length = Integer.valueOf(value.substring(DecodeMpmIterator.ID_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT));
       final String string = value.substring(DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT + length);
-      result.append(string);
+      result.setTag(tag);
+      result.setValue(string);
     });
 
-    return result.toString();
+    return result;
   }
 
 }
+
 // @formatter:on

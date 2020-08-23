@@ -1,4 +1,4 @@
-package com.emv.qrcode.decoder;
+package com.emv.qrcode.decoder.cpm;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 // @formatter:off
-public final class DecodeCpmIterator implements Iterator<byte[]> {
+final class DecodeCpmIterator implements Iterator<byte[]> {
 
   private static final Map<Byte, Integer> ID_WORD_COUNT = new ConcurrentHashMap<>();
 

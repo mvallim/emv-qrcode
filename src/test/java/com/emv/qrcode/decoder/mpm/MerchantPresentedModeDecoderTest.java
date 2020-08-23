@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;
 
 public class MerchantPresentedModeDecoderTest {

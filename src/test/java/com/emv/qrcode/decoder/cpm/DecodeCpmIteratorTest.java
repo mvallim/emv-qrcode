@@ -1,4 +1,4 @@
-package com.emv.qrcode.decoder;
+package com.emv.qrcode.decoder.cpm;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;

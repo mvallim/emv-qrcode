@@ -1,11 +1,11 @@
-package com.emv.qrcode.decoder;
+package com.emv.qrcode.decoder.mpm;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 // @formatter:off
-public final class DecodeMpmIterator implements Iterator<String> {
+final class DecodeMpmIterator implements Iterator<String> {
 
   public static final Integer ID_WORD_COUNT = 2; // 01 - 99
 

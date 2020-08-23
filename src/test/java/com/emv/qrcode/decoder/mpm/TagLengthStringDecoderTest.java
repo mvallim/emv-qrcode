@@ -1,4 +1,4 @@
-package com.emv.qrcode.decoder.common;
+package com.emv.qrcode.decoder.mpm;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.DecoderMpm;
 
 public class TagLengthStringDecoderTest {
 

@@ -9,7 +9,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.DecoderMpm;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 
