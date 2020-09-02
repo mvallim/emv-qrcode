@@ -1,7 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -24,15 +23,15 @@ public class MerchantAccountInformationTemplateDecoderTest {
     assertThat(merchantAccountInformation.getLength(), equalTo(16));
 
     assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier(), not(nullValue()));
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific(), hasSize(1));
+    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().size(), equalTo(1));
 
     assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier().getTag(), equalTo("00"));
     assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier().getLength(), equalTo(4));
     assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier().getValue(), equalTo("hoge"));
 
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get(0).getTag(), equalTo("01"));
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get(0).getLength(), equalTo(4));
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get(0).getValue(), equalTo("abcd"));
+    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get("01").getTag(), equalTo("01"));
+    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get("01").getLength(), equalTo(4));
+    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get("01").getValue(), equalTo("abcd"));
 
   }
 

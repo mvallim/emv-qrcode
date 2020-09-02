@@ -14,6 +14,7 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringSize;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessThanOrEqual;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
+import com.emv.qrcode.core.CRC;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
@@ -713,12 +715,12 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
      *
      */
     ruleFor("RFUforEMVCo", MerchantPresentedMode::getRFUforEMVCo)
-      .must(betweenInclusive(Collection::size, 1, 14))
-        .when(greaterThan(Collection::size, 0))
+      .must(betweenInclusive(Map::size, 1, 14))
+        .when(greaterThan(Map::size, 0))
         .withMessage("RFUforEMVCo list size must be between one and fourteen")
         .critical();
 
-    ruleForEach("RFUforEMVCo", MerchantPresentedMode::getRFUforEMVCo)
+    ruleForEach("RFUforEMVCo", of(MerchantPresentedMode::getRFUforEMVCo).andThen(Map::values))
       .whenever(greaterThan(Collection::size, 0))
         .withValidator(new TagLengthStringValidator("MerchantPresentedMode.RFUforEMVCo", "65", "79", 99));
 
@@ -734,10 +736,23 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
       .whenever(greaterThan(Collection::size, 0))
         .withValidator(new UnreservedTemplateValidator("80", "99", 99));
 
+    /**
+     * Validate CRC16
+     */
+    ruleFor("CRC", root -> root)
+      .must(equalTo(calcCrc16(MerchantPresentedMode::toStringWithoutCrc16), of(MerchantPresentedMode::getCRC).andThen(TagLengthString::getValue)))
+      .when(not(stringEmptyOrNull(of(MerchantPresentedMode::getCRC).andThen(TagLengthString::getValue))))
+        .withMessage("Invalid CRC16")
+        .withAttempedValue(of(MerchantPresentedMode::getCRC).andThen(TagLengthString::getValue));
+
   }
 
   private static Function<TagLengthString, BigDecimal> convertToBigDecimal(final Function<TagLengthString, String> fnc) {
     return obj -> new BigDecimal(fnc.apply(obj));
+  }
+
+  private static Function<MerchantPresentedMode, String> calcCrc16(final Function<MerchantPresentedMode, String> fnc) {
+    return obj -> String.format("%04X", CRC.crc16(fnc.apply(obj).getBytes(StandardCharsets.UTF_8)));
   }
 
 }

@@ -28,7 +28,7 @@ public class AdditionalDataFieldTemplateDecoderTest {
     assertThat(additionalDataField.getValue().getPaymentSystemSpecific().entrySet(), hasSize(1));
     assertThat(additionalDataField.getValue().getPurposeTransaction(), not(nullValue()));
     assertThat(additionalDataField.getValue().getReferenceLabel(), not(nullValue()));
-    assertThat(additionalDataField.getValue().getRFUforEMVCo(), hasSize(0));
+    assertThat(additionalDataField.getValue().getRFUforEMVCo().size(), equalTo(0));
     assertThat(additionalDataField.getValue().getStoreLabel(), not(nullValue()));
     assertThat(additionalDataField.getValue().getTerminalLabel(), not(nullValue()));
 

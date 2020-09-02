@@ -1,13 +1,13 @@
 package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
@@ -28,7 +28,7 @@ public class MerchantInformationLanguage implements Serializable {
   private TagLengthString merchantCity;
 
   // RFU for EMVCo
-  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  private final Map<String, TagLengthString> rFUforEMVCo = new LinkedHashMap<>();
 
   public final void setLanguagePreference(final String languagePreference) {
     this.languagePreference = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_LANGUAGE_PREFERENCE, languagePreference);
@@ -43,7 +43,7 @@ public class MerchantInformationLanguage implements Serializable {
   }
 
   public final void addRFUforEMVCo(final TagLengthString tagLengthString) {
-    rFUforEMVCo.add(tagLengthString);
+    rFUforEMVCo.put(tagLengthString.getTag(), tagLengthString);
   }
 
   @Override
@@ -55,8 +55,8 @@ public class MerchantInformationLanguage implements Serializable {
     Optional.ofNullable(merchantName).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantCity).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TLV<String, String> tagLengthString : rFUforEMVCo) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
+    for (final Entry<String, TagLengthString> entry : rFUforEMVCo.entrySet()) {
+      Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
     final String string = sb.toString();
