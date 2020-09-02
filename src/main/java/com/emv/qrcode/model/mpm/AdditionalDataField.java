@@ -2,15 +2,12 @@ package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
 
@@ -49,7 +46,7 @@ public class AdditionalDataField implements Serializable {
   private TagLengthString additionalConsumerDataRequest;
 
   // RFU for EMVCo
-  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  private final Map<String, TagLengthString> rFUforEMVCo = new LinkedHashMap<>();
 
   // Payment System specific templates
   private final Map<String, PaymentSystemSpecificTemplate> paymentSystemSpecific = new LinkedHashMap<>();
@@ -91,7 +88,7 @@ public class AdditionalDataField implements Serializable {
   }
 
   public final void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
-    this.rFUforEMVCo.add(rFUforEMVCo);
+    this.rFUforEMVCo.put(rFUforEMVCo.getTag(), rFUforEMVCo);
   }
 
   public final void addPaymentSystemSpecific(final PaymentSystemSpecificTemplate paymentSystemSpecific) {
@@ -113,8 +110,8 @@ public class AdditionalDataField implements Serializable {
     Optional.ofNullable(purposeTransaction).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(additionalConsumerDataRequest).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TLV<String, String> tagLengthString : rFUforEMVCo) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
+    for (final Entry<String, TagLengthString> entry : rFUforEMVCo.entrySet()) {
+      Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
     for (final Entry<String, PaymentSystemSpecificTemplate> entry : paymentSystemSpecific.entrySet()) {

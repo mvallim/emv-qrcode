@@ -1,5 +1,10 @@
 package com.emv.qrcode.validators.mpm;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -23,12 +28,39 @@ import br.com.fluentvalidator.context.ValidationResult;
 public class MerchantPresentedModeValidatorTest {
 
   @Test
-  public void testSuccessValidate() {
+  public void testSuccessValidateWhenWithoutCRC() {
     final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
 
     final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
 
     assertTrue(validationResult.isValid());
+  }
+
+  @Test
+  public void testFailValidateWhenInvalidCRC() {
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
+
+    merchantPresentMode.setCRC("XXXX");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertThat(validationResult.isValid(), equalTo(false));
+    assertThat(validationResult.getErrors(), hasSize(1));
+    assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
+    assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("XXXX"))));
+
+  }
+
+  @Test
+  public void testSuccesValidateWhenValidCRC() {
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
+
+    merchantPresentMode.setCRC("6325");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertThat(validationResult.isValid(), equalTo(true));
+
   }
 
   private MerchantPresentedMode getValidMerchantPresentMode() {

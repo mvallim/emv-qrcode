@@ -1,13 +1,13 @@
 package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
@@ -22,14 +22,14 @@ public class PaymentSystemSpecific implements Serializable {
   private TagLengthString globallyUniqueIdentifier;
 
   // Context Specific Data
-  private final List<TagLengthString> paymentSystemSpecific = new LinkedList<>();
+  private final Map<String, TagLengthString> paymentSystemSpecific = new LinkedHashMap<>();
 
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier) {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
   }
 
   public void addPaymentSystemSpecific(final TagLengthString tagLengthString) {
-    paymentSystemSpecific.add(tagLengthString);
+    paymentSystemSpecific.put(tagLengthString.getTag(), tagLengthString);
   }
 
   @Override
@@ -39,8 +39,8 @@ public class PaymentSystemSpecific implements Serializable {
 
     Optional.ofNullable(globallyUniqueIdentifier).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TLV<String, String> tagLengthString : paymentSystemSpecific) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
+    for (final Entry<String, TagLengthString> entry : paymentSystemSpecific.entrySet()) {
+      Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
     final String string = sb.toString();

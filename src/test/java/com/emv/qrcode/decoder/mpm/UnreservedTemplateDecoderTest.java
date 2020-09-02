@@ -1,7 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -26,10 +25,10 @@ public class UnreservedTemplateDecoderTest {
     assertThat(unreserved.getValue().getContextSpecificData(), not(nullValue()));
     assertThat(unreserved.getValue().getGloballyUniqueIdentifier(), not(nullValue()));
 
-    assertThat(unreserved.getValue().getContextSpecificData(), hasSize(1));
-    assertThat(unreserved.getValue().getContextSpecificData().get(0).getTag(), equalTo("07"));
-    assertThat(unreserved.getValue().getContextSpecificData().get(0).getLength(), equalTo(8));
-    assertThat(unreserved.getValue().getContextSpecificData().get(0).getValue(), equalTo("12345678"));
+    assertThat(unreserved.getValue().getContextSpecificData().size(), equalTo(1));
+    assertThat(unreserved.getValue().getContextSpecificData().get("07").getTag(), equalTo("07"));
+    assertThat(unreserved.getValue().getContextSpecificData().get("07").getLength(), equalTo(8));
+    assertThat(unreserved.getValue().getContextSpecificData().get("07").getValue(), equalTo("12345678"));
 
     assertThat(unreserved.getValue().getGloballyUniqueIdentifier().getTag(), equalTo("00"));
     assertThat(unreserved.getValue().getGloballyUniqueIdentifier().getLength(), equalTo(16));

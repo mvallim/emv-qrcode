@@ -1,13 +1,16 @@
 package com.emv.qrcode.validators.mpm;
 
 import static br.com.fluentvalidator.function.FunctionBuilder.of;
-import static br.com.fluentvalidator.predicate.CollectionPredicate.empty;
+import static br.com.fluentvalidator.predicate.ComparablePredicate.greaterThan;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.StringPredicate.isNumeric;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEquals;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSize;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessThanOrEqual;
+
+import java.util.Collection;
+import java.util.Map;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
@@ -53,8 +56,8 @@ class MerchantAccountInformationValidator extends AbstractValidator<MerchantAcco
         .withAttempedValue(of(MerchantAccountInformation::getGloballyUniqueIdentifier).andThen(TagLengthString::getValue))
         .critical();
 
-    ruleForEach(MerchantAccountInformation::getPaymentNetworkSpecific)
-      .whenever(not(empty()))
+    ruleForEach(of(MerchantAccountInformation::getPaymentNetworkSpecific).andThen(Map::values))
+      .whenever(greaterThan(Collection::size, 0))
         .withValidator(new TagLengthStringValidator("MerchantAccountInformation.PaymentNetworkSpecific", "01", "99", 99));
 
   }

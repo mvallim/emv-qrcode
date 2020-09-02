@@ -1,7 +1,7 @@
 package com.emv.qrcode.validators.mpm;
 
 import static br.com.fluentvalidator.function.FunctionBuilder.of;
-import static br.com.fluentvalidator.predicate.CollectionPredicate.empty;
+import static br.com.fluentvalidator.predicate.ComparablePredicate.greaterThan;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
 import static br.com.fluentvalidator.predicate.StringPredicate.isNumeric;
@@ -9,6 +9,9 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEquals;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSize;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessThanOrEqual;
+
+import java.util.Collection;
+import java.util.Map;
 
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
@@ -133,8 +136,8 @@ class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInf
         .withAttempedValue(of(MerchantInformationLanguage::getMerchantCity).andThen(TagLengthString::getValue))
         .critical();
 
-    ruleForEach(MerchantInformationLanguage::getRFUforEMVCo)
-      .whenever(not(empty()))
+    ruleForEach(of(MerchantInformationLanguage::getRFUforEMVCo).andThen(Map::values))
+      .whenever(greaterThan(Collection::size, 0))
         .withValidator(new TagLengthStringValidator("MerchantInformationLanguage.RFUforEMVCo", "03", "99", 99));
 
   }

@@ -3,8 +3,6 @@ package com.emv.qrcode.model.mpm;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -14,7 +12,6 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.CRC;
-import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
@@ -74,7 +71,7 @@ public class MerchantPresentedMode implements Serializable {
   private MerchantInformationLanguageTemplate merchantInformationLanguage;
 
   // RFU for EMVCo
-  private final List<TagLengthString> rFUforEMVCo = new LinkedList<>();
+  private final Map<String, TagLengthString> rFUforEMVCo = new LinkedHashMap<>();
 
   // Unreserved Templates
   private final Map<String, UnreservedTemplate> unreserveds = new LinkedHashMap<>();
@@ -148,7 +145,7 @@ public class MerchantPresentedMode implements Serializable {
   }
 
   public final void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
-    this.rFUforEMVCo.add(rFUforEMVCo);
+    this.rFUforEMVCo.put(rFUforEMVCo.getTag(), rFUforEMVCo);
   }
 
   public String toHex() {
@@ -162,6 +159,22 @@ public class MerchantPresentedMode implements Serializable {
   @Override
   public String toString() {
 
+    final StringBuilder sb = new StringBuilder(this.toStringWithoutCrc16());
+    
+    final String string = sb.toString();
+    
+    if (StringUtils.isBlank(string)) {
+      return StringUtils.EMPTY;
+    }
+
+    final int crc16 = CRC.crc16(sb.toString().getBytes(StandardCharsets.UTF_8));
+    
+    sb.append(String.format("%04X", crc16));
+
+    return sb.toString();
+  }
+  
+  public String toStringWithoutCrc16() {
     final StringBuilder sb = new StringBuilder();
 
     Optional.ofNullable(payloadFormatIndicator).ifPresent(tlv -> sb.append(tlv.toString()));
@@ -184,8 +197,8 @@ public class MerchantPresentedMode implements Serializable {
     Optional.ofNullable(additionalDataField).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(merchantInformationLanguage).ifPresent(tlv -> sb.append(tlv.toString()));
 
-    for (final TLV<String, String> tagLengthString : rFUforEMVCo) {
-      Optional.ofNullable(tagLengthString).ifPresent(tlv -> sb.append(tlv.toString()));
+    for (final Entry<String, TagLengthString> entry : rFUforEMVCo.entrySet()) {
+      Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));
     }
 
     for (final Entry<String, UnreservedTemplate> entry : unreserveds.entrySet()) {
@@ -199,12 +212,7 @@ public class MerchantPresentedMode implements Serializable {
     }
 
     sb.append(String.format("%s%s", MerchantPresentedModeCodes.ID_CRC, "04"));
-
-    final int crc16 = CRC.crc16(sb.toString().getBytes(StandardCharsets.UTF_8));
     
-    sb.append(String.format("%04X", crc16));
-
     return sb.toString();
   }
-
 }

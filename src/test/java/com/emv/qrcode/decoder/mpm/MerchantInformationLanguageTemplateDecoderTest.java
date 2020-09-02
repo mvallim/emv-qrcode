@@ -1,7 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -26,7 +25,7 @@ public class MerchantInformationLanguageTemplateDecoderTest {
     assertThat(merchantInformationLanguage.getValue().getLanguagePreference(), not(nullValue()));
     assertThat(merchantInformationLanguage.getValue().getMerchantName(), not(nullValue()));
     assertThat(merchantInformationLanguage.getValue().getMerchantCity(), not(nullValue()));
-    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo(), hasSize(1));
+    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo().size(), equalTo(1));
 
     assertThat(merchantInformationLanguage.getValue().getLanguagePreference().getTag(), equalTo("00"));
     assertThat(merchantInformationLanguage.getValue().getLanguagePreference().getLength(), equalTo(2));
@@ -40,9 +39,9 @@ public class MerchantInformationLanguageTemplateDecoderTest {
     assertThat(merchantInformationLanguage.getValue().getMerchantCity().getLength(), equalTo(2));
     assertThat(merchantInformationLanguage.getValue().getMerchantCity().getValue(), equalTo("北京"));
 
-    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo().get(0).getTag(), equalTo("03"));
-    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo().get(0).getLength(), equalTo(4));
-    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo().get(0).getValue(), equalTo("abcd"));
+    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo().get("03").getTag(), equalTo("03"));
+    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo().get("03").getLength(), equalTo(4));
+    assertThat(merchantInformationLanguage.getValue().getRFUforEMVCo().get("03").getValue(), equalTo("abcd"));
 
   }
 
