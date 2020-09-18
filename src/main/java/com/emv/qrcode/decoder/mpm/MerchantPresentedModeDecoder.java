@@ -49,6 +49,8 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
   protected MerchantPresentedMode decode() {
     final MerchantPresentedMode result = new MerchantPresentedMode();
 
+    result.setCRC("0000");
+
     iterator.forEachRemaining(value -> {
       final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
 
