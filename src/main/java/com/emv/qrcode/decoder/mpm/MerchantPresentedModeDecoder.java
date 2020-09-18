@@ -37,6 +37,7 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION, consumerTagLengthValue(MerchantAccountInformationTemplate.class, MerchantPresentedMode::addMerchantAccountInformation));
     mapConsumers.put(MerchantPresentedModeCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::addRFUforEMVCo));
     mapConsumers.put(MerchantPresentedModeCodes.ID_UNRESERVED_TEMPLATES, consumerTagLengthValue(UnreservedTemplate.class, MerchantPresentedMode::addUnreserved));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_CRC, consumerTagLengthValue(String.class, MerchantPresentedMode::setCRC));
   }
 
   public MerchantPresentedModeDecoder(final String source) {
@@ -47,6 +48,8 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
   @SuppressWarnings({ "rawtypes", "unchecked", "java:S3740" })
   protected MerchantPresentedMode decode() {
     final MerchantPresentedMode result = new MerchantPresentedMode();
+
+    result.setCRC("0000");
 
     iterator.forEachRemaining(value -> {
       final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
