@@ -62,27 +62,20 @@ public class BasicBRCodeTest {
                 "2BR5915NOMEDORECEBEDOR6008BRASILIA61087007490062530515RP12345678-" +
                 "201950300017br.gov.bcb.brcode01051.0.080450014br.gov.bcb.pix0123PADRAO.URL.PIX/0" +
                 "123ABCD81390012BR.COM.OUTRO01190123.ABCD.3456.WXYZ630405C6";
+//
+//        MerchantAccountInformationTemplate merchantAccountInformationCard = new MerchantAccountInformationTemplate();
+//        merchantAccountInformationCard.setTag("04");
+//        merchantAccountInformationCard.setValue(new MerchantAccountInformation());
+//        merchantAccountInformationCard.getValue().addPaymentNetworkSpecific(new TagLengthString("","12345678901234"));
 
-        MerchantAccountInformationTemplate merchantAccountInformationCard = new MerchantAccountInformationTemplate();
-        merchantAccountInformationCard.setTag("04");
-        merchantAccountInformationCard.setValue(new MerchantAccountInformation());
-        merchantAccountInformationCard.getValue().addPaymentNetworkSpecific(new TagLengthString("","12345678901234"));
+        MerchantAccountInformationTemplate merchantAccountInformationPix = new MerchantAccountInformationTemplate("26", BRCodeConstants.PIX_GUI);
+        merchantAccountInformationPix.addPaymentNetworkSpecific("01", "66756C616E6F32303139406578616D706C652E636F6D");
 
-        MerchantAccountInformationTemplate merchantAccountInformationPix = new MerchantAccountInformationTemplate();
-        merchantAccountInformationPix.setTag("26");
-        merchantAccountInformationPix.setValue(new MerchantAccountInformation());
-        merchantAccountInformationPix.getValue().setGloballyUniqueIdentifier(BRCodeConstants.PIX_GUI);
-        merchantAccountInformationPix.getValue().addPaymentNetworkSpecific(new TagLengthString("01", "66756C616E6F32303139406578616D706C652E636F6D"));
-
-        MerchantAccountInformationTemplate merchantAccountInformationOutro = new MerchantAccountInformationTemplate();
-        merchantAccountInformationOutro.setTag("27");
-        merchantAccountInformationOutro.setValue(new MerchantAccountInformation());
-        merchantAccountInformationOutro.getValue().setGloballyUniqueIdentifier("BR.COM.OUTRO");
-        merchantAccountInformationOutro.getValue().addPaymentNetworkSpecific(new TagLengthString("01", "0123456789"));
+        MerchantAccountInformationTemplate merchantAccountInformationOutro = new MerchantAccountInformationTemplate("27", "BR.COM.OUTRO");
+        merchantAccountInformationOutro.addPaymentNetworkSpecific("01", "0123456789");
 
         final MerchantPresentedMode merchantPresentMode = new MerchantPresentedMode();
         merchantPresentMode.setPayloadFormatIndicator("01");
-
         merchantPresentMode.setMerchantCategoryCode("0000");
         merchantPresentMode.setTransactionCurrency(Currency.BRL.getNumber());
         merchantPresentMode.setTransactionAmount("123.45");
@@ -103,28 +96,18 @@ public class BasicBRCodeTest {
         additionalDataField.setReferenceLabel("RP12345678-2019");
         PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
         paymentSystemSpecificTemplate.setTag("50");
-        PaymentSystemSpecific paymentSystemSpecificValue = new PaymentSystemSpecific();
-        paymentSystemSpecificValue.setGloballyUniqueIdentifier(BRCodeConstants.BRCODE_GUI);
-        paymentSystemSpecificValue.addPaymentSystemSpecific(new TagLengthString("01", "1.0.0"));
-        paymentSystemSpecificTemplate.setValue(paymentSystemSpecificValue);
+        paymentSystemSpecificTemplate.setValue(new PaymentSystemSpecific(BRCodeConstants.BRCODE_GUI, "01", "1.0.0"));
         additionalDataField.addPaymentSystemSpecific(paymentSystemSpecificTemplate);
         additionalDataFieldTemplate.setValue(additionalDataField);
         merchantPresentMode.setAdditionalDataField(additionalDataFieldTemplate);
 
         // Unreserved templates
-        UnreservedTemplate unreservedTemplatePix = new UnreservedTemplate();
-        unreservedTemplatePix.setTag("80");
-        Unreserved unreservedValuePix = new Unreserved();
-        unreservedValuePix.setGloballyUniqueIdentifier(BRCodeConstants.PIX_GUI);
-        unreservedValuePix.addContextSpecificData(new TagLengthString("01", "PADRAO.URL.PIX/0123ABCD"));
-        unreservedTemplatePix.setValue(unreservedValuePix);
+        UnreservedTemplate unreservedTemplatePix = new UnreservedTemplate("80", BRCodeConstants.PIX_GUI);
+        unreservedTemplatePix.addContextSpecificData("01", "PADRAO.URL.PIX/0123ABCD");
         merchantPresentMode.addUnreserved(unreservedTemplatePix);
 
-        UnreservedTemplate unreservedTemplateOutro = new UnreservedTemplate();
-        unreservedTemplateOutro.setTag("81");
-        unreservedTemplateOutro.setValue(new Unreserved());
-        unreservedTemplateOutro.getValue().setGloballyUniqueIdentifier("BR.COM.OUTRO");
-        unreservedTemplateOutro.getValue().addContextSpecificData(new TagLengthString("01", "0123.ABCD.3456.WXYZ"));
+        UnreservedTemplate unreservedTemplateOutro = new UnreservedTemplate("81", "BR.COM.OUTRO");
+        unreservedTemplateOutro.addContextSpecificData("01", "0123.ABCD.3456.WXYZ");
         merchantPresentMode.addUnreserved(unreservedTemplateOutro);
 
         String mpmResult = merchantPresentMode.toString();
