@@ -29,6 +29,32 @@ public class MerchantAccountInformationTemplateTest {
   }
 
   @Test
+  public void testSuccessToStringConstructorTag() {
+
+    final TagLengthString tagLengthString = new TagLengthString();
+    tagLengthString.setTag("01");
+    tagLengthString.setValue("abcd");
+
+    final MerchantAccountInformation value = new MerchantAccountInformation();
+    value.setGloballyUniqueIdentifier("hoge");
+    value.addPaymentNetworkSpecific(tagLengthString);
+
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate("02");
+    merchantAccountInformation.setValue(value);
+
+    assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));
+  }
+
+  @Test
+  public void testSuccessToStringConstructorTagAndGloballyUniqueIdentifier() {
+
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate("02", "hoge");
+    merchantAccountInformation.addPaymentNetworkSpecific("01", "abcd");
+
+    assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));
+  }
+
+  @Test
   public void testSuccessToStringWhenValueIsNull() {
 
     final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
