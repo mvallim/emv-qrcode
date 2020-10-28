@@ -14,7 +14,6 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringSize;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessThanOrEqual;
 
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import com.emv.qrcode.core.CRC;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
@@ -736,23 +734,10 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
       .whenever(greaterThan(Collection::size, 0))
         .withValidator(new UnreservedTemplateValidator("80", "99", 99));
 
-    /**
-     * Validate CRC16
-     */
-    ruleFor("CRC", root -> root)
-      .must(equalTo(calcCrc16(MerchantPresentedMode::toStringWithoutCrc16), of(MerchantPresentedMode::getCRC).andThen(TagLengthString::getValue)))
-      .when(not(stringEmptyOrNull(of(MerchantPresentedMode::getCRC).andThen(TagLengthString::getValue))))
-        .withMessage("Invalid CRC16")
-        .withAttempedValue(of(MerchantPresentedMode::getCRC).andThen(TagLengthString::getValue));
-
   }
 
   private static Function<TagLengthString, BigDecimal> convertToBigDecimal(final Function<TagLengthString, String> fnc) {
     return obj -> new BigDecimal(fnc.apply(obj));
-  }
-
-  private static Function<MerchantPresentedMode, String> calcCrc16(final Function<MerchantPresentedMode, String> fnc) {
-    return obj -> String.format("%04X", CRC.crc16(fnc.apply(obj).getBytes(StandardCharsets.UTF_8)));
   }
 
 }

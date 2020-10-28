@@ -1,7 +1,7 @@
 package com.emv.qrcode.model.cpm;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
@@ -39,8 +39,8 @@ public class ApplicationTemplateTest {
     applicationTemplate.addApplicationSpecificTransparentTemplate(applicationSpecificTransparentTemplate);
 
     assertThat(applicationTemplate.getTag(), equalTo(0x61));
-    assertThat(applicationTemplate.toHex(), equalTo(
-        "624F04313233345004313233345704313233345A04313233342004313233342D04313233345004313233340804313233341904313233342404313233342504313233342704313233343604313233342604313233341004313233346306000431323334"));
+    assertThat(applicationTemplate.toHex(),
+        equalTo("624F04313233345004313233345704313233345A04313233342004313233342D04313233345004313233340804313233341904313233342404313233342504313233342704313233343604313233342604313233341004313233346306000431323334"));
   }
 
   @Test
