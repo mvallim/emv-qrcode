@@ -4,6 +4,7 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringEquals;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeGreaterThanOrEqual;
 
 import java.nio.charset.StandardCharsets;
+import java.util.function.Function;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,15 +43,19 @@ public final class Crc16Validate {
           .withAttempedValue(StringUtils::length);
 
       ruleFor("CRC", value -> value)
-        .must(stringEquals(value -> calcCrc16(StringUtils.right(value, 4)), value -> StringUtils.right(value, 4)))
+        .must(stringEquals(calcCrc16(), extractCrc16()))
         .when(stringSizeGreaterThanOrEqual(4))
           .withMessage("Invalid CRC16")
           .withAttempedValue(value -> StringUtils.right(value, 4));
 
     }
 
-    private static String calcCrc16(final String crc) {
-      return String.format("%04X", CRC.crc16(crc.getBytes(StandardCharsets.UTF_8)));
+    private static Function<String, String> extractCrc16() {
+      return value -> StringUtils.right(value, 4);
+    }
+
+    private static Function<String, String> calcCrc16() {
+      return value -> String.format("%04X", CRC.crc16(value.substring(0, value.length() - 4).getBytes(StandardCharsets.UTF_8)));
     }
 
   }

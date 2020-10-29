@@ -29,7 +29,7 @@ You can pull it from the central Maven repositories:
 <dependency>
     <groupId>com.github.mvallim</groupId>
     <artifactId>emv-qrcode</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 </dependency>
 ```
 
@@ -74,9 +74,13 @@ merchantPresentMode.addRFUforEMVCo(rFUforEMVCo);
 merchantPresentMode.addUnreserved(unreserved);
 
 System.out.println(merchantPresentMode.toString());
-    //"00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863046325";
+    //00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5
+    //914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klm
+    //no0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输030
+    //4abcd65020080320016A01122334499887707081234567863046325
 
 private MerchantAccountInformationTemplate getMerchanAccountInformation() {
+
     final TagLengthString paymentNetworkSpecific = new TagLengthString();
     paymentNetworkSpecific.setTag("01");
     paymentNetworkSpecific.setValue("abcd");
@@ -93,6 +97,7 @@ private MerchantAccountInformationTemplate getMerchanAccountInformation() {
 }
 
 private UnreservedTemplate getUnreserved() {
+
     final TagLengthString contextSpecificData = new TagLengthString();
     contextSpecificData.setTag("07");
     contextSpecificData.setValue("12345678");
@@ -109,6 +114,7 @@ private UnreservedTemplate getUnreserved() {
 }
 
 private MerchantInformationLanguageTemplate getMerchantInformationLanguage() {
+
     final TagLengthString rFUforEMVCo = new TagLengthString();
     rFUforEMVCo.setTag("03");
     rFUforEMVCo.setValue("abcd");
@@ -126,6 +132,7 @@ private MerchantInformationLanguageTemplate getMerchantInformationLanguage() {
 }
 
 private AdditionalDataFieldTemplate getAddtionalDataField() {
+
     final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
     paymentSystemSpecific.setGloballyUniqueIdentifier("1234");
     paymentSystemSpecific.addPaymentSystemSpecific(new TagLengthString("01", "ijkl"));
@@ -160,7 +167,11 @@ private AdditionalDataFieldTemplate getAddtionalDataField() {
 ```java
 @Test
 public void testSuccessDecode() {
-    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863046325";
+
+    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5"
+        + "914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903t"
+        + "uv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998"
+        + "87707081234567863046325";
 
     final MerchantPresentedMode merchantPresentedMode = Decoder.decode(encoded, MerchantPresentedMode.class);
 
@@ -202,6 +213,40 @@ public void testSuccessValidate() {
 
     assertTrue(validationResult.isValid());
 }
+```
+
+### MPM (Merchant Presented Mode) Validate CRC16
+
+```java
+@Test
+public void testSuccessCrc16Sample1() {
+
+    final String encoded = "00020101021229300012D156000000000510A93FO3230Q31280012D156000000010308123456"
+        + "78520441115802CN5914BEST TRANSPORT6007BEIJING64200002ZH0104最佳运输0202北京540523.7253031565502"
+        + "016233030412340603***0708A60086670902ME91320016A0112233449988770708123456786304A13A";
+
+    final ValidationResult validationResult = Crc16Validate.validate(encoded);
+
+    assertThat(validationResult.isValid(), equalTo(true));
+}
+
+@Test
+public void testFailValidateWhenWithoutCRCDecoded() {
+
+    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5"
+        + "914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903t"
+        + "uv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998"
+        + "877070812345678";
+
+    final ValidationResult validationResult = Crc16Validate.validate(encoded);
+
+    assertThat(validationResult.isValid(), equalTo(false));
+    assertThat(validationResult.getErrors(), hasSize(1));
+    assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
+    assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("5678"))));
+}
+
+
 ```
 
 ### CPM (Consumer Presented Mode)
