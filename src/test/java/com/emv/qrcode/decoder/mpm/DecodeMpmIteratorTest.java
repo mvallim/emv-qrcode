@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.NoSuchElementException;
 
@@ -34,10 +34,11 @@ public class DecodeMpmIteratorTest {
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(stub -> { })).doesNotThrowAnyException();
+    assertThatCode(() -> decodeIterator.forEachRemaining(stub -> {
+    })).doesNotThrowAnyException();
 
     final Throwable throwable = catchThrowable(() -> decodeIterator.next());
-    
+
     assertThat(throwable).isInstanceOf(NoSuchElementException.class);
 
   }

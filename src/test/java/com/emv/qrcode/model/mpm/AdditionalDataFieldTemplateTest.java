@@ -1,7 +1,7 @@
 package com.emv.qrcode.model.mpm;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -36,8 +36,7 @@ public class AdditionalDataFieldTemplateTest {
     final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(value);
 
-    assertThat(additionalDataField.toString(),
-        equalTo("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));
+    assertThat(additionalDataField.toString(), equalTo("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));
 
   }
 
@@ -63,8 +62,7 @@ public class AdditionalDataFieldTemplateTest {
     final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
     additionalDataField.setValue(value);
 
-    assertThat(additionalDataField.toString(),
-        equalTo("62890105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd"));
+    assertThat(additionalDataField.toString(), equalTo("62890105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy1004abcd"));
 
   }
 

@@ -1,16 +1,12 @@
 package com.emv.qrcode.validators.mpm;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.emv.qrcode.core.model.TagLengthString;
-import com.emv.qrcode.decoder.mpm.DecoderMpm;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
@@ -29,83 +25,12 @@ import br.com.fluentvalidator.context.ValidationResult;
 public class MerchantPresentedModeValidatorTest {
 
   @Test
-  public void testFailValidateWhenWithoutCRCDecoded() {
-    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
-
-    final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
-
-    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
-
-    assertThat(validationResult.isValid(), equalTo(false));
-    assertThat(validationResult.getErrors(), hasSize(1));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("0000"))));
-  }
-
-  @Test
-  public void testFailValidateWhenIncompleteCRCDecoded() {
-    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863";
-
-    final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
-
-    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
-
-    assertThat(validationResult.isValid(), equalTo(false));
-    assertThat(validationResult.getErrors(), hasSize(1));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("0000"))));
-  }
-
-  @Test
-  public void testFailValidateWhenIncomplete2CRCDecoded() {
-    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304";
-
-    final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
-
-    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
-
-    assertThat(validationResult.isValid(), equalTo(false));
-    assertThat(validationResult.getErrors(), hasSize(1));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("0000"))));
-  }
-
-  @Test
-  public void testFailValidateWhenInvalidCRCDecoded() {
-    final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988770708123456786304XXXX";
-
-    final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
-
-    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
-
-    assertThat(validationResult.isValid(), equalTo(false));
-    assertThat(validationResult.getErrors(), hasSize(1));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("XXXX"))));
-  }
-
-  @Test
   public void testSuccessValidateWhenWithoutCRC() {
     final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
 
     final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
 
     assertTrue(validationResult.isValid());
-  }
-
-  @Test
-  public void testFailValidateWhenInvalidCRC() {
-    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
-
-    merchantPresentMode.setCRC("XXXX");
-
-    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
-
-    assertThat(validationResult.isValid(), equalTo(false));
-    assertThat(validationResult.getErrors(), hasSize(1));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
-    assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("XXXX"))));
-
   }
 
   @Test
