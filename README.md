@@ -8,6 +8,8 @@
 
 Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
+* This library supports BRCode aswell
+
 ## Specification
 
 - [EMV QR Code Specification for Payment Systems: Merchant-Presented Mode](docs/EMVCo-Merchant-Presented-QR-Specification-v1-1.pdf)
