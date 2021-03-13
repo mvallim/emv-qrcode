@@ -9,6 +9,7 @@
 Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 * This library supports BRCode aswell
+* Decoding checking duplicate tags
 
 ## Specification
 
@@ -31,7 +32,7 @@ You can pull it from the central Maven repositories:
 <dependency>
     <groupId>com.github.mvallim</groupId>
     <artifactId>emv-qrcode</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 </dependency>
 ```
 
@@ -168,7 +169,7 @@ private AdditionalDataFieldTemplate getAddtionalDataField() {
 
 ```java
 @Test
-public void testSuccessDecode() {
+public void testSuccessDecode() throws MerchantPresentedModeException {
 
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5"
         + "914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903t"
@@ -188,6 +189,25 @@ public void testSuccessDecode() {
     assertThat(merchantPresentedMode.getTransactionAmount().getValue(), equalTo("23.72"));
     assertThat(merchantPresentedMode.getTransactionCurrency().getValue(), equalTo("156"));
     assertThat(merchantPresentedMode.getValueOfConvenienceFeeFixed().getValue(), equalTo("500"));
+}
+
+@Test
+public void testeFasilDuplicateTag() throws MerchantPresentedModeException {
+
+    final String encoded = "00020101021102160004hoge0104abcd5204411153031565303156540523.72550201560350057"
+        + "0155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505ab"
+        + "cde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd650200"
+        + "80320016A011223344998877070812345678";
+
+    final MerchantPresentedModeException merchantPresentedModeException = catchThrowableOfType(() -> 
+        DecoderMpm.decode(encoded, MerchantPresentedMode.class), MerchantPresentedModeException.class);
+
+    assertThat(merchantPresentedModeException, instanceOf(DuplicateTagException.class));
+
+    final DuplicateTagException duplicateTagException = DuplicateTagException.class.cast(merchantPresentedModeException);
+
+    assertThat(duplicateTagException.getTag(), equalTo("53"));
+    assertThat(duplicateTagException.getValue(), equalTo("5303156"));
 }
 ```
 
