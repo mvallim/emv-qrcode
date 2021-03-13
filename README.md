@@ -35,12 +35,20 @@ In order to use EMV QR Code within a Maven project, simply add the following dep
 
 You can pull it from the central Maven repositories:
 
+#### Maven
+
 ```xml
 <dependency>
     <groupId>com.github.mvallim</groupId>
     <artifactId>emv-qrcode</artifactId>
     <version>0.0.8</version>
 </dependency>
+```
+
+### Gradle
+
+```groovy
+implementation 'com.github.mvallim:emv-qrcode:0.0.8'
 ```
 
 If you want to try a snapshot version, add the following repository:
