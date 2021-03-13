@@ -176,7 +176,7 @@ public void testSuccessDecode() throws MerchantPresentedModeException {
         + "uv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998"
         + "87707081234567863046325";
 
-    final MerchantPresentedMode merchantPresentedMode = Decoder.decode(encoded, MerchantPresentedMode.class);
+    final MerchantPresentedMode merchantPresentedMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
 
     assertThat(merchantPresentedMode.getCountryCode().getValue(), equalTo("CN"));
     assertThat(merchantPresentedMode.getMerchantCategoryCode().getValue(), equalTo("4111"));
