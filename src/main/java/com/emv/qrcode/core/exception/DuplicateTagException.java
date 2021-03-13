@@ -7,7 +7,7 @@ public class DuplicateTagException extends InvalidMerchantPresentedModeException
   private final String tag;
 
   public DuplicateTagException(final String message, final String tag) {
-    super(message);
+    super(message + " informed already contains '" + tag + "' tag");
     this.tag = tag;
   }
 
