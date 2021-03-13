@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import org.junit.Test;
 
+import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
@@ -14,7 +15,7 @@ import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 public class MerchantInformationLanguageTemplateDecoderTest {
 
   @Test
-  public void testSuccessDecode() {
+  public void testSuccessDecode() throws InvalidMerchantPresentedModeException {
     final MerchantInformationLanguageTemplate merchantInformationLanguage = DecoderMpm.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
 
     assertThat(merchantInformationLanguage.getValue(), not(nullValue()));
@@ -46,7 +47,7 @@ public class MerchantInformationLanguageTemplateDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeEncode() {
+  public void testSuccessDecodeEncode() throws InvalidMerchantPresentedModeException {
     final MerchantInformationLanguageTemplate merchantInformationLanguage = DecoderMpm.decode("64280002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguageTemplate.class);
 
     assertThat(merchantInformationLanguage.toString(), equalTo("64280002ZH0104最佳运输0202北京0304abcd"));

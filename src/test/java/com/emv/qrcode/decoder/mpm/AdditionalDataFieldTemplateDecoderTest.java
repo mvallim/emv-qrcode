@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import org.junit.Test;
 
+import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
@@ -17,7 +18,7 @@ import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 public class AdditionalDataFieldTemplateDecoderTest {
 
   @Test
-  public void testSuccessDecode() {
+  public void testSuccessDecode() throws InvalidMerchantPresentedModeException {
     final AdditionalDataFieldTemplate additionalDataField = DecoderMpm.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
 
     assertThat(additionalDataField.getValue().getAdditionalConsumerDataRequest(), not(nullValue()));
@@ -71,7 +72,7 @@ public class AdditionalDataFieldTemplateDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeEncode() {
+  public void testSuccessDecodeEncode() throws InvalidMerchantPresentedModeException {
     final AdditionalDataFieldTemplate additionalDataField = DecoderMpm.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataFieldTemplate.class);
 
     assertThat(additionalDataField.toString(), equalTo("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));

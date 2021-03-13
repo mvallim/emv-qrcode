@@ -1,10 +1,14 @@
 package com.emv.qrcode.decoder.mpm;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
+import com.emv.qrcode.core.exception.DuplicateTagException;
+import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
@@ -24,12 +28,23 @@ public final class MerchantAccountInformationDecoder extends DecoderMpm<Merchant
   }
 
   @Override
-  @SuppressWarnings({ "rawtypes", "unchecked", "java:S3740" })
-  protected MerchantAccountInformation decode() {
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  protected MerchantAccountInformation decode() throws InvalidMerchantPresentedModeException {
+
+    final Set<String> tags = new HashSet<>();
+
     final MerchantAccountInformation result = new MerchantAccountInformation();
 
-    iterator.forEachRemaining(value -> {
+    while(iterator.hasNext()) {
+      final String value = iterator.next();
+
       final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
+
+      if (tags.contains(tag)) {
+        throw new DuplicateTagException("MerchantAccountInformation", tag);
+      }
+
+      tags.add(tag);
 
       final Entry<Class<?>, BiConsumer<MerchantAccountInformation, ?>> entry = mapConsumers.get(tag);
 
@@ -38,7 +53,7 @@ public final class MerchantAccountInformationDecoder extends DecoderMpm<Merchant
       final BiConsumer consumer = entry.getValue();
 
       consumer.accept(result, DecoderMpm.decode(value, clazz));
-    });
+    }
 
     return result;
   }
