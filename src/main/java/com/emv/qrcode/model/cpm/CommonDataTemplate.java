@@ -6,26 +6,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.emv.qrcode.core.model.BERTLV;
+import com.emv.qrcode.core.model.BERTag;
+import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
 
 @Getter
-public class CommonDataTemplate extends AdditionalData implements BERTLV<Integer, List<CommonDataTransparentTemplate>> {
+public class CommonDataTemplate extends AdditionalData implements TLV<BERTag, List<CommonDataTransparentTemplate>> {
 
   private static final long serialVersionUID = -4642312662946053298L;
 
-  private Integer length;
+  private final BERTLV self;
 
   private final List<CommonDataTransparentTemplate> value = new LinkedList<>();
+
+  public CommonDataTemplate() {
+    self = new BERTLV(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE, BERTLV.EMPTY_BYTES);
+  }
 
   public void addCommonDataTransparentTemplate(final CommonDataTransparentTemplate commonDataTransparentTemplate) {
     value.add(commonDataTransparentTemplate);
   }
 
   @Override
-  public Integer getTag() {
-    return ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE;
+  public BERTag getTag() {
+    return self.getTag();
   }
 
   @Override
@@ -44,7 +50,7 @@ public class CommonDataTemplate extends AdditionalData implements BERTLV<Integer
         final int len = selfBytes.length + valueBytes.length;
 
         if (len == 0) {
-          return EMPTY_BYTES;
+          return BERTLV.EMPTY_BYTES;
         }
 
         out.write(len);

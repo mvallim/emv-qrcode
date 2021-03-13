@@ -6,28 +6,34 @@ import java.util.Optional;
 
 import org.apache.commons.codec.binary.Hex;
 
-public class BERTLV implements TLV<Integer, byte[]> {
+public class BERTLV implements TLV<BERTag, byte[]> {
 
   private static final long serialVersionUID = 1286326121944790325L;
 
   public static final byte[] EMPTY_BYTES = new byte[0];
 
-  private Integer tag;
+  public static final BERTag EMPTY_TAG = new BERTag(EMPTY_BYTES);
+
+  private BERTag tag;
 
   private byte[] value;
 
-  public BERTLV(final Integer tag, final byte[] value) {
-    setTag(tag);
-    setValue(value);
+  public BERTLV(final BERTag tag, final byte[] value) {
+    this.tag = tag;
+    this.value = value;
+  }
+
+  public BERTLV(final byte[] tag, final byte[] value) {
+    this(new BERTag(tag), value);
   }
 
   @Override
-  public Integer getTag() {
+  public BERTag getTag() {
     return tag;
   }
 
-  public final void setTag(final Integer tag) {
-    this.tag = Optional.ofNullable(tag).orElse(0);
+  public final void setTag(final BERTag tag) {
+    this.tag = Optional.ofNullable(tag).orElse(EMPTY_TAG);
   }
 
   @Override
@@ -55,7 +61,7 @@ public class BERTLV implements TLV<Integer, byte[]> {
     }
 
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
-      stream.write(getTag());
+      stream.write(getTag().getBytes());
       stream.write(getLength());
       stream.write(getValue());
       return stream.toByteArray();
