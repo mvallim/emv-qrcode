@@ -51,7 +51,7 @@ public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataF
       final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
 
       if (tags.contains(tag)) {
-        throw new DuplicateTagException("AdditionalDataField", tag);
+        throw new DuplicateTagException("AdditionalDataField", tag, value);
       }
 
       tags.add(tag);

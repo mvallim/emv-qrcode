@@ -64,7 +64,7 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
       final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
 
       if (tags.contains(tag)) {
-        throw new DuplicateTagException("MerchantPresentedMode", tag);
+        throw new DuplicateTagException("MerchantPresentedMode", tag, value);
       }
 
       tags.add(tag);

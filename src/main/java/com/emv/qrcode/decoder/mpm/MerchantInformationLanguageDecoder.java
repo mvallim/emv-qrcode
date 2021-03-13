@@ -43,7 +43,7 @@ public final class MerchantInformationLanguageDecoder extends DecoderMpm<Merchan
       final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
 
       if (tags.contains(tag)) {
-        throw new DuplicateTagException("MerchantInformationLanguage", tag);
+        throw new DuplicateTagException("MerchantInformationLanguage", tag, value);
       }
 
       tags.add(tag);
