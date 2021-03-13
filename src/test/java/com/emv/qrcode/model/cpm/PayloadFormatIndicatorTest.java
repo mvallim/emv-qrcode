@@ -25,7 +25,7 @@ public class PayloadFormatIndicatorTest {
 
     payloadFormatIndicator.setTag(0x0);
 
-    assertThat(payloadFormatIndicator.toHex(), equalTo("85054350563031"));
+    assertThat(payloadFormatIndicator.toHex(), equalTo("00054350563031"));
 
   }
 
@@ -36,7 +36,7 @@ public class PayloadFormatIndicatorTest {
 
     payloadFormatIndicator.setValue("whatever");
 
-    assertThat(payloadFormatIndicator.toHex(), equalTo("85054350563031"));
+    assertThat(payloadFormatIndicator.toHex(), equalTo("85087768617465766572"));
 
   }
 

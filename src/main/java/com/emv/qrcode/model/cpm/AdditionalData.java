@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.emv.qrcode.core.model.BERTLString;
+import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
 import lombok.Getter;
@@ -15,42 +16,42 @@ public abstract class AdditionalData implements Serializable {
 
   private static final long serialVersionUID = -2275311356136693642L;
 
-  private BERTLString applicationDefinitionFileName;
+  private BERTLV applicationDefinitionFileName;
 
-  private BERTLString applicationLabel;
+  private BERTLV applicationLabel;
 
-  private BERTLString track2EquivalentData;
+  private BERTLV track2EquivalentData;
 
-  private BERTLString applicationPAN;
+  private BERTLV applicationPAN;
 
-  private BERTLString cardholderName;
+  private BERTLV cardholderName;
 
-  private BERTLString languagePreference;
+  private BERTLV languagePreference;
 
-  private BERTLString issuerURL;
+  private BERTLV issuerURL;
 
-  private BERTLString applicationVersionNumber;
+  private BERTLV applicationVersionNumber;
 
-  private BERTLString tokenRequestorID;
+  private BERTLV tokenRequestorID;
 
-  private BERTLString paymentAccountReference;
+  private BERTLV paymentAccountReference;
 
-  private BERTLString last4DigitsOfPAN;
+  private BERTLV last4DigitsOfPAN;
 
-  private BERTLString cryptogramInformationData;
+  private BERTLV cryptogramInformationData;
 
-  private BERTLString applicationTransactionCounter;
+  private BERTLV applicationTransactionCounter;
 
-  private BERTLString applicationCryptogram;
+  private BERTLV applicationCryptogram;
 
-  private BERTLString issuerApplicationData;
+  private BERTLV issuerApplicationData;
 
   public final void setApplicationDefinitionFileName(final String applicationDefinitionFileName) {
-    this.applicationDefinitionFileName = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName);
+    this.applicationDefinitionFileName = new BERTLV(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName);
   }
 
   public final void setApplicationLabel(final String applicationLabel) {
-    this.applicationLabel = new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_LABEL, applicationLabel);
+    this.applicationLabel = new BERTLV(TagTransactionProcessingCodes.ID_APPLICATION_LABEL, applicationLabel);
   }
 
   public final void setTrack2EquivalentData(final String track2EquivalentData) {
