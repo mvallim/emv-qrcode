@@ -45,7 +45,7 @@ You can pull it from the central Maven repositories:
 </dependency>
 ```
 
-### Gradle
+#### Gradle
 
 ```groovy
 implementation 'com.github.mvallim:emv-qrcode:0.0.8'
