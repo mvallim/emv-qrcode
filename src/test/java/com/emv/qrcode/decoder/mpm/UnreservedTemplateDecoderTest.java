@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import org.junit.Test;
 
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
@@ -14,7 +15,7 @@ import com.emv.qrcode.model.mpm.UnreservedTemplate;
 public class UnreservedTemplateDecoderTest {
 
   @Test
-  public void testSuccessDecode() {
+  public void testSuccessDecode() throws MerchantPresentedModeException {
     final UnreservedTemplate unreserved = DecoderMpm.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
 
     assertThat(unreserved.getValue(), not(nullValue()));
@@ -36,7 +37,7 @@ public class UnreservedTemplateDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeEncode() {
+  public void testSuccessDecodeEncode() throws MerchantPresentedModeException {
     final UnreservedTemplate unreserved = DecoderMpm.decode("91320016A011223344998877070812345678", UnreservedTemplate.class);
 
     assertThat(unreserved.toString(), equalTo("91320016A011223344998877070812345678"));

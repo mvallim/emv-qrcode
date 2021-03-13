@@ -1,18 +1,22 @@
 package com.emv.qrcode.decoder.mpm;
 
+import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
 import org.junit.Test;
 
+import com.emv.qrcode.core.exception.DuplicateTagException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;
 
 public class MerchantPresentedModeDecoderTest {
 
   @Test
-  public void testSuccessDecodePayloadFormatIndicator() {
+  public void testSuccessDecodePayloadFormatIndicator() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("000201", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -23,7 +27,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodePointOfInitiationMethod() {
+  public void testSuccessDecodePointOfInitiationMethod() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("010211", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -34,7 +38,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeMerchantCategoryCode() {
+  public void testSuccessDecodeMerchantCategoryCode() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("52044111", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -45,7 +49,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeTransactionCurrency() {
+  public void testSuccessDecodeTransactionCurrency() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("5303156", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -56,7 +60,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeTransactionAmount() {
+  public void testSuccessDecodeTransactionAmount() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("540523.72", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -67,7 +71,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeTipOrConvenienceIndicator() {
+  public void testSuccessDecodeTipOrConvenienceIndicator() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("550201", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -78,7 +82,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeValueOfConvenienceFeeFixed() {
+  public void testSuccessDecodeValueOfConvenienceFeeFixed() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("5603500", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -89,7 +93,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeValueOfConvenienceFeePercentage() {
+  public void testSuccessDecodeValueOfConvenienceFeePercentage() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("57015", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -100,7 +104,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeCountryCode() {
+  public void testSuccessDecodeCountryCode() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("5802CN", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -111,7 +115,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeMerchantName() {
+  public void testSuccessDecodeMerchantName() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("5914BEST TRANSPORT", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -122,7 +126,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeMerchantCity() {
+  public void testSuccessDecodeMerchantCity() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("6007BEIJING", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -133,7 +137,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodePostalCode() {
+  public void testSuccessDecodePostalCode() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("61071234567", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -144,7 +148,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeCRC() {
+  public void testSuccessDecodeCRC() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("6304A13A", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -155,7 +159,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeAdditionalDataFieldTemplate() {
+  public void testSuccessDecodeAdditionalDataFieldTemplate() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("6233030412340603***0708A60086670902ME", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -188,7 +192,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeMerchantInformationLanguageTemplate() {
+  public void testSuccessDecodeMerchantInformationLanguageTemplate() throws MerchantPresentedModeException {
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("64200002ZH0104最佳运输0202北京", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
@@ -214,7 +218,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testeSuccessToString() {
+  public void testeSuccessToString() throws MerchantPresentedModeException {
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863044220";
 
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
@@ -225,7 +229,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testeSuccessToStringWithoutCRC() {
+  public void testeSuccessToStringWithoutCRC() throws MerchantPresentedModeException {
     final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
 
     final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
@@ -233,6 +237,20 @@ public class MerchantPresentedModeDecoderTest {
     assertThat(merchantPresentMode.toString().length(), equalTo(301));
     assertThat(merchantPresentMode.toString(), equalTo(
         "00020101021102160004hoge0104abcd520441115303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A01122334499887707081234567863044220"));
+  }
+
+  @Test
+  public void testeFasilDuplicateTag() throws MerchantPresentedModeException {
+    final String encoded = "00020101021102160004hoge0104abcd5204411153031565303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
+
+    final MerchantPresentedModeException merchantPresentedModeException = catchThrowableOfType(() -> DecoderMpm.decode(encoded, MerchantPresentedMode.class), MerchantPresentedModeException.class);
+
+    assertThat(merchantPresentedModeException, instanceOf(DuplicateTagException.class));
+
+    final DuplicateTagException duplicateTagException = DuplicateTagException.class.cast(merchantPresentedModeException);
+
+    assertThat(duplicateTagException.getTag(), equalTo("53"));
+    assertThat(duplicateTagException.getValue(), equalTo("5303156"));
   }
 
 }
