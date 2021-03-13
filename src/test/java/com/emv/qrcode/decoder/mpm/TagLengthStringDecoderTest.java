@@ -7,13 +7,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 
 public class TagLengthStringDecoderTest {
 
   @Test
-  public void testSuccessDecode() throws InvalidMerchantPresentedModeException {
+  public void testSuccessDecode() throws MerchantPresentedModeException {
     final TagLengthString tagLengthString = DecoderMpm.decode("02041234", TagLengthString.class);
 
     assertThat(tagLengthString, not(nullValue()));
@@ -24,7 +24,7 @@ public class TagLengthStringDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeEncode() throws InvalidMerchantPresentedModeException {
+  public void testSuccessDecodeEncode() throws MerchantPresentedModeException {
     final TagLengthString tagLengthString = DecoderMpm.decode("02041234", TagLengthString.class);
 
     assertThat(tagLengthString.toString(), equalTo("02041234"));

@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 
 // @formatter:off
 public final class StringDecoder extends DecoderMpm<String> {
@@ -10,7 +10,7 @@ public final class StringDecoder extends DecoderMpm<String> {
   }
 
   @Override
-  protected String decode() throws InvalidMerchantPresentedModeException {
+  protected String decode() throws MerchantPresentedModeException {
     final StringBuilder result = new StringBuilder();
 
     while(iterator.hasNext()) {

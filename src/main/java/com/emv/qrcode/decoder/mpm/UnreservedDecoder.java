@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
@@ -29,7 +29,7 @@ public final class UnreservedDecoder extends DecoderMpm<Unreserved> {
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected Unreserved decode() throws InvalidMerchantPresentedModeException {
+  protected Unreserved decode() throws MerchantPresentedModeException {
 
     final Set<String> tags = new HashSet<>();
 

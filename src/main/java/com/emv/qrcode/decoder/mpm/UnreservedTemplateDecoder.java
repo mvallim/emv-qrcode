@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
@@ -12,7 +12,7 @@ public final class UnreservedTemplateDecoder extends DecoderMpm<UnreservedTempla
   }
 
   @Override
-  protected UnreservedTemplate decode() throws InvalidMerchantPresentedModeException {
+  protected UnreservedTemplate decode() throws MerchantPresentedModeException {
     final UnreservedTemplate result = new UnreservedTemplate();
 
     while(iterator.hasNext()) {

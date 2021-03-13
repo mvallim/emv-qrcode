@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import org.junit.Test;
 
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
@@ -15,7 +15,7 @@ import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 public class MerchantAccountInformationTemplateDecoderTest {
 
   @Test
-  public void testSuccessDecode() throws InvalidMerchantPresentedModeException {
+  public void testSuccessDecode() throws MerchantPresentedModeException {
     final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
 
     assertThat(merchantAccountInformation.getValue(), not(nullValue()));
@@ -37,7 +37,7 @@ public class MerchantAccountInformationTemplateDecoderTest {
   }
 
   @Test
-  public void testSuccessDecodeEncode() throws InvalidMerchantPresentedModeException {
+  public void testSuccessDecodeEncode() throws MerchantPresentedModeException {
     final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
 
     assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));

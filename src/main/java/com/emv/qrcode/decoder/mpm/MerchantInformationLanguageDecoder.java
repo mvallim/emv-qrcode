@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
@@ -31,7 +31,7 @@ public final class MerchantInformationLanguageDecoder extends DecoderMpm<Merchan
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected MerchantInformationLanguage decode() throws InvalidMerchantPresentedModeException {
+  protected MerchantInformationLanguage decode() throws MerchantPresentedModeException {
 
     final Set<String> tags = new HashSet<>();
 

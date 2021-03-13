@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 
@@ -12,7 +12,7 @@ public final class PaymentSystemSpecificTemplateDecoder extends DecoderMpm<Payme
   }
 
   @Override
-  protected PaymentSystemSpecificTemplate decode() throws InvalidMerchantPresentedModeException {
+  protected PaymentSystemSpecificTemplate decode() throws MerchantPresentedModeException {
     final PaymentSystemSpecificTemplate result = new PaymentSystemSpecificTemplate();
 
     while(iterator.hasNext()) {

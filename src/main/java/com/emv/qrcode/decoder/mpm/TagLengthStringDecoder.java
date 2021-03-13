@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 
 // @formatter:off
@@ -11,7 +11,7 @@ public final class TagLengthStringDecoder extends DecoderMpm<TagLengthString> {
   }
 
   @Override
-  protected TagLengthString decode() throws InvalidMerchantPresentedModeException {
+  protected TagLengthString decode() throws MerchantPresentedModeException {
     final TagLengthString result = new TagLengthString();
 
     while(iterator.hasNext()) {

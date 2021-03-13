@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.exception.InvalidMerchantPresentedModeException;
+import com.emv.qrcode.core.exception.MerchantPresentedModeException;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 
@@ -12,7 +12,7 @@ public final class MerchantAccountInformationTemplateDecoder extends DecoderMpm<
   }
 
   @Override
-  protected MerchantAccountInformationTemplate decode() throws InvalidMerchantPresentedModeException {
+  protected MerchantAccountInformationTemplate decode() throws MerchantPresentedModeException {
 
     final MerchantAccountInformationTemplate result = new MerchantAccountInformationTemplate();
 
