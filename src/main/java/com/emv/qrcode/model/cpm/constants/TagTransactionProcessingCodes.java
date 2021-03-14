@@ -19,6 +19,7 @@ public final class TagTransactionProcessingCodes {
   public static final BERTag ID_APPLICATION_TRANSACTION_COUNTER = new BERTag(new byte[] { (byte) 0x9F, 0x36 });
   public static final BERTag ID_APPLICATION_CRYPTOGRAM = new BERTag(new byte[] { (byte) 0x9F, 0x26 });
   public static final BERTag ID_ISSUER_APPLICATION_DATA = new BERTag(new byte[] { (byte) 0x9F, 0x10 });
+  public static final BERTag ID_UNPREDICTABLE_NUMBER = new BERTag(new byte[] { (byte) 0x9F, 0x37 });
 
   private TagTransactionProcessingCodes() {
     super();

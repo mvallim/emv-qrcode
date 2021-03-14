@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.emv.qrcode.core.model.BERTLBitString;
 import com.emv.qrcode.core.model.BERTLNumeric;
 import com.emv.qrcode.core.model.BERTLString;
 import com.emv.qrcode.core.model.BERTLV;
@@ -27,7 +28,7 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setApplicationDefinitionFileName(final String applicationDefinitionFileName) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName));
+    addAdditionalData(new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName));
   }
 
   public final void setApplicationLabel(final String applicationLabel) {
@@ -75,15 +76,19 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setApplicationTransactionCounter(final String applicationTransactionCounter) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter));
+    addAdditionalData(new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter));
   }
 
   public final void setApplicationCryptogram(final String applicationCryptogram) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM, applicationCryptogram));
+    addAdditionalData(new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM, applicationCryptogram));
   }
 
   public final void setIssuerApplicationData(final String issuerApplicationData) {
     addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, issuerApplicationData));
+  }
+
+  public final void setUnpredictableNumber(final String unpredictableNumber) {
+    addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER, unpredictableNumber));
   }
 
   public final BERTLV getAdditionalData(final BERTag tag) {
@@ -148,6 +153,10 @@ public abstract class AdditionalData implements Serializable {
 
   public final BERTLV getIssuerApplicationData() {
     return getAdditionalData(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA);
+  }
+
+  public final BERTLV getUnpredictableNumber() {
+    return getAdditionalData(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER);
   }
 
   public byte[] getBytes() throws IOException {

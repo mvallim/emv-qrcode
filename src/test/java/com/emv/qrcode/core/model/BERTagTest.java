@@ -1,6 +1,7 @@
 package com.emv.qrcode.core.model;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -172,6 +173,18 @@ public class BERTagTest {
     assertThat(berTag.getTagClass(), equalTo(TagClass.CONTEXT_SPECIFIC));
     assertThat(berTag.getTagType(), equalTo(TagType.PRIMITIVE));
     assertThat(berTag.getBytes().length, equalTo(2));
+  }
+
+  @Test
+  public void testEquals() throws IOException {
+    assertThat(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, equalTo(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA));
+    assertThat(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, not(equalTo(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM)));
+  }
+
+  @Test
+  public void testHashCode() throws IOException {
+    assertThat(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA.hashCode(), equalTo(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA.hashCode()));
+    assertThat(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA.hashCode(), not(equalTo(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM.hashCode())));
   }
 
 }

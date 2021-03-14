@@ -10,6 +10,8 @@ import java.util.Objects;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
+import com.emv.qrcode.core.model.BERTLV;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,12 +30,18 @@ public class ConsumerPresentedMode implements Serializable {
   // Application Template
   private final List<CommonDataTemplate> commonDataTemplates = new LinkedList<>();
 
+  private final List<BERTLV> otherTemplates = new LinkedList<>();
+
   public void addApplicationTemplate(final ApplicationTemplate applicationTemplate) {
     applicationTemplates.add(applicationTemplate);
   }
 
   public void addCommonDataTemplate(final CommonDataTemplate commonDataTemplate) {
     commonDataTemplates.add(commonDataTemplate);
+  }
+
+  public void addOtherTemplate(final BERTLV otherTemplate) {
+    otherTemplates.add(otherTemplate);
   }
 
   public byte[] getBytes() throws IOException {
@@ -49,6 +57,10 @@ public class ConsumerPresentedMode implements Serializable {
 
       for (final CommonDataTemplate commonDataTemplate : commonDataTemplates) {
         out.write(commonDataTemplate.getBytes());
+      }
+
+      for (final BERTLV otherTemplate : otherTemplates) {
+        out.write(otherTemplate.getBytes());
       }
 
       return out.toByteArray();
