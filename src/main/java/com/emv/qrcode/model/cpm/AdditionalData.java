@@ -91,63 +91,63 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final BERTLV getApplicationDefinitionFileName() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME);
   }
 
   public final BERTLV getApplicationLabel() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_APPLICATION_LABEL);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_APPLICATION_LABEL);
   }
 
   public final BERTLV getTrack2EquivalentData() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_TRACK_2_EQUIVALENT_DATA);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_TRACK_2_EQUIVALENT_DATA);
   }
 
   public final BERTLV getApplicationPAN() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_APPLICATION_PAN);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_APPLICATION_PAN);
   }
 
   public final BERTLV getCardholderName() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME);
   }
 
   public final BERTLV getLanguagePreference() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE);
   }
 
   public final BERTLV getIssuerURL() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_ISSUER_URL);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_ISSUER_URL);
   }
 
   public final BERTLV getApplicationVersionNumber() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER);
   }
 
   public final BERTLV getTokenRequestorID() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_TOKEN_REQUESTOR_ID);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_TOKEN_REQUESTOR_ID);
   }
 
   public final BERTLV getPaymentAccountReference() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE);
   }
 
   public final BERTLV getLast4DigitsOfPAN() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN);
   }
 
   public final BERTLV getCryptogramInformationData() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA);
   }
 
   public final BERTLV getApplicationTransactionCounter() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER);
   }
 
   public final BERTLV getApplicationCryptogram() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM);
   }
 
   public final BERTLV getIssuerApplicationData() {
-    return additionalDataMap.get(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA);
+    return getAdditionalData(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA);
   }
 
   public byte[] getBytes() throws IOException {

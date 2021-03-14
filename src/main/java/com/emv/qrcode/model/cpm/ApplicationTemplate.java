@@ -2,8 +2,7 @@ package com.emv.qrcode.model.cpm;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Objects;
 
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.core.model.BERTag;
@@ -18,19 +17,18 @@ public class ApplicationTemplate extends AdditionalData {
 
   private static final BERTag tag = ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE;
 
-  private final List<ApplicationSpecificTransparentTemplate> value = new LinkedList<>();
+  private ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate;
 
-  public void addApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
-    value.add(applicationSpecificTransparentTemplate);
+  public void setApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
+    this.applicationSpecificTransparentTemplate = applicationSpecificTransparentTemplate;
   }
 
   @Override
   public byte[] getBytes() throws IOException {
     try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-
       try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
 
-        for (final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate : value) {
+        if (Objects.nonNull(applicationSpecificTransparentTemplate)) {
           stream.write(applicationSpecificTransparentTemplate.getBytes());
         }
 

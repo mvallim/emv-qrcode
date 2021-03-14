@@ -2,8 +2,7 @@ package com.emv.qrcode.model.cpm;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Objects;
 
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.core.model.BERTag;
@@ -18,19 +17,18 @@ public class CommonDataTemplate extends AdditionalData {
 
   private static final BERTag tag = ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE;
 
-  private final List<CommonDataTransparentTemplate> value = new LinkedList<>();
+  private CommonDataTransparentTemplate commonDataTransparentTemplate;
 
   public void addCommonDataTransparentTemplate(final CommonDataTransparentTemplate commonDataTransparentTemplate) {
-    value.add(commonDataTransparentTemplate);
+    this.commonDataTransparentTemplate = commonDataTransparentTemplate;
   }
 
   @Override
   public byte[] getBytes() throws IOException {
     try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-
       try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
 
-        for (final CommonDataTransparentTemplate commonDataTransparentTemplate : value) {
+        if (Objects.nonNull(commonDataTransparentTemplate)) {
           stream.write(commonDataTransparentTemplate.getBytes());
         }
 
