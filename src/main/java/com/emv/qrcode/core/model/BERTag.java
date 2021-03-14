@@ -1,6 +1,7 @@
 package com.emv.qrcode.core.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,26 @@ public class BERTag implements Serializable {
 
   public byte[] getBytes() {
     return bytes;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + Arrays.hashCode(bytes);
+    return result;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!(obj instanceof BERTag)) {
+      return false;
+    }
+    final BERTag other = (BERTag) obj;
+    return Arrays.equals(bytes, other.bytes);
   }
 
   public enum TagClass {

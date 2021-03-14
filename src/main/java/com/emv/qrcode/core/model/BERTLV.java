@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.apache.commons.codec.binary.Hex;
 
-public class BERTLV implements TLV<BERTag, byte[]> {
+public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
   private static final long serialVersionUID = 1286326121944790325L;
 
