@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.emv.qrcode.core.model.BERTLBitString;
+import com.emv.qrcode.core.model.BERTLAlphanumeric;
+import com.emv.qrcode.core.model.BERTLBinary;
 import com.emv.qrcode.core.model.BERTLNumeric;
-import com.emv.qrcode.core.model.BERTLString;
 import com.emv.qrcode.core.model.BERTLV;
 import com.emv.qrcode.core.model.BERTag;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
@@ -28,15 +28,15 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setApplicationDefinitionFileName(final String applicationDefinitionFileName) {
-    addAdditionalData(new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, applicationDefinitionFileName));
   }
 
   public final void setApplicationLabel(final String applicationLabel) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_LABEL, applicationLabel));
+    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_APPLICATION_LABEL, applicationLabel));
   }
 
   public final void setTrack2EquivalentData(final String track2EquivalentData) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_TRACK_2_EQUIVALENT_DATA, track2EquivalentData));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_TRACK_2_EQUIVALENT_DATA, track2EquivalentData));
   }
 
   public final void setApplicationPAN(final String applicationPAN) {
@@ -44,51 +44,51 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setCardholderName(final String cardholderName) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME, cardholderName));
+    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME, cardholderName));
   }
 
   public final void setLanguagePreference(final String languagePreference) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE, languagePreference));
+    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE, languagePreference));
   }
 
   public final void setIssuerURL(final String issuerURL) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_ISSUER_URL, issuerURL));
+    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_ISSUER_URL, issuerURL));
   }
 
   public final void setApplicationVersionNumber(final String applicationVersionNumber) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER, applicationVersionNumber));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER, applicationVersionNumber));
   }
 
   public final void setTokenRequestorID(final String tokenRequestorID) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_TOKEN_REQUESTOR_ID, tokenRequestorID));
+    addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_TOKEN_REQUESTOR_ID, tokenRequestorID));
   }
 
   public final void setPaymentAccountReference(final String paymentAccountReference) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE, paymentAccountReference));
+    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE, paymentAccountReference));
   }
 
   public final void setLast4DigitsOfPAN(final String last4DigitsOfPAN) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN, last4DigitsOfPAN));
+    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN, last4DigitsOfPAN));
   }
 
   public final void setCryptogramInformationData(final String cryptogramInformationData) {
-    addAdditionalData(new BERTLString(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, cryptogramInformationData));
+    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, cryptogramInformationData));
   }
 
   public final void setApplicationTransactionCounter(final String applicationTransactionCounter) {
-    addAdditionalData(new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter));
   }
 
   public final void setApplicationCryptogram(final String applicationCryptogram) {
-    addAdditionalData(new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM, applicationCryptogram));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM, applicationCryptogram));
   }
 
   public final void setIssuerApplicationData(final String issuerApplicationData) {
-    addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, issuerApplicationData));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, issuerApplicationData));
   }
 
   public final void setUnpredictableNumber(final String unpredictableNumber) {
-    addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER, unpredictableNumber));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER, unpredictableNumber));
   }
 
   public final BERTLV getAdditionalData(final BERTag tag) {

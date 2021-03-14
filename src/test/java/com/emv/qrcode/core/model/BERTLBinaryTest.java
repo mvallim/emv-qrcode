@@ -12,18 +12,18 @@ import org.junit.Test;
 
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
-public class BERTLBitStringTest {
+public class BERTLBinaryTest {
 
   @Test
   public void testSuccess() throws IOException {
-    final BERTLV bertlv = new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "A0000000666666");
+    final BERTLV bertlv = new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "A0000000666666");
 
     assertThat(bertlv.toHex(), equalTo("4F07A0000000666666"));
   }
 
   @Test
   public void testFail() throws IOException {
-    final RuntimeException runtimeException = catchThrowableOfType(() -> new BERTLBitString(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "AG000000666666"), RuntimeException.class);
+    final RuntimeException runtimeException = catchThrowableOfType(() -> new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "AG000000666666"), RuntimeException.class);
     assertThat(runtimeException.getCause(), instanceOf(DecoderException.class));
   }
 

@@ -18,12 +18,12 @@ public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
   private byte[] value;
 
-  public BERTLV(final BERTag tag, final byte[] value) {
+  protected BERTLV(final BERTag tag, final byte[] value) {
     this.tag = tag;
     this.value = value;
   }
 
-  public BERTLV(final byte[] tag, final byte[] value) {
+  protected BERTLV(final byte[] tag, final byte[] value) {
     this(new BERTag(tag), value);
   }
 
