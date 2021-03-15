@@ -61,7 +61,9 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     while(iterator.hasNext()) {
       final String value = iterator.next();
 
-      final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
+      final String tag = value.substring(0, DecodeMpmIterator.ID_WORD_COUNT);
+
+      final String derivateId = derivateId(tag);
 
       if (tags.contains(tag)) {
         throw new DuplicateTagException("MerchantPresentedMode", tag, value);
@@ -69,7 +71,7 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
 
       tags.add(tag);
 
-      final Entry<Class<?>, BiConsumer<MerchantPresentedMode, ?>> entry = mapConsumers.get(tag);
+      final Entry<Class<?>, BiConsumer<MerchantPresentedMode, ?>> entry = mapConsumers.get(derivateId);
 
       final Class<?> clazz = entry.getKey();
 
