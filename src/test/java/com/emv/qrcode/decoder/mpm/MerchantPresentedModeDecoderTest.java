@@ -1,5 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -240,7 +241,7 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testeFasilDuplicateTag() throws MerchantPresentedModeException {
+  public void testeFailDuplicateTag() throws MerchantPresentedModeException {
     final String encoded = "00020101021102160004hoge0104abcd5204411153031565303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
 
     final MerchantPresentedModeException merchantPresentedModeException = catchThrowableOfType(() -> DecoderMpm.decode(encoded, MerchantPresentedMode.class), MerchantPresentedModeException.class);
@@ -251,6 +252,21 @@ public class MerchantPresentedModeDecoderTest {
 
     assertThat(duplicateTagException.getTag(), equalTo("53"));
     assertThat(duplicateTagException.getValue(), equalTo("5303156"));
+  }
+
+  @Test
+  public void testeBrCode() throws MerchantPresentedModeException {
+    final String encoded1 = "00020126570014BR.GOV.BCB.PIX0114607011900001040217Mensagem opcional52040000530398654041.225802BR5920Teste Batch atualiza6009SAO PAULO622605221t9OGEuUWlqWQiY0CU2YmA63048179";
+    final String encoded2 = "00020126830014br.gov.bcb.pix01364004901d-bd85-4769-8e52-cb4c42c506dc0221Jornada pagador 57768520400005303986540573.625802BR5903Pix62080504oooo63048E87";
+    final String encoded3 = "00020126830014br.gov.bcb.pix01364004901d-bd85-4769-8e52-cb4c42c506dc0221Jornada pagador 57768520400005303986540573.625802BR5903Pix6016Sao Joao del Rei62080504oooo63044682";
+    final String encoded4 = "00020104141234567890123426580014BR.GOV.BCB.PIX0136123e4567-e12b-12d1-a456-42665544000027300012BR.COM.OUTRO011001234567895204000053039865406123.455802BR5917NOME DO RECEBEDOR6008BRASILIA61087007490080390012BR.COM.OUTRO01190123.ABCD.3456.WXYZ6304549C";
+    final String encoded5 = "00020126830014br.gov.bcb.pix01364004901d-bd85-4769-8e52-cb4c42c506dc0221Jornada pagador 57768520400005303986540105802BR5903Pix6008BRASILIA62080504oooo63041F70";
+
+    assertThatCode(() -> DecoderMpm.decode(encoded1, MerchantPresentedMode.class)).doesNotThrowAnyException();
+    assertThatCode(() -> DecoderMpm.decode(encoded2, MerchantPresentedMode.class)).doesNotThrowAnyException();
+    assertThatCode(() -> DecoderMpm.decode(encoded3, MerchantPresentedMode.class)).doesNotThrowAnyException();
+    assertThatCode(() -> DecoderMpm.decode(encoded4, MerchantPresentedMode.class)).doesNotThrowAnyException();
+    assertThatCode(() -> DecoderMpm.decode(encoded5, MerchantPresentedMode.class)).doesNotThrowAnyException();
   }
 
 }
