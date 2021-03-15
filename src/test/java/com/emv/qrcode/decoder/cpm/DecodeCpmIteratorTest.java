@@ -12,17 +12,20 @@ import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 
+// @formatter:off
 public class DecodeCpmIteratorTest {
 
   @Test
   public void testSuccessParseMinimal() throws DecoderException {
-    final String encoded = "85054350563031611A4F07A0000000555555570F1234567890123458D191220112345F";
+    final String encoded = "85054350563031611A4F07A0000000555"
+      + "555570F1234567890123458D191220112345F";
 
     final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(stub -> {
+    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
+      System.err.println(Hex.encodeHex(bytes, false));
     })).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
@@ -30,13 +33,19 @@ public class DecodeCpmIteratorTest {
 
   @Test
   public void testSuccessParseLong() throws DecoderException {
-    final String encoded = "8505435056303161134F07A0000000555555500850726F647563743161134F07A0000000666666500850726F647563743262495A0812345678901234585F200E43415244484F4C4445522F454D565F2D08727565736465656E64219F100706010A030000009F2608584FD385FA234BCC9F360200019F37046D58EF13";
+    final String encoded = "8505435056303161134F07A0000000555"
+      + "555500850726F647563743161134F07A00000006666665008507"
+      + "26F647563743262495A0812345678901234585F200E434152444"
+      + "84F4C4445522F454D565F2D08727565736465656E64219F10070"
+      + "6010A030000009F2608584FD385FA234BCC9F360200019F37046"
+      + "D58EF13";
 
     final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(stub -> {
+    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
+      System.err.println(Hex.encodeHex(bytes, false));
     })).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
@@ -51,7 +60,8 @@ public class DecodeCpmIteratorTest {
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(stub -> {
+    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
+      System.err.println(Hex.encodeHex(bytes, false));
     })).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
@@ -73,7 +83,8 @@ public class DecodeCpmIteratorTest {
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(stub -> {
+    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
+      System.err.println(Hex.encodeHex(bytes, false));
     })).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
@@ -81,19 +92,25 @@ public class DecodeCpmIteratorTest {
 
   @Test
   public void testFailParse() throws DecoderException {
-    final String encoded = "8505435056303161134F07A0000000555555500850726F647563743161134F07A0000000666666500850726F647563743262495A0812345678901234585F200E43415244484F4C4445522F454D565F2D08727565736465656E64219F100706010A030000009F2608584FD385FA234BCC9F360200019F37046D58";
+    final String encoded = "8505435056303161134F07A0000000555"
+      + "555500850726F647563743161134F07A00000006666665008507"
+      + "26F647563743262495A0812345678901234585F200E434152444"
+      + "84F4C4445522F454D565F2D08727565736465656E64219F10070"
+      + "6010A030000009F2608584FD385FA234BCC9F360200019F37046"
+      + "D58";
 
     final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(stub -> {
+    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
+      System.err.println(Hex.encodeHex(bytes, false));
     })).doesNotThrowAnyException();
 
     final Throwable throwable = catchThrowable(() -> decodeIterator.next());
 
     assertThat(throwable).isInstanceOf(NoSuchElementException.class);
-
   }
 
 }
+// @formatter:on
