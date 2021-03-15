@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.apache.commons.codec.binary.Hex;
 
+import com.emv.qrcode.core.converters.ConverterBERLength;
+
 public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
   private static final long serialVersionUID = 1286326121944790325L;
@@ -62,7 +64,7 @@ public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
       stream.write(getTag().getBytes());
-      stream.write(getLength());
+      stream.write(ConverterBERLength.INSTANCE.convert(getLength()));
       stream.write(getValue());
       return stream.toByteArray();
     }

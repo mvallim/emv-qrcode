@@ -3,6 +3,7 @@ package com.emv.qrcode.decoder.cpm;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -68,7 +69,7 @@ public class DecodeCpmIteratorTest {
   }
 
   @Test
-  public void testSuccessParseLongLenght() throws DecoderException {
+  public void testSuccessParseLongLength() throws DecoderException {
     final String encoded = "9F37046D58EF137081C08F01049F3201"
       + "0392249FFBFB7FEEC7B04367B3E4C671C30B4AEEADA2C193495"
       + "8DD6104D150EAFD3C052C970E8D90819052D778E3332B720F4F"
@@ -110,6 +111,17 @@ public class DecodeCpmIteratorTest {
     final Throwable throwable = catchThrowable(() -> decodeIterator.next());
 
     assertThat(throwable).isInstanceOf(NoSuchElementException.class);
+  }
+
+  @Test
+  public void testFailParseOverflowShortValue() throws DecoderException {
+    final String encoded = "4F83FFFFFFA00000005555";
+
+    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
+
+    final IllegalStateException illegalStateException = catchThrowableOfType(() -> decodeIterator.hasNext(), IllegalStateException.class);
+
+    assertThat(illegalStateException.getMessage(), equalTo("Decode the length is more then 2 bytes (65535)"));
   }
 
 }
