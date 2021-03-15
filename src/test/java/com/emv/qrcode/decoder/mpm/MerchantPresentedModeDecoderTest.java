@@ -240,7 +240,21 @@ public class MerchantPresentedModeDecoderTest {
   }
 
   @Test
-  public void testeFasilDuplicateTag() throws MerchantPresentedModeException {
+  public void testeFailDuplicateTag() throws MerchantPresentedModeException {
+    final String encoded = "00020101021102160004hoge0104abcd5204411153031565303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
+
+    final MerchantPresentedModeException merchantPresentedModeException = catchThrowableOfType(() -> DecoderMpm.decode(encoded, MerchantPresentedMode.class), MerchantPresentedModeException.class);
+
+    assertThat(merchantPresentedModeException, instanceOf(DuplicateTagException.class));
+
+    final DuplicateTagException duplicateTagException = DuplicateTagException.class.cast(merchantPresentedModeException);
+
+    assertThat(duplicateTagException.getTag(), equalTo("53"));
+    assertThat(duplicateTagException.getValue(), equalTo("5303156"));
+  }
+
+  @Test
+  public void testeBrCode() throws MerchantPresentedModeException {
     final String encoded = "00020101021102160004hoge0104abcd5204411153031565303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
 
     final MerchantPresentedModeException merchantPresentedModeException = catchThrowableOfType(() -> DecoderMpm.decode(encoded, MerchantPresentedMode.class), MerchantPresentedModeException.class);
