@@ -10,6 +10,8 @@ public class BERTag implements Serializable {
 
   private static final long serialVersionUID = -4165695218130492616L;
 
+  private static int LAST_BYTE_MASK = 0x80;
+  private static int NEXT_BYTE_BITMASK = 0x1F; // 00011111
   private static int CLASS_BITMASK = 0xC0; // 11000000 Tag class: bits 7-8 of the initial octet
   private static int TYPE_BITMASK = 0x20; // 00100000 Tag type: bit 6 of the initial octet
 
@@ -49,6 +51,14 @@ public class BERTag implements Serializable {
     }
     final BERTag other = (BERTag) obj;
     return Arrays.equals(bytes, other.bytes);
+  }
+
+  public static boolean hasNextByte(final byte value) {
+    return NEXT_BYTE_BITMASK == (value & NEXT_BYTE_BITMASK);
+  }
+
+  public static boolean isNotLastByte(final byte value) {
+    return LAST_BYTE_MASK == (value & LAST_BYTE_MASK);
   }
 
   public enum TagClass {

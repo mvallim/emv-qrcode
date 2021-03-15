@@ -1,32 +1,23 @@
 package com.emv.qrcode.decoder.cpm;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+
+import com.emv.qrcode.core.model.BERTag;
 
 // @formatter:off
 final class DecodeCpmIterator implements Iterator<byte[]> {
 
-  private static final Map<Byte, Integer> ID_WORD_COUNT = new ConcurrentHashMap<>();
+  private static final int MAX_BYTE_VALUE = 0x80;
 
-  static {
-    ID_WORD_COUNT.put((byte)0x85, 0);
-    ID_WORD_COUNT.put((byte)0x61, 0);
-    ID_WORD_COUNT.put((byte)0x62, 0);
-    ID_WORD_COUNT.put((byte)0x63, 0);
-    ID_WORD_COUNT.put((byte)0x64, 0);
-    ID_WORD_COUNT.put((byte)0x4F, 0);
-    ID_WORD_COUNT.put((byte)0x50, 0);
-    ID_WORD_COUNT.put((byte)0x57, 0);
-    ID_WORD_COUNT.put((byte)0x5A, 0);
-    ID_WORD_COUNT.put((byte)0x5F, 1);
-    ID_WORD_COUNT.put((byte)0x9F, 1);
-  }
+  private static final int BYTE_MULTIPLY_POWER = 0x100;
 
-  public static final Integer VALUE_LENGTH_WORD_COUNT = 1;
+  private static final int NUMBER_OF_BYTES_MASK = 0x7F;
+
+  private static final int POSITIVE_MASK = 0xFF;
 
   private Integer current;
 
@@ -40,15 +31,67 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
     this.source = source;
   }
 
-  private Byte valueLength() {
-    final Integer start = current + ID_WORD_COUNT.get(source[current]);
-    final Integer end = start + VALUE_LENGTH_WORD_COUNT;
-    return source[end];
+  private Integer valueLength() {
+
+    final Integer start = current + countBytesOfTag();
+
+    final Integer countBytesOfLength = countBytesOfLength(start);
+
+    Integer length = 0;
+
+    if (countBytesOfLength == 1) {
+      length = source[start] & POSITIVE_MASK;
+    } else {
+      for (int i = start + 1; i < start + countBytesOfLength; i++) {
+        length = length * BYTE_MULTIPLY_POWER + (source[i] & POSITIVE_MASK);
+      }
+    }
+
+    return length;
+  }
+
+  private Integer countBytesOfTag() {
+    Integer count = 0;
+
+    final boolean hasNextByte = BERTag.hasNextByte(source[current + count]);
+
+    if (hasNextByte) {
+      count++;
+    }
+
+    while (hasNextByte && BERTag.isNotLastByte(source[current + count])) {
+      count++;
+    }
+
+    return count + 1;
+  }
+
+  private Integer countBytesOfLength(final Integer start) {
+    if ((source[start] & MAX_BYTE_VALUE) == MAX_BYTE_VALUE) {
+      final int numberOfBytes = (source[start] & NUMBER_OF_BYTES_MASK) + 1;
+
+      if (numberOfBytes > 3 ) {
+        throw new IllegalStateException(MessageFormat.format("At position {0} the len is more then 3 [{1}]", start, numberOfBytes));
+      }
+
+      return numberOfBytes;
+    }
+
+    return 1;
   }
 
   @Override
   public boolean hasNext() {
-    return current < max && current + ID_WORD_COUNT.get(source[current]) + VALUE_LENGTH_WORD_COUNT + valueLength() <= max;
+
+    if (current >= max) {
+      return false;
+    }
+
+    final Integer countBytesOfTag = countBytesOfTag();
+    final Integer countBytesOfLength = countBytesOfLength(current + countBytesOfTag);
+    final Integer valueLength = valueLength();
+
+    return current + countBytesOfTag + countBytesOfLength + valueLength <= max;
   }
 
   @Override
@@ -65,11 +108,14 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
       throw new NoSuchElementException();
     }
 
-    final Integer valueLength = valueLength() + 1;
+    final Integer countBytesOfTag = countBytesOfTag();
+    final Integer countBytesOfLength = countBytesOfLength(current + countBytesOfTag);
+    final Integer valueLength = valueLength();
+    final Integer end = current + countBytesOfTag + countBytesOfLength + valueLength;
 
-    final byte[] value = Arrays.copyOfRange(source, current, current + ID_WORD_COUNT.get(source[current]) + VALUE_LENGTH_WORD_COUNT + valueLength);
+    final byte[] value = Arrays.copyOfRange(source, current, end);
 
-    current += ID_WORD_COUNT.get(source[current]) + VALUE_LENGTH_WORD_COUNT + valueLength;
+    current += end;
 
     return value;
   }
