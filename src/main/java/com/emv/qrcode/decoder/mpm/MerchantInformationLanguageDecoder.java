@@ -40,7 +40,9 @@ public final class MerchantInformationLanguageDecoder extends DecoderMpm<Merchan
     while(iterator.hasNext()) {
       final String value = iterator.next();
 
-      final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
+      final String tag = value.substring(0, DecodeMpmIterator.ID_WORD_COUNT);
+
+      final String derivateId = derivateId(tag);
 
       if (tags.contains(tag)) {
         throw new DuplicateTagException("MerchantInformationLanguage", tag, value);
@@ -48,7 +50,7 @@ public final class MerchantInformationLanguageDecoder extends DecoderMpm<Merchan
 
       tags.add(tag);
 
-      final Entry<Class<?>, BiConsumer<MerchantInformationLanguage, ?>> entry = mapConsumers.get(tag);
+      final Entry<Class<?>, BiConsumer<MerchantInformationLanguage, ?>> entry = mapConsumers.get(derivateId);
 
       final Class<?> clazz = entry.getKey();
 

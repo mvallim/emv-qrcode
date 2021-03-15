@@ -38,7 +38,9 @@ public final class UnreservedDecoder extends DecoderMpm<Unreserved> {
     while(iterator.hasNext()) {
       final String value = iterator.next();
 
-      final String tag = derivateId(value.substring(0, DecodeMpmIterator.ID_WORD_COUNT));
+      final String tag = value.substring(0, DecodeMpmIterator.ID_WORD_COUNT);
+
+      final String derivateId = derivateId(tag);
 
       if (tags.contains(tag)) {
         throw new DuplicateTagException("Unreserved", tag, value);
@@ -46,7 +48,7 @@ public final class UnreservedDecoder extends DecoderMpm<Unreserved> {
 
       tags.add(tag);
 
-      final Entry<Class<?>, BiConsumer<Unreserved, ?>> entry = mapConsumers.get(tag);
+      final Entry<Class<?>, BiConsumer<Unreserved, ?>> entry = mapConsumers.get(derivateId);
 
       final Class<?> clazz = entry.getKey();
 
