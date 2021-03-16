@@ -1,4 +1,4 @@
-package com.emv.qrcode.core.model;
+package com.emv.qrcode.core.model.cpm;
 
 import java.io.Serializable;
 import java.util.Arrays;

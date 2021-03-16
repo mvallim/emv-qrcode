@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.decoder.mpm.DecoderMpm;
 
 public class MerchantPresentedModeTest {

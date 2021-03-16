@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.cpm;
 
-import com.emv.qrcode.core.model.BERTLBinary;
+import com.emv.qrcode.core.model.cpm.BERTLBinary;
 import com.emv.qrcode.core.utils.BERUtils;
 
 public final class BERTLBinaryDecoder extends DecoderCpm<BERTLBinary> {

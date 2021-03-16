@@ -8,8 +8,6 @@ import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import com.emv.qrcode.core.model.BERTLAlphanumeric;
-
 public class ConsumerPresentedModeTest {
 
   @Test
@@ -19,7 +17,6 @@ public class ConsumerPresentedModeTest {
     consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(new ApplicationTemplate());
     consumerPresentedMode.addCommonDataTemplate(new CommonDataTemplate());
-    consumerPresentedMode.addOtherTemplate(new BERTLAlphanumeric(new byte[0], new byte[0]));
 
     assertThat(consumerPresentedMode.toHex(), equalTo("85054350563031"));
   }
@@ -114,7 +111,6 @@ public class ConsumerPresentedModeTest {
     consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(new ApplicationTemplate());
     consumerPresentedMode.addCommonDataTemplate(new CommonDataTemplate());
-    consumerPresentedMode.addOtherTemplate(new BERTLAlphanumeric(new byte[0], new byte[0]));
 
     assertThat(consumerPresentedMode.toBase64(), equalTo("hQVDUFYwMQ=="));
   }

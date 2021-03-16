@@ -3,7 +3,7 @@ package com.emv.qrcode.core.configuration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.decoder.mpm.AdditionalDataFieldDecoder;
 import com.emv.qrcode.decoder.mpm.AdditionalDataFieldTemplateDecoder;
 import com.emv.qrcode.decoder.mpm.DecoderMpm;

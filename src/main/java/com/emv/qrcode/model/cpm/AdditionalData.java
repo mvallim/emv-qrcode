@@ -7,11 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.emv.qrcode.core.model.BERTLAlphanumeric;
-import com.emv.qrcode.core.model.BERTLBinary;
-import com.emv.qrcode.core.model.BERTLNumeric;
-import com.emv.qrcode.core.model.BERTLV;
-import com.emv.qrcode.core.model.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
+import com.emv.qrcode.core.model.cpm.BERTLBinary;
+import com.emv.qrcode.core.model.cpm.BERTLNumeric;
+import com.emv.qrcode.core.model.cpm.BERTLV;
+import com.emv.qrcode.core.model.cpm.BERTag;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
 import lombok.Getter;

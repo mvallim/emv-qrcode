@@ -1,7 +1,7 @@
 package com.emv.qrcode.decoder.mpm;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 
 // @formatter:off
 public final class TagLengthStringDecoder extends DecoderMpm<TagLengthString> {

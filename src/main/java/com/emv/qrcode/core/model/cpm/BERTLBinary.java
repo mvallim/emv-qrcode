@@ -1,4 +1,4 @@
-package com.emv.qrcode.core.model;
+package com.emv.qrcode.core.model.cpm;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;

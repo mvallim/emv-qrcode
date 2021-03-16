@@ -3,7 +3,7 @@ package com.emv.qrcode.core.configuration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.emv.qrcode.core.model.BERTLBinary;
+import com.emv.qrcode.core.model.cpm.BERTLBinary;
 import com.emv.qrcode.decoder.cpm.ApplicationSpecificTransparentTemplateDecoder;
 import com.emv.qrcode.decoder.cpm.ApplicationTemplateDecoder;
 import com.emv.qrcode.decoder.cpm.BERTLBinaryDecoder;

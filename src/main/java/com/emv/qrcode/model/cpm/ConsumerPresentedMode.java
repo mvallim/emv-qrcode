@@ -10,7 +10,7 @@ import java.util.Objects;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
-import com.emv.qrcode.core.model.BERTLV;
+import com.emv.qrcode.core.model.cpm.BERTemplate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +31,7 @@ public class ConsumerPresentedMode implements Serializable {
   private final List<CommonDataTemplate> commonDataTemplates = new LinkedList<>();
 
   // Other template
-  private final List<BERTLV> otherTemplates = new LinkedList<>();
+  private final List<BERTemplate<byte[]>> otherTemplates = new LinkedList<>();
 
   public void addApplicationTemplate(final ApplicationTemplate applicationTemplate) {
     applicationTemplates.add(applicationTemplate);
@@ -41,7 +41,7 @@ public class ConsumerPresentedMode implements Serializable {
     commonDataTemplates.add(commonDataTemplate);
   }
 
-  public void addOtherTemplate(final BERTLV otherTemplate) {
+  public void addOtherTemplate(final BERTemplate<byte[]> otherTemplate) {
     otherTemplates.add(otherTemplate);
   }
 
@@ -52,15 +52,15 @@ public class ConsumerPresentedMode implements Serializable {
         out.write(payloadFormatIndicator.getBytes());
       }
 
-      for (final ApplicationTemplate applicationTemplate : applicationTemplates) {
+      for (final BERTemplate<byte[]> applicationTemplate : applicationTemplates) {
         out.write(applicationTemplate.getBytes());
       }
 
-      for (final CommonDataTemplate commonDataTemplate : commonDataTemplates) {
+      for (final BERTemplate<byte[]> commonDataTemplate : commonDataTemplates) {
         out.write(commonDataTemplate.getBytes());
       }
 
-      for (final BERTLV otherTemplate : otherTemplates) {
+      for (final BERTemplate<byte[]> otherTemplate : otherTemplates) {
         out.write(otherTemplate.getBytes());
       }
 

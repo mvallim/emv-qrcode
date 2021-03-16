@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
-import com.emv.qrcode.core.model.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTag;
 
 // @formatter:off
 final class DecodeCpmIterator implements Iterator<byte[]> {

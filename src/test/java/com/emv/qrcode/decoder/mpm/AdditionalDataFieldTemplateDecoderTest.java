@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.nullValue;
 import org.junit.Test;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecific;

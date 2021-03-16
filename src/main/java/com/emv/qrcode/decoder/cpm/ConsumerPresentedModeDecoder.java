@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
-import com.emv.qrcode.core.model.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTag;
 import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.ApplicationTemplate;
 import com.emv.qrcode.model.cpm.CommonDataTemplate;

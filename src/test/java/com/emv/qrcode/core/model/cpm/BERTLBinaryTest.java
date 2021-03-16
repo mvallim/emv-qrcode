@@ -1,4 +1,4 @@
-package com.emv.qrcode.core.model;
+package com.emv.qrcode.core.model.cpm;
 
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -12,18 +12,18 @@ import org.junit.Test;
 
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
-public class BERTLCompressedNumericTest {
+public class BERTLBinaryTest {
 
   @Test
   public void testSuccess() throws IOException {
-    final BERTLV bertlv = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "0123456789");
+    final BERTLV bertlv = new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "A0000000666666");
 
-    assertThat(bertlv.toHex(), equalTo("5A050123456789"));
+    assertThat(bertlv.toHex(), equalTo("4F07A0000000666666"));
   }
 
   @Test
   public void testFail() throws IOException {
-    final RuntimeException runtimeException = catchThrowableOfType(() -> new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "AG000000666666"), RuntimeException.class);
+    final RuntimeException runtimeException = catchThrowableOfType(() -> new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "AG000000666666"), RuntimeException.class);
     assertThat(runtimeException.getCause(), instanceOf(DecoderException.class));
   }
 

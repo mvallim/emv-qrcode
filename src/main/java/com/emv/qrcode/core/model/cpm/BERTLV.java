@@ -1,4 +1,4 @@
-package com.emv.qrcode.core.model;
+package com.emv.qrcode.core.model.cpm;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.apache.commons.codec.binary.Hex;
 
+import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.utils.BERUtils;
 
 public abstract class BERTLV implements TLV<BERTag, byte[]> {

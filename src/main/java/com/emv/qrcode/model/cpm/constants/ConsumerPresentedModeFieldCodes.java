@@ -1,6 +1,6 @@
 package com.emv.qrcode.model.cpm.constants;
 
-import com.emv.qrcode.core.model.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTag;
 
 public final class ConsumerPresentedModeFieldCodes {
 

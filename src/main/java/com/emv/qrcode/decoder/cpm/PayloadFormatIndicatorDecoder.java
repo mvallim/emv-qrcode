@@ -7,7 +7,7 @@ import org.apache.commons.codec.binary.Hex;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
-import com.emv.qrcode.core.model.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTag;
 import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.PayloadFormatIndicator;
 

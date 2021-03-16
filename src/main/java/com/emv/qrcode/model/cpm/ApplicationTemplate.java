@@ -4,14 +4,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
-import com.emv.qrcode.core.model.BERTLV;
-import com.emv.qrcode.core.model.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTLV;
+import com.emv.qrcode.core.model.cpm.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTemplate;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
 
 @Getter
-public class ApplicationTemplate extends AdditionalData {
+public class ApplicationTemplate extends AdditionalData implements BERTemplate<byte[]> {
 
   private static final long serialVersionUID = 2418153324275018348L;
 

@@ -1,6 +1,6 @@
 package com.emv.qrcode.model.cpm;
 
-import com.emv.qrcode.core.model.BERTLAlphanumeric;
+import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 public class PayloadFormatIndicator extends BERTLAlphanumeric {

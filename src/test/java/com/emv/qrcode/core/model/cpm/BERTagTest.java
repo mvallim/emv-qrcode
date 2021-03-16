@@ -1,4 +1,4 @@
-package com.emv.qrcode.core.model;
+package com.emv.qrcode.core.model.cpm;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -8,8 +8,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.emv.qrcode.core.model.BERTag.TagClass;
-import com.emv.qrcode.core.model.BERTag.TagType;
+import com.emv.qrcode.core.model.cpm.BERTag.TagClass;
+import com.emv.qrcode.core.model.cpm.BERTag.TagType;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 

@@ -7,7 +7,7 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSize;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeBetween;
 
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 
 import br.com.fluentvalidator.AbstractValidator;
 
