@@ -29,7 +29,7 @@ public final class CommonDataTemplateDecoder extends DecoderCpm<CommonDataTempla
   }
 
   public CommonDataTemplateDecoder(final byte[] source) {
-    super(BERUtils.copyBytesOfLength(source));
+    super(BERUtils.copyBytesOfValue(source));
   }
 
   @Override

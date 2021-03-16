@@ -19,7 +19,7 @@ public final class CommonDataTransparentTemplateDecoder extends DecoderCpm<Commo
   private static final Entry<Class<?>, BiConsumer<CommonDataTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData);
 
   public CommonDataTransparentTemplateDecoder(final byte[] source) {
-    super(BERUtils.copyBytesOfLength(source));
+    super(BERUtils.copyBytesOfValue(source));
   }
 
   @Override

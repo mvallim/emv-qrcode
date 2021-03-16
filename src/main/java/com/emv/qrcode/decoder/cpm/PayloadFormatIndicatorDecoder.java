@@ -36,7 +36,7 @@ public final class PayloadFormatIndicatorDecoder extends DecoderCpm<PayloadForma
       tags.add(tag);
 
       result.setTag(tag);
-      result.setValue(BERUtils.copyBytesOfLength(value));
+      result.setValue(BERUtils.copyBytesOfValue(value));
     }
 
     return result;

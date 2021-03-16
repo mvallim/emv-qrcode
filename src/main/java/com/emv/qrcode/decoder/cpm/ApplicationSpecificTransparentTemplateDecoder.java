@@ -19,7 +19,7 @@ public final class ApplicationSpecificTransparentTemplateDecoder extends Decoder
   private static final Entry<Class<?>, BiConsumer<ApplicationSpecificTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData);
 
   public ApplicationSpecificTransparentTemplateDecoder(final byte[] source) {
-    super(BERUtils.copyBytesOfLength(source));
+    super(BERUtils.copyBytesOfValue(source));
   }
 
   @Override

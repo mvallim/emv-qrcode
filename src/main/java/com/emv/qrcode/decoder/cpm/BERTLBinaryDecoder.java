@@ -13,7 +13,7 @@ public final class BERTLBinaryDecoder extends DecoderCpm<BERTLBinary> {
   protected BERTLBinary decode() {
     final byte[] value = iterator.next();
 
-    return new BERTLBinary(BERUtils.copyBytesOfTag(value), BERUtils.copyBytesOfLength(value));
+    return new BERTLBinary(BERUtils.copyBytesOfTag(value), BERUtils.copyBytesOfValue(value));
   }
 
 }

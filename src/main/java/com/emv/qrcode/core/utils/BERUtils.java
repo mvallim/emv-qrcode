@@ -21,7 +21,7 @@ public final class BERUtils {
     return Arrays.copyOfRange(source, 0, countBytesOfTag(source));
   }
 
-  public static byte[] copyBytesOfLength(final byte[] source) {
+  public static byte[] copyBytesOfValue(final byte[] source) {
     final int numberOfBytesTag = countBytesOfTag(source);
     final int numberOfBytesLength = countBytesOfLength(source, numberOfBytesTag);
     final int start = numberOfBytesTag + numberOfBytesLength;
@@ -30,8 +30,18 @@ public final class BERUtils {
   }
 
   public static Integer valueOfLength(final byte[] source) {
+    return valueOfLength(source, 0);
+  }
 
-    final Integer start = countBytesOfTag(source);
+  /**
+   * Length byte
+   * Depending on the value we have one or more length bytes.
+   * The byte has the following structure:
+   * @return length
+   */
+  public static Integer valueOfLength(final byte[] source, final Integer from) {
+
+    final Integer start = from + countBytesOfTag(source, from);
 
     final Integer countBytesOfLength = countBytesOfLength(source, start);
 
@@ -85,24 +95,28 @@ public final class BERUtils {
   }
 
   public static Integer countBytesOfTag(final byte[] source) {
+    return countBytesOfTag(source, 0);
+  }
+
+  public static Integer countBytesOfTag(final byte[] source, final Integer from) {
     Integer count = 0;
 
-    final boolean hasNextByte = BERTag.hasNextByte(source[count]);
+    final boolean hasNextByte = BERTag.hasNextByte(source[from + count]);
 
     if (hasNextByte) {
       count++;
     }
 
-    while (hasNextByte && BERTag.isNotLastByte(source[count])) {
+    while (hasNextByte && BERTag.isNotLastByte(source[from + count])) {
       count++;
     }
 
     return count + 1;
   }
 
-  public static Integer countBytesOfLength(final byte[] source, final Integer start) {
-    if ((source[start] & MAX_BYTE_VALUE) == MAX_BYTE_VALUE) {
-      final int numberOfBytes = (source[start] & NUMBER_OF_BYTES_MASK) + 1;
+  public static Integer countBytesOfLength(final byte[] source, final Integer from) {
+    if ((source[from] & MAX_BYTE_VALUE) == MAX_BYTE_VALUE) {
+      final int numberOfBytes = (source[from] & NUMBER_OF_BYTES_MASK) + 1;
 
       if (numberOfBytes > 3) {
         throw new IllegalStateException("Decode the length is more then 2 bytes (65535)");
