@@ -3,7 +3,9 @@ package com.emv.qrcode.decoder.mpm;
 import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.configuration.DecodersMpmMap;
@@ -11,6 +13,8 @@ import com.emv.qrcode.core.exception.PresentedModeException;
 
 // @formatter:off
 public abstract class DecoderMpm<T> {
+
+  private static final Map<Class<?>, Constructor<? extends DecoderMpm<?>>> ctorMap = new ConcurrentHashMap<>();
 
   protected final Iterator<String> iterator;
 
@@ -27,7 +31,12 @@ public abstract class DecoderMpm<T> {
   public static <T> T decode(final String source, final Class<T> clazz) throws PresentedModeException {
     try {
       final Class<? extends DecoderMpm<?>> parserClass = DecodersMpmMap.getDecoder(clazz);
-      final Constructor<? extends DecoderMpm<?>> ctor = parserClass.getConstructor(String.class);
+
+      if (!ctorMap.containsKey(clazz)) {
+        ctorMap.put(clazz, parserClass.getConstructor(String.class));
+      }
+
+      final Constructor<? extends DecoderMpm<?>> ctor = ctorMap.get(clazz);
       final DecoderMpm<?> parser = ctor.newInstance(source);
       return clazz.cast(parser.decode());
     } catch (final PresentedModeException ex) {

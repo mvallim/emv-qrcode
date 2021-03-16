@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
+import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.BERTag;
 import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.ApplicationTemplate;
@@ -29,7 +30,7 @@ public final class ConsumerPresentedModeDecoder extends DecoderCpm<ConsumerPrese
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected ConsumerPresentedMode decode() {
+  protected ConsumerPresentedMode decode() throws PresentedModeException {
 
     final ConsumerPresentedMode result = new ConsumerPresentedMode();
 

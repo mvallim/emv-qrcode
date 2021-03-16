@@ -6,6 +6,8 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Hex;
+
 public class BERTag implements Serializable {
 
   private static final long serialVersionUID = -4165695218130492616L;
@@ -51,6 +53,11 @@ public class BERTag implements Serializable {
     }
     final BERTag other = (BERTag) obj;
     return Arrays.equals(bytes, other.bytes);
+  }
+
+  @Override
+  public String toString() {
+    return Hex.encodeHexString(bytes, false);
   }
 
   public static boolean hasNextByte(final byte value) {

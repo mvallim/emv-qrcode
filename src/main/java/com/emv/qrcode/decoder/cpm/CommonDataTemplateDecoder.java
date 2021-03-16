@@ -1,10 +1,16 @@
 package com.emv.qrcode.decoder.cpm;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
+import org.apache.commons.codec.binary.Hex;
+
+import com.emv.qrcode.core.exception.DuplicateTagException;
+import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.BERTLBinary;
 import com.emv.qrcode.core.model.BERTag;
 import com.emv.qrcode.core.utils.BERUtils;
@@ -28,7 +34,9 @@ public final class CommonDataTemplateDecoder extends DecoderCpm<CommonDataTempla
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected CommonDataTemplate decode() {
+  protected CommonDataTemplate decode() throws PresentedModeException {
+
+    final Set<BERTag> tags = new HashSet<>();
 
     final CommonDataTemplate result = new CommonDataTemplate();
 
@@ -36,6 +44,12 @@ public final class CommonDataTemplateDecoder extends DecoderCpm<CommonDataTempla
       final byte[] value = iterator.next();
 
       final BERTag tag = new BERTag(BERUtils.copyBytesOfTag(value));
+
+      if (tags.contains(tag)) {
+        throw new DuplicateTagException("CommonDataTemplate", tag.toString(), Hex.encodeHexString(value, false));
+      }
+
+      tags.add(tag);
 
       final Entry<Class<?>, BiConsumer<CommonDataTemplate, ?>> entry = mapConsumers.getOrDefault(tag, defaultEntry);
 

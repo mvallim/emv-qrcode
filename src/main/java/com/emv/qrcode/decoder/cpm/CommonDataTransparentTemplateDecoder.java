@@ -1,9 +1,16 @@
 package com.emv.qrcode.decoder.cpm;
 
+import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
+import org.apache.commons.codec.binary.Hex;
+
+import com.emv.qrcode.core.exception.DuplicateTagException;
+import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.BERTLBinary;
+import com.emv.qrcode.core.model.BERTag;
 import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.CommonDataTransparentTemplate;
 
@@ -17,12 +24,22 @@ public final class CommonDataTransparentTemplateDecoder extends DecoderCpm<Commo
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected CommonDataTransparentTemplate decode() {
+  protected CommonDataTransparentTemplate decode() throws PresentedModeException {
+
+    final Set<BERTag> tags = new HashSet<>();
 
     final CommonDataTransparentTemplate result = new CommonDataTransparentTemplate();
 
     while (iterator.hasNext()) {
       final byte[] value = iterator.next();
+
+      final BERTag tag = new BERTag(BERUtils.copyBytesOfTag(value));
+
+      if (tags.contains(tag)) {
+        throw new DuplicateTagException("CommonDataTransparentTemplate", tag.toString(), Hex.encodeHexString(value, false));
+      }
+
+      tags.add(tag);
 
       final Class<?> clazz = defaultEntry.getKey();
 

@@ -27,9 +27,10 @@ public class ConsumerPresentedMode implements Serializable {
   // Application Template
   private final List<ApplicationTemplate> applicationTemplates = new LinkedList<>();
 
-  // Application Template
+  // Common Data Template
   private final List<CommonDataTemplate> commonDataTemplates = new LinkedList<>();
 
+  // Other template
   private final List<BERTLV> otherTemplates = new LinkedList<>();
 
   public void addApplicationTemplate(final ApplicationTemplate applicationTemplate) {
