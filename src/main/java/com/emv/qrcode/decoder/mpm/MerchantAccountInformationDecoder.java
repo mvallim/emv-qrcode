@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
-import com.emv.qrcode.core.exception.MerchantPresentedModeException;
+import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.MerchantAccountInformation;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
@@ -29,7 +29,7 @@ public final class MerchantAccountInformationDecoder extends DecoderMpm<Merchant
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected MerchantAccountInformation decode() throws MerchantPresentedModeException {
+  protected MerchantAccountInformation decode() throws PresentedModeException {
 
     final Set<String> tags = new HashSet<>();
 

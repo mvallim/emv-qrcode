@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.exception.MerchantPresentedModeException;
+import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 
@@ -12,7 +12,7 @@ public final class AdditionalDataFieldTemplateDecoder extends DecoderMpm<Additio
   }
 
   @Override
-  protected AdditionalDataFieldTemplate decode() throws MerchantPresentedModeException {
+  protected AdditionalDataFieldTemplate decode() throws PresentedModeException {
     final AdditionalDataFieldTemplate result = new AdditionalDataFieldTemplate();
 
     while(iterator.hasNext()) {

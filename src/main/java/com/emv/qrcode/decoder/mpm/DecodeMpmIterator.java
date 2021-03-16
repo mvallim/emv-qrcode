@@ -50,8 +50,9 @@ final class DecodeMpmIterator implements Iterator<String> {
     }
 
     final Integer valueLength = valueLength();
+    final Integer end = current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength;
 
-    final String value = source.substring(current, current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength);
+    final String value = source.substring(current, end);
 
     current += ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength;
 

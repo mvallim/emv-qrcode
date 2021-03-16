@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
-import com.emv.qrcode.core.exception.MerchantPresentedModeException;
+import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
@@ -39,7 +39,7 @@ public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataF
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected AdditionalDataField decode() throws MerchantPresentedModeException {
+  protected AdditionalDataField decode() throws PresentedModeException {
 
     final Set<String> tags = new HashSet<>();
 

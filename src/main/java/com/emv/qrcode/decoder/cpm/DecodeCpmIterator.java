@@ -74,13 +74,13 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
 
   private Integer countBytesOfLength(final Integer start) {
     if ((source[start] & MAX_BYTE_VALUE) == MAX_BYTE_VALUE) {
-      final int numberOfBytes = (source[start] & NUMBER_OF_BYTES_MASK) + 1;
+      final int numberOfBytes = source[start] & NUMBER_OF_BYTES_MASK;
 
-      if (numberOfBytes > 3 ) {
+      if (numberOfBytes > 2 ) {
         throw new IllegalStateException("Decode the length is more then 2 bytes (65535)");
       }
 
-      return numberOfBytes;
+      return numberOfBytes + 1;
     }
 
     return 1;
@@ -121,7 +121,7 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
 
     final byte[] value = Arrays.copyOfRange(source, current, end);
 
-    current += end;
+    current += countBytesOfTag + countBytesOfLength + valueLength;
 
     return value;
   }

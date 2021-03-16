@@ -1,6 +1,6 @@
 package com.emv.qrcode.decoder.mpm;
 
-import com.emv.qrcode.core.exception.MerchantPresentedModeException;
+import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 
@@ -12,7 +12,7 @@ public final class MerchantInformationLanguageTemplateDecoder extends DecoderMpm
   }
 
   @Override
-  protected MerchantInformationLanguageTemplate decode() throws MerchantPresentedModeException {
+  protected MerchantInformationLanguageTemplate decode() throws PresentedModeException {
     final MerchantInformationLanguageTemplate result = new MerchantInformationLanguageTemplate();
 
     while(iterator.hasNext()) {

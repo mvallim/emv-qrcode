@@ -2,13 +2,14 @@ package com.emv.qrcode.core.model;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import org.apache.commons.codec.binary.Hex;
 
-import com.emv.qrcode.core.converters.ConverterBERLength;
+import com.emv.qrcode.core.utils.BERUtils;
 
-public abstract class BERTLV implements TLV<BERTag, byte[]> {
+public abstract class BERTLV implements TLV<BERTag, String> {
 
   private static final long serialVersionUID = 1286326121944790325L;
 
@@ -39,8 +40,8 @@ public abstract class BERTLV implements TLV<BERTag, byte[]> {
   }
 
   @Override
-  public byte[] getValue() {
-    return value;
+  public String getValue() {
+    return new String(value, StandardCharsets.UTF_8);
   }
 
   public final void setValue(final byte[] value) {
@@ -64,8 +65,8 @@ public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
       stream.write(getTag().getBytes());
-      stream.write(ConverterBERLength.INSTANCE.convert(getLength()));
-      stream.write(getValue());
+      stream.write(BERUtils.lengthToBytes(getLength()));
+      stream.write(value);
       return stream.toByteArray();
     }
 

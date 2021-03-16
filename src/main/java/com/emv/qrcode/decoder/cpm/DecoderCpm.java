@@ -2,6 +2,7 @@ package com.emv.qrcode.decoder.cpm;
 
 import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
@@ -23,7 +24,27 @@ public abstract class DecoderCpm<T> {
     return new SimpleEntry<>(clazz, consumer);
   }
 
-  public static <T> T decode(final byte[] source, final Class<T> clazz) {
+  /**
+   * Decode CPM using Base64 string encoded
+   *
+   * @param <T> target class
+   * @param source base64 string CPM
+   * @param clazz target class
+   * @return target class result
+   */
+  public static final <T> T decode(final String source, final Class<T> clazz) {
+    return decode(Base64.getDecoder().decode(source), clazz);
+  }
+
+  /**
+   * Decode CPM using byte array
+   *
+   * @param <T> target class
+   * @param source byte array CPM
+   * @param clazz target class
+   * @return target class result
+   */
+  public static final <T> T decode(final byte[] source, final Class<T> clazz) {
     try {
       final Class<? extends DecoderCpm<?>> parserClass = DecodersCpmMap.getDecoder(clazz);
       final Constructor<? extends DecoderCpm<?>> ctor = parserClass.getConstructor(byte[].class);

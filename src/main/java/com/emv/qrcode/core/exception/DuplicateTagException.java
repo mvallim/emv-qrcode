@@ -1,6 +1,6 @@
 package com.emv.qrcode.core.exception;
 
-public class DuplicateTagException extends MerchantPresentedModeException {
+public class DuplicateTagException extends PresentedModeException {
 
   private static final long serialVersionUID = 3271139876825199269L;
 
