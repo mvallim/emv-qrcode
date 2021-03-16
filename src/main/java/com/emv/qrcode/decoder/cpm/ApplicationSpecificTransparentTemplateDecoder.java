@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.model.BERTLBinary;
+import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.ApplicationSpecificTransparentTemplate;
 
 public final class ApplicationSpecificTransparentTemplateDecoder extends DecoderCpm<ApplicationSpecificTransparentTemplate> {
@@ -11,7 +12,7 @@ public final class ApplicationSpecificTransparentTemplateDecoder extends Decoder
   private static final Entry<Class<?>, BiConsumer<ApplicationSpecificTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData);
 
   public ApplicationSpecificTransparentTemplateDecoder(final byte[] source) {
-    super(source);
+    super(BERUtils.copyBytesOfLength(source));
   }
 
   @Override

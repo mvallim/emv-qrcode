@@ -24,7 +24,9 @@ public final class BERUtils {
   public static byte[] copyBytesOfLength(final byte[] source) {
     final int numberOfBytesTag = countBytesOfTag(source);
     final int numberOfBytesLength = countBytesOfLength(source, numberOfBytesTag);
-    return Arrays.copyOfRange(source, numberOfBytesTag + numberOfBytesLength, valueOfLength(source));
+    final int start = numberOfBytesTag + numberOfBytesLength;
+    final int end = numberOfBytesTag + numberOfBytesLength + valueOfLength(source);
+    return Arrays.copyOfRange(source, start, end);
   }
 
   public static Integer valueOfLength(final byte[] source) {

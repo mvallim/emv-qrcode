@@ -44,7 +44,7 @@ public final class ConsumerPresentedModeDecoder extends DecoderCpm<ConsumerPrese
 
       final BiConsumer consumer = entry.getValue();
 
-      consumer.accept(result, DecoderCpm.decode(BERUtils.copyBytesOfLength(value), clazz));
+      consumer.accept(result, DecoderCpm.decode(value, clazz));
     }
 
     return result;

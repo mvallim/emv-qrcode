@@ -19,6 +19,10 @@ public class CommonDataTemplate extends AdditionalData {
 
   private CommonDataTransparentTemplate commonDataTransparentTemplate;
 
+  public BERTag getTag() {
+    return tag;
+  }
+
   public void setCommonDataTransparentTemplate(final CommonDataTransparentTemplate commonDataTransparentTemplate) {
     this.commonDataTransparentTemplate = commonDataTransparentTemplate;
   }

@@ -23,7 +23,7 @@ public final class ApplicationTemplateDecoder extends DecoderCpm<ApplicationTemp
   }
 
   public ApplicationTemplateDecoder(final byte[] source) {
-    super(source);
+    super(BERUtils.copyBytesOfLength(source));
   }
 
   @Override

@@ -19,6 +19,10 @@ public class ApplicationTemplate extends AdditionalData {
 
   private ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate;
 
+  public BERTag getTag() {
+    return tag;
+  }
+
   public void setApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
     this.applicationSpecificTransparentTemplate = applicationSpecificTransparentTemplate;
   }
