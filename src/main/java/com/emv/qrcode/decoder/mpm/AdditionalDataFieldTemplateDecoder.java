@@ -17,10 +17,7 @@ public final class AdditionalDataFieldTemplateDecoder extends DecoderMpm<Additio
 
     while(iterator.hasNext()) {
       final String value = iterator.next();
-
-      final Integer length = Integer.valueOf(value.substring(DecodeMpmIterator.ID_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT));
-      final String string = value.substring(DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT + length);
-      result.setValue(DecoderMpm.decode(string, AdditionalDataField.class));
+      result.setValue(DecoderMpm.decode(value, AdditionalDataField.class));
     }
 
     return result;

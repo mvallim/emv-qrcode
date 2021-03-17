@@ -36,8 +36,9 @@ public abstract class DecoderCpm<T> {
    * @param source base64 string CPM
    * @param clazz target class
    * @return target class result
+   * @throws PresentedModeException
    */
-  public static final <T> T decode(final String source, final Class<T> clazz) {
+  public static final <T> T decode(final String source, final Class<T> clazz) throws PresentedModeException {
     return decode(Base64.getDecoder().decode(source), clazz);
   }
 
@@ -48,8 +49,9 @@ public abstract class DecoderCpm<T> {
    * @param source byte array CPM
    * @param clazz target class
    * @return target class result
+   * @throws PresentedModeException
    */
-  public static final <T> T decode(final byte[] source, final Class<T> clazz) {
+  public static final <T> T decode(final byte[] source, final Class<T> clazz) throws PresentedModeException {
     try {
       final Class<? extends DecoderCpm<?>> parserClass = DecodersCpmMap.getDecoder(clazz);
 

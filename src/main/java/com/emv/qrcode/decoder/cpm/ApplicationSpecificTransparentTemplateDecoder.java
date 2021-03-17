@@ -19,7 +19,7 @@ public final class ApplicationSpecificTransparentTemplateDecoder extends Decoder
   private static final Entry<Class<?>, BiConsumer<ApplicationSpecificTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData);
 
   public ApplicationSpecificTransparentTemplateDecoder(final byte[] source) {
-    super(BERUtils.copyBytesOfValue(source));
+    super(BERUtils.valueOf(source));
   }
 
   @Override
@@ -33,7 +33,7 @@ public final class ApplicationSpecificTransparentTemplateDecoder extends Decoder
     while (iterator.hasNext()) {
       final byte[] value = iterator.next();
 
-      final BERTag tag = new BERTag(BERUtils.copyBytesOfTag(value));
+      final BERTag tag = new BERTag(BERUtils.valueOfTag(value));
 
       if (tags.contains(tag)) {
         throw new DuplicateTagException("ApplicationSpecificTransparentTemplate", tag.toString(), Hex.encodeHexString(value, false));

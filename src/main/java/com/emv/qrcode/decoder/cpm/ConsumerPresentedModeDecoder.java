@@ -37,7 +37,7 @@ public final class ConsumerPresentedModeDecoder extends DecoderCpm<ConsumerPrese
     while (iterator.hasNext()) {
       final byte[] value = iterator.next();
 
-      final BERTag tag = new BERTag(BERUtils.copyBytesOfTag(value));
+      final BERTag tag = new BERTag(BERUtils.valueOfTag(value));
 
       final Entry<Class<?>, BiConsumer<ConsumerPresentedMode, ?>> entry = mapConsumers.get(tag);
 

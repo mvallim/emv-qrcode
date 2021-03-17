@@ -17,29 +17,19 @@ public final class BERUtils {
     super();
   }
 
-  public static byte[] copyBytesOfTag(final byte[] source) {
-    return Arrays.copyOfRange(source, 0, countBytesOfTag(source));
+  public static final byte[] valueOfTag(final byte[] source) {
+    return valueOfTag(source, 0);
   }
 
-  public static byte[] copyBytesOfValue(final byte[] source) {
-    final int numberOfBytesTag = countBytesOfTag(source);
-    final int numberOfBytesLength = countBytesOfLength(source, numberOfBytesTag);
-    final int start = numberOfBytesTag + numberOfBytesLength;
-    final int end = numberOfBytesTag + numberOfBytesLength + valueOfLength(source);
-    return Arrays.copyOfRange(source, start, end);
+  public static final byte[] valueOfTag(final byte[] source, final Integer from) {
+    return Arrays.copyOfRange(source, from, countBytesOfTag(source));
   }
 
-  public static Integer valueOfLength(final byte[] source) {
+  public static final Integer valueOfLength(final byte[] source) {
     return valueOfLength(source, 0);
   }
 
-  /**
-   * Length byte
-   * Depending on the value we have one or more length bytes.
-   * The byte has the following structure:
-   * @return length
-   */
-  public static Integer valueOfLength(final byte[] source, final Integer from) {
+  public static final Integer valueOfLength(final byte[] source, final Integer from) {
 
     final Integer start = from + countBytesOfTag(source, from);
 
@@ -47,13 +37,6 @@ public final class BERUtils {
 
     final byte[] array = ByteBuffer.allocate(2).array();
 
-    /**
-     * |No of Bytes |   Length   |           Coding           | Mask |
-     * |------------+------------+----------------------------+------+
-     * |     1      |    0-127   |          0xxxxxxx          | 0x7F |
-     * |     2      |   128-255  |      10000001 xxxxxxxx     | 0x81 |
-     * |     3      |  256-65535 | 10000010 xxxxxxxx xxxxxxxx | 0x82 |
-     */
     for (int j = 0, i = start + countBytesOfLength - 1; i < start + countBytesOfLength; j++, i++) {
       array[j] = source[i];
     }
@@ -61,7 +44,27 @@ public final class BERUtils {
     return (int) ByteBuffer.wrap(array).order(ByteOrder.LITTLE_ENDIAN).getShort();
   }
 
-  public static byte[] lengthToBytes(final Integer value) {
+  public static final byte[] valueOf(final byte[] source) {
+    return valueOf(source, 0);
+  }
+
+  public static final byte[] valueOf(final byte[] source, final Integer from) {
+    final int numberOfBytesTag = countBytesOfTag(source);
+    final int numberOfBytesLength = countBytesOfLength(source, numberOfBytesTag);
+    final int start = from + numberOfBytesTag + numberOfBytesLength;
+    final int end = start + valueOfLength(source);
+    return Arrays.copyOfRange(source, start, end);
+  }
+
+  public static final byte[] bucket(final byte[] source, final Integer from) {
+    final int numberOfBytesTag = countBytesOfTag(source, from);
+    final int numberOfBytesLength = countBytesOfLength(source, from + numberOfBytesTag);
+    final int start = from + numberOfBytesTag + numberOfBytesLength;
+    final int end = start + valueOfLength(source, from);
+    return Arrays.copyOfRange(source, from, end);
+  }
+
+  public static final byte[] lengthToBytes(final Integer value) {
     if (value > Byte.MAX_VALUE) {
 
       final Integer numberOfBytes = countBytes(value);
@@ -86,7 +89,7 @@ public final class BERUtils {
     return new byte[] { value.byteValue() };
   }
 
-  public static Integer countBytes(final Integer value) {
+  public static final Integer countBytes(final Integer value) {
     if (value == 0) {
       return 0;
     } else {
@@ -94,11 +97,11 @@ public final class BERUtils {
     }
   }
 
-  public static Integer countBytesOfTag(final byte[] source) {
+  public static final Integer countBytesOfTag(final byte[] source) {
     return countBytesOfTag(source, 0);
   }
 
-  public static Integer countBytesOfTag(final byte[] source, final Integer from) {
+  public static final Integer countBytesOfTag(final byte[] source, final Integer from) {
     Integer count = 0;
 
     final boolean hasNextByte = BERTag.hasNextByte(source[from + count]);
@@ -114,15 +117,15 @@ public final class BERUtils {
     return count + 1;
   }
 
-  public static Integer countBytesOfLength(final byte[] source, final Integer from) {
+  public static final Integer countBytesOfLength(final byte[] source, final Integer from) {
     if ((source[from] & MAX_BYTE_VALUE) == MAX_BYTE_VALUE) {
-      final int numberOfBytes = (source[from] & NUMBER_OF_BYTES_MASK) + 1;
+      final int numberOfBytes = source[from] & NUMBER_OF_BYTES_MASK;
 
-      if (numberOfBytes > 3) {
+      if (numberOfBytes > 2) {
         throw new IllegalStateException("Decode the length is more then 2 bytes (65535)");
       }
 
-      return numberOfBytes;
+      return numberOfBytes + 1;
     }
 
     return 1;

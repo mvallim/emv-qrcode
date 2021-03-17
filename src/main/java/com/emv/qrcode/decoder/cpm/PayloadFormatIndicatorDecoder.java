@@ -27,7 +27,7 @@ public final class PayloadFormatIndicatorDecoder extends DecoderCpm<PayloadForma
     while (iterator.hasNext()) {
       final byte[] value = iterator.next();
 
-      final BERTag tag = new BERTag(BERUtils.copyBytesOfTag(value));
+      final BERTag tag = new BERTag(BERUtils.valueOfTag(value));
 
       if (tags.contains(tag)) {
         throw new DuplicateTagException("PayloadFormatIndicator", tag.toString(), Hex.encodeHexString(value, false));
@@ -36,7 +36,7 @@ public final class PayloadFormatIndicatorDecoder extends DecoderCpm<PayloadForma
       tags.add(tag);
 
       result.setTag(tag);
-      result.setValue(BERUtils.copyBytesOfValue(value));
+      result.setValue(BERUtils.valueOf(value));
     }
 
     return result;

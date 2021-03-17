@@ -1,6 +1,5 @@
 package com.emv.qrcode.decoder.cpm;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
@@ -50,14 +49,9 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
       throw new NoSuchElementException();
     }
 
-    final Integer countBytesOfTag = BERUtils.countBytesOfTag(source, current);
-    final Integer countBytesOfLength = BERUtils.countBytesOfLength(source, current + countBytesOfTag);
-    final Integer valueLength = BERUtils.valueOfLength(source, current);
-    final Integer end = current + countBytesOfTag + countBytesOfLength + valueLength;
+    final byte[] value = BERUtils.bucket(source, current);
 
-    final byte[] value = Arrays.copyOfRange(source, current, end);
-
-    current += countBytesOfTag + countBytesOfLength + valueLength;
+    current += value.length;
 
     return value;
   }

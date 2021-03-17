@@ -4,12 +4,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
+import com.emv.qrcode.core.utils.TLVUtils;
+
 // @formatter:off
 final class DecodeMpmIterator implements Iterator<String> {
-
-  public static final Integer ID_WORD_COUNT = 2; // 01 - 99
-
-  public static final Integer VALUE_LENGTH_WORD_COUNT = 2; // 01 - 99
 
   private Integer current;
 
@@ -23,16 +21,16 @@ final class DecodeMpmIterator implements Iterator<String> {
     this.source = source;
   }
 
-  private Integer valueLength() {
-    final Integer start = current + ID_WORD_COUNT;
-    final Integer end = start + VALUE_LENGTH_WORD_COUNT;
-    return Integer.valueOf(source.substring(start, end));
-  }
-
   @Override
   public boolean hasNext() {
-    return current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT <= max
-        && current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength() <= max;
+
+    if (current >= max) {
+      return false;
+    }
+
+    final Integer valueLength = TLVUtils.valueOfLength(source, current);
+
+    return current + TLVUtils.ID_WORD_COUNT + TLVUtils.VALUE_LENGTH_WORD_COUNT + valueLength <= max;
   }
 
   @Override
@@ -49,12 +47,9 @@ final class DecodeMpmIterator implements Iterator<String> {
       throw new NoSuchElementException();
     }
 
-    final Integer valueLength = valueLength();
-    final Integer end = current + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength;
+    final String value = TLVUtils.bucket(source, current);
 
-    final String value = source.substring(current, end);
-
-    current += ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT + valueLength;
+    current += value.length();
 
     return value;
   }

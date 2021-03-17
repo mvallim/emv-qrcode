@@ -29,7 +29,7 @@ public final class CommonDataTemplateDecoder extends DecoderCpm<CommonDataTempla
   }
 
   public CommonDataTemplateDecoder(final byte[] source) {
-    super(BERUtils.copyBytesOfValue(source));
+    super(BERUtils.valueOf(source));
   }
 
   @Override
@@ -43,7 +43,7 @@ public final class CommonDataTemplateDecoder extends DecoderCpm<CommonDataTempla
     while (iterator.hasNext()) {
       final byte[] value = iterator.next();
 
-      final BERTag tag = new BERTag(BERUtils.copyBytesOfTag(value));
+      final BERTag tag = new BERTag(BERUtils.valueOfTag(value));
 
       if (tags.contains(tag)) {
         throw new DuplicateTagException("CommonDataTemplate", tag.toString(), Hex.encodeHexString(value, false));

@@ -1,6 +1,7 @@
 package com.emv.qrcode.decoder.mpm;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
+import com.emv.qrcode.core.utils.TLVUtils;
 
 // @formatter:off
 public final class StringDecoder extends DecoderMpm<String> {
@@ -15,10 +16,7 @@ public final class StringDecoder extends DecoderMpm<String> {
 
     while(iterator.hasNext()) {
       final String value = iterator.next();
-
-      final Integer length = Integer.valueOf(value.substring(DecodeMpmIterator.ID_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT));
-      final String string = value.substring(DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT, DecodeMpmIterator.ID_WORD_COUNT + DecodeMpmIterator.VALUE_LENGTH_WORD_COUNT + length);
-      result.append(string);
+      result.append(TLVUtils.valueOf(value));
     }
 
     return result.toString();

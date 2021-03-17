@@ -10,6 +10,7 @@ import java.util.function.BiConsumer;
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.mpm.TagLengthString;
+import com.emv.qrcode.core.utils.TLVUtils;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 import com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes;
@@ -25,7 +26,7 @@ public final class PaymentSystemSpecificDecoder extends DecoderMpm<PaymentSystem
   }
 
   public PaymentSystemSpecificDecoder(final String source) {
-    super(source);
+    super(TLVUtils.valueOf(source));
   }
 
   @Override
@@ -39,7 +40,7 @@ public final class PaymentSystemSpecificDecoder extends DecoderMpm<PaymentSystem
     while(iterator.hasNext()) {
       final String value = iterator.next();
 
-      final String tag = value.substring(0, DecodeMpmIterator.ID_WORD_COUNT);
+      final String tag = TLVUtils.valueOfTag(value);
 
       final String derivateId = derivateId(tag);
 

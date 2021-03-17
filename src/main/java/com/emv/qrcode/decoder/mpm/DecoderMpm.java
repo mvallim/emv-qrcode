@@ -28,6 +28,15 @@ public abstract class DecoderMpm<T> {
     return new SimpleEntry<>(clazz, consumer);
   }
 
+  /**
+   * Decode MPM using string
+   *
+   * @param <T> target class
+   * @param source string MPM
+   * @param clazz target class
+   * @return target class result
+   * @throws PresentedModeException
+   */
   public static <T> T decode(final String source, final Class<T> clazz) throws PresentedModeException {
     try {
       final Class<? extends DecoderMpm<?>> parserClass = DecodersMpmMap.getDecoder(clazz);

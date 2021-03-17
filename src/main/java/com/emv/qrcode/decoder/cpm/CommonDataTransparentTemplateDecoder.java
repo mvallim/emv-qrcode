@@ -19,7 +19,7 @@ public final class CommonDataTransparentTemplateDecoder extends DecoderCpm<Commo
   private static final Entry<Class<?>, BiConsumer<CommonDataTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData);
 
   public CommonDataTransparentTemplateDecoder(final byte[] source) {
-    super(BERUtils.copyBytesOfValue(source));
+    super(BERUtils.valueOf(source));
   }
 
   @Override
@@ -33,7 +33,7 @@ public final class CommonDataTransparentTemplateDecoder extends DecoderCpm<Commo
     while (iterator.hasNext()) {
       final byte[] value = iterator.next();
 
-      final BERTag tag = new BERTag(BERUtils.copyBytesOfTag(value));
+      final BERTag tag = new BERTag(BERUtils.valueOfTag(value));
 
       if (tags.contains(tag)) {
         throw new DuplicateTagException("CommonDataTransparentTemplate", tag.toString(), Hex.encodeHexString(value, false));
