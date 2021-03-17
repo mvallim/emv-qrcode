@@ -65,7 +65,7 @@ public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
       stream.write(getTag().getBytes());
-      stream.write(BERUtils.lengthToBytes(getLength()));
+      stream.write(BERUtils.lengthOfValue(getLength()));
       stream.write(value);
       return stream.toByteArray();
     }

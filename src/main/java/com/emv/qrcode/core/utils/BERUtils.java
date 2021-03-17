@@ -1,7 +1,5 @@
 package com.emv.qrcode.core.utils;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.Arrays;
 
 import com.emv.qrcode.core.model.cpm.BERTag;
@@ -31,17 +29,22 @@ public final class BERUtils {
 
   public static final Integer valueOfLength(final byte[] source, final Integer from) {
 
-    final Integer start = from + countBytesOfTag(source, from);
+    final Integer countBytesOfTag = countBytesOfTag(source, from);
 
-    final Integer countBytesOfLength = countBytesOfLength(source, start);
+    final Integer countBytesOfLength = countBytesOfLength(source, from);
 
-    final byte[] array = ByteBuffer.allocate(2).array();
+    final Integer skipFirstByte = countBytesOfLength > 1 ? 1 : 0;
 
-    for (int j = 0, i = start + countBytesOfLength - 1; i < start + countBytesOfLength; j++, i++) {
-      array[j] = source[i];
+    final Integer numberOfBytes = countBytesOfLength - skipFirstByte;
+
+    final byte[] bytes = new byte[2];
+
+    for (int i = 0; i < numberOfBytes; i++) {
+      bytes[2 - numberOfBytes + i] = source[from + countBytesOfTag + skipFirstByte + i];
     }
 
-    return (int) ByteBuffer.wrap(array).order(ByteOrder.LITTLE_ENDIAN).getShort();
+    // BIG ENDIAN array to Integer
+    return (bytes[0] & 0xFF) << 8 | (bytes[1] & 0xFF) << 0;
   }
 
   public static final byte[] valueOf(final byte[] source) {
@@ -49,22 +52,22 @@ public final class BERUtils {
   }
 
   public static final byte[] valueOf(final byte[] source, final Integer from) {
-    final int numberOfBytesTag = countBytesOfTag(source);
-    final int numberOfBytesLength = countBytesOfLength(source, numberOfBytesTag);
+    final int numberOfBytesTag = countBytesOfTag(source, from);
+    final int numberOfBytesLength = countBytesOfLength(source, from);
     final int start = from + numberOfBytesTag + numberOfBytesLength;
-    final int end = start + valueOfLength(source);
+    final int end = start + valueOfLength(source, from);
     return Arrays.copyOfRange(source, start, end);
   }
 
   public static final byte[] bucket(final byte[] source, final Integer from) {
     final int numberOfBytesTag = countBytesOfTag(source, from);
-    final int numberOfBytesLength = countBytesOfLength(source, from + numberOfBytesTag);
+    final int numberOfBytesLength = countBytesOfLength(source, from);
     final int start = from + numberOfBytesTag + numberOfBytesLength;
     final int end = start + valueOfLength(source, from);
     return Arrays.copyOfRange(source, from, end);
   }
 
-  public static final byte[] lengthToBytes(final Integer value) {
+  public static final byte[] lengthOfValue(final Integer value) {
     if (value > Byte.MAX_VALUE) {
 
       final Integer numberOfBytes = countBytes(value);
@@ -77,10 +80,9 @@ public final class BERUtils {
 
       bytes[0] = (byte) (0x80 + numberOfBytes);
 
-      final byte[] array = ByteBuffer.allocate(2).putShort(value.shortValue()).order(ByteOrder.LITTLE_ENDIAN).array();
-
+      // Integer to BIG ENDIAN array
       for (int i = 0; i < numberOfBytes; i++) {
-        bytes[i + 1] = array[2 - numberOfBytes + i];
+        bytes[numberOfBytes - i] = (byte) (value >> i * 8);
       }
 
       return bytes;
@@ -89,7 +91,7 @@ public final class BERUtils {
     return new byte[] { value.byteValue() };
   }
 
-  public static final Integer countBytes(final Integer value) {
+  private static final Integer countBytes(final Integer value) {
     if (value == 0) {
       return 0;
     } else {
@@ -117,9 +119,16 @@ public final class BERUtils {
     return count + 1;
   }
 
+  public static final Integer countBytesOfLength(final byte[] source) {
+    return countBytesOfLength(source, 0);
+  }
+
   public static final Integer countBytesOfLength(final byte[] source, final Integer from) {
-    if ((source[from] & MAX_BYTE_VALUE) == MAX_BYTE_VALUE) {
-      final int numberOfBytes = source[from] & NUMBER_OF_BYTES_MASK;
+
+    final Integer countBytesOfTag = countBytesOfTag(source, from);
+
+    if ((source[from + countBytesOfTag] & MAX_BYTE_VALUE) == MAX_BYTE_VALUE) {
+      final int numberOfBytes = source[from + countBytesOfTag] & NUMBER_OF_BYTES_MASK;
 
       if (numberOfBytes > 2) {
         throw new IllegalStateException("Decode the length is more then 2 bytes (65535)");

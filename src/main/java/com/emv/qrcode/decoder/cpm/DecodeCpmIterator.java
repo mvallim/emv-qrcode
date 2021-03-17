@@ -29,7 +29,7 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
     }
 
     final Integer countBytesOfTag = BERUtils.countBytesOfTag(source, current);
-    final Integer countBytesOfLength = BERUtils.countBytesOfLength(source, current + countBytesOfTag);
+    final Integer countBytesOfLength = BERUtils.countBytesOfLength(source, current);
     final Integer valueLength = BERUtils.valueOfLength(source, current);
 
     return current + countBytesOfTag + countBytesOfLength + valueLength <= max;
