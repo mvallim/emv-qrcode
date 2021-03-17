@@ -59,6 +59,16 @@ public class BERUtilsTest {
   }
 
   @Test
+  public void testSuccessBucket() {
+    assertThat(BERUtils.bucket(new byte[] { 0x4F, 0x00 }, 0).length, equalTo(2));
+    assertThat(BERUtils.bucket(new byte[] { 0x4F, 0x01, 0x00 }, 0).length, equalTo(3));
+    assertThat(BERUtils.bucket(new byte[] { 0x4F, 0x02, 0x00, 0x00 }, 0).length, equalTo(4));
+    assertThat(BERUtils.bucket(new byte[] { 0x00, 0x4F, 0x00 }, 1).length, equalTo(2));
+    assertThat(BERUtils.bucket(new byte[] { 0x00, 0x00, 0x4F, 0x01, 0x00 }, 2).length, equalTo(3));
+    assertThat(BERUtils.bucket(new byte[] { 0x00, 0x00, 0x00, 0x4F, 0x02, 0x00, 0x00 }, 3).length, equalTo(4));
+  }
+
+  @Test
   public void testSuccessLengthToBytes() {
     assertThat(Hex.encodeHexString(BERUtils.lengthOfValue(2), false), equalTo("02"));
     assertThat(Hex.encodeHexString(BERUtils.lengthOfValue(4), false), equalTo("04"));
@@ -80,6 +90,34 @@ public class BERUtilsTest {
     assertThat(Hex.encodeHexString(BERUtils.lengthOfValue(8192), false), equalTo("822000"));
     assertThat(Hex.encodeHexString(BERUtils.lengthOfValue(60000), false), equalTo("82EA60"));
     assertThat(Hex.encodeHexString(BERUtils.lengthOfValue(65535), false), equalTo("82FFFF"));
+  }
+
+  @Test
+  public void testSuccessCountBytesOfTag() {
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x4F, 0x00 }), equalTo(1));
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x5F, 0x50 }), equalTo(2));
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x5F, (byte) 0x80, 0x50 }), equalTo(3));
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x5F, (byte) 0x80, (byte) 0x90, 0x50 }), equalTo(4));
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x00, 0x4F, 0x00 }, 1), equalTo(1));
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x00, 0x00, 0x5F, 0x50 }, 2), equalTo(2));
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x00, 0x00, 0x00, 0x5F, (byte) 0x80, 0x50 }, 3), equalTo(3));
+    assertThat(BERUtils.countBytesOfTag(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x5F, (byte) 0x80, (byte) 0x90, 0x50 }, 4), equalTo(4));
+  }
+
+  @Test
+  public void testSuccessCountBytesOfLength() {
+    assertThat(BERUtils.countBytesOfLength(new byte[] { 0x4F, 0x00 }), equalTo(1));
+    assertThat(BERUtils.countBytesOfLength(new byte[] { 0x4F, (byte) 0x81, (byte) 0x80 }), equalTo(2));
+    assertThat(BERUtils.countBytesOfLength(new byte[] { 0x4F, (byte) 0x82, (byte) 0x80, 0x00 }), equalTo(3));
+    assertThat(BERUtils.countBytesOfLength(new byte[] { 0x00, 0x4F, 0x00 }, 1), equalTo(1));
+    assertThat(BERUtils.countBytesOfLength(new byte[] { 0x00, 0x00, 0x4F, (byte) 0x81, (byte) 0x80 }, 2), equalTo(2));
+    assertThat(BERUtils.countBytesOfLength(new byte[] { 0x00, 0x00, 0x00, 0x4F, (byte) 0x82, (byte) 0x80, 0x00 }, 3), equalTo(3));
+  }
+
+  @Test
+  public void testFailCountBytesOfLength() {
+    final IllegalStateException illegalStateException = catchThrowableOfType(() -> BERUtils.countBytesOfLength(new byte[] { 0x4F, (byte) 0x83, (byte) 0x80, 0x00, 0x00 }), IllegalStateException.class);
+    assertThat(illegalStateException.getMessage(), equalTo("Decode the length is more then 2 bytes (65535)"));
   }
 
   @Test
