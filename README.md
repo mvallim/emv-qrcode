@@ -10,14 +10,14 @@ Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Features
 * Ready of specification for Merchant-Presented Mode
-* Encode MPM
-* Decode MPM
-* Check CRC16
-* Checking duplicate tags
-* Checking invalid tags
-* Supports BRCode aswell
-* Thread safe
-* Production ready (uses in several projects)
+  * Encode MPM
+  * Decode MPM
+  * Check CRC16
+  * Checking duplicate tags
+  * Checking invalid tags
+  * Supports BRCode aswell
+  * Thread safe
+  * Production ready (uses in several projects)
 
 ## Specification
 
