@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
+import com.emv.qrcode.core.exception.InvalidTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.core.utils.TLVUtils;
@@ -51,6 +53,10 @@ public final class PaymentSystemSpecificDecoder extends DecoderMpm<PaymentSystem
       tags.add(tag);
 
       final Entry<Class<?>, BiConsumer<PaymentSystemSpecific, ?>> entry = mapConsumers.get(derivateId);
+
+      if (Objects.isNull(entry)) {
+        throw new InvalidTagException("PaymentSystemSpecific", tag, value);
+      }
 
       final Class<?> clazz = entry.getKey();
 
