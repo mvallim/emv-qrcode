@@ -9,7 +9,7 @@
 Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Features
-* Ready of specification for **`Merchant-Presented`** Mode v1.1
+* Ready of specification for **Merchant Presented Mode v1.1**
   * Encode MPM
   * Decode MPM
   * Check CRC16
@@ -18,7 +18,7 @@ Java Based EMV QR Code Generator and Parser (MPM, CPM)
   * Supports BRCode aswell
   * Thread safe
   * Production ready (uses in several projects)
-* Ready of specification for **`Consumer-Presented`** Mode v1.1
+* Ready of specification for **Consumer Presented Mode v1.1**
   * Encode CPM
   * Decode CPM
   * Checking duplicate tags
@@ -26,7 +26,7 @@ Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Specification
 
-- [EMV QR Code Specification for Payment Systems: Merchant-Presented Mode v1.1](docs/EMVCo-Merchant-Presented-QR-Specification-v1-1.pdf)
+- [EMV QR Code Specification for Payment Systems: Merchant Presented Mode v1.1](docs/EMVCo-Merchant-Presented-QR-Specification-v1-1.pdf)
 - [EMV QR Code Specification for Payment Systems: Consumer Presented Mode v1.1](docs/EMVCo-Consumer-Presented-QR-Specification-v1-1.pdf)
 - [EMV Book 3 Application Specification](docs/EMV_v4.3_Book_3_Application_Specification_20120607062110791.pdf)
 - [EMV Book 4 Other Interfaces](docs/EMV_v4.3_Book_4_Other_Interfaces_20120607062305603.pdf)
