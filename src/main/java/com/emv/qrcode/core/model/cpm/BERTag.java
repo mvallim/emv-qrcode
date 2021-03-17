@@ -12,10 +12,10 @@ public class BERTag implements Serializable {
 
   private static final long serialVersionUID = -4165695218130492616L;
 
-  private static int LAST_BYTE_MASK = 0x80;
-  private static int NEXT_BYTE_BITMASK = 0x1F; // 00011111
-  private static int CLASS_BITMASK = 0xC0; // 11000000 Tag class: bits 7-8 of the initial octet
-  private static int TYPE_BITMASK = 0x20; // 00100000 Tag type: bit 6 of the initial octet
+  private static final int LAST_BYTE_MASK = 0x80;
+  private static final int NEXT_BYTE_BITMASK = 0x1F; // 00011111
+  private static final int CLASS_BITMASK = 0xC0; // 11000000 Tag class: bits 7-8 of the initial octet
+  private static final int TYPE_BITMASK = 0x20; // 00100000 Tag type: bit 6 of the initial octet
 
   private final byte[] bytes;
 
