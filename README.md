@@ -52,12 +52,6 @@ You can pull it from the central Maven repositories:
 </dependency>
 ```
 
-#### Gradle
-
-```groovy
-implementation 'com.github.mvallim:emv-qrcode:0.0.9'
-```
-
 If you want to try a snapshot version, add the following repository:
 
 ```xml
@@ -69,6 +63,21 @@ If you want to try a snapshot version, add the following repository:
         <enabled>true</enabled>
     </snapshots>
 </repository>
+```
+#### Gradle
+
+```groovy
+implementation 'com.github.mvallim:emv-qrcode:0.0.9'
+```
+
+If you want to try a snapshot version, add the following repository:
+
+```groovy
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
 ```
 
 ### MPM (Merchant Presented Mode) Encode
