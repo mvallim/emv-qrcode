@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
 import com.emv.qrcode.core.model.cpm.BERTLBinary;
@@ -24,7 +25,9 @@ public abstract class AdditionalData implements Serializable {
   private final Map<BERTag, BERTLV> additionalDataMap = new LinkedHashMap<>();
 
   public final void addAdditionalData(final BERTLV bertlv) {
-    additionalDataMap.put(bertlv.getTag(), bertlv);
+    if (Objects.nonNull(bertlv)) {
+      additionalDataMap.put(bertlv.getTag(), bertlv);
+    }
   }
 
   public final void setApplicationDefinitionFileName(final String applicationDefinitionFileName) {

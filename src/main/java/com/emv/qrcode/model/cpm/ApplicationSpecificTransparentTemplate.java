@@ -17,6 +17,10 @@ public class ApplicationSpecificTransparentTemplate extends AdditionalData imple
 
   private static final BERTag tag = ConsumerPresentedModeFieldCodes.ID_APPLICATION_SPECIFIC_TRANSPARENT_TEMPLATE;
 
+  public BERTag getTag() {
+    return tag;
+  }
+
   @Override
   public byte[] getBytes() throws IOException {
     try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {

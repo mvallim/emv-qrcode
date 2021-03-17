@@ -8,6 +8,9 @@ import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import com.emv.qrcode.core.model.cpm.BERTemplate;
+
+// @formatter:off
 public class ConsumerPresentedModeTest {
 
   @Test
@@ -17,6 +20,7 @@ public class ConsumerPresentedModeTest {
     consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(new ApplicationTemplate());
     consumerPresentedMode.addCommonDataTemplate(new CommonDataTemplate());
+    consumerPresentedMode.addOtherTemplate(new OtherTemplate());
 
     assertThat(consumerPresentedMode.toHex(), equalTo("85054350563031"));
   }
@@ -51,10 +55,10 @@ public class ConsumerPresentedModeTest {
     consumerPresentedMode.addCommonDataTemplate(commonDataTemplate);
 
     assertThat(consumerPresentedMode.toHex(), equalTo(
-        "8505435056303161134F07A0000000555555500850726F647563743161134F07A000000066666650"
-      + "0850726F647563743262495A0812345678901234585F200E43415244484F4C4445522F454D565F2D"
-      + "08727565736465656E64219F100706010A030000009F2608584FD385FA234BCC9F360200019F3704"
-      + "6D58EF13"));
+          "8505435056303161134F07A0000000555555500850726F647563743161134F07A000000066666650"
+        + "0850726F647563743262495A0812345678901234585F200E43415244484F4C4445522F454D565F2D"
+        + "08727565736465656E64219F100706010A030000009F2608584FD385FA234BCC9F360200019F3704"
+        + "6D58EF13"));
 
   }
 
@@ -125,4 +129,14 @@ public class ConsumerPresentedModeTest {
     assertThat(consumerPresentedMode.toBase64(), equalTo(StringUtils.EMPTY));
   }
 
+  public static class OtherTemplate implements BERTemplate<byte[]> {
+
+    @Override
+    public byte[] getBytes() throws IOException {
+      return new byte[0];
+    }
+
+  }
+
 }
+// @formatter:on
