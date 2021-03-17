@@ -44,7 +44,7 @@ public final class BERUtils {
     }
 
     // BIG ENDIAN array to Integer
-    return (bytes[0] & 0xFF) << 8 | (bytes[1] & 0xFF) << 0;
+    return (bytes[0] & 0xFF) << 8 | (bytes[1] & 0xFF);
   }
 
   public static final byte[] valueOf(final byte[] source) {
