@@ -22,7 +22,6 @@ Java Based EMV QR Code Generator and Parser (MPM, CPM)
   * Encode CPM
   * Decode CPM
   * Checking duplicate tags
-  * Checking invalid tags
   * Thread safe
 
 ## Specification
