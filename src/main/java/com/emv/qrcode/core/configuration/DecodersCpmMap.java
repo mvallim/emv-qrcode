@@ -3,10 +3,16 @@ package com.emv.qrcode.core.configuration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
 import com.emv.qrcode.core.model.cpm.BERTLBinary;
+import com.emv.qrcode.core.model.cpm.BERTLCompressedNumeric;
+import com.emv.qrcode.core.model.cpm.BERTLNumeric;
 import com.emv.qrcode.decoder.cpm.ApplicationSpecificTransparentTemplateDecoder;
 import com.emv.qrcode.decoder.cpm.ApplicationTemplateDecoder;
+import com.emv.qrcode.decoder.cpm.BERTLAlphanumericDecoder;
 import com.emv.qrcode.decoder.cpm.BERTLBinaryDecoder;
+import com.emv.qrcode.decoder.cpm.BERTLCompressedNumericDecoder;
+import com.emv.qrcode.decoder.cpm.BERTLNumericDecoder;
 import com.emv.qrcode.decoder.cpm.CommonDataTemplateDecoder;
 import com.emv.qrcode.decoder.cpm.CommonDataTransparentTemplateDecoder;
 import com.emv.qrcode.decoder.cpm.ConsumerPresentedModeDecoder;
@@ -25,6 +31,9 @@ public final class DecodersCpmMap {
 
   static {
     MAP_DECODERS.put(BERTLBinary.class, BERTLBinaryDecoder.class);
+    MAP_DECODERS.put(BERTLAlphanumeric.class, BERTLAlphanumericDecoder.class);
+    MAP_DECODERS.put(BERTLCompressedNumeric.class, BERTLCompressedNumericDecoder.class);
+    MAP_DECODERS.put(BERTLNumeric.class, BERTLNumericDecoder.class);
     MAP_DECODERS.put(ApplicationSpecificTransparentTemplate.class, ApplicationSpecificTransparentTemplateDecoder.class);
     MAP_DECODERS.put(ApplicationTemplate.class, ApplicationTemplateDecoder.class);
     MAP_DECODERS.put(CommonDataTemplate.class, CommonDataTemplateDecoder.class);

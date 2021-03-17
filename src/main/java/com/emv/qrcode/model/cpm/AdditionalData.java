@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
 import com.emv.qrcode.core.model.cpm.BERTLBinary;
+import com.emv.qrcode.core.model.cpm.BERTLCompressedNumeric;
 import com.emv.qrcode.core.model.cpm.BERTLNumeric;
 import com.emv.qrcode.core.model.cpm.BERTLV;
 import com.emv.qrcode.core.model.cpm.BERTag;
@@ -43,7 +44,7 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setApplicationPAN(final String applicationPAN) {
-    addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, applicationPAN));
+    addAdditionalData(new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, applicationPAN));
   }
 
   public final void setCardholderName(final String cardholderName) {

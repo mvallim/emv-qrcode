@@ -9,7 +9,7 @@ import org.apache.commons.codec.binary.Hex;
 import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.utils.BERUtils;
 
-public abstract class BERTLV implements TLV<BERTag, byte[]> {
+public abstract class BERTLV implements TLV<BERTag, String> {
 
   private static final long serialVersionUID = 1286326121944790325L;
 
@@ -19,7 +19,7 @@ public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
   private BERTag tag;
 
-  private byte[] value;
+  protected byte[] value;
 
   protected BERTLV(final BERTag tag, final byte[] value) {
     this.tag = tag;
@@ -37,11 +37,6 @@ public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
   public final void setTag(final BERTag tag) {
     this.tag = Optional.ofNullable(tag).orElse(EMPTY_TAG);
-  }
-
-  @Override
-  public byte[] getValue() {
-    return value;
   }
 
   public final void setValue(final byte[] value) {

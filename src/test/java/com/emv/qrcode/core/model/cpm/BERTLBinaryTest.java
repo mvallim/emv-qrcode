@@ -16,9 +16,13 @@ public class BERTLBinaryTest {
 
   @Test
   public void testSuccess() throws IOException {
-    final BERTLV bertlv = new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "A0000000666666");
-
+    final BERTLBinary bertlv = new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "A0000000666666");
     assertThat(bertlv.toHex(), equalTo("4F07A0000000666666"));
+    assertThat(bertlv.getValue(), equalTo("A0000000666666"));
+
+    bertlv.setValue("A0000000555555");
+    assertThat(bertlv.toHex(), equalTo("4F07A0000000555555"));
+    assertThat(bertlv.getValue(), equalTo("A0000000555555"));
   }
 
   @Test

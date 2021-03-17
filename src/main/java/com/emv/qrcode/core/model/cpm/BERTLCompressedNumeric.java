@@ -36,4 +36,9 @@ public class BERTLCompressedNumeric extends BERTLV {
     }
   }
 
+  @Override
+  public String getValue() {
+    return Hex.encodeHexString(value, false);
+  }
+
 }

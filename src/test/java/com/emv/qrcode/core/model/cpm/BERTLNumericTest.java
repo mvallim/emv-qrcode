@@ -12,17 +12,17 @@ import org.junit.Test;
 
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
-public class BERTLCompressedNumericTest {
+public class BERTLNumericTest {
 
   @Test
   public void testSuccess() throws IOException {
-    final BERTLCompressedNumeric bertlv1 = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "0123456789");
+    final BERTLNumeric bertlv1 = new BERTLNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "0123456789");
     assertThat(bertlv1.toHex(), equalTo("5A050123456789"));
     assertThat(bertlv1.getValue(), equalTo("0123456789"));
 
-    final BERTLCompressedNumeric bertlv2 = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "01234567899");
-    assertThat(bertlv2.toHex(), equalTo("5A0601234567899F"));
-    assertThat(bertlv2.getValue(), equalTo("01234567899F"));
+    final BERTLNumeric bertlv2 = new BERTLNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "01234567899");
+    assertThat(bertlv2.toHex(), equalTo("5A06001234567899"));
+    assertThat(bertlv2.getValue(), equalTo("001234567899"));
 
     bertlv2.setValue("01");
     assertThat(bertlv2.toHex(), equalTo("5A0101"));
@@ -31,7 +31,7 @@ public class BERTLCompressedNumericTest {
 
   @Test
   public void testFail() throws IOException {
-    final RuntimeException runtimeException = catchThrowableOfType(() -> new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "AG000000666666"), RuntimeException.class);
+    final RuntimeException runtimeException = catchThrowableOfType(() -> new BERTLNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "AG000000666666"), RuntimeException.class);
     assertThat(runtimeException.getCause(), instanceOf(DecoderException.class));
   }
 

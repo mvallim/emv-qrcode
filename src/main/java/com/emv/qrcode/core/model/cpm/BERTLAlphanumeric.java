@@ -28,4 +28,9 @@ public class BERTLAlphanumeric extends BERTLV {
     setValue(StringUtils.isNotEmpty(value) ? value.getBytes(StandardCharsets.UTF_8) : EMPTY_BYTES);
   }
 
+  @Override
+  public String getValue() {
+    return new String(value, StandardCharsets.UTF_8);
+  }
+
 }

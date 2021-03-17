@@ -1,6 +1,8 @@
 package com.emv.qrcode.decoder.cpm;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -9,14 +11,39 @@ import org.apache.commons.codec.binary.Hex;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
+import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
 import com.emv.qrcode.core.model.cpm.BERTLBinary;
+import com.emv.qrcode.core.model.cpm.BERTLCompressedNumeric;
+import com.emv.qrcode.core.model.cpm.BERTLNumeric;
 import com.emv.qrcode.core.model.cpm.BERTag;
 import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.ApplicationSpecificTransparentTemplate;
+import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
 public final class ApplicationSpecificTransparentTemplateDecoder extends DecoderCpm<ApplicationSpecificTransparentTemplate> {
 
   private static final Entry<Class<?>, BiConsumer<ApplicationSpecificTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData);
+
+  private static final Map<BERTag, Entry<Class<?>, BiConsumer<ApplicationSpecificTransparentTemplate, ?>>> mapConsumers = new HashMap<>();
+
+  static {
+    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_LABEL, consumerTagLengthValue(BERTLAlphanumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_TRACK_2_EQUIVALENT_DATA, consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_PAN, consumerTagLengthValue(BERTLCompressedNumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME, consumerTagLengthValue(BERTLAlphanumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE, consumerTagLengthValue(BERTLAlphanumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_ISSUER_URL, consumerTagLengthValue(BERTLAlphanumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER, consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_TOKEN_REQUESTOR_ID, consumerTagLengthValue(BERTLNumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE, consumerTagLengthValue(BERTLAlphanumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN, consumerTagLengthValue(BERTLAlphanumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, consumerTagLengthValue(BERTLAlphanumeric.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM, consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER, consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData));
+  }
 
   public ApplicationSpecificTransparentTemplateDecoder(final byte[] source) {
     super(BERUtils.valueOf(source));
@@ -41,9 +68,11 @@ public final class ApplicationSpecificTransparentTemplateDecoder extends Decoder
 
       tags.add(tag);
 
-      final Class<?> clazz = defaultEntry.getKey();
+      final Entry<Class<?>, BiConsumer<ApplicationSpecificTransparentTemplate, ?>> entry = mapConsumers.getOrDefault(tag, defaultEntry);
 
-      final BiConsumer consumer = defaultEntry.getValue();
+      final Class<?> clazz = entry.getKey();
+
+      final BiConsumer consumer = entry.getValue();
 
       consumer.accept(result, DecoderCpm.decode(value, clazz));
     }

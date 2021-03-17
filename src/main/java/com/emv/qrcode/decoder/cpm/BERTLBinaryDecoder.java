@@ -12,7 +12,6 @@ public final class BERTLBinaryDecoder extends DecoderCpm<BERTLBinary> {
   @Override
   protected BERTLBinary decode() {
     final byte[] value = iterator.next();
-
     return new BERTLBinary(BERUtils.valueOfTag(value), BERUtils.valueOf(value));
   }
 
