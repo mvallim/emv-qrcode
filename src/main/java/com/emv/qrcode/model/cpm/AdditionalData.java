@@ -72,15 +72,15 @@ public abstract class AdditionalData implements Serializable {
   }
 
   public final void setLast4DigitsOfPAN(final String last4DigitsOfPAN) {
-    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN, last4DigitsOfPAN));
+    addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN, last4DigitsOfPAN));
   }
 
   public final void setCryptogramInformationData(final String cryptogramInformationData) {
-    addAdditionalData(new BERTLAlphanumeric(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, cryptogramInformationData));
+    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, cryptogramInformationData));
   }
 
   public final void setApplicationTransactionCounter(final String applicationTransactionCounter) {
-    addAdditionalData(new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter));
+    addAdditionalData(new BERTLNumeric(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, applicationTransactionCounter));
   }
 
   public final void setApplicationCryptogram(final String applicationCryptogram) {

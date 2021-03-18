@@ -37,9 +37,9 @@ public final class CommonDataTransparentTemplateDecoder extends DecoderCpm<Commo
     mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_VERSION_NUMBER, consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData));
     mapConsumers.put(TagTransactionProcessingCodes.ID_TOKEN_REQUESTOR_ID, consumerTagLengthValue(BERTLNumeric.class, CommonDataTransparentTemplate::addAdditionalData));
     mapConsumers.put(TagTransactionProcessingCodes.ID_PAYMENT_ACCOUNT_REFERENCE, consumerTagLengthValue(BERTLAlphanumeric.class, CommonDataTransparentTemplate::addAdditionalData));
-    mapConsumers.put(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN, consumerTagLengthValue(BERTLAlphanumeric.class, CommonDataTransparentTemplate::addAdditionalData));
-    mapConsumers.put(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, consumerTagLengthValue(BERTLAlphanumeric.class, CommonDataTransparentTemplate::addAdditionalData));
-    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_LAST_4_DIGITS_OF_PAN, consumerTagLengthValue(BERTLNumeric.class, CommonDataTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_CRYPTOGRAM_INFORMATION_DATA, consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData));
+    mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER, consumerTagLengthValue(BERTLNumeric.class, CommonDataTransparentTemplate::addAdditionalData));
     mapConsumers.put(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM, consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData));
     mapConsumers.put(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA, consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData));
     mapConsumers.put(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER, consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData));

@@ -4,6 +4,8 @@ import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
+import com.emv.qrcode.core.exception.DecodeValueException;
+
 public class BERTLNumeric extends BERTLV {
 
   private static final long serialVersionUID = -2791656176543560953L;
@@ -32,7 +34,7 @@ public class BERTLNumeric extends BERTLV {
     try {
       return Hex.decodeHex(value.length() % 2 == 0 ? value : "0" + value);
     } catch (final DecoderException ex) {
-      throw new RuntimeException(ex);
+      throw new DecodeValueException(value);
     }
   }
 
