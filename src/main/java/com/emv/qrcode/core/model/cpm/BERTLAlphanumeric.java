@@ -29,7 +29,7 @@ public class BERTLAlphanumeric extends BERTLV {
   }
 
   @Override
-  public String getValue() {
+  public String getStringValue() {
     return new String(value, StandardCharsets.UTF_8);
   }
 

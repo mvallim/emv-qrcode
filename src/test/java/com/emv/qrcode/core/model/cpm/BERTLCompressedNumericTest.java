@@ -17,15 +17,15 @@ public class BERTLCompressedNumericTest {
   public void testSuccess() throws IOException {
     final BERTLCompressedNumeric bertlv1 = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "0123456789");
     assertThat(bertlv1.toHex(), equalTo("5A050123456789"));
-    assertThat(bertlv1.getValue(), equalTo("0123456789"));
+    assertThat(bertlv1.getStringValue(), equalTo("0123456789"));
 
     final BERTLCompressedNumeric bertlv2 = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, "01234567899");
     assertThat(bertlv2.toHex(), equalTo("5A0601234567899F"));
-    assertThat(bertlv2.getValue(), equalTo("01234567899F"));
+    assertThat(bertlv2.getStringValue(), equalTo("01234567899F"));
 
     bertlv2.setValue("01");
     assertThat(bertlv2.toHex(), equalTo("5A0101"));
-    assertThat(bertlv2.getValue(), equalTo("01"));
+    assertThat(bertlv2.getStringValue(), equalTo("01"));
   }
 
   @Test

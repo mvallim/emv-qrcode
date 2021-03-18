@@ -34,22 +34,22 @@ public class AdditionalDataTest {
     additionalData.setIssuerApplicationData("1234567890ABCDEF");
     additionalData.setUnpredictableNumber("1234567890ABCDEF");
 
-    assertThat(additionalData.getApplicationDefinitionFileName().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getApplicationLabel().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getTrack2EquivalentData().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getApplicationPAN().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getCardholderName().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getLanguagePreference().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getIssuerURL().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getApplicationVersionNumber().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getTokenRequestorID().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getPaymentAccountReference().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getLast4DigitsOfPAN().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getCryptogramInformationData().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getApplicationTransactionCounter().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getApplicationCryptogram().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getIssuerApplicationData().getValue(), equalTo("1234567890ABCDEF"));
-    assertThat(additionalData.getUnpredictableNumber().getValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getApplicationDefinitionFileName().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getApplicationLabel().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getTrack2EquivalentData().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getApplicationPAN().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getCardholderName().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getLanguagePreference().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getIssuerURL().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getApplicationVersionNumber().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getTokenRequestorID().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getPaymentAccountReference().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getLast4DigitsOfPAN().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getCryptogramInformationData().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getApplicationTransactionCounter().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getApplicationCryptogram().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getIssuerApplicationData().getStringValue(), equalTo("1234567890ABCDEF"));
+    assertThat(additionalData.getUnpredictableNumber().getStringValue(), equalTo("1234567890ABCDEF"));
 
   }
 
