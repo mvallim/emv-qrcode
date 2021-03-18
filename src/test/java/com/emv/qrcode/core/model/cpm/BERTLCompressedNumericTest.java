@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import com.emv.qrcode.core.exception.DecodeValueException;
@@ -26,6 +27,22 @@ public class BERTLCompressedNumericTest {
     bertlv2.setValue("01");
     assertThat(bertlv2.toHex(), equalTo("5A0101"));
     assertThat(bertlv2.getStringValue(), equalTo("01"));
+
+    bertlv2.setValue("");
+    assertThat(bertlv2.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(bertlv2.getStringValue(), equalTo(StringUtils.EMPTY));
+
+    final BERTLCompressedNumeric bertlv3 = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN, new byte[] { 0x01, 0x23, 0x45, 0x67, (byte) 0x89 });
+    assertThat(bertlv3.toHex(), equalTo("5A050123456789"));
+    assertThat(bertlv3.getStringValue(), equalTo("0123456789"));
+
+    final BERTLCompressedNumeric bertlv4 = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN.getBytes(), "0123456789");
+    assertThat(bertlv4.toHex(), equalTo("5A050123456789"));
+    assertThat(bertlv4.getStringValue(), equalTo("0123456789"));
+
+    final BERTLCompressedNumeric bertlv5 = new BERTLCompressedNumeric(TagTransactionProcessingCodes.ID_APPLICATION_PAN.getBytes(), "");
+    assertThat(bertlv5.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(bertlv5.getStringValue(), equalTo(StringUtils.EMPTY));
   }
 
   @Test

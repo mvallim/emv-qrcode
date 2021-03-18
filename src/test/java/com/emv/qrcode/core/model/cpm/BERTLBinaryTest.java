@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import com.emv.qrcode.core.exception.DecodeValueException;
@@ -22,6 +23,22 @@ public class BERTLBinaryTest {
     bertlv.setValue("A0000000555555");
     assertThat(bertlv.toHex(), equalTo("4F07A0000000555555"));
     assertThat(bertlv.getStringValue(), equalTo("A0000000555555"));
+
+    bertlv.setValue("");
+    assertThat(bertlv.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(bertlv.getStringValue(), equalTo(StringUtils.EMPTY));
+
+    final BERTLBinary bertlv3 = new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_PAN, new byte[] { 0x01, 0x23, 0x45, 0x67, (byte) 0x89 });
+    assertThat(bertlv3.toHex(), equalTo("5A050123456789"));
+    assertThat(bertlv3.getStringValue(), equalTo("0123456789"));
+
+    final BERTLBinary bertlv4 = new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_PAN.getBytes(), "0123456789");
+    assertThat(bertlv4.toHex(), equalTo("5A050123456789"));
+    assertThat(bertlv4.getStringValue(), equalTo("0123456789"));
+
+    final BERTLBinary bertlv5 = new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_PAN.getBytes(), "");
+    assertThat(bertlv5.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(bertlv5.getStringValue(), equalTo(StringUtils.EMPTY));
   }
 
   @Test
