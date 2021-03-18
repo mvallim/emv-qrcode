@@ -47,7 +47,7 @@ final class DecodeMpmIterator implements Iterator<String> {
       throw new NoSuchElementException();
     }
 
-    final String value = TLVUtils.bucket(source, current);
+    final String value = TLVUtils.chunk(source, current);
 
     current += value.length();
 

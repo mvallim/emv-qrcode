@@ -59,7 +59,7 @@ public final class BERUtils {
     return Arrays.copyOfRange(source, start, end);
   }
 
-  public static final byte[] bucket(final byte[] source, final Integer from) {
+  public static final byte[] chunk(final byte[] source, final Integer from) {
     final int numberOfBytesTag = countBytesOfTag(source, from);
     final int numberOfBytesLength = countBytesOfLength(source, from);
     final int start = from + numberOfBytesTag + numberOfBytesLength;

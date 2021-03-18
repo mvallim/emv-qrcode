@@ -59,13 +59,13 @@ public class BERUtilsTest {
   }
 
   @Test
-  public void testSuccessBucket() {
-    assertThat(BERUtils.bucket(new byte[] { 0x4F, 0x00 }, 0).length, equalTo(2));
-    assertThat(BERUtils.bucket(new byte[] { 0x4F, 0x01, 0x00 }, 0).length, equalTo(3));
-    assertThat(BERUtils.bucket(new byte[] { 0x4F, 0x02, 0x00, 0x00 }, 0).length, equalTo(4));
-    assertThat(BERUtils.bucket(new byte[] { 0x00, 0x4F, 0x00 }, 1).length, equalTo(2));
-    assertThat(BERUtils.bucket(new byte[] { 0x00, 0x00, 0x4F, 0x01, 0x00 }, 2).length, equalTo(3));
-    assertThat(BERUtils.bucket(new byte[] { 0x00, 0x00, 0x00, 0x4F, 0x02, 0x00, 0x00 }, 3).length, equalTo(4));
+  public void testSuccessChunk() {
+    assertThat(BERUtils.chunk(new byte[] { 0x4F, 0x00 }, 0).length, equalTo(2));
+    assertThat(BERUtils.chunk(new byte[] { 0x4F, 0x01, 0x00 }, 0).length, equalTo(3));
+    assertThat(BERUtils.chunk(new byte[] { 0x4F, 0x02, 0x00, 0x00 }, 0).length, equalTo(4));
+    assertThat(BERUtils.chunk(new byte[] { 0x00, 0x4F, 0x00 }, 1).length, equalTo(2));
+    assertThat(BERUtils.chunk(new byte[] { 0x00, 0x00, 0x4F, 0x01, 0x00 }, 2).length, equalTo(3));
+    assertThat(BERUtils.chunk(new byte[] { 0x00, 0x00, 0x00, 0x4F, 0x02, 0x00, 0x00 }, 3).length, equalTo(4));
   }
 
   @Test

@@ -40,7 +40,7 @@ public final class TLVUtils {
     return source.substring(start, end);
   }
 
-  public static final String bucket(final String source, final Integer from) {
+  public static final String chunk(final String source, final Integer from) {
     final Integer start = from + ID_WORD_COUNT + VALUE_LENGTH_WORD_COUNT;
     final Integer end = start + valueOfLength(source, from);
     return source.substring(from, end);

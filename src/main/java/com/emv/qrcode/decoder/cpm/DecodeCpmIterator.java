@@ -49,7 +49,7 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
       throw new NoSuchElementException();
     }
 
-    final byte[] value = BERUtils.bucket(source, current);
+    final byte[] value = BERUtils.chunk(source, current);
 
     current += value.length;
 

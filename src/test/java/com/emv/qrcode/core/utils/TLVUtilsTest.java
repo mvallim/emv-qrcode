@@ -26,9 +26,9 @@ public class TLVUtilsTest {
   }
 
   @Test
-  public void testSuccessValueOfLengthStringInteger() {
-    assertThat(TLVUtils.bucket("01070103100", 0), equalTo("01070103100"));
-    assertThat(TLVUtils.bucket("01070103100020512345", 11), equalTo("020512345"));
+  public void testSuccessChunk() {
+    assertThat(TLVUtils.chunk("01070103100", 0), equalTo("01070103100"));
+    assertThat(TLVUtils.chunk("01070103100020512345", 11), equalTo("020512345"));
   }
 
 }
