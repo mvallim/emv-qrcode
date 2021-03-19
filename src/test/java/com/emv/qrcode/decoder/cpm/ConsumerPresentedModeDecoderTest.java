@@ -2,13 +2,17 @@ package com.emv.qrcode.decoder.cpm;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 
+import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.model.cpm.ConsumerPresentedMode;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
@@ -18,7 +22,7 @@ import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 public class ConsumerPresentedModeDecoderTest {
 
   @Test
-  public void testSuccessDecode() throws PresentedModeException, IOException {
+  public void testSuccessDecode() throws PresentedModeException, IOException, DecoderException {
     final String encoded = "hQVDUFYwMWETTwegAAAAVVVVUAhQcm9kdWN0MWETTwegAAAAZmZmUAhQcm9kdWN0MmJJWggSNFZ4kBI0WF8gDkNBUkRIT0xERVIvRU1WXy0IcnVlc2RlZW5kIZ8QBwYBCgMAAACfJghYT9OF+iNLzJ82AgABnzcEbVjvEw==";
 
     final ConsumerPresentedMode merchantPresentedMode = DecoderCpm.decode(encoded, ConsumerPresentedMode.class);
@@ -41,6 +45,15 @@ public class ConsumerPresentedModeDecoderTest {
     assertThat(merchantPresentedMode.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getApplicationCryptogram().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM));
     assertThat(merchantPresentedMode.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getApplicationTransactionCounter().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER));
     assertThat(merchantPresentedMode.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getUnpredictableNumber().getTag(), equalTo(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER));
+
+    final byte[] source2 = Hex.decodeHex("8505435056303185054350563031");
+
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderCpm.decode(source2, ConsumerPresentedMode.class), DuplicateTagException.class);
+
+    assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'ConsumerPresentedMode' informed already contains '85' tag"));
+    assertThat(duplicateTagException.getTag(), equalTo("85"));
+    assertThat(duplicateTagException.getValue(), equalTo("85054350563031"));
+
   }
 
   @Test
