@@ -19,7 +19,7 @@ public class BERTLAlphanumericDecoderTest {
   @Test
   public void testSuccessDecode() throws PresentedModeException, IOException {
 
-    // 0005ABC
+    // 0005ABC123
 
     final byte[] source = { 0x00, 0x06, 0x41, 0x42, 0x43, 0x31, 0x32, 0x33 };
 

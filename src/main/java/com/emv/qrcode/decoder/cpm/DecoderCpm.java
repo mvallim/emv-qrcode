@@ -62,6 +62,8 @@ public abstract class DecoderCpm<T> {
       final Constructor<? extends DecoderCpm<?>> ctor = ctorMap.get(clazz);
       final DecoderCpm<?> parser = ctor.newInstance(source);
       return clazz.cast(parser.decode());
+    } catch (final PresentedModeException ex) {
+      throw ex;
     } catch (final Exception ex) {
       throw new RuntimeException(ex);
     }
