@@ -1,4 +1,4 @@
-package com.emv.qrcode.validators.mpm;
+package com.emv.qrcode.validators;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -18,7 +18,6 @@ import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
-import com.emv.qrcode.validators.MerchantPresentedModeValidate;
 
 import br.com.fluentvalidator.context.ValidationResult;
 

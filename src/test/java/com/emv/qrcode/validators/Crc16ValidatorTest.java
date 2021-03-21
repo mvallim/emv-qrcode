@@ -1,4 +1,4 @@
-package com.emv.qrcode.validators.mpm;
+package com.emv.qrcode.validators;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -7,8 +7,6 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 
 import org.junit.Test;
-
-import com.emv.qrcode.validators.Crc16Validate;
 
 import br.com.fluentvalidator.context.ValidationResult;
 

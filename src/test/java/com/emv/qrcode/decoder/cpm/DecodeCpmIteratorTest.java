@@ -131,6 +131,15 @@ public class DecodeCpmIteratorTest {
   }
 
   @Test
+  public void testFailParseOverflowValue() throws DecoderException {
+    final String encoded = "85204350563031";
+
+    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
+
+    assertThat(decodeIterator.hasNext(), equalTo(false));
+  }
+
+  @Test
   public void testFailParseOverflowShortValue() throws DecoderException {
     final String encoded = "4F83FFFFFFA00000005555";
 
