@@ -1,6 +1,8 @@
-package com.emv.qrcode.core.model;
+package com.emv.qrcode.core.model.mpm;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.emv.qrcode.core.model.TLV;
 
 import lombok.Setter;
 

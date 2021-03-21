@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 
 public class PaymentSystemSpecificTemplateTest {
 

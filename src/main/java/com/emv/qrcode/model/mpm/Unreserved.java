@@ -1,6 +1,6 @@
 package com.emv.qrcode.model.mpm;
 
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;

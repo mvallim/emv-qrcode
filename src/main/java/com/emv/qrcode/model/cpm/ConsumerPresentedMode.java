@@ -10,6 +10,8 @@ import java.util.Objects;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
+import com.emv.qrcode.core.model.cpm.BERTemplate;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,15 +27,19 @@ public class ConsumerPresentedMode implements Serializable {
   // Application Template
   private final List<ApplicationTemplate> applicationTemplates = new LinkedList<>();
 
-  // Application Template
-  private final List<CommonDataTemplate> commonDataTemplates = new LinkedList<>();
+  // Common Data Template
+  @Setter
+  private CommonDataTemplate commonDataTemplate;
+
+  // Other template
+  private final List<BERTemplate<byte[]>> otherTemplates = new LinkedList<>();
 
   public void addApplicationTemplate(final ApplicationTemplate applicationTemplate) {
     applicationTemplates.add(applicationTemplate);
   }
 
-  public void addCommonDataTemplate(final CommonDataTemplate commonDataTemplate) {
-    commonDataTemplates.add(commonDataTemplate);
+  public void addOtherTemplate(final BERTemplate<byte[]> otherTemplate) {
+    otherTemplates.add(otherTemplate);
   }
 
   public byte[] getBytes() throws IOException {
@@ -43,12 +49,16 @@ public class ConsumerPresentedMode implements Serializable {
         out.write(payloadFormatIndicator.getBytes());
       }
 
-      for (final ApplicationTemplate applicationTemplate : applicationTemplates) {
+      for (final BERTemplate<byte[]> applicationTemplate : applicationTemplates) {
         out.write(applicationTemplate.getBytes());
       }
 
-      for (final CommonDataTemplate commonDataTemplate : commonDataTemplates) {
+      if (Objects.nonNull(commonDataTemplate)) {
         out.write(commonDataTemplate.getBytes());
+      }
+
+      for (final BERTemplate<byte[]> otherTemplate : otherTemplates) {
+        out.write(otherTemplate.getBytes());
       }
 
       return out.toByteArray();

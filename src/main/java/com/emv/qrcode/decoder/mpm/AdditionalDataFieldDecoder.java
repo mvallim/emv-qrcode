@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
-import com.emv.qrcode.core.exception.MerchantPresentedModeException;
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.exception.InvalidTagException;
+import com.emv.qrcode.core.exception.PresentedModeException;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
+import com.emv.qrcode.core.utils.TLVUtils;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
@@ -34,12 +37,12 @@ public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataF
   }
 
   public AdditionalDataFieldDecoder(final String source) {
-    super(source);
+    super(TLVUtils.valueOf(source));
   }
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected AdditionalDataField decode() throws MerchantPresentedModeException {
+  protected AdditionalDataField decode() throws PresentedModeException {
 
     final Set<String> tags = new HashSet<>();
 
@@ -48,7 +51,7 @@ public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataF
     while(iterator.hasNext()) {
       final String value = iterator.next();
 
-      final String tag = value.substring(0, DecodeMpmIterator.ID_WORD_COUNT);
+      final String tag = TLVUtils.valueOfTag(value);
 
       final String derivateId = derivateId(tag);
 
@@ -59,6 +62,10 @@ public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataF
       tags.add(tag);
 
       final Entry<Class<?>, BiConsumer<AdditionalDataField, ?>> entry = mapConsumers.get(derivateId);
+
+      if (Objects.isNull(entry)) {
+        throw new InvalidTagException("AdditionalDataField", tag, value);
+      }
 
       final Class<?> clazz = entry.getKey();
 

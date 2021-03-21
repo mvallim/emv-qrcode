@@ -5,10 +5,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import com.emv.qrcode.core.model.BERTLString;
+import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
+import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 public class CommonDataTransparentTemplateTest {
 
@@ -17,14 +19,11 @@ public class CommonDataTransparentTemplateTest {
 
     final CommonDataTransparentTemplate commonDataTransparentTemplate = new CommonDataTransparentTemplate();
 
-    final BERTLString value = new BERTLString(0x0, "1234");
+    final BERTLAlphanumeric value = new BERTLAlphanumeric(new byte[] { 0x00 }, "1234");
+    commonDataTransparentTemplate.addAdditionalData(value);
 
-    commonDataTransparentTemplate.setValue(value);
-
-    assertThat(commonDataTransparentTemplate.getTag(), equalTo(0x64));
-    assertThat(commonDataTransparentTemplate.getValue(), equalTo(value));
-    assertThat(commonDataTransparentTemplate.toHex(), equalTo("6406000431323334"));
-
+    assertThat(commonDataTransparentTemplate.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE));
+    assertThat(Hex.encodeHexString(commonDataTransparentTemplate.getBytes(), false), equalTo("6406000431323334"));
   }
 
   @Test
@@ -32,11 +31,11 @@ public class CommonDataTransparentTemplateTest {
 
     final CommonDataTransparentTemplate commonDataTransparentTemplate = new CommonDataTransparentTemplate();
 
-    final BERTLString value = new BERTLString(0x0, StringUtils.EMPTY);
+    final BERTLAlphanumeric value = new BERTLAlphanumeric(new byte[] { 0x0 }, StringUtils.EMPTY);
 
-    commonDataTransparentTemplate.setValue(value);
+    commonDataTransparentTemplate.addAdditionalData(value);
 
-    assertThat(commonDataTransparentTemplate.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(Hex.encodeHexString(commonDataTransparentTemplate.getBytes(), false), equalTo(StringUtils.EMPTY));
 
   }
 
@@ -45,9 +44,7 @@ public class CommonDataTransparentTemplateTest {
 
     final CommonDataTransparentTemplate commonDataTransparentTemplate = new CommonDataTransparentTemplate();
 
-    commonDataTransparentTemplate.setValue(null);
-
-    assertThat(commonDataTransparentTemplate.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(Hex.encodeHexString(commonDataTransparentTemplate.getBytes(), false), equalTo(StringUtils.EMPTY));
 
   }
 

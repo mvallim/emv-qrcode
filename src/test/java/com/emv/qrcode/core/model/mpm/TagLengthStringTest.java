@@ -1,4 +1,4 @@
-package com.emv.qrcode.core.model;
+package com.emv.qrcode.core.model.mpm;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

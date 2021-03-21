@@ -14,7 +14,7 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringSizeLessTha
 import java.util.Collection;
 import java.util.Map;
 
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
 

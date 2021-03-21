@@ -5,10 +5,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import com.emv.qrcode.core.model.BERTLString;
+import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
+import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 public class ApplicationSpecificTransparentTemplateTest {
 
@@ -17,13 +19,12 @@ public class ApplicationSpecificTransparentTemplateTest {
 
     final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate = new ApplicationSpecificTransparentTemplate();
 
-    final BERTLString value = new BERTLString(0x0, "1234");
+    final BERTLAlphanumeric value = new BERTLAlphanumeric(new byte[] { 0x00 }, "1234");
 
-    applicationSpecificTransparentTemplate.setValue(value);
+    applicationSpecificTransparentTemplate.addAdditionalData(value);
 
-    assertThat(applicationSpecificTransparentTemplate.getTag(), equalTo(0x63));
-    assertThat(applicationSpecificTransparentTemplate.getValue(), equalTo(value));
-    assertThat(applicationSpecificTransparentTemplate.toHex(), equalTo("6306000431323334"));
+    assertThat(applicationSpecificTransparentTemplate.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_APPLICATION_SPECIFIC_TRANSPARENT_TEMPLATE));
+    assertThat(Hex.encodeHexString(applicationSpecificTransparentTemplate.getBytes(), false), equalTo("6306000431323334"));
 
   }
 
@@ -32,11 +33,11 @@ public class ApplicationSpecificTransparentTemplateTest {
 
     final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate = new ApplicationSpecificTransparentTemplate();
 
-    final BERTLString value = new BERTLString(0x0, StringUtils.EMPTY);
+    final BERTLAlphanumeric value = new BERTLAlphanumeric(new byte[] { 0x00 }, StringUtils.EMPTY);
 
-    applicationSpecificTransparentTemplate.setValue(value);
+    applicationSpecificTransparentTemplate.addAdditionalData(value);
 
-    assertThat(applicationSpecificTransparentTemplate.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(Hex.encodeHexString(applicationSpecificTransparentTemplate.getBytes(), false), equalTo(StringUtils.EMPTY));
 
   }
 
@@ -45,9 +46,9 @@ public class ApplicationSpecificTransparentTemplateTest {
 
     final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate = new ApplicationSpecificTransparentTemplate();
 
-    applicationSpecificTransparentTemplate.setValue(null);
+    applicationSpecificTransparentTemplate.addAdditionalData(null);
 
-    assertThat(applicationSpecificTransparentTemplate.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(Hex.encodeHexString(applicationSpecificTransparentTemplate.getBytes(), false), equalTo(StringUtils.EMPTY));
 
   }
 

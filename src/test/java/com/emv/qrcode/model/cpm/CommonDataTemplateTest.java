@@ -5,19 +5,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import com.emv.qrcode.core.model.BERTLString;
+import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
+import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
+// @formatter:off
 public class CommonDataTemplateTest {
 
   @Test
   public void testSuccessToHex() throws IOException {
 
     final CommonDataTransparentTemplate commonDataTransparentTemplate = new CommonDataTransparentTemplate();
-
-    commonDataTransparentTemplate.setValue(new BERTLString(0x0, "1234"));
+    commonDataTransparentTemplate.addAdditionalData(new BERTLAlphanumeric(new byte[] { 0x00 }, "1234"));
 
     final CommonDataTemplate commonDataTemplate = new CommonDataTemplate();
 
@@ -36,12 +38,14 @@ public class CommonDataTemplateTest {
     commonDataTemplate.setApplicationTransactionCounter("1234");
     commonDataTemplate.setApplicationCryptogram("1234");
     commonDataTemplate.setIssuerApplicationData("1234");
-    commonDataTemplate.addCommonDataTransparentTemplate(commonDataTransparentTemplate);
+    commonDataTemplate.setUnpredictableNumber("1234");
+    commonDataTemplate.setCommonDataTransparentTemplate(commonDataTransparentTemplate);
 
-    assertThat(commonDataTemplate.getTag(), equalTo(0x62));
-    assertThat(commonDataTemplate.toHex(),
-        equalTo("624F04313233345004313233345704313233345A04313233342004313233342D04313233345004313233340804313233341904313233342404313233342504313233342704313233343604313233342604313233341004313233346406000431323334"));
-
+    assertThat(commonDataTemplate.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE));
+    assertThat(Hex.encodeHexString(commonDataTemplate.getBytes(), false), equalTo(
+        "625E4F021234500431323334570212345A0212345F2004313233345F2D04313233345F5004313233"
+      + "349F080212349F190212349F2404313233349F250212349F270212349F360212349F260212349F10"
+      + "0212349F370212346406000431323334"));
   }
 
   @Test
@@ -65,8 +69,8 @@ public class CommonDataTemplateTest {
     commonDataTemplate.setApplicationCryptogram(StringUtils.EMPTY);
     commonDataTemplate.setIssuerApplicationData(StringUtils.EMPTY);
 
-    assertThat(commonDataTemplate.getTag(), equalTo(0x62));
-    assertThat(commonDataTemplate.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(commonDataTemplate.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE));
+    assertThat(Hex.encodeHexString(commonDataTemplate.getBytes(), false), equalTo(StringUtils.EMPTY));
 
   }
 
@@ -91,9 +95,10 @@ public class CommonDataTemplateTest {
     commonDataTemplate.setApplicationCryptogram(null);
     commonDataTemplate.setIssuerApplicationData(null);
 
-    assertThat(commonDataTemplate.getTag(), equalTo(0x62));
-    assertThat(commonDataTemplate.toHex(), equalTo(StringUtils.EMPTY));
+    assertThat(commonDataTemplate.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE));
+    assertThat(Hex.encodeHexString(commonDataTemplate.getBytes(), false), equalTo(StringUtils.EMPTY));
 
   }
 
 }
+// @formatter:on

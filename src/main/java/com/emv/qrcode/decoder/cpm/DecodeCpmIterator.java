@@ -1,32 +1,13 @@
 package com.emv.qrcode.decoder.cpm;
 
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+
+import com.emv.qrcode.core.utils.BERUtils;
 
 // @formatter:off
 final class DecodeCpmIterator implements Iterator<byte[]> {
-
-  private static final Map<Byte, Integer> ID_WORD_COUNT = new ConcurrentHashMap<>();
-
-  static {
-    ID_WORD_COUNT.put((byte)0x85, 0);
-    ID_WORD_COUNT.put((byte)0x61, 0);
-    ID_WORD_COUNT.put((byte)0x62, 0);
-    ID_WORD_COUNT.put((byte)0x63, 0);
-    ID_WORD_COUNT.put((byte)0x64, 0);
-    ID_WORD_COUNT.put((byte)0x4F, 0);
-    ID_WORD_COUNT.put((byte)0x50, 0);
-    ID_WORD_COUNT.put((byte)0x57, 0);
-    ID_WORD_COUNT.put((byte)0x5A, 0);
-    ID_WORD_COUNT.put((byte)0x5F, 1);
-    ID_WORD_COUNT.put((byte)0x9F, 1);
-  }
-
-  public static final Integer VALUE_LENGTH_WORD_COUNT = 1;
 
   private Integer current;
 
@@ -40,15 +21,18 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
     this.source = source;
   }
 
-  private Byte valueLength() {
-    final Integer start = current + ID_WORD_COUNT.get(source[current]);
-    final Integer end = start + VALUE_LENGTH_WORD_COUNT;
-    return source[end];
-  }
-
   @Override
   public boolean hasNext() {
-    return current < max && current + ID_WORD_COUNT.get(source[current]) + VALUE_LENGTH_WORD_COUNT + valueLength() <= max;
+
+    if (current >= max) {
+      return false;
+    }
+
+    final Integer countBytesOfTag = BERUtils.countBytesOfTag(source, current);
+    final Integer countBytesOfLength = BERUtils.countBytesOfLength(source, current);
+    final Integer valueLength = BERUtils.valueOfLength(source, current);
+
+    return current + countBytesOfTag + countBytesOfLength + valueLength <= max;
   }
 
   @Override
@@ -65,11 +49,9 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
       throw new NoSuchElementException();
     }
 
-    final Integer valueLength = valueLength() + 1;
+    final byte[] value = BERUtils.chunk(source, current);
 
-    final byte[] value = Arrays.copyOfRange(source, current, current + ID_WORD_COUNT.get(source[current]) + VALUE_LENGTH_WORD_COUNT + valueLength);
-
-    current += ID_WORD_COUNT.get(source[current]) + VALUE_LENGTH_WORD_COUNT + valueLength;
+    current += value.length;
 
     return value;
   }

@@ -2,49 +2,42 @@ package com.emv.qrcode.model.cpm;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Objects;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import com.emv.qrcode.core.model.BERTLV;
+import com.emv.qrcode.core.model.cpm.BERTLV;
+import com.emv.qrcode.core.model.cpm.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTemplate;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-public class CommonDataTransparentTemplate implements BERTLV<Integer, BERTLV<Integer, String>> {
+public class CommonDataTransparentTemplate extends AdditionalData implements BERTemplate<byte[]> {
 
   private static final long serialVersionUID = 5072500891200624780L;
 
-  @Setter
-  private BERTLV<Integer, String> value;
+  private static final BERTag tag = ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE;
 
-  @Override
-  public Integer getTag() {
-    return ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE;
+  public BERTag getTag() {
+    return tag;
   }
 
   @Override
   public byte[] getBytes() throws IOException {
-
-    if (Objects.isNull(value)) {
-      return EMPTY_BYTES;
-    }
-
-    final byte[] bytes = value.getBytes();
-
-    if (ArrayUtils.isEmpty(bytes)) {
-      return EMPTY_BYTES;
-    }
-
     try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-      out.write(getTag());
-      out.write(bytes.length);
-      out.write(bytes);
+      final byte[] selfBytes = super.getBytes();
+
+      final int len = selfBytes.length;
+
+      if (len == 0) {
+        return BERTLV.EMPTY_BYTES;
+      }
+
+      out.write(tag.getBytes());
+      out.write(len);
+      out.write(selfBytes);
+
       return out.toByteArray();
     }
-
   }
 
 }

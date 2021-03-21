@@ -1,6 +1,8 @@
 package com.emv.qrcode.core.exception;
 
-public class DuplicateTagException extends MerchantPresentedModeException {
+import java.text.MessageFormat;
+
+public class DuplicateTagException extends PresentedModeException {
 
   private static final long serialVersionUID = 3271139876825199269L;
 
@@ -8,8 +10,8 @@ public class DuplicateTagException extends MerchantPresentedModeException {
 
   private final String value;
 
-  public DuplicateTagException(final String segment, final String tag, final String value) {
-    super(segment + " informed already contains '" + tag + "' tag");
+  public DuplicateTagException(final String scope, final String tag, final String value) {
+    super(MessageFormat.format("Scope: ''{0}'' informed already contains ''{1}'' tag", scope, tag));
     this.tag = tag;
     this.value = value;
   }

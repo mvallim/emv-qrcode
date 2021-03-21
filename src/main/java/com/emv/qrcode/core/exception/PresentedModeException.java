@@ -1,10 +1,10 @@
 package com.emv.qrcode.core.exception;
 
-public class MerchantPresentedModeException extends Exception {
+public class PresentedModeException extends RuntimeException {
 
   private static final long serialVersionUID = -3799054723266654250L;
 
-  public MerchantPresentedModeException(final String message) {
+  public PresentedModeException(final String message) {
     super(message);
   }
 

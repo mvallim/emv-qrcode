@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
 import lombok.Getter;

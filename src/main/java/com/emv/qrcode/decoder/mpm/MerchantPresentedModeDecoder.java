@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
-import com.emv.qrcode.core.exception.MerchantPresentedModeException;
-import com.emv.qrcode.core.model.TagLengthString;
+import com.emv.qrcode.core.exception.InvalidTagException;
+import com.emv.qrcode.core.exception.PresentedModeException;
+import com.emv.qrcode.core.model.mpm.TagLengthString;
+import com.emv.qrcode.core.utils.TLVUtils;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
@@ -50,7 +53,7 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected MerchantPresentedMode decode() throws MerchantPresentedModeException {
+  protected MerchantPresentedMode decode() throws PresentedModeException {
 
     final Set<String> tags = new HashSet<>();
 
@@ -61,7 +64,7 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     while(iterator.hasNext()) {
       final String value = iterator.next();
 
-      final String tag = value.substring(0, DecodeMpmIterator.ID_WORD_COUNT);
+      final String tag = TLVUtils.valueOfTag(value);
 
       final String derivateId = derivateId(tag);
 
@@ -72,6 +75,10 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
       tags.add(tag);
 
       final Entry<Class<?>, BiConsumer<MerchantPresentedMode, ?>> entry = mapConsumers.get(derivateId);
+
+      if (Objects.isNull(entry)) {
+        throw new InvalidTagException("MerchantPresentedMode", tag, value);
+      }
 
       final Class<?> clazz = entry.getKey();
 

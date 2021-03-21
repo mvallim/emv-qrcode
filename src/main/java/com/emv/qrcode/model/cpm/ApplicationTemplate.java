@@ -2,37 +2,38 @@ package com.emv.qrcode.model.cpm;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Objects;
 
-import com.emv.qrcode.core.model.BERTLV;
+import com.emv.qrcode.core.model.cpm.BERTLV;
+import com.emv.qrcode.core.model.cpm.BERTag;
+import com.emv.qrcode.core.model.cpm.BERTemplate;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
 
 @Getter
-public class ApplicationTemplate extends AdditionalData implements BERTLV<Integer, List<ApplicationSpecificTransparentTemplate>> {
+public class ApplicationTemplate extends AdditionalData implements BERTemplate<byte[]> {
 
   private static final long serialVersionUID = 2418153324275018348L;
 
-  private final List<ApplicationSpecificTransparentTemplate> value = new LinkedList<>();
+  private static final BERTag tag = ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE;
 
-  public void addApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
-    value.add(applicationSpecificTransparentTemplate);
+  private ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate;
+
+  public BERTag getTag() {
+    return tag;
   }
 
-  @Override
-  public Integer getTag() {
-    return ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE;
+  public void setApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
+    this.applicationSpecificTransparentTemplate = applicationSpecificTransparentTemplate;
   }
 
   @Override
   public byte[] getBytes() throws IOException {
     try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-
       try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
 
-        for (final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate : value) {
+        if (Objects.nonNull(applicationSpecificTransparentTemplate)) {
           stream.write(applicationSpecificTransparentTemplate.getBytes());
         }
 
@@ -42,9 +43,10 @@ public class ApplicationTemplate extends AdditionalData implements BERTLV<Intege
         final int len = selfBytes.length + valueBytes.length;
 
         if (len == 0) {
-          return EMPTY_BYTES;
+          return BERTLV.EMPTY_BYTES;
         }
 
+        out.write(tag.getBytes());
         out.write(len);
         out.write(selfBytes);
         out.write(valueBytes);
