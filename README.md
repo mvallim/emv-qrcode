@@ -9,27 +9,31 @@
 Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Features
+
 * Ready of specification for **Merchant Presented Mode v1.1**
   * Encode MPM
   * Decode MPM
   * Check CRC16
   * Checking duplicate tags
   * Checking invalid tags
+  * Validation
   * Supports BRCode aswell
   * Thread safe
   * Production ready (uses in several projects)
+  
 * Ready of specification for **Consumer Presented Mode v1.1**
   * Encode CPM
   * Decode CPM
+  * Validation
   * Checking duplicate tags
   * Thread safe
 
 ## Specification
 
-- [EMV QR Code Specification for Payment Systems: Merchant Presented Mode v1.1](docs/EMVCo-Merchant-Presented-QR-Specification-v1-1.pdf)
-- [EMV QR Code Specification for Payment Systems: Consumer Presented Mode v1.1](docs/EMVCo-Consumer-Presented-QR-Specification-v1-1.pdf)
-- [EMV Book 3 Application Specification](docs/EMV_v4.3_Book_3_Application_Specification_20120607062110791.pdf)
-- [EMV Book 4 Other Interfaces](docs/EMV_v4.3_Book_4_Other_Interfaces_20120607062305603.pdf)
+* [EMV QR Code Specification for Payment Systems: Merchant Presented Mode v1.1](docs/EMVCo-Merchant-Presented-QR-Specification-v1-1.pdf)
+* [EMV QR Code Specification for Payment Systems: Consumer Presented Mode v1.1](docs/EMVCo-Consumer-Presented-QR-Specification-v1-1.pdf)
+* [EMV Book 3 Application Specification](docs/EMV_v4.3_Book_3_Application_Specification_20120607062110791.pdf)
+* [EMV Book 4 Other Interfaces](docs/EMV_v4.3_Book_4_Other_Interfaces_20120607062305603.pdf)
 
 ## 1. Quick Start
 
@@ -202,10 +206,11 @@ private AdditionalDataFieldTemplate getAddtionalDataField() {
 @Test
 public void testSuccessDecode() throws MerchantPresentedModeException {
 
-  final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5"
-      + "914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903t"
-      + "uv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998"
-      + "87707081234567863046325";
+  final String encoded = "00020101021102160004hoge0104abcd520441115303156540523"
+      + ".7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205"
+      + "678900305098760505abcde0705klmno0805pqres0903tuv1004abcd50160004123401"
+      + "04ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988"
+      + "7707081234567863046325";
 
   final MerchantPresentedMode merchantPresentedMode = DecoderMpm.decode(encoded, MerchantPresentedMode.class);
 
@@ -223,12 +228,13 @@ public void testSuccessDecode() throws MerchantPresentedModeException {
 }
 
 @Test
-public void testeFasilDuplicateTag() throws MerchantPresentedModeException {
+public void testeFailDuplicateTag() throws MerchantPresentedModeException {
 
-  final String encoded = "00020101021102160004hoge0104abcd5204411153031565303156540523.72550201560350057"
-      + "0155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505ab"
-      + "cde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd650200"
-      + "80320016A011223344998877070812345678";
+  final String encoded = "00020101021102160004hoge0104abcd5204411153031565303156"
+      + "540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING610712345"
+      + "6762950105123450205678900305098760405543210505abcde0605fghij0705klmno08"
+      + "05pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020"
+      + "080320016A011223344998877070812345678";
 
   final MerchantPresentedModeException merchantPresentedModeException = catchThrowableOfType(() -> 
       DecoderMpm.decode(encoded, MerchantPresentedMode.class), MerchantPresentedModeException.class);
@@ -274,9 +280,10 @@ public void testSuccessValidate() {
 @Test
 public void testSuccessCrc16Sample1() {
 
-  final String encoded = "00020101021229300012D156000000000510A93FO3230Q31280012D156000000010308123456"
-      + "78520441115802CN5914BEST TRANSPORT6007BEIJING64200002ZH0104最佳运输0202北京540523.7253031565502"
-      + "016233030412340603***0708A60086670902ME91320016A0112233449988770708123456786304A13A";
+  final String encoded = "00020101021229300012D156000000000510A93FO3230Q31280012"
+      + "D15600000001030812345678520441115802CN5914BEST TRANSPORT6007BEIJING6420"
+      + "0002ZH0104最佳运输0202北京540523.7253031565502016233030412340603***0708A6"
+      + "0086670902ME91320016A0112233449988770708123456786304A13A";
 
   final ValidationResult validationResult = Crc16Validate.validate(encoded);
 
@@ -286,10 +293,11 @@ public void testSuccessCrc16Sample1() {
 @Test
 public void testFailValidateWhenWithoutCRCDecoded() {
 
-  final String encoded = "00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5"
-      + "914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klmno0805pqres0903t"
-      + "uv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998"
-      + "877070812345678";
+  final String encoded = "00020101021102160004hoge0104abcd520441115303156540523"
+      + ".7255020256035005802CN5914BEST TRANSPORT6007BEIJING6107123456762800205"
+      + "678900305098760505abcde0705klmno0805pqres0903tuv1004abcd50160004123401"
+      + "04ijkl64280002ZH0102北京0204最佳运输0304abcd65020080320016A0112233449988"
+      + "77070812345678";
 
   final ValidationResult validationResult = Crc16Validate.validate(encoded);
 
