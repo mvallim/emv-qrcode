@@ -35,15 +35,15 @@ public class DecoderCpmTest {
     assertThat(merchantPresentedMode2.getApplicationTemplates().get(1).getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE));
     assertThat(merchantPresentedMode2.getApplicationTemplates().get(1).getApplicationDefinitionFileName().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME));
     assertThat(merchantPresentedMode2.getApplicationTemplates().get(1).getApplicationLabel().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_LABEL));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getApplicationPAN().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_PAN));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getCardholderName().getTag(), equalTo(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getLanguagePreference().getTag(), equalTo(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getIssuerApplicationData().getTag(), equalTo(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getApplicationCryptogram().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getApplicationTransactionCounter().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER));
-    assertThat(merchantPresentedMode2.getCommonDataTemplates().get(0).getCommonDataTransparentTemplate().getUnpredictableNumber().getTag(), equalTo(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getApplicationPAN().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_PAN));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getCardholderName().getTag(), equalTo(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getLanguagePreference().getTag(), equalTo(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getCommonDataTransparentTemplate().getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getCommonDataTransparentTemplate().getIssuerApplicationData().getTag(), equalTo(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getCommonDataTransparentTemplate().getApplicationCryptogram().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getCommonDataTransparentTemplate().getApplicationTransactionCounter().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER));
+    assertThat(merchantPresentedMode2.getCommonDataTemplate().getCommonDataTransparentTemplate().getUnpredictableNumber().getTag(), equalTo(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER));
   }
 
   @Test

@@ -28,17 +28,14 @@ public class ConsumerPresentedMode implements Serializable {
   private final List<ApplicationTemplate> applicationTemplates = new LinkedList<>();
 
   // Common Data Template
-  private final List<CommonDataTemplate> commonDataTemplates = new LinkedList<>();
+  @Setter
+  private CommonDataTemplate commonDataTemplate;
 
   // Other template
   private final List<BERTemplate<byte[]>> otherTemplates = new LinkedList<>();
 
   public void addApplicationTemplate(final ApplicationTemplate applicationTemplate) {
     applicationTemplates.add(applicationTemplate);
-  }
-
-  public void addCommonDataTemplate(final CommonDataTemplate commonDataTemplate) {
-    commonDataTemplates.add(commonDataTemplate);
   }
 
   public void addOtherTemplate(final BERTemplate<byte[]> otherTemplate) {
@@ -56,7 +53,7 @@ public class ConsumerPresentedMode implements Serializable {
         out.write(applicationTemplate.getBytes());
       }
 
-      for (final BERTemplate<byte[]> commonDataTemplate : commonDataTemplates) {
+      if (Objects.nonNull(commonDataTemplate)) {
         out.write(commonDataTemplate.getBytes());
       }
 

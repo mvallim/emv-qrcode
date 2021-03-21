@@ -19,7 +19,7 @@ public class ConsumerPresentedModeTest {
 
     consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(new ApplicationTemplate());
-    consumerPresentedMode.addCommonDataTemplate(new CommonDataTemplate());
+    consumerPresentedMode.setCommonDataTemplate(new CommonDataTemplate());
     consumerPresentedMode.addOtherTemplate(new OtherTemplate());
 
     assertThat(consumerPresentedMode.toHex(), equalTo("85054350563031"));
@@ -52,7 +52,7 @@ public class ConsumerPresentedModeTest {
     consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(applicationTemplate1);
     consumerPresentedMode.addApplicationTemplate(applicationTemplate2);
-    consumerPresentedMode.addCommonDataTemplate(commonDataTemplate);
+    consumerPresentedMode.setCommonDataTemplate(commonDataTemplate);
 
     assertThat(consumerPresentedMode.toHex(), equalTo(
           "8505435056303161134F07A0000000555555500850726F647563743161134F07A000000066666650"
@@ -89,7 +89,7 @@ public class ConsumerPresentedModeTest {
     consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(applicationTemplate1);
     consumerPresentedMode.addApplicationTemplate(applicationTemplate2);
-    consumerPresentedMode.addCommonDataTemplate(commonDataTemplate);
+    consumerPresentedMode.setCommonDataTemplate(commonDataTemplate);
 
     assertThat(consumerPresentedMode.toBase64(), equalTo(
         "hQVDUFYwMWETTwegAAAAVVVVUAhQcm9kdWN0MWETTwegAAAAZmZmUAhQcm9kdWN0MmJJWggSNFZ4kBI0"
@@ -114,7 +114,7 @@ public class ConsumerPresentedModeTest {
 
     consumerPresentedMode.setPayloadFormatIndicator(new PayloadFormatIndicator());
     consumerPresentedMode.addApplicationTemplate(new ApplicationTemplate());
-    consumerPresentedMode.addCommonDataTemplate(new CommonDataTemplate());
+    consumerPresentedMode.setCommonDataTemplate(new CommonDataTemplate());
 
     assertThat(consumerPresentedMode.toBase64(), equalTo("hQVDUFYwMQ=="));
   }

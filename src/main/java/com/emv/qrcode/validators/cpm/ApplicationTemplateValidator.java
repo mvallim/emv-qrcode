@@ -2,6 +2,8 @@ package com.emv.qrcode.validators.cpm;
 
 import static br.com.fluentvalidator.function.FunctionBuilder.of;
 import static br.com.fluentvalidator.predicate.ComparablePredicate.betweenInclusive;
+import static br.com.fluentvalidator.predicate.ComparablePredicate.equalTo;
+import static br.com.fluentvalidator.predicate.ComparablePredicate.lessThanOrEqual;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull;
@@ -18,20 +20,68 @@ class ApplicationTemplateValidator extends AbstractValidator<ApplicationTemplate
   public void rules() {
 
 		ruleFor("ApplicationDefinitionFileName", ApplicationTemplate::getApplicationDefinitionFileName)
-
-  		.must(not(nullValue()))
-  			.withMessage("ApplicationDefinitionFileName must be present")
-  			.withAttempedValue(BERTLV.EMPTY_BYTES)
-
 			.must(not(stringEmptyOrNull(BERTLV::getStringValue)))
   		  .when(not(nullValue()))
   			.withMessage("ApplicationDefinitionFileName value must be present")
   			.withAttempedValue(of(BERTLV::getStringValue))
-
   		.must(betweenInclusive(BERTLV::getLength, 5, 16))
   		  .when(not(nullValue()))
   			.withMessage("ApplicationDefinitionFileName value size must be between five and sixteen")
   			.withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("ApplicationLabel", ApplicationTemplate::getApplicationLabel)
+      .must(betweenInclusive(BERTLV::getLength, 1, 16))
+        .when(not(nullValue()))
+        .withMessage("ApplicationLabel value size must be between five and sixteen")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("ApplicationPAN", ApplicationTemplate::getApplicationPAN)
+      .must(lessThanOrEqual(BERTLV::getLength, 10))
+        .when(not(nullValue()))
+        .withMessage("ApplicationPAN value size must be less than or equal ten")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("ApplicationVersionNumber", ApplicationTemplate::getApplicationVersionNumber)
+      .must(equalTo(BERTLV::getLength, 2))
+        .when(not(nullValue()))
+        .withMessage("ApplicationVersionNumber value size must be equal two")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("CardholderName", ApplicationTemplate::getCardholderName)
+      .must(betweenInclusive(BERTLV::getLength, 2, 26))
+        .when(not(nullValue()))
+        .withMessage("CardholderName value size must be between two and twenty-six")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("Last4DigitsOfPAN", ApplicationTemplate::getLast4DigitsOfPAN)
+      .must(equalTo(BERTLV::getLength, 2))
+        .when(not(nullValue()))
+        .withMessage("Last4DigitsOfPAN value size must be equal two")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("LanguagePreference", ApplicationTemplate::getLanguagePreference)
+      .must(betweenInclusive(BERTLV::getLength, 2, 8))
+        .when(not(nullValue()))
+        .withMessage("LanguagePreference value size must be between two and eight")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("Track2EquivalentData", ApplicationTemplate::getTrack2EquivalentData)
+      .must(lessThanOrEqual(BERTLV::getLength, 19))
+        .when(not(nullValue()))
+        .withMessage("Track2EquivalentData value size must be less than or equal nineteen")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("TokenRequestorID", ApplicationTemplate::getTokenRequestorID)
+      .must(equalTo(BERTLV::getLength, 6))
+        .when(not(nullValue()))
+        .withMessage("TokenRequestorID value size must be equal six")
+        .withAttempedValue(of(BERTLV::getStringValue));
+
+    ruleFor("PaymentAccountReference", ApplicationTemplate::getPaymentAccountReference)
+      .must(equalTo(BERTLV::getLength, 29))
+        .when(not(nullValue()))
+        .withMessage("PaymentAccountReference value size must be equal twenty-nine")
+        .withAttempedValue(of(BERTLV::getStringValue));
 
 	}
 }

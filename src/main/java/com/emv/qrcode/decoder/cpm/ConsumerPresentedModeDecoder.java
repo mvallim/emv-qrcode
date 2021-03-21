@@ -28,9 +28,10 @@ public final class ConsumerPresentedModeDecoder extends DecoderCpm<ConsumerPrese
   static {
     mapConsumers.put(ConsumerPresentedModeFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR, consumerTagLengthValue(PayloadFormatIndicator.class, ConsumerPresentedMode::setPayloadFormatIndicator));
     mapConsumers.put(ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE, consumerTagLengthValue(ApplicationTemplate.class, ConsumerPresentedMode::addApplicationTemplate));
-    mapConsumers.put(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE, consumerTagLengthValue(CommonDataTemplate.class, ConsumerPresentedMode::addCommonDataTemplate));
+    mapConsumers.put(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE, consumerTagLengthValue(CommonDataTemplate.class, ConsumerPresentedMode::setCommonDataTemplate));
 
     denyDuplicateTags.add(ConsumerPresentedModeFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR);
+    denyDuplicateTags.add(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE);
   }
 
   public ConsumerPresentedModeDecoder(final byte[] source) {

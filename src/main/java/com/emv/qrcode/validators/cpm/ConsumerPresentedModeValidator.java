@@ -15,7 +15,7 @@ public class ConsumerPresentedModeValidator extends AbstractValidator<ConsumerPr
   @Override
   public void rules() {
 
-    failFastRule();
+    setPropertyOnContext("cpm");
 
     ruleFor("PayloadFormatIndicator", ConsumerPresentedMode::getPayloadFormatIndicator)
       .must(not(nullValue()))
@@ -34,8 +34,8 @@ public class ConsumerPresentedModeValidator extends AbstractValidator<ConsumerPr
       .whenever(not(empty()))
         .withValidator(new ApplicationTemplateValidator());
 
-    ruleForEach(ConsumerPresentedMode::getCommonDataTemplates)
-      .whenever(not(empty()))
+    ruleFor(ConsumerPresentedMode::getCommonDataTemplate)
+      .whenever(not(nullValue()))
         .withValidator(new CommonDataTemplateValidator());
   }
 
