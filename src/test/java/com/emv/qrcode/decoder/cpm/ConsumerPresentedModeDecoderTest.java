@@ -15,7 +15,10 @@ import org.junit.Test;
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.model.cpm.ApplicationTemplate;
+import com.emv.qrcode.model.cpm.CommonDataTemplate;
+import com.emv.qrcode.model.cpm.CommonDataTransparentTemplate;
 import com.emv.qrcode.model.cpm.ConsumerPresentedMode;
+import com.emv.qrcode.model.cpm.PayloadFormatIndicator;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
@@ -23,29 +26,50 @@ import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 public class ConsumerPresentedModeDecoderTest {
 
   @Test
-  public void testSuccessDecode() throws PresentedModeException, IOException, DecoderException {
-    final String encoded = "hQVDUFYwMWETTwegAAAAVVVVUAhQcm9kdWN0MWETTwegAAAAZmZmUAhQcm9kdWN0MmJJWggSNFZ4kBI0WF8gDkNBUkRIT0xERVIvRU1WXy0IcnVlc2RlZW5kIZ8QBwYBCgMAAACfJghYT9OF+iNLzJ82AgABnzcEbVjvEw==";
+  public void testSuccessDecode() throws Exception {
+    final String encoded = "hQVDUFYwMWETTwegAAAAVVVVUAhQcm9kdWN0MWETTwegAAAAZmZmUA"
+      + "hQcm9kdWN0MmJJWggSNFZ4kBI0WF8gDkNBUkRIT0xERVIvRU1WXy0IcnVlc2RlZW5kIZ8QBwY"
+      + "BCgMAAACfJghYT9OF+iNLzJ82AgABnzcEbVjvEw==";
 
     final ConsumerPresentedMode consumerPresentedMode = DecoderCpm.decode(encoded, ConsumerPresentedMode.class);
 
-    assertThat(consumerPresentedMode.toHex(), equalTo("8505435056303161134F07A0000000555555500850726F647563743161134F07A0000000666666500850726F647563743262495A0812345678901234585F200E43415244484F4C4445522F454D565F2D08727565736465656E64219F100706010A030000009F2608584FD385FA234BCC9F360200019F37046D58EF13"));
+    final PayloadFormatIndicator payloadFormatIndicator = consumerPresentedMode.getPayloadFormatIndicator();
+    assertThat(payloadFormatIndicator.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR));
+    assertThat(payloadFormatIndicator.getStringValue(), equalTo("CPV01"));
 
-    assertThat(consumerPresentedMode.getPayloadFormatIndicator().getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR));
-    assertThat(consumerPresentedMode.getApplicationTemplates().get(0).getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE));
-    assertThat(consumerPresentedMode.getApplicationTemplates().get(0).getApplicationDefinitionFileName().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME));
-    assertThat(consumerPresentedMode.getApplicationTemplates().get(0).getApplicationLabel().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_LABEL));
-    assertThat(consumerPresentedMode.getApplicationTemplates().get(1).getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE));
-    assertThat(consumerPresentedMode.getApplicationTemplates().get(1).getApplicationDefinitionFileName().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME));
-    assertThat(consumerPresentedMode.getApplicationTemplates().get(1).getApplicationLabel().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_LABEL));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getApplicationPAN().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_PAN));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getCardholderName().getTag(), equalTo(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getLanguagePreference().getTag(), equalTo(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getCommonDataTransparentTemplate().getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getCommonDataTransparentTemplate().getIssuerApplicationData().getTag(), equalTo(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getCommonDataTransparentTemplate().getApplicationCryptogram().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getCommonDataTransparentTemplate().getApplicationTransactionCounter().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER));
-    assertThat(consumerPresentedMode.getCommonDataTemplate().getCommonDataTransparentTemplate().getUnpredictableNumber().getTag(), equalTo(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER));
+    final ApplicationTemplate applicationTemplate1 = consumerPresentedMode.getApplicationTemplates().get(0);
+    assertThat(applicationTemplate1.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE));
+    assertThat(applicationTemplate1.getApplicationDefinitionFileName().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME));
+    assertThat(applicationTemplate1.getApplicationDefinitionFileName().getStringValue(), equalTo("A0000000555555"));
+    assertThat(applicationTemplate1.getApplicationLabel().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_LABEL));
+    assertThat(applicationTemplate1.getApplicationLabel().getStringValue(), equalTo("Product1"));
+
+    final ApplicationTemplate applicationTemplate2 = consumerPresentedMode.getApplicationTemplates().get(1);
+    assertThat(applicationTemplate2.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_APPLICATION_TEMPLATE));
+    assertThat(applicationTemplate2.getApplicationDefinitionFileName().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME));
+    assertThat(applicationTemplate2.getApplicationDefinitionFileName().getStringValue(), equalTo("A0000000666666"));
+    assertThat(applicationTemplate2.getApplicationLabel().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_LABEL));
+    assertThat(applicationTemplate2.getApplicationLabel().getStringValue(), equalTo("Product2"));
+
+    final CommonDataTemplate commonDataTemplate = consumerPresentedMode.getCommonDataTemplate();
+    assertThat(commonDataTemplate.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE));
+    assertThat(commonDataTemplate.getApplicationPAN().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_PAN));
+    assertThat(commonDataTemplate.getApplicationPAN().getStringValue(), equalTo("1234567890123458"));
+    assertThat(commonDataTemplate.getCardholderName().getTag(), equalTo(TagTransactionProcessingCodes.ID_CARDHOLDER_NAME));
+    assertThat(commonDataTemplate.getCardholderName().getStringValue(), equalTo("CARDHOLDER/EMV"));
+    assertThat(commonDataTemplate.getLanguagePreference().getTag(), equalTo(TagTransactionProcessingCodes.ID_LANGUAGE_PREFERENCE));
+    assertThat(commonDataTemplate.getLanguagePreference().getStringValue(), equalTo("ruesdeen"));
+
+    final CommonDataTransparentTemplate commonDataTransparentTemplate = commonDataTemplate.getCommonDataTransparentTemplate();
+    assertThat(commonDataTransparentTemplate.getTag(), equalTo(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE));
+    assertThat(commonDataTransparentTemplate.getIssuerApplicationData().getTag(), equalTo(TagTransactionProcessingCodes.ID_ISSUER_APPLICATION_DATA));
+    assertThat(commonDataTransparentTemplate.getIssuerApplicationData().getStringValue(), equalTo("06010A03000000"));
+    assertThat(commonDataTransparentTemplate.getApplicationCryptogram().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_CRYPTOGRAM));
+    assertThat(commonDataTransparentTemplate.getApplicationCryptogram().getStringValue(), equalTo("584FD385FA234BCC"));
+    assertThat(commonDataTransparentTemplate.getApplicationTransactionCounter().getTag(), equalTo(TagTransactionProcessingCodes.ID_APPLICATION_TRANSACTION_COUNTER));
+    assertThat(commonDataTransparentTemplate.getApplicationTransactionCounter().getStringValue(), equalTo("0001"));
+    assertThat(commonDataTransparentTemplate.getUnpredictableNumber().getTag(), equalTo(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER));
+    assertThat(commonDataTransparentTemplate.getUnpredictableNumber().getStringValue(), equalTo("6D58EF13"));
 
     final byte[] source2 = Hex.decodeHex("8505435056303185054350563031");
 
