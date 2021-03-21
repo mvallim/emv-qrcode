@@ -32,6 +32,7 @@ class ApplicationTemplateValidator extends AbstractValidator<ApplicationTemplate
   		  .when(not(nullValue()))
   			.withMessage("ApplicationDefinitionFileName value size must be between five and sixteen")
   			.withAttempedValue(of(BERTLV::getStringValue));
+
 	}
 }
 // @formatter:on

@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.nio.ByteBuffer;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.codec.DecoderException;
@@ -21,15 +22,18 @@ public class DecodeCpmIteratorTest {
     final String encoded = "85054350563031611A4F07A0000000555"
       + "555570F1234567890123458D191220112345F";
 
-    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
+    final byte[] decodeHex = Hex.decodeHex(encoded);
+
+    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(decodeHex);
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
-      System.err.println(Hex.encodeHex(bytes, false));
-    })).doesNotThrowAnyException();
+    final ByteBuffer byteBuffer = ByteBuffer.allocate(35);
+
+    assertThatCode(() -> decodeIterator.forEachRemaining(byteBuffer::put)).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
+    assertThat(byteBuffer.array(), equalTo(decodeHex));
   }
 
   @Test
@@ -41,31 +45,36 @@ public class DecodeCpmIteratorTest {
       + "6010A030000009F2608584FD385FA234BCC9F360200019F37046"
       + "D58EF13";
 
-    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
+    final byte[] decodeHex = Hex.decodeHex(encoded);
+
+    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(decodeHex);
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
-      System.err.println(Hex.encodeHex(bytes, false));
-    })).doesNotThrowAnyException();
+    final ByteBuffer byteBuffer = ByteBuffer.allocate(124);
+
+    assertThatCode(() -> decodeIterator.forEachRemaining(byteBuffer::put)).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
-
+    assertThat(byteBuffer.array(), equalTo(decodeHex));
   }
 
   @Test
   public void testSuccessParseLongTag() throws DecoderException {
     final String encoded = "9F37046D58EF13";
 
-    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
+    final byte[] decodeHex = Hex.decodeHex(encoded);
+
+    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(decodeHex);
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
-      System.err.println(Hex.encodeHex(bytes, false));
-    })).doesNotThrowAnyException();
+    final ByteBuffer byteBuffer = ByteBuffer.allocate(7);
+
+    assertThatCode(() -> decodeIterator.forEachRemaining(byteBuffer::put)).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
+    assertThat(byteBuffer.array(), equalTo(decodeHex));
   }
 
   @Test
@@ -80,33 +89,41 @@ public class DecodeCpmIteratorTest {
       + "53B8CC6E9AD3DBC925CC72B96EDD783BB0D7B6E8E978BB355E4"
       + "55E7A5BCA57C495";
 
-    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
+    final byte[] decodeHex = Hex.decodeHex(encoded);
+
+    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(decodeHex);
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
-      System.err.println(Hex.encodeHex(bytes, false));
-    })).doesNotThrowAnyException();
+    final ByteBuffer byteBuffer = ByteBuffer.allocate(202);
+
+    assertThatCode(() -> decodeIterator.forEachRemaining(byteBuffer::put)).doesNotThrowAnyException();
 
     assertThat(decodeIterator.hasNext(), equalTo(false));
+    assertThat(byteBuffer.array(), equalTo(decodeHex));
   }
 
   @Test
   public void testFailParse() throws DecoderException {
     final String encoded = "8505435056303161134F07A0000000555"
-      + "555500850726F647563743161134F07A00000006666665008507"
-      + "26F647563743262495A0812345678901234585F200E434152444"
-      + "84F4C4445522F454D565F2D08727565736465656E64219F10070"
-      + "6010A030000009F2608584FD385FA234BCC9F360200019F37046"
-      + "D58";
+        + "555500850726F647563743161134F07A00000006666665008507"
+        + "26F647563743262495A0812345678901234585F200E434152444"
+        + "84F4C4445522F454D565F2D08727565736465656E64219F10070"
+        + "6010A030000009F2608584FD385FA234BCC9F360200019F37046"
+        + "D58EF13";
 
-    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
+    final byte[] decodeHex = Hex.decodeHex(encoded);
+
+    final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(decodeHex);
 
     assertThat(decodeIterator.hasNext(), equalTo(true));
 
-    assertThatCode(() -> decodeIterator.forEachRemaining(bytes -> {
-      System.err.println(Hex.encodeHex(bytes, false));
-    })).doesNotThrowAnyException();
+    final ByteBuffer byteBuffer = ByteBuffer.allocate(124);
+
+    assertThatCode(() -> decodeIterator.forEachRemaining(byteBuffer::put)).doesNotThrowAnyException();
+
+    assertThat(decodeIterator.hasNext(), equalTo(false));
+    assertThat(byteBuffer.array(), equalTo(decodeHex));
 
     final Throwable throwable = catchThrowable(() -> decodeIterator.next());
 
