@@ -2,8 +2,10 @@ package com.emv.qrcode.decoder.mpm;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.utils.TLVUtils;
-import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationReserved;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
+import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 // @formatter:off
 public final class MerchantAccountInformationTemplateDecoder extends DecoderMpm<MerchantAccountInformationTemplate> {
@@ -19,11 +21,32 @@ public final class MerchantAccountInformationTemplateDecoder extends DecoderMpm<
 
     while(iterator.hasNext()) {
       final String value = iterator.next();
-      result.setTag(TLVUtils.valueOfTag(value));
-      result.setValue(DecoderMpm.decode(value, MerchantAccountInformation.class));
+
+      final String tag = TLVUtils.valueOfTag(value);
+
+      result.setTag(tag);
+
+      if (betweenAccountInformationReservedRange(tag)) {
+        result.setValue(DecoderMpm.decode(value, MerchantAccountInformationReserved.class));
+      }
+
+      if (betweenAccountInformationaReservedAdditionalRange(tag)) {
+        result.setValue(DecoderMpm.decode(value, MerchantAccountInformationReservedAdditional.class));
+      }
+
     }
 
     return result;
+  }
+
+  private boolean betweenAccountInformationReservedRange(final String value) {
+    return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_START) >= 0
+        && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_END) <= 0;
+  }
+
+  private boolean betweenAccountInformationaReservedAdditionalRange(final String value) {
+    return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_START) >= 0
+        && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_END) <= 0;
   }
 
 }

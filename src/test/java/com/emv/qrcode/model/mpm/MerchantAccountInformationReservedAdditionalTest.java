@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.model.mpm.TagLengthString;
 
-public class MerchantAccountInformationTest {
+public class MerchantAccountInformationReservedAdditionalTest {
 
   @Test
   public void testSuccessToString() {
@@ -17,7 +17,7 @@ public class MerchantAccountInformationTest {
     tagLengthString.setTag("01");
     tagLengthString.setValue("abcd");
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = new MerchantAccountInformationReservedAdditional();
     merchantAccountInformation.setGloballyUniqueIdentifier("hoge");
     merchantAccountInformation.addPaymentNetworkSpecific(tagLengthString);
 
@@ -26,25 +26,25 @@ public class MerchantAccountInformationTest {
 
   @Test
   public void testSuccessToStringConstructorGloballyUniqueIdentifier() {
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation("hoge");
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = new MerchantAccountInformationReservedAdditional("hoge");
     assertThat(merchantAccountInformation.toString(), equalTo("0004hoge"));
   }
 
   @Test
   public void testSuccessToStringConstructorGloballyUniqueIdentifierAndPaymentNetworkSpecific() {
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation("hoge", "01", "abcd");
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = new MerchantAccountInformationReservedAdditional("hoge", "01", "abcd");
     assertThat(merchantAccountInformation.toString(), equalTo("0004hoge0104abcd"));
   }
 
   @Test
   public void testSuccessToStringConstructorGloballyUniqueIdentifierIsNull() {
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation(null);
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = new MerchantAccountInformationReservedAdditional(null);
     assertThat(merchantAccountInformation.toString(), equalTo(StringUtils.EMPTY));
   }
 
   @Test
   public void testSuccessToStringConstructorGloballyUniqueIdentifierAndPaymentNetworkSpecificIsNull() {
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation(null, null, null);
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = new MerchantAccountInformationReservedAdditional(null, null, null);
     assertThat(merchantAccountInformation.toString(), equalTo(StringUtils.EMPTY));
   }
 

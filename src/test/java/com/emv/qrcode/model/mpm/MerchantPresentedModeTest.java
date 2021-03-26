@@ -56,7 +56,7 @@ public class MerchantPresentedModeTest {
     paymentNetworkSpecific.setTag("01");
     paymentNetworkSpecific.setValue("abcd");
 
-    final MerchantAccountInformation merchantAccountInformationValue = new MerchantAccountInformation();
+    final MerchantAccountInformationReservedAdditional merchantAccountInformationValue = new MerchantAccountInformationReservedAdditional();
     merchantAccountInformationValue.setGloballyUniqueIdentifier("hoge");
     merchantAccountInformationValue.addPaymentNetworkSpecific(paymentNetworkSpecific);
 

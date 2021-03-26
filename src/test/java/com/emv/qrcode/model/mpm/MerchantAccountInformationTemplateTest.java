@@ -17,7 +17,7 @@ public class MerchantAccountInformationTemplateTest {
     tagLengthString.setTag("01");
     tagLengthString.setValue("abcd");
 
-    final MerchantAccountInformation value = new MerchantAccountInformation();
+    final MerchantAccountInformationReservedAdditional value = new MerchantAccountInformationReservedAdditional();
     value.setGloballyUniqueIdentifier("hoge");
     value.addPaymentNetworkSpecific(tagLengthString);
 
@@ -35,7 +35,7 @@ public class MerchantAccountInformationTemplateTest {
     tagLengthString.setTag("01");
     tagLengthString.setValue("abcd");
 
-    final MerchantAccountInformation value = new MerchantAccountInformation();
+    final MerchantAccountInformationReservedAdditional value = new MerchantAccountInformationReservedAdditional();
     value.setGloballyUniqueIdentifier("hoge");
     value.addPaymentNetworkSpecific(tagLengthString);
 
@@ -46,12 +46,19 @@ public class MerchantAccountInformationTemplateTest {
   }
 
   @Test
-  public void testSuccessToStringConstructorTagAndGloballyUniqueIdentifier() {
+  public void testSuccessToStringConstructorTagAndMerchantAccountInformation() {
 
-    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate("02", "hoge");
-    merchantAccountInformation.addPaymentNetworkSpecific("01", "abcd");
+    final TagLengthString tagLengthString = new TagLengthString();
+    tagLengthString.setTag("01");
+    tagLengthString.setValue("abcd");
 
-    assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));
+    final MerchantAccountInformationReservedAdditional value = new MerchantAccountInformationReservedAdditional();
+    value.setGloballyUniqueIdentifier("hoge");
+    value.addPaymentNetworkSpecific(tagLengthString);
+
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate("26", value);
+
+    assertThat(merchantAccountInformation.toString(), equalTo("26160004hoge0104abcd"));
   }
 
   @Test
@@ -68,7 +75,7 @@ public class MerchantAccountInformationTemplateTest {
   public void testSuccessToStringWhenValueIsEmpty() {
 
     final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
-    merchantAccountInformation.setValue(new MerchantAccountInformation());
+    merchantAccountInformation.setValue(new MerchantAccountInformationReservedAdditional());
 
     assertThat(merchantAccountInformation.toString(), equalTo(StringUtils.EMPTY));
   }

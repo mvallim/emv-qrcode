@@ -12,13 +12,13 @@ import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.InvalidTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.mpm.TagLengthString;
-import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional;
 
-public class MerchantAccountInformationDecoderTest {
+public class MerchantAccountInformationReservedAdditionalDecoderTest {
 
   @Test
   public void testSuccessDecode() throws PresentedModeException {
-    final MerchantAccountInformation merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformation.class);
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationReservedAdditional.class);
 
     assertThat(merchantAccountInformation.getGloballyUniqueIdentifier(), not(nullValue()));
     assertThat(merchantAccountInformation.getPaymentNetworkSpecific().size(), equalTo(1));
@@ -35,12 +35,12 @@ public class MerchantAccountInformationDecoderTest {
 
   @Test
   public void testFailDecode() throws PresentedModeException {
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode("02160104abcd0104abcd", MerchantAccountInformation.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode("02160104abcd0104abcd", MerchantAccountInformationReservedAdditional.class), DuplicateTagException.class);
     assertThat(duplicateTagException.getTag(), equalTo("01"));
     assertThat(duplicateTagException.getValue(), equalTo("0104abcd"));
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'MerchantAccountInformation' informed already contains '01' tag"));
 
-    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode("02160104abcdAA04abcd", MerchantAccountInformation.class), InvalidTagException.class);
+    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode("02160104abcdAA04abcd", MerchantAccountInformationReservedAdditional.class), InvalidTagException.class);
     assertThat(invalidTagException.getTag(), equalTo("AA"));
     assertThat(invalidTagException.getValue(), equalTo("AA04abcd"));
     assertThat(invalidTagException.getMessage(), equalTo("Scope: 'MerchantAccountInformation' invalid 'AA' tag"));
@@ -48,7 +48,7 @@ public class MerchantAccountInformationDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() throws PresentedModeException {
-    final MerchantAccountInformation merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformation.class);
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationReservedAdditional.class);
 
     assertThat(merchantAccountInformation.toString(), equalTo("0004hoge0104abcd"));
   }
@@ -60,7 +60,7 @@ public class MerchantAccountInformationDecoderTest {
     paymentNetworkSpecific.setTag("01");
     paymentNetworkSpecific.setValue("abcd");
 
-    final MerchantAccountInformation merchantAccountInformation = new MerchantAccountInformation();
+    final MerchantAccountInformationReservedAdditional merchantAccountInformation = new MerchantAccountInformationReservedAdditional();
     merchantAccountInformation.setGloballyUniqueIdentifier("hoge");
     merchantAccountInformation.addPaymentNetworkSpecific(paymentNetworkSpecific);
 
