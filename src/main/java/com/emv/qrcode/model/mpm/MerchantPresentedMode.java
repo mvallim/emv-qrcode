@@ -137,7 +137,7 @@ public class MerchantPresentedMode implements Serializable {
   }
 
   public final void addUnreserved(final UnreservedTemplate unreserved) {
-    this.unreserveds.put(unreserved.getTag(), unreserved);
+    unreserveds.put(unreserved.getTag(), unreserved);
   }
 
   public final void addMerchantAccountInformation(final MerchantAccountInformationTemplate merchantAccountInformation) {
@@ -159,21 +159,21 @@ public class MerchantPresentedMode implements Serializable {
   @Override
   public String toString() {
 
-    final StringBuilder sb = new StringBuilder(this.toStringWithoutCrc16());
-    
+    final StringBuilder sb = new StringBuilder(toStringWithoutCrc16());
+
     final String string = sb.toString();
-    
+
     if (StringUtils.isBlank(string)) {
       return StringUtils.EMPTY;
     }
 
     final int crc16 = CRC.crc16(sb.toString().getBytes(StandardCharsets.UTF_8));
-    
+
     sb.append(String.format("%04X", crc16));
 
     return sb.toString();
   }
-  
+
   public String toStringWithoutCrc16() {
     final StringBuilder sb = new StringBuilder();
 
@@ -212,7 +212,7 @@ public class MerchantPresentedMode implements Serializable {
     }
 
     sb.append(String.format("%s%s", MerchantPresentedModeCodes.ID_CRC, "04"));
-    
+
     return sb.toString();
   }
 }

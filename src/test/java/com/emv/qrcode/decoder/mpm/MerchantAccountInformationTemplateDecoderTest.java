@@ -9,56 +9,88 @@ import org.junit.Test;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.mpm.TagLengthString;
-import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationReserved;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 
 public class MerchantAccountInformationTemplateDecoderTest {
 
   @Test
-  public void testSuccessDecode() throws PresentedModeException {
-    final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
+  public void testSuccessDecodeReserved() throws PresentedModeException {
+    final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("02040004", MerchantAccountInformationTemplate.class);
 
     assertThat(merchantAccountInformation.getValue(), not(nullValue()));
 
     assertThat(merchantAccountInformation.getTag(), equalTo("02"));
+    assertThat(merchantAccountInformation.getLength(), equalTo(4));
+
+    final MerchantAccountInformationReserved value = merchantAccountInformation.getTypeValue(MerchantAccountInformationReserved.class);
+
+    assertThat(value, not(nullValue()));
+    assertThat(value.getValue(), equalTo("0004"));
+  }
+
+  @Test
+  public void testSuccessDecodeReservedAdditional() throws PresentedModeException {
+    final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("26160004hoge0104abcd", MerchantAccountInformationTemplate.class);
+
+    assertThat(merchantAccountInformation.getValue(), not(nullValue()));
+
+    assertThat(merchantAccountInformation.getTag(), equalTo("26"));
     assertThat(merchantAccountInformation.getLength(), equalTo(16));
 
-    assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier(), not(nullValue()));
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().size(), equalTo(1));
+    final MerchantAccountInformationReservedAdditional value = merchantAccountInformation.getTypeValue(MerchantAccountInformationReservedAdditional.class);
 
-    assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier().getTag(), equalTo("00"));
-    assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier().getLength(), equalTo(4));
-    assertThat(merchantAccountInformation.getValue().getGloballyUniqueIdentifier().getValue(), equalTo("hoge"));
+    assertThat(value.getGloballyUniqueIdentifier(), not(nullValue()));
+    assertThat(value.getPaymentNetworkSpecific().size(), equalTo(1));
 
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get("01").getTag(), equalTo("01"));
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get("01").getLength(), equalTo(4));
-    assertThat(merchantAccountInformation.getValue().getPaymentNetworkSpecific().get("01").getValue(), equalTo("abcd"));
+    assertThat(value.getGloballyUniqueIdentifier().getTag(), equalTo("00"));
+    assertThat(value.getGloballyUniqueIdentifier().getLength(), equalTo(4));
+    assertThat(value.getGloballyUniqueIdentifier().getValue(), equalTo("hoge"));
+
+    assertThat(value.getPaymentNetworkSpecific().get("01").getTag(), equalTo("01"));
+    assertThat(value.getPaymentNetworkSpecific().get("01").getLength(), equalTo(4));
+    assertThat(value.getPaymentNetworkSpecific().get("01").getValue(), equalTo("abcd"));
 
   }
 
   @Test
   public void testSuccessDecodeEncode() throws PresentedModeException {
-    final MerchantAccountInformationTemplate merchantAccountInformation = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
+    final MerchantAccountInformationTemplate merchantAccountInformation1 = DecoderMpm.decode("02160004hoge0104abcd", MerchantAccountInformationTemplate.class);
+    assertThat(merchantAccountInformation1.toString(), equalTo("02160004hoge0104abcd"));
 
-    assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));
+    final MerchantAccountInformationTemplate merchantAccountInformation2 = DecoderMpm.decode("26160004hoge0104abcd", MerchantAccountInformationTemplate.class);
+    assertThat(merchantAccountInformation2.toString(), equalTo("26160004hoge0104abcd"));
   }
 
   @Test
-  public void testSuccessEncode() {
+  public void testSuccessEncodeReserved() {
 
-    final TagLengthString paymentNetworkSpecific = new TagLengthString();
-    paymentNetworkSpecific.setTag("01");
-    paymentNetworkSpecific.setValue("abcd");
-
-    final MerchantAccountInformation value = new MerchantAccountInformation();
-    value.setGloballyUniqueIdentifier("hoge");
-    value.addPaymentNetworkSpecific(paymentNetworkSpecific);
+    final MerchantAccountInformationReserved value = new MerchantAccountInformationReserved("00004");
 
     final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setValue(value);
     merchantAccountInformation.setTag("02");
 
-    assertThat(merchantAccountInformation.toString(), equalTo("02160004hoge0104abcd"));
+    assertThat(merchantAccountInformation.toString(), equalTo("020500004"));
+  }
+
+  @Test
+  public void testSuccessEncodeReservedAdditional() {
+
+    final TagLengthString paymentNetworkSpecific = new TagLengthString();
+    paymentNetworkSpecific.setTag("01");
+    paymentNetworkSpecific.setValue("abcd");
+
+    final MerchantAccountInformationReservedAdditional value = new MerchantAccountInformationReservedAdditional();
+    value.setGloballyUniqueIdentifier("hoge");
+    value.addPaymentNetworkSpecific(paymentNetworkSpecific);
+
+    final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
+    merchantAccountInformation.setValue(value);
+    merchantAccountInformation.setTag("26");
+
+    assertThat(merchantAccountInformation.toString(), equalTo("26160004hoge0104abcd"));
   }
 
 }

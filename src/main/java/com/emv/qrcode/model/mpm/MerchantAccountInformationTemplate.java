@@ -1,11 +1,12 @@
 package com.emv.qrcode.model.mpm;
 
-import com.emv.qrcode.core.model.TLV;
-import lombok.Setter;
+import java.util.Objects;
+
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Objects;
-import java.util.Optional;
+import com.emv.qrcode.core.model.TLV;
+
+import lombok.Setter;
 
 @Setter
 public class MerchantAccountInformationTemplate implements TLV<String, MerchantAccountInformation> {
@@ -21,17 +22,12 @@ public class MerchantAccountInformationTemplate implements TLV<String, MerchantA
   }
 
   public MerchantAccountInformationTemplate(final String tag) {
-    this.setTag(tag);
+    this(tag, null);
   }
 
-  public MerchantAccountInformationTemplate(final String tag, final String globallyUniqueIdentifier) {
-    this.setTag(tag);
-    this.setValue(new MerchantAccountInformation(globallyUniqueIdentifier));
-  }
-
-  public void addPaymentNetworkSpecific(final String tag, final String value) {
-    this.setValue(Optional.ofNullable(this.getValue()).orElse(new MerchantAccountInformation()));
-    this.getValue().addPaymentNetworkSpecific(tag, value);
+  public MerchantAccountInformationTemplate(final String tag, final MerchantAccountInformation value) {
+    setTag(tag);
+    setValue(value);
   }
 
   @Override
@@ -42,6 +38,10 @@ public class MerchantAccountInformationTemplate implements TLV<String, MerchantA
   @Override
   public MerchantAccountInformation getValue() {
     return value;
+  }
+
+  public <T extends MerchantAccountInformation> T getTypeValue(final Class<T> clazz) {
+    return clazz.isInstance(value) ? clazz.cast(value) : null;
   }
 
   @Override

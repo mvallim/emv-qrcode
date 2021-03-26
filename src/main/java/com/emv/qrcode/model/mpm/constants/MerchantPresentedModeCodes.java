@@ -4,8 +4,10 @@ public final class MerchantPresentedModeCodes {
 
   public static final String ID_PAYLOAD_FORMAT_INDICATOR = "00"; // (M) Payload Format Indicator
   public static final String ID_POINT_OF_INITIATION_METHOD = "01"; // (O) Point of Initiation Method
-  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_START = "02"; // (M) 2-51 Merchant Account Information
-  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_END = "51"; // (M) 2-51 Merchant Account Information
+  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_START = "02"; // (M) 2-25 Merchant Account Information
+  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_END = "25"; // (M) 2-26 Merchant Account Information
+  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_START = "26"; // (M) 26-51 Merchant Account Information
+  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_END = "51"; // (M) 26-51 Merchant Account Information
   public static final String ID_MERCHANT_CATEGORY_CODE = "52"; // (M) Merchant Category Code
   public static final String ID_TRANSACTION_CURRENCY = "53"; // (M) Transaction Currency
   public static final String ID_TRANSACTION_AMOUNT = "54"; // (C) Transaction Amount
@@ -25,7 +27,8 @@ public final class MerchantPresentedModeCodes {
   public static final String ID_UNRESERVED_TEMPLATES_RANGE_END = "99"; // (O) 80-99 Unreserved Templates
 
   // Reserved
-  public static final String ID_MERCHANT_ACCOUNT_INFORMATION = ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_START;
+  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED = ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_START;
+  public static final String ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL = ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_START;
   public static final String ID_RFU_FOR_EMVCO = ID_RFU_FOR_EMVCO_RANGE_START;
   public static final String ID_UNRESERVED_TEMPLATES = ID_UNRESERVED_TEMPLATES_RANGE_START;
 

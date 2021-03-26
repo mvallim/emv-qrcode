@@ -41,7 +41,8 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     mapConsumers.put(MerchantPresentedModeCodes.ID_CRC, consumerTagLengthValue(String.class, MerchantPresentedMode::setCRC));
     mapConsumers.put(MerchantPresentedModeCodes.ID_ADDITIONAL_DATA_FIELD_TEMPLATE, consumerTagLengthValue(AdditionalDataFieldTemplate.class, MerchantPresentedMode::setAdditionalDataField));
     mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_INFORMATION_LANGUAGE_TEMPLATE, consumerTagLengthValue(MerchantInformationLanguageTemplate.class, MerchantPresentedMode::setMerchantInformationLanguage));
-    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION, consumerTagLengthValue(MerchantAccountInformationTemplate.class, MerchantPresentedMode::addMerchantAccountInformation));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED, consumerTagLengthValue(MerchantAccountInformationTemplate.class, MerchantPresentedMode::addMerchantAccountInformation));
+    mapConsumers.put(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL, consumerTagLengthValue(MerchantAccountInformationTemplate.class, MerchantPresentedMode::addMerchantAccountInformation));
     mapConsumers.put(MerchantPresentedModeCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(TagLengthString.class, MerchantPresentedMode::addRFUforEMVCo));
     mapConsumers.put(MerchantPresentedModeCodes.ID_UNRESERVED_TEMPLATES, consumerTagLengthValue(UnreservedTemplate.class, MerchantPresentedMode::addUnreserved));
     mapConsumers.put(MerchantPresentedModeCodes.ID_CRC, consumerTagLengthValue(String.class, MerchantPresentedMode::setCRC));
@@ -92,8 +93,12 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
 
   private String derivateId(final String id) {
 
-    if (betweenAccountInformationRange(id)) {
-      return MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION;
+    if (betweenAccountInformationReservedRange(id)) {
+      return MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED;
+    }
+
+    if (betweenAccountInformationaReservedAdditionalRange(id)) {
+      return MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL;
     }
 
     if (betweenRFUForEMVCORange(id)) {
@@ -107,9 +112,14 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     return id;
   }
 
-  private boolean betweenAccountInformationRange(final String value) {
-    return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_START) >= 0
-        && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RANGE_END) <= 0;
+  private boolean betweenAccountInformationReservedRange(final String value) {
+    return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_START) >= 0
+        && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_END) <= 0;
+  }
+
+  private boolean betweenAccountInformationaReservedAdditionalRange(final String value) {
+    return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_START) >= 0
+        && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_END) <= 0;
   }
 
   private boolean betweenRFUForEMVCORange(final String value) {

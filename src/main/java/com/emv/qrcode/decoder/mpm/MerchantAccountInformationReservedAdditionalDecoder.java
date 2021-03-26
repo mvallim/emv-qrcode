@@ -13,30 +13,30 @@ import com.emv.qrcode.core.exception.InvalidTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.core.utils.TLVUtils;
-import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 // @formatter:off
-public final class MerchantAccountInformationDecoder extends DecoderMpm<MerchantAccountInformation> {
+public final class MerchantAccountInformationReservedAdditionalDecoder extends DecoderMpm<MerchantAccountInformationReservedAdditional> {
 
-  private static final Map<String, Entry<Class<?>, BiConsumer<MerchantAccountInformation, ?>>> mapConsumers = new HashMap<>();
+  private static final Map<String, Entry<Class<?>, BiConsumer<MerchantAccountInformationReservedAdditional, ?>>> mapConsumers = new HashMap<>();
 
   static {
-    mapConsumers.put(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, consumerTagLengthValue(String.class, MerchantAccountInformation::setGloballyUniqueIdentifier));
-    mapConsumers.put(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC, consumerTagLengthValue(TagLengthString.class, MerchantAccountInformation::addPaymentNetworkSpecific));
+    mapConsumers.put(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, consumerTagLengthValue(String.class, MerchantAccountInformationReservedAdditional::setGloballyUniqueIdentifier));
+    mapConsumers.put(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC, consumerTagLengthValue(TagLengthString.class, MerchantAccountInformationReservedAdditional::addPaymentNetworkSpecific));
   }
 
-  public MerchantAccountInformationDecoder(final String source) {
+  public MerchantAccountInformationReservedAdditionalDecoder(final String source) {
     super(TLVUtils.valueOf(source));
   }
 
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  protected MerchantAccountInformation decode() throws PresentedModeException {
+  protected MerchantAccountInformationReservedAdditional decode() throws PresentedModeException {
 
     final Set<String> tags = new HashSet<>();
 
-    final MerchantAccountInformation result = new MerchantAccountInformation();
+    final MerchantAccountInformationReservedAdditional result = new MerchantAccountInformationReservedAdditional();
 
     while(iterator.hasNext()) {
       final String value = iterator.next();
@@ -51,7 +51,7 @@ public final class MerchantAccountInformationDecoder extends DecoderMpm<Merchant
 
       tags.add(tag);
 
-      final Entry<Class<?>, BiConsumer<MerchantAccountInformation, ?>> entry = mapConsumers.get(derivateId);
+      final Entry<Class<?>, BiConsumer<MerchantAccountInformationReservedAdditional, ?>> entry = mapConsumers.get(derivateId);
 
       if (Objects.isNull(entry)) {
         throw new InvalidTagException("MerchantAccountInformation", tag, value);

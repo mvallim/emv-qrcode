@@ -1,7 +1,5 @@
 package com.emv.qrcode.validators;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -9,7 +7,7 @@ import org.junit.Test;
 import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
-import com.emv.qrcode.model.mpm.MerchantAccountInformation;
+import com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
@@ -30,18 +28,6 @@ public class MerchantPresentedModeValidatorTest {
     final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
 
     assertTrue(validationResult.isValid());
-  }
-
-  @Test
-  public void testSuccesValidateWhenValidCRC() {
-    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
-
-    merchantPresentMode.setCRC("6325");
-
-    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
-
-    assertThat(validationResult.isValid(), equalTo(true));
-
   }
 
   private MerchantPresentedMode getValidMerchantPresentMode() {
@@ -77,13 +63,13 @@ public class MerchantPresentedModeValidatorTest {
     paymentNetworkSpecific.setTag("01");
     paymentNetworkSpecific.setValue("abcd");
 
-    final MerchantAccountInformation merchantAccountInformationValue = new MerchantAccountInformation();
+    final MerchantAccountInformationReservedAdditional merchantAccountInformationValue = new MerchantAccountInformationReservedAdditional();
     merchantAccountInformationValue.setGloballyUniqueIdentifier("hoge");
     merchantAccountInformationValue.addPaymentNetworkSpecific(paymentNetworkSpecific);
 
     final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
     merchantAccountInformation.setValue(merchantAccountInformationValue);
-    merchantAccountInformation.setTag("02");
+    merchantAccountInformation.setTag("26");
     return merchantAccountInformation;
   }
 
