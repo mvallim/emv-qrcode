@@ -51,7 +51,7 @@ You can pull it from the central Maven repositories:
 <dependency>
     <groupId>com.github.mvallim</groupId>
     <artifactId>emv-qrcode</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 
@@ -71,7 +71,7 @@ If you want to try a snapshot version, add the following repository:
 #### Gradle
 
 ```groovy
-implementation 'com.github.mvallim:emv-qrcode:0.0.9'
+implementation 'com.github.mvallim:emv-qrcode:0.1.1'
 ```
 
 If you want to try a snapshot version, add the following repository:
@@ -88,7 +88,8 @@ repositories {
 
 ```java
 final AdditionalDataFieldTemplate additionalDataField = getAddtionalDataField();
-final MerchantAccountInformationTemplate merchantAccountInformation = getMerchanAccountInformation();
+final MerchantAccountInformationTemplate merchanAccountInformationReservedAdditional = getMerchanAccountInformationReservedAdditional();
+final MerchantAccountInformationTemplate merchanAccountInformationReserved = getMerchanAccountInformationReserved();
 final MerchantInformationLanguageTemplate merchantInformationLanguage = getMerchantInformationLanguage();
 final UnreservedTemplate unreserved = getUnreserved();
 final TagLengthString rFUforEMVCo = new TagLengthString("65", "00");
@@ -103,39 +104,44 @@ merchantPresentMode.setMerchantName("BEST TRANSPORT");
 merchantPresentMode.setPayloadFormatIndicator("01");
 merchantPresentMode.setPointOfInitiationMethod("11");
 merchantPresentMode.setPostalCode("1234567");
-merchantPresentMode.setTipOrConvenienceIndicator("02");
+merchantPresentMode.setTipOrConvenienceIndicator("01");
 merchantPresentMode.setTransactionAmount("23.72");
 merchantPresentMode.setTransactionCurrency("156");
 merchantPresentMode.setValueOfConvenienceFeeFixed("500");
-merchantPresentMode.addMerchantAccountInformation(merchantAccountInformation);
+merchantPresentMode.setValueOfConvenienceFeePercentage("5");
+merchantPresentMode.addMerchantAccountInformation(merchanAccountInformationReserved);
+merchantPresentMode.addMerchantAccountInformation(merchanAccountInformationReservedAdditional);
 merchantPresentMode.addRFUforEMVCo(rFUforEMVCo);
 merchantPresentMode.addUnreserved(unreserved);
 
 System.out.println(merchantPresentMode.toString());
-    //00020101021102160004hoge0104abcd520441115303156540523.7255020256035005802CN5
-    //914BEST TRANSPORT6007BEIJING6107123456762800205678900305098760505abcde0705klm
-    //no0805pqres0903tuv1004abcd5016000412340104ijkl64280002ZH0102北京0204最佳运输030
-    //4abcd65020080320016A01122334499887707081234567863046325
+  //0002010102110204000426160004hoge0104abcd520441115303156540523.7255020156035005
+  //70155802CN5914BEST TRANSPORT6007BEIJING610712345676295010512345020567890030509
+  //8760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i6428000
+  //2ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678630432B
+  //3
 
-private MerchantAccountInformationTemplate getMerchanAccountInformation() {
+// Primitive Payment System Merchant Account Information (IDs "02" to "25")
+private MerchantAccountInformationTemplate getMerchanAccountInformationReserved() {
+  final MerchantAccountInformationReserved merchantAccountInformationValue = new MerchantAccountInformationReserved("0004");
 
+  return new MerchantAccountInformationTemplate("02", merchantAccountInformationValue);
+}
+
+// Merchant Account Information Template (IDs "26" to "51")
+private MerchantAccountInformationTemplate getMerchanAccountInformationReservedAdditional() {
   final TagLengthString paymentNetworkSpecific = new TagLengthString();
   paymentNetworkSpecific.setTag("01");
   paymentNetworkSpecific.setValue("abcd");
 
-  final MerchantAccountInformation merchantAccountInformationValue = new MerchantAccountInformation();
+  final MerchantAccountInformationReservedAdditional merchantAccountInformationValue = new MerchantAccountInformationReservedAdditional();
   merchantAccountInformationValue.setGloballyUniqueIdentifier("hoge");
   merchantAccountInformationValue.addPaymentNetworkSpecific(paymentNetworkSpecific);
 
-  final MerchantAccountInformationTemplate merchantAccountInformation = new MerchantAccountInformationTemplate();
-  merchantAccountInformation.setValue(merchantAccountInformationValue);
-  merchantAccountInformation.setTag("02");
-
-  return merchantAccountInformation;
+  return new MerchantAccountInformationTemplate("26", merchantAccountInformationValue);
 }
 
 private UnreservedTemplate getUnreserved() {
-
   final TagLengthString contextSpecificData = new TagLengthString();
   contextSpecificData.setTag("07");
   contextSpecificData.setValue("12345678");
@@ -170,28 +176,25 @@ private MerchantInformationLanguageTemplate getMerchantInformationLanguage() {
 }
 
 private AdditionalDataFieldTemplate getAddtionalDataField() {
-
   final PaymentSystemSpecific paymentSystemSpecific = new PaymentSystemSpecific();
-  paymentSystemSpecific.setGloballyUniqueIdentifier("1234");
-  paymentSystemSpecific.addPaymentSystemSpecific(new TagLengthString("01", "ijkl"));
+  paymentSystemSpecific.setGloballyUniqueIdentifier("1");
+  paymentSystemSpecific.addPaymentSystemSpecific(new TagLengthString("01", "i"));
 
   final PaymentSystemSpecificTemplate paymentSystemSpecificTemplate = new PaymentSystemSpecificTemplate();
   paymentSystemSpecificTemplate.setTag("50");
   paymentSystemSpecificTemplate.setValue(paymentSystemSpecific);
 
-  final TagLengthString rFUforEMVCo = new TagLengthString();
-  rFUforEMVCo.setTag("10");
-  rFUforEMVCo.setValue("abcd");
-
   final AdditionalDataField additionalDataFieldValue = new AdditionalDataField();
-  additionalDataFieldValue.setAdditionalConsumerDataRequest("tuv");
+  additionalDataFieldValue.setAdditionalConsumerDataRequest("tuvxy");
+  additionalDataFieldValue.setBillNumber("12345");
+  additionalDataFieldValue.setCustomerLabel("fghij");
+  additionalDataFieldValue.setLoyaltyNumber("54321");
   additionalDataFieldValue.setMobileNumber("67890");
   additionalDataFieldValue.setPurposeTransaction("pqres");
   additionalDataFieldValue.setReferenceLabel("abcde");
   additionalDataFieldValue.setStoreLabel("09876");
   additionalDataFieldValue.setTerminalLabel("klmno");
   additionalDataFieldValue.addPaymentSystemSpecific(paymentSystemSpecificTemplate);
-  additionalDataFieldValue.addRFUforEMVCo(rFUforEMVCo);
 
   final AdditionalDataFieldTemplate additionalDataField = new AdditionalDataFieldTemplate();
   additionalDataField.setValue(additionalDataFieldValue);
@@ -306,8 +309,6 @@ public void testFailValidateWhenWithoutCRCDecoded() {
   assertThat(validationResult.getErrors(), hasItem(hasProperty("message", equalTo("Invalid CRC16"))));
   assertThat(validationResult.getErrors(), hasItem(hasProperty("attemptedValue", equalTo("5678"))));
 }
-
-
 ```
 
 ### CPM (Consumer Presented Mode) Encode
