@@ -1,6 +1,7 @@
 # EMV QRCode
 
 ![Java CI with Maven](https://github.com/mvallim/emv-qrcode/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![CodeQL](https://github.com/mvallim/emv-qrcode/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mvallim/emv-qrcode/actions/workflows/codeql-analysis.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=emv-qrcode&metric=alert_status)](https://sonarcloud.io/dashboard?id=emv-qrcode)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=emv-qrcode&metric=coverage)](https://sonarcloud.io/dashboard?id=emv-qrcode)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mvallim/emv-qrcode/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mvallim/emv-qrcode)
