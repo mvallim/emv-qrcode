@@ -11,7 +11,7 @@ Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Features
 
-* Compatible JDK 8, 11 and 15
+* _**Compatible JDK 8, 11, 15, 16 and 17**_
 
 * Ready of specification for **Merchant Presented Mode v1.1**
   * Encode MPM
