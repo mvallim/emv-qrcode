@@ -1,5 +1,6 @@
 package com.emv.qrcode.core.configuration;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -55,6 +56,20 @@ public final class DecodersMpmMap {
 
   private DecodersMpmMap() {
     super();
+  }
+
+  public static Map<Class<?>, Class<? extends DecoderMpm<?>>> getConfiguration() {
+    return Collections.unmodifiableMap(MAP_DECODERS);
+  }
+
+  public static void replaceDecoder(final Class<?> tagClass, final Class<? extends DecoderMpm<?>> decoderClass) {
+    if (MAP_DECODERS.containsKey(tagClass)) {
+      MAP_DECODERS.replace(tagClass, decoderClass);
+    }
+  }
+
+  public static void putDecoder(final Class<?> tagClass, final Class<? extends DecoderMpm<?>> decoderClass) {
+    MAP_DECODERS.put(tagClass, decoderClass);
   }
 
   public static Class<? extends DecoderMpm<?>> getDecoder(final Class<?> clazz) {
