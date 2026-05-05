@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.not;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.model.cpm.BERTag.TagClass;
 import com.emv.qrcode.core.model.cpm.BERTag.TagType;

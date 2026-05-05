@@ -21,7 +21,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.apache.commons.codec.binary.Hex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BERUtilsTest {
 
@@ -132,13 +132,13 @@ public class BERUtilsTest {
 
   @Test
   public void testFailCountBytesOfLength() {
-    final IllegalStateException illegalStateException = catchThrowableOfType(() -> BERUtils.countBytesOfLength(new byte[] { 0x4F, (byte) 0x83, (byte) 0x80, 0x00, 0x00 }), IllegalStateException.class);
+    final IllegalStateException illegalStateException = catchThrowableOfType(IllegalStateException.class, () -> BERUtils.countBytesOfLength(new byte[] { 0x4F, (byte) 0x83, (byte) 0x80, 0x00, 0x00 }));
     assertThat(illegalStateException.getMessage(), equalTo("Decode the length is more then 2 bytes (65535)"));
   }
 
   @Test
   public void testFailLengthToBytes() {
-    final IllegalStateException illegalStateException = catchThrowableOfType(() -> BERUtils.lengthOfValue(65536), IllegalStateException.class);
+    final IllegalStateException illegalStateException = catchThrowableOfType(IllegalStateException.class, () -> BERUtils.lengthOfValue(65536));
     assertThat(illegalStateException.getMessage(), equalTo("Encode the length is more then 2 bytes (65535)"));
   }
 

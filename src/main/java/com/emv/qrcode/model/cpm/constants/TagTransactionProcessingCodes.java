@@ -18,6 +18,10 @@ package com.emv.qrcode.model.cpm.constants;
 
 import com.emv.qrcode.core.model.cpm.BERTag;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TagTransactionProcessingCodes {
 
   public static final BERTag ID_APPLICATION_DEFINITION_FILE_NAME = new BERTag(new byte[] { 0x4F }); // Application Definition File (ADF) Name (M)
@@ -36,9 +40,5 @@ public final class TagTransactionProcessingCodes {
   public static final BERTag ID_APPLICATION_CRYPTOGRAM = new BERTag(new byte[] { (byte) 0x9F, 0x26 }); // Application Cryptogram
   public static final BERTag ID_ISSUER_APPLICATION_DATA = new BERTag(new byte[] { (byte) 0x9F, 0x10 }); // Issuer Application Data
   public static final BERTag ID_UNPREDICTABLE_NUMBER = new BERTag(new byte[] { (byte) 0x9F, 0x37 }); // Unpredictable Number
-
-  private TagTransactionProcessingCodes() {
-    super();
-  }
 
 }

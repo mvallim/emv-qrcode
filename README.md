@@ -1,17 +1,16 @@
 # EMV QRCode
 
-![Java CI with Maven](https://github.com/mvallim/emv-qrcode/workflows/Java%20CI%20with%20Maven/badge.svg)
-[![CodeQL](https://github.com/mvallim/emv-qrcode/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mvallim/emv-qrcode/actions/workflows/codeql-analysis.yml)
+[![Build, Publish Snapshot and Pull Request](https://github.com/mvallim/emv-qrcode/actions/workflows/cd-snapshot.yml/badge.svg)](https://github.com/mvallim/emv-qrcode/actions/workflows/cd-snapshot.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=emv-qrcode&metric=alert_status)](https://sonarcloud.io/dashboard?id=emv-qrcode)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=emv-qrcode&metric=coverage)](https://sonarcloud.io/dashboard?id=emv-qrcode)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mvallim/emv-qrcode/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mvallim/emv-qrcode)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.mvallim/emv-qrcode)](https://img.shields.io/maven-central/v/com.github.mvallim/emv-qrcode)
 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Features
 
-* _**Compatible JDK 8, 11, 15, 16 and 17**_
+* _**Compatible JDK 8, 11, 17 and 21**_
 
 * Ready of specification for **Merchant Presented Mode v1.1**
   * Encode MPM
@@ -54,7 +53,7 @@ You can pull it from the central Maven repositories:
 <dependency>
     <groupId>com.github.mvallim</groupId>
     <artifactId>emv-qrcode</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
 </dependency>
 ```
 
@@ -74,7 +73,7 @@ If you want to try a snapshot version, add the following repository:
 #### Gradle
 
 ```groovy
-implementation 'com.github.mvallim:emv-qrcode:0.1.2'
+implementation 'com.github.mvallim:emv-qrcode:0.1.3'
 ```
 
 If you want to try a snapshot version, add the following repository:

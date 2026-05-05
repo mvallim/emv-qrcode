@@ -26,7 +26,7 @@ import java.io.IOException;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
@@ -63,7 +63,7 @@ public class ApplicationTemplateDecoderTest {
 
     final byte[] source3 = Hex.decodeHex("61234F07A00000005555554F07A0000000555555570F1234567890123458D191220112345F");
 
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderCpm.decode(source3, ApplicationTemplate.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderCpm.decode(source3, ApplicationTemplate.class));
 
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'ApplicationTemplate' informed already contains '4F' tag"));
     assertThat(duplicateTagException.getTag(), equalTo("4F"));

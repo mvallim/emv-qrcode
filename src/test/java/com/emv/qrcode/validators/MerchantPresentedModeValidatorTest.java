@@ -16,9 +16,9 @@
 
 package com.emv.qrcode.validators;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
