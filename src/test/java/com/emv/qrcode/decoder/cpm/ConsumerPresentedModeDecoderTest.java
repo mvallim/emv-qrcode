@@ -26,7 +26,7 @@ import java.io.IOException;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.PresentedModeException;
@@ -89,7 +89,7 @@ public class ConsumerPresentedModeDecoderTest {
 
     final byte[] source2 = Hex.decodeHex("8505435056303185054350563031");
 
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderCpm.decode(source2, ConsumerPresentedMode.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderCpm.decode(source2, ConsumerPresentedMode.class));
 
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'ConsumerPresentedMode' informed already contains '85' tag"));
     assertThat(duplicateTagException.getTag(), equalTo("85"));

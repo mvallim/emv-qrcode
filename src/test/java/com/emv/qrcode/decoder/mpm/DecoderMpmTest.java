@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.model.mpm.MerchantPresentedMode;

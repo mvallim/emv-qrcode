@@ -19,7 +19,7 @@ package com.emv.qrcode.model.cpm;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AdditionalDataTest {
 
