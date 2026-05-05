@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 // @formatter:off
 public class DecodeCpmIteratorTest {
@@ -161,7 +161,7 @@ public class DecodeCpmIteratorTest {
 
     final DecodeCpmIterator decodeIterator = new DecodeCpmIterator(Hex.decodeHex(encoded));
 
-    final IllegalStateException illegalStateException = catchThrowableOfType(() -> decodeIterator.hasNext(), IllegalStateException.class);
+    final IllegalStateException illegalStateException = catchThrowableOfType(IllegalStateException.class, () -> decodeIterator.hasNext());
 
     assertThat(illegalStateException.getMessage(), equalTo("Decode the length is more then 2 bytes (65535)"));
   }

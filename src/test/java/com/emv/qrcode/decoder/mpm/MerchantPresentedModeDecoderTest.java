@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.InvalidTagException;
@@ -259,13 +259,13 @@ public class MerchantPresentedModeDecoderTest {
   @Test
   public void testFailDecode() throws PresentedModeException {
     final String encoded1 = "00020101021102160004hoge0104abcd5204411153031565303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode(encoded1, MerchantPresentedMode.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderMpm.decode(encoded1, MerchantPresentedMode.class));
     assertThat(duplicateTagException.getTag(), equalTo("53"));
     assertThat(duplicateTagException.getValue(), equalTo("5303156"));
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'MerchantPresentedMode' informed already contains '53' tag"));
 
     final String encoded2 = "00020101021102160004hoge0104abcd52044111AA031565303156540523.725502015603500570155802CN5914BEST TRANSPORT6007BEIJING6107123456762950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i64280002ZH0102北京0204最佳运输0304abcd65020080320016A011223344998877070812345678";
-    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode(encoded2, MerchantPresentedMode.class), InvalidTagException.class);
+    final InvalidTagException invalidTagException = catchThrowableOfType(InvalidTagException.class, () -> DecoderMpm.decode(encoded2, MerchantPresentedMode.class));
     assertThat(invalidTagException.getTag(), equalTo("AA"));
     assertThat(invalidTagException.getValue(), equalTo("AA03156"));
     assertThat(invalidTagException.getMessage(), equalTo("Scope: 'MerchantPresentedMode' invalid 'AA' tag"));

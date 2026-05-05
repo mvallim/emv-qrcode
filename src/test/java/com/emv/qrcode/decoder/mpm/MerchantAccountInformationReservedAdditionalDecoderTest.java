@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.InvalidTagException;
@@ -51,12 +51,12 @@ public class MerchantAccountInformationReservedAdditionalDecoderTest {
 
   @Test
   public void testFailDecode() throws PresentedModeException {
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode("02160104abcd0104abcd", MerchantAccountInformationReservedAdditional.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderMpm.decode("02160104abcd0104abcd", MerchantAccountInformationReservedAdditional.class));
     assertThat(duplicateTagException.getTag(), equalTo("01"));
     assertThat(duplicateTagException.getValue(), equalTo("0104abcd"));
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'MerchantAccountInformation' informed already contains '01' tag"));
 
-    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode("02160104abcdAA04abcd", MerchantAccountInformationReservedAdditional.class), InvalidTagException.class);
+    final InvalidTagException invalidTagException = catchThrowableOfType(InvalidTagException.class, () -> DecoderMpm.decode("02160104abcdAA04abcd", MerchantAccountInformationReservedAdditional.class));
     assertThat(invalidTagException.getTag(), equalTo("AA"));
     assertThat(invalidTagException.getValue(), equalTo("AA04abcd"));
     assertThat(invalidTagException.getMessage(), equalTo("Scope: 'MerchantAccountInformation' invalid 'AA' tag"));

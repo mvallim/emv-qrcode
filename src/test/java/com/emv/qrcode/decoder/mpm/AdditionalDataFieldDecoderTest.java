@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.InvalidTagException;
@@ -91,12 +91,12 @@ public class AdditionalDataFieldDecoderTest {
 
   @Test
   public void testFailDecode() throws PresentedModeException {
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode("622311011010512345010512345", AdditionalDataField.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderMpm.decode("622311011010512345010512345", AdditionalDataField.class));
     assertThat(duplicateTagException.getTag(), equalTo("01"));
     assertThat(duplicateTagException.getValue(), equalTo("010512345"));
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'AdditionalDataField' informed already contains '01' tag"));
 
-    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode("621411011AA0512345", AdditionalDataField.class), InvalidTagException.class);
+    final InvalidTagException invalidTagException = catchThrowableOfType(InvalidTagException.class, () -> DecoderMpm.decode("621411011AA0512345", AdditionalDataField.class));
     assertThat(invalidTagException.getTag(), equalTo("AA"));
     assertThat(invalidTagException.getValue(), equalTo("AA0512345"));
     assertThat(invalidTagException.getMessage(), equalTo("Scope: 'AdditionalDataField' invalid 'AA' tag"));

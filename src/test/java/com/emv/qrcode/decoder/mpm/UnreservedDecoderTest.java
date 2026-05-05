@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.InvalidTagException;
@@ -51,12 +51,12 @@ public class UnreservedDecoderTest {
 
   @Test
   public void testFailDecode() throws PresentedModeException {
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode("91440016A011223344998877070812345678070812345678", Unreserved.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderMpm.decode("91440016A011223344998877070812345678070812345678", Unreserved.class));
     assertThat(duplicateTagException.getTag(), equalTo("07"));
     assertThat(duplicateTagException.getValue(), equalTo("070812345678"));
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'Unreserved' informed already contains '07' tag"));
 
-    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode("91320016A011223344998877AA0812345678", Unreserved.class), InvalidTagException.class);
+    final InvalidTagException invalidTagException = catchThrowableOfType(InvalidTagException.class, () -> DecoderMpm.decode("91320016A011223344998877AA0812345678", Unreserved.class));
     assertThat(invalidTagException.getTag(), equalTo("AA"));
     assertThat(invalidTagException.getValue(), equalTo("AA0812345678"));
     assertThat(invalidTagException.getMessage(), equalTo("Scope: 'Unreserved' invalid 'AA' tag"));
