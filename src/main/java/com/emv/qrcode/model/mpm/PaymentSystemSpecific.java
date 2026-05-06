@@ -29,6 +29,12 @@ import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 import lombok.Getter;
 
+/**
+ * Represents Payment System Specific data in a Merchant Presented Mode (MPM) QR code.
+ * This class contains a Globally Unique Identifier and payment system-specific data fields.
+ *
+ * @see TagLengthString
+ */
 @Getter
 public class PaymentSystemSpecific implements Serializable {
 
@@ -40,36 +46,80 @@ public class PaymentSystemSpecific implements Serializable {
   // Context Specific Data
   private final Map<String, TagLengthString> paymentSystemSpecific = new LinkedHashMap<>();
 
+  /**
+   * Constructs an empty PaymentSystemSpecific.
+   */
   public PaymentSystemSpecific() {
     super();
   }
 
+  /**
+   * Constructs a PaymentSystemSpecific with the specified Globally Unique Identifier.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   */
   public PaymentSystemSpecific(final String globallyUniqueIdentifier) {
     this.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
   }
 
+  /**
+   * Constructs a PaymentSystemSpecific with the specified values.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   * @param tag the payment system specific field tag
+   * @param value the payment system specific field value
+   */
   public PaymentSystemSpecific(final String globallyUniqueIdentifier, final String tag, final String value) {
     this.setGloballyUniqueIdentifier(globallyUniqueIdentifier, tag, value);
   }
 
+  /**
+   * Sets the Globally Unique Identifier (tag 00).
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   */
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier) {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
   }
 
+  /**
+   * Sets the Globally Unique Identifier and adds a payment system specific field.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   * @param paymentSystemSpecific the payment system specific field to add
+   */
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier, final TagLengthString paymentSystemSpecific) {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
     this.addPaymentSystemSpecific(paymentSystemSpecific);
   }
 
+  /**
+   * Sets the Globally Unique Identifier and adds a payment system specific field.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   * @param tag the payment system specific field tag
+   * @param value the payment system specific field value
+   */
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier, final String tag, final String value) {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
     this.addPaymentSystemSpecific(tag, value);
   }
 
+  /**
+   * Adds a payment system specific field.
+   *
+   * @param tagLengthString the TagLengthString to add
+   */
   public void addPaymentSystemSpecific(final TagLengthString tagLengthString) {
     paymentSystemSpecific.put(tagLengthString.getTag(), tagLengthString);
   }
 
+  /**
+   * Adds a payment system specific field with the specified tag and value.
+   *
+   * @param tag the field tag
+   * @param value the field value
+   */
   public void addPaymentSystemSpecific(final String tag, final String value) {
     paymentSystemSpecific.put(tag, new TagLengthString(tag, value));
   }

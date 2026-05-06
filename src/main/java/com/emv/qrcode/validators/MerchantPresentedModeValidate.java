@@ -21,15 +21,30 @@ import com.emv.qrcode.validators.mpm.MerchantPresentedModeValidator;
 
 import br.com.fluentvalidator.Validator;
 import br.com.fluentvalidator.context.ValidationResult;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+/**
+ * Validator class for MerchantPresentedMode (MPM) QR code data. This class uses
+ * FluentValidator to validate MPM data structures.
+ *
+ * @see MerchantPresentedMode
+ * @see MerchantPresentedModeValidator
+ * @see br.com.fluentvalidator.Validator
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MerchantPresentedModeValidate {
 
   private static final Validator<MerchantPresentedMode> VALIDATOR = new MerchantPresentedModeValidator();
 
-  private MerchantPresentedModeValidate() {
-    super();
-  }
-
+  /**
+   * Validates a MerchantPresentedMode instance using the configured validator.
+   *
+   * @param instance the MerchantPresentedMode instance to validate (must not be
+   *                 null)
+   * @return the validation result containing any validation errors
+   * @see MerchantPresentedModeValidator
+   */
   public static final ValidationResult validate(final MerchantPresentedMode instance) {
     return VALIDATOR.validate(instance);
   }

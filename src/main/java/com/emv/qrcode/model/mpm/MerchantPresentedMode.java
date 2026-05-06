@@ -33,6 +33,13 @@ import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import lombok.Getter;
 
+/**
+ * Represents a Merchant Presented Mode (MPM) QR code data structure as defined by EMVCo.
+ * This class models all data fields that can be encoded in a merchant-presented QR code,
+ * including merchant information, transaction details, and additional data fields.
+ *
+ * @see <a href="https://www.emvco.com/specifications/">EMVCo QR Code Specification</a>
+ */
 @Getter
 public class MerchantPresentedMode implements Serializable {
 
@@ -92,82 +99,182 @@ public class MerchantPresentedMode implements Serializable {
   // Unreserved Templates
   private final Map<String, UnreservedTemplate> unreserveds = new LinkedHashMap<>();
 
+  /**
+   * Sets the Additional Data Field Template.
+   *
+   * @param additionalDataField the additional data field template
+   */
   public void setAdditionalDataField(final AdditionalDataFieldTemplate additionalDataField) {
     this.additionalDataField = additionalDataField;
   }
 
+  /**
+   * Sets the Merchant Information Language Template.
+   *
+   * @param merchantInformationLanguage the merchant information language template
+   */
   public void setMerchantInformationLanguage(final MerchantInformationLanguageTemplate merchantInformationLanguage) {
     this.merchantInformationLanguage = merchantInformationLanguage;
   }
 
+  /**
+   * Sets the Payload Format Indicator (tag 00).
+   *
+   * @param payloadFormatIndicator the payload format indicator value
+   */
   public final void setPayloadFormatIndicator(final String payloadFormatIndicator) {
     this.payloadFormatIndicator = new TagLengthString(MerchantPresentedModeCodes.ID_PAYLOAD_FORMAT_INDICATOR, payloadFormatIndicator);
   }
 
+  /**
+   * Sets the Point of Initiation Method (tag 01).
+   *
+   * @param pointOfInitiationMethod the point of initiation method value
+   */
   public final void setPointOfInitiationMethod(final String pointOfInitiationMethod) {
     this.pointOfInitiationMethod = new TagLengthString(MerchantPresentedModeCodes.ID_POINT_OF_INITIATION_METHOD, pointOfInitiationMethod);
   }
 
+  /**
+   * Sets the Merchant Category Code (tag 52).
+   *
+   * @param merchantCategoryCode the merchant category code value
+   */
   public final void setMerchantCategoryCode(final String merchantCategoryCode) {
     this.merchantCategoryCode = new TagLengthString(MerchantPresentedModeCodes.ID_MERCHANT_CATEGORY_CODE, merchantCategoryCode);
   }
 
+  /**
+   * Sets the Transaction Currency (tag 53).
+   *
+   * @param transactionCurrency the transaction currency code (ISO 4217)
+   */
   public final void setTransactionCurrency(final String transactionCurrency) {
     this.transactionCurrency = new TagLengthString(MerchantPresentedModeCodes.ID_TRANSACTION_CURRENCY, transactionCurrency);
   }
 
+  /**
+   * Sets the Transaction Amount (tag 54).
+   *
+   * @param transactionAmount the transaction amount value
+   */
   public final void setTransactionAmount(final String transactionAmount) {
     this.transactionAmount = new TagLengthString(MerchantPresentedModeCodes.ID_TRANSACTION_AMOUNT, transactionAmount);
   }
 
+  /**
+   * Sets the Tip or Convenience Indicator (tag 55).
+   *
+   * @param tipOrConvenienceIndicator the tip or convenience indicator value
+   */
   public final void setTipOrConvenienceIndicator(final String tipOrConvenienceIndicator) {
     this.tipOrConvenienceIndicator = new TagLengthString(MerchantPresentedModeCodes.ID_TIP_OR_CONVENIENCE_INDICATOR, tipOrConvenienceIndicator);
   }
 
+  /**
+   * Sets the Value of Convenience Fee Fixed (tag 56).
+   *
+   * @param valueOfConvenienceFeeFixed the fixed convenience fee value
+   */
   public final void setValueOfConvenienceFeeFixed(final String valueOfConvenienceFeeFixed) {
     this.valueOfConvenienceFeeFixed = new TagLengthString(MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_FIXED, valueOfConvenienceFeeFixed);
   }
 
+  /**
+   * Sets the Value of Convenience Fee Percentage (tag 57).
+   *
+   * @param valueOfConvenienceFeePercentage the convenience fee percentage value
+   */
   public final void setValueOfConvenienceFeePercentage(final String valueOfConvenienceFeePercentage) {
     this.valueOfConvenienceFeePercentage = new TagLengthString(MerchantPresentedModeCodes.ID_VALUE_OF_CONVENIENCE_FEE_PERCENTAGE, valueOfConvenienceFeePercentage);
   }
 
+  /**
+   * Sets the Country Code (tag 58).
+   *
+   * @param countryCode the country code (ISO 3166-1 alpha-2)
+   */
   public final void setCountryCode(final String countryCode) {
     this.countryCode = new TagLengthString(MerchantPresentedModeCodes.ID_COUNTRY_CODE, countryCode);
   }
 
+  /**
+   * Sets the Merchant Name (tag 59).
+   *
+   * @param merchantName the merchant name
+   */
   public final void setMerchantName(final String merchantName) {
     this.merchantName = new TagLengthString(MerchantPresentedModeCodes.ID_MERCHANT_NAME, merchantName);
   }
 
+  /**
+   * Sets the Merchant City (tag 60).
+   *
+   * @param merchantCity the merchant city
+   */
   public final void setMerchantCity(final String merchantCity) {
     this.merchantCity = new TagLengthString(MerchantPresentedModeCodes.ID_MERCHANT_CITY, merchantCity);
   }
 
+  /**
+   * Sets the Postal Code (tag 61).
+   *
+   * @param postalCode the postal code
+   */
   public final void setPostalCode(final String postalCode) {
     this.postalCode = new TagLengthString(MerchantPresentedModeCodes.ID_POSTAL_CODE, postalCode);
   }
 
+  /**
+   * Sets the CRC (tag 63).
+   *
+   * @param cRC the CRC value
+   */
   public final void setCRC(final String cRC) {
     this.cRC = new TagLengthString(MerchantPresentedModeCodes.ID_CRC, cRC);
   }
 
+  /**
+   * Adds an Unreserved Template to the QR code data.
+   *
+   * @param unreserved the unreserved template to add
+   */
   public final void addUnreserved(final UnreservedTemplate unreserved) {
     unreserveds.put(unreserved.getTag(), unreserved);
   }
 
+  /**
+   * Adds a Merchant Account Information Template to the QR code data.
+   *
+   * @param merchantAccountInformation the merchant account information template to add
+   */
   public final void addMerchantAccountInformation(final MerchantAccountInformationTemplate merchantAccountInformation) {
     this.merchantAccountInformation.put(merchantAccountInformation.getTag(), merchantAccountInformation);
   }
 
+  /**
+   * Adds a Reserved for Future Use (RFU) field for EMVCo.
+   *
+   * @param rFUforEMVCo the RFU field to add
+   */
   public final void addRFUforEMVCo(final TagLengthString rFUforEMVCo) {
     this.rFUforEMVCo.put(rFUforEMVCo.getTag(), rFUforEMVCo);
   }
 
+  /**
+   * Converts the QR code data to a hexadecimal string representation.
+   *
+   * @return the hexadecimal encoded string
+   */
   public String toHex() {
     return Hex.encodeHexString(toString().getBytes(StandardCharsets.UTF_8), false);
   }
 
+  /**
+   * Converts the QR code data to a Base64 encoded string.
+   *
+   * @return the Base64 encoded string
+   */
   public String toBase64() {
     return Base64.encodeBase64String(toString().getBytes(StandardCharsets.UTF_8));
   }
@@ -190,6 +297,11 @@ public class MerchantPresentedMode implements Serializable {
     return sb.toString();
   }
 
+  /**
+   * Returns the string representation of the QR code data without the CRC16 checksum.
+   *
+   * @return the QR code data as a string without CRC
+   */
   public String toStringWithoutCrc16() {
     final StringBuilder sb = new StringBuilder();
 

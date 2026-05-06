@@ -16,19 +16,49 @@
 
 package com.emv.qrcode.model.mpm.constants;
 
-public class MerchantInformationLanguageFieldCodes {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-  public static final String ID_LANGUAGE_PREFERENCE = "00"; // (M) Language Preference
-  public static final String ID_MERCHANT_NAME = "01"; // (M) Merchant Name
-  public static final String ID_MERCHANT_CITY = "02"; // (O) Merchant City
-  public static final String ID_RFU_FOR_EMVCO_RANGE_START = "03"; // (O) 03-99 RFU for EMVCo
-  public static final String ID_RFU_FOR_EMVCO_RANGE_END = "99"; // (O) 03-99 RFU for EMVCo
+/**
+ * Constants for Merchant Information Language Template sub-field tags. These
+ * constants define the EMVCo-assigned tag values for fields within the Merchant
+ * Information Language Template (ID 64) in Merchant Presented Mode.
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantInformationLanguage
+ * @see com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate
+ * @since EMVCo QR Code Specification v1.0
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class MerchantInformationLanguageFieldCodes {
 
-  // Reserved
+  /**
+   * (M) Language Preference - ISO 639-1 language code.
+   */
+  public static final String ID_LANGUAGE_PREFERENCE = "00";
+
+  /**
+   * (M) Merchant Name - name of the merchant in the specified language.
+   */
+  public static final String ID_MERCHANT_NAME = "01";
+
+  /**
+   * (O) Merchant City - city where merchant is located in specified language.
+   */
+  public static final String ID_MERCHANT_CITY = "02";
+
+  /**
+   * (O) Start of RFU (Reserved for Future Use) range for EMVCo (03-99).
+   */
+  public static final String ID_RFU_FOR_EMVCO_RANGE_START = "03";
+
+  /**
+   * (O) End of RFU (Reserved for Future Use) range for EMVCo (03-99).
+   */
+  public static final String ID_RFU_FOR_EMVCO_RANGE_END = "99";
+
+  /**
+   * Reserved: Alias for RFU for EMVCo range start.
+   */
   public static final String ID_RFU_FOR_EMVCO = ID_RFU_FOR_EMVCO_RANGE_START;
-
-  private MerchantInformationLanguageFieldCodes() {
-    super();
-  }
 
 }

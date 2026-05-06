@@ -25,9 +25,10 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.Getter;
 
 /**
+ * Enumeration representing ISO 3166 country codes used in EMV QR code specifications.
+ * Each enum constant contains the alpha-2, alpha-3, and numeric country codes.
  *
- * ISO 3166 country codes
- *
+ * @see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>
  */
 @Getter
 public enum Country {
@@ -75,6 +76,13 @@ public enum Country {
 
   private final String code;
 
+  /**
+   * Constructs a Country enum constant with the specified codes.
+   *
+   * @param alpha2 the ISO 3166-1 alpha-2 country code
+   * @param alpha3 the ISO 3166-1 alpha-3 country code
+   * @param code the ISO 3166-1 numeric country code
+   */
   private Country(final String alpha2, final String alpha3, final String code) {
     this.alpha2 = alpha2;
     this.alpha3 = alpha3;
@@ -86,10 +94,23 @@ public enum Country {
     return alpha2;
   }
 
+  /**
+   * Returns the Country enum constant for the given country code.
+   * The code can be either alpha-2 or alpha-3 format (case-insensitive).
+   *
+   * @param code the country code to look up
+   * @return the corresponding Country enum constant, or null if not found
+   */
   public static Country entryOf(final String code) {
     return StringUtils.isNoneBlank(code) ? mapString.get(code.toUpperCase()) : null;
   }
 
+  /**
+   * Checks if a country code exists in the enumeration.
+   *
+   * @param lang the country code to check (alpha-2 format expected)
+   * @return true if the country code exists, false otherwise
+   */
   public static boolean exists(final String lang) {
     return StringUtils.isNoneBlank(lang) && mapString.containsKey(lang.toUpperCase());
   }

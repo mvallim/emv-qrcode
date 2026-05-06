@@ -35,9 +35,22 @@ import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for MerchantInformationLanguage in Merchant Presented Mode QR codes.
+ * Validates the language-specific merchant information including language preference,
+ * merchant name, and merchant city within the Merchant Information Language Template.
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantInformationLanguage
+ * @see com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes
+ */
 // @formatter:off
 class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInformationLanguage> {
 
+  /**
+   * Defines validation rules for MerchantInformationLanguage.
+   * Validates LanguagePreference (mandatory, 2 chars), MerchantName (mandatory, max 25 chars),
+   * and MerchantCity (optional, max 15 chars) with proper tag values.
+   */
   @Override
   public void rules() {
 

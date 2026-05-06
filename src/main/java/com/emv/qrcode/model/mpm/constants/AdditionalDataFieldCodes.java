@@ -16,28 +16,93 @@
 
 package com.emv.qrcode.model.mpm.constants;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+/**
+ * Constants for Additional Data Field template sub-field tags. These constants
+ * define the EMVCo-assigned tag values for fields within the Additional Data
+ * Field Template (ID 62) in Merchant Presented Mode.
+ *
+ * @see com.emv.qrcode.model.mpm.AdditionalDataField
+ * @since EMVCo QR Code Specification v1.0
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AdditionalDataFieldCodes {
 
-  public static final String ID_BILL_NUMBER = "01"; // (O) Bill Number
-  public static final String ID_MOBILE_NUMBER = "02"; // (O) Mobile Number
-  public static final String ID_STORE_LABEL = "03"; // (O) Store Label
-  public static final String ID_LOYALTY_NUMBER = "04"; // (O) Loyalty Number
-  public static final String ID_REFERENCE_LABEL = "05"; // (O) Reference Label
-  public static final String ID_CUSTOMER_LABEL = "06"; // (O) Customer Label
-  public static final String ID_TERMINAL_LABEL = "07"; // (O) Terminal Label
-  public static final String ID_PURPOSE_TRANSACTION = "08"; // (O) Purpose Transaction
-  public static final String ID_ADDITIONAL_CONSUMER_DATA_REQUEST = "09"; // (O) Additional Consumer Data Request
-  public static final String ID_RFU_FOR_EMVCO_RANGE_START = "10"; // (O) RFU for EMVCo
-  public static final String ID_RFU_FOR_EMVCO_RANGE_END = "49"; // (O) RFU for EMVCo
-  public static final String ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START = "50"; // (O) Payment System Specific Templates
-  public static final String ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_END = "99"; // (O) Payment System Specific Templates
+  /**
+   * (O) Bill Number - reference number for the bill or invoice.
+   */
+  public static final String ID_BILL_NUMBER = "01";
 
-  // Reserved
+  /**
+   * (O) Mobile Number - customer's mobile phone number.
+   */
+  public static final String ID_MOBILE_NUMBER = "02";
+
+  /**
+   * (O) Store Label - identifier or label for the store.
+   */
+  public static final String ID_STORE_LABEL = "03";
+
+  /**
+   * (O) Loyalty Number - customer's loyalty program identifier.
+   */
+  public static final String ID_LOYALTY_NUMBER = "04";
+
+  /**
+   * (O) Reference Label - additional reference information.
+   */
+  public static final String ID_REFERENCE_LABEL = "05";
+
+  /**
+   * (O) Customer Label - identifier for the customer.
+   */
+  public static final String ID_CUSTOMER_LABEL = "06";
+
+  /**
+   * (O) Terminal Label - identifier for the terminal.
+   */
+  public static final String ID_TERMINAL_LABEL = "07";
+
+  /**
+   * (O) Purpose Transaction - purpose of the transaction.
+   */
+  public static final String ID_PURPOSE_TRANSACTION = "08";
+
+  /**
+   * (O) Additional Consumer Data Request - requests additional consumer data.
+   */
+  public static final String ID_ADDITIONAL_CONSUMER_DATA_REQUEST = "09";
+
+  /**
+   * (O) Start of RFU (Reserved for Future Use) range for EMVCo (10-49).
+   */
+  public static final String ID_RFU_FOR_EMVCO_RANGE_START = "10";
+
+  /**
+   * (O) End of RFU (Reserved for Future Use) range for EMVCo (10-49).
+   */
+  public static final String ID_RFU_FOR_EMVCO_RANGE_END = "49";
+
+  /**
+   * (O) Start of Payment System Specific Templates range (50-99).
+   */
+  public static final String ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START = "50";
+
+  /**
+   * (O) End of Payment System Specific Templates range (50-99).
+   */
+  public static final String ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_END = "99";
+
+  /**
+   * Reserved: Alias for RFU for EMVCo range start.
+   */
   public static final String ID_RFU_FOR_EMVCO = ID_RFU_FOR_EMVCO_RANGE_START;
-  public static final String ID_PAYMENT_SYSTEM_SPECIFIC = ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START;
 
-  private AdditionalDataFieldCodes() {
-    super();
-  }
+  /**
+   * Reserved: Alias for Payment System Specific range start.
+   */
+  public static final String ID_PAYMENT_SYSTEM_SPECIFIC = ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START;
 
 }

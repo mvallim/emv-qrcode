@@ -33,6 +33,13 @@ import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
 
 // @formatter:off
+/**
+ * Decoder for parsing Unreserved data from MPM QR code strings.
+ * This decoder handles the Globally Unique Identifier and context-specific data fields.
+ *
+ * @see DecoderMpm
+ * @see Unreserved
+ */
 public final class UnreservedDecoder extends DecoderMpm<Unreserved> {
 
   private static final Map<String, Entry<Class<?>, BiConsumer<Unreserved, ?>>> mapConsumers = new HashMap<>();
@@ -42,6 +49,11 @@ public final class UnreservedDecoder extends DecoderMpm<Unreserved> {
     mapConsumers.put(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA, consumerTagLengthValue(TagLengthString.class, Unreserved::addContextSpecificData));
   }
 
+  /**
+   * Constructs an UnreservedDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public UnreservedDecoder(final String source) {
     super(TLVUtils.valueOf(source));
   }
@@ -83,6 +95,12 @@ public final class UnreservedDecoder extends DecoderMpm<Unreserved> {
     return result;
   }
 
+  /**
+   * Derives the consumer key for a given tag ID, handling range-based tags.
+   *
+   * @param id the tag ID to derive from
+   * @return the derived consumer key
+   */
   private String derivateId(final String id) {
 
     if (betweenContextSpecificDataRange(id)) {
@@ -92,6 +110,9 @@ public final class UnreservedDecoder extends DecoderMpm<Unreserved> {
     return id;
   }
 
+  /**
+   * Checks if a tag is in the Context Specific Data range (01-99).
+   */
   private boolean betweenContextSpecificDataRange(final String value) {
     return value.compareTo(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA_START) >= 0
         && value.compareTo(UnreservedTemplateFieldCodes.ID_CONTEXT_SPECIFIC_DATA_END) <= 0;

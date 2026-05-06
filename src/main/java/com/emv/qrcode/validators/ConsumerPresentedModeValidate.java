@@ -21,15 +21,30 @@ import com.emv.qrcode.validators.cpm.ConsumerPresentedModeValidator;
 
 import br.com.fluentvalidator.Validator;
 import br.com.fluentvalidator.context.ValidationResult;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+/**
+ * Validator class for ConsumerPresentedMode (CPM) QR code data. This class uses
+ * FluentValidator to validate CPM data structures.
+ *
+ * @see ConsumerPresentedMode
+ * @see ConsumerPresentedModeValidator
+ * @see br.com.fluentvalidator.Validator
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConsumerPresentedModeValidate {
 
   private static final Validator<ConsumerPresentedMode> VALIDATOR = new ConsumerPresentedModeValidator();
 
-  private ConsumerPresentedModeValidate() {
-    super();
-  }
-
+  /**
+   * Validates a ConsumerPresentedMode instance using the configured validator.
+   *
+   * @param instance the ConsumerPresentedMode instance to validate (must not be
+   *                 null)
+   * @return the validation result containing any validation errors
+   * @see ConsumerPresentedModeValidator
+   */
   public static final ValidationResult validate(final ConsumerPresentedMode instance) {
     return VALIDATOR.validate(instance);
   }

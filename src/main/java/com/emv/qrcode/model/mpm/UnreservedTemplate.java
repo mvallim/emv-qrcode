@@ -23,6 +23,20 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Represents an Unreserved Template in Merchant Presented Mode (MPM).
+ * This class models a template for proprietary or future use within tags 80-99
+ * of an MPM QR code.
+ *
+ * <p>Each Unreserved Template contains a Globally Unique Identifier and
+ * optional context-specific data. The template uses TLV (Tag-Length-Value)
+ * encoding.</p>
+ *
+ * @see com.emv.qrcode.core.model.TLV
+ * @see com.emv.qrcode.model.mpm.Unreserved
+ * @see com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes
+ * @since EMVCo QR Code Specification v1.0
+ */
 @Setter
 public class UnreservedTemplate implements TLV<String, Unreserved> {
 

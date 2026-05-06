@@ -25,6 +25,13 @@ import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import lombok.Setter;
 
+/**
+ * Represents a Merchant Information Language Template in a Merchant Presented Mode (MPM) QR code.
+ * This class implements TLV (Tag-Length-Value) where the value is a MerchantInformationLanguage.
+ *
+ * @see TLV
+ * @see MerchantInformationLanguage
+ */
 @Setter
 public class MerchantInformationLanguageTemplate implements TLV<String, MerchantInformationLanguage> {
 

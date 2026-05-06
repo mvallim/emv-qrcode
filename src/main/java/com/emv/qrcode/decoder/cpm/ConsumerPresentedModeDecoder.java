@@ -35,6 +35,13 @@ import com.emv.qrcode.model.cpm.ConsumerPresentedMode;
 import com.emv.qrcode.model.cpm.PayloadFormatIndicator;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
+/**
+ * Decoder for parsing Consumer Presented Mode (CPM) QR code byte arrays into ConsumerPresentedMode objects.
+ * This decoder handles the payload format indicator, application templates, and common data template.
+ *
+ * @see DecoderCpm
+ * @see ConsumerPresentedMode
+ */
 public final class ConsumerPresentedModeDecoder extends DecoderCpm<ConsumerPresentedMode> {
 
   private static final Set<BERTag> denyDuplicateTags = new HashSet<>();
@@ -50,6 +57,11 @@ public final class ConsumerPresentedModeDecoder extends DecoderCpm<ConsumerPrese
     denyDuplicateTags.add(ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TEMPLATE);
   }
 
+  /**
+   * Constructs a ConsumerPresentedModeDecoder with the specified source byte array.
+   *
+   * @param source the CPM QR code byte array to decode
+   */
   public ConsumerPresentedModeDecoder(final byte[] source) {
     super(source);
   }

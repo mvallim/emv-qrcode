@@ -36,6 +36,19 @@ import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.CommonDataTransparentTemplate;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
+/**
+ * Decoder for CommonDataTransparentTemplate in Consumer Presented Mode (CPM).
+ * Decodes BER-TLV encoded byte arrays into CommonDataTransparentTemplate objects
+ * by mapping EMVCo tag values to appropriate BERTLV data types.
+ *
+ * <p>The decoder uses a static map to associate each tag with its corresponding
+ * data type and consumer function for populating the template. Duplicate tags
+ * will cause a DuplicateTagException.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.CommonDataTransparentTemplate
+ * @see com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes
+ * @see DecoderCpm
+ */
 public final class CommonDataTransparentTemplateDecoder extends DecoderCpm<CommonDataTransparentTemplate> {
 
   private static final Entry<Class<?>, BiConsumer<CommonDataTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, CommonDataTransparentTemplate::addAdditionalData);

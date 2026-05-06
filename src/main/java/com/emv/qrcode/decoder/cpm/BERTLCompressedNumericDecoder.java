@@ -19,8 +19,20 @@ package com.emv.qrcode.decoder.cpm;
 import com.emv.qrcode.core.model.cpm.BERTLCompressedNumeric;
 import com.emv.qrcode.core.utils.BERUtils;
 
+/**
+ * Decoder for parsing BER-TLV Compressed Numeric data from CPM QR code byte arrays.
+ * This decoder creates BERTLCompressedNumeric objects from BER-encoded byte arrays.
+ *
+ * @see DecoderCpm
+ * @see BERTLCompressedNumeric
+ */
 public final class BERTLCompressedNumericDecoder extends DecoderCpm<BERTLCompressedNumeric> {
 
+  /**
+   * Constructs a BERTLCompressedNumericDecoder with the specified source byte array.
+   *
+   * @param source the CPM QR code byte array to decode
+   */
   public BERTLCompressedNumericDecoder(final byte[] source) {
     super(source);
   }

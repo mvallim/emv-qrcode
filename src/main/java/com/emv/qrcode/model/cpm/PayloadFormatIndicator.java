@@ -19,10 +19,19 @@ package com.emv.qrcode.model.cpm;
 import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
+/**
+ * Represents the Payload Format Indicator field in a Consumer Presented Mode (CPM) QR code.
+ * This field identifies the version of the CPM specification being used (default: "CPV01").
+ *
+ * @see BERTLAlphanumeric
+ */
 public class PayloadFormatIndicator extends BERTLAlphanumeric {
 
   private static final long serialVersionUID = 780284119561670846L;
 
+  /**
+   * Constructs a PayloadFormatIndicator with the default value "CPV01".
+   */
   public PayloadFormatIndicator() {
     super(ConsumerPresentedModeFieldCodes.ID_PAYLOAD_FORMAT_INDICATOR, "CPV01");
   }

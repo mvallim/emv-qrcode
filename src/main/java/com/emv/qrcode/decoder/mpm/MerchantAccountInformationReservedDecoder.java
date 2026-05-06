@@ -21,8 +21,20 @@ import com.emv.qrcode.core.utils.TLVUtils;
 import com.emv.qrcode.model.mpm.MerchantAccountInformationReserved;
 
 // @formatter:off
+/**
+ * Decoder for parsing Merchant Account Information Reserved data from MPM QR code strings.
+ * This decoder extracts the value portion for reserved merchant account information.
+ *
+ * @see DecoderMpm
+ * @see MerchantAccountInformationReserved
+ */
 public final class MerchantAccountInformationReservedDecoder extends DecoderMpm<MerchantAccountInformationReserved> {
 
+  /**
+   * Constructs a MerchantAccountInformationReservedDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public MerchantAccountInformationReservedDecoder(final String source) {
     super(source);
   }

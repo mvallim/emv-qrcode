@@ -19,12 +19,35 @@ package com.emv.qrcode.core.model;
 import java.io.Serializable;
 import java.util.Optional;
 
+/**
+ * Represents a Tag-Length-Value (TLV) data structure used in EMV QR code specifications.
+ * This interface provides a generic way to handle TLV-encoded data elements.
+ *
+ * @param <T> the type of the tag
+ * @param <V> the type of the value
+ */
 public interface TLV<T, V> extends Serializable {
 
+  /**
+   * Returns the tag identifier for this TLV element.
+   *
+   * @return the tag value
+   */
   public T getTag();
 
+  /**
+   * Returns the value stored in this TLV element.
+   *
+   * @return the value
+   */
   public V getValue();
 
+  /**
+   * Returns the length of the value in this TLV element.
+   * Defaults to the string length of the value if not overridden.
+   *
+   * @return the length of the value, or 0 if value is null
+   */
   default Integer getLength() {
     return Optional.ofNullable(getValue()).map(V::toString).map(String::length).orElse(0);
   }
