@@ -140,7 +140,7 @@ public final class BERUtils {
    *
    * @param value the length value to encode
    * @return the encoded length bytes
-   * @throws IllegalStateException if the length requires more than 2 bytes (> 65535)
+   * @throws IllegalStateException if the length requires more than 2 bytes (greater 65535)
    */
   public static final byte[] lengthOfValue(final Integer value) {
     if (value > Byte.MAX_VALUE) {
@@ -229,7 +229,7 @@ public final class BERUtils {
    * @param source the BER-TLV-encoded byte array
    * @param from the starting position in the array
    * @return the number of bytes in the length field
-   * @throws IllegalStateException if the length requires more than 2 bytes (> 65535)
+   * @throws IllegalStateException if the length requires more than 2 bytes (greater 65535)
    */
   public static final Integer countBytesOfLength(final byte[] source, final Integer from) {
 

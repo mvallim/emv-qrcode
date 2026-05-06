@@ -38,6 +38,19 @@ import br.com.fluentvalidator.AbstractValidator;
  * @see com.emv.qrcode.validators.cpm.ApplicationTemplateValidator
  * @see com.emv.qrcode.validators.cpm.CommonDataTemplateValidator
  */
+/**
+ * Main validator for ConsumerPresentedMode (CPM) QR code data.
+ * This validator orchestrates validation of all components within a CPM QR code,
+ * including the Payload Format Indicator, Application Templates, and Common Data Template.
+ *
+ * <p>According to EMVCo specifications, a CPM QR code must contain at least one
+ * Application Template (up to 2) and may optionally contain a Common Data Template.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.ConsumerPresentedMode
+ * @see com.emv.qrcode.validators.cpm.PayloadFormatIndicatorValidator
+ * @see com.emv.qrcode.validators.cpm.ApplicationTemplateValidator
+ * @see com.emv.qrcode.validators.cpm.CommonDataTemplateValidator
+ */
 // @formatter:off
 public class ConsumerPresentedModeValidator extends AbstractValidator<ConsumerPresentedMode> {
 
