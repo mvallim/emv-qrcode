@@ -28,6 +28,12 @@ import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 import lombok.Getter;
 
+/**
+ * Represents Merchant Account Information with additional fields in a Merchant Presented Mode (MPM) QR code.
+ * This class includes a Globally Unique Identifier and payment network-specific data.
+ *
+ * @see MerchantAccountInformation
+ */
 @Getter
 public class MerchantAccountInformationReservedAdditional implements MerchantAccountInformation {
 
@@ -39,31 +45,69 @@ public class MerchantAccountInformationReservedAdditional implements MerchantAcc
   // Payment network specific
   private final Map<String, TagLengthString> paymentNetworkSpecific = new LinkedHashMap<>();
 
+  /**
+   * Constructs an empty MerchantAccountInformationReservedAdditional.
+   */
   public MerchantAccountInformationReservedAdditional() {
     super();
   }
 
+  /**
+   * Constructs a MerchantAccountInformationReservedAdditional with the specified Globally Unique Identifier.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   */
   public MerchantAccountInformationReservedAdditional(final String globallyUniqueIdentifier) {
     this.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
   }
 
+  /**
+   * Constructs a MerchantAccountInformationReservedAdditional with the specified values.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   * @param tag the payment network specific field tag
+   * @param value the payment network specific field value
+   */
   public MerchantAccountInformationReservedAdditional(final String globallyUniqueIdentifier, final String tag, final String value) {
     this.setGloballyUniqueIdentifier(globallyUniqueIdentifier, tag, value);
   }
 
+  /**
+   * Sets the Globally Unique Identifier (tag 00).
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   */
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier) {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
   }
 
+  /**
+   * Sets the Globally Unique Identifier and adds a payment network specific field.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   * @param tag the payment network specific field tag
+   * @param value the payment network specific field value
+   */
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier, final String tag, final String value) {
     this.globallyUniqueIdentifier = new TagLengthString(MerchantAccountInformationFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
     this.addPaymentNetworkSpecific(tag, value);
   }
 
+  /**
+   * Adds a payment network specific field.
+   *
+   * @param tagLengthString the TagLengthString to add
+   */
   public void addPaymentNetworkSpecific(final TagLengthString tagLengthString) {
     paymentNetworkSpecific.put(tagLengthString.getTag(), tagLengthString);
   }
 
+  /**
+   * Adds a payment network specific field with the specified tag and value.
+   *
+   * @param tag the field tag
+   * @param value the field value
+   */
   public void addPaymentNetworkSpecific(final String tag, final String value) {
     paymentNetworkSpecific.put(tag, new TagLengthString(tag, value));
   }

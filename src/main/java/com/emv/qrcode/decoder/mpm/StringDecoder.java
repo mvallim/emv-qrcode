@@ -20,8 +20,19 @@ import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.utils.TLVUtils;
 
 // @formatter:off
+/**
+ * Decoder for decoding Merchant Presented Mode (MPM) QR code data into a plain string.
+ * This decoder extracts the value portion from TLV-encoded strings.
+ *
+ * @see DecoderMpm
+ */
 public final class StringDecoder extends DecoderMpm<String> {
 
+  /**
+   * Constructs a StringDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public StringDecoder(final String source) {
     super(source);
   }

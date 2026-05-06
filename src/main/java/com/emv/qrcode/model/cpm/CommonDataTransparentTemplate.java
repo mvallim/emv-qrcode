@@ -26,6 +26,13 @@ import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
 
+/**
+ * Represents a Common Data Transparent Template in a Consumer Presented Mode (CPM) QR code.
+ * This template contains transparent (non-interpreted) common data elements.
+ *
+ * @see BERTemplate
+ * @see AdditionalData
+ */
 @Getter
 public class CommonDataTransparentTemplate extends AdditionalData implements BERTemplate<byte[]> {
 
@@ -33,6 +40,11 @@ public class CommonDataTransparentTemplate extends AdditionalData implements BER
 
   private static final BERTag tag = ConsumerPresentedModeFieldCodes.ID_COMMON_DATA_TRANSPARENT_TEMPLATE;
 
+  /**
+   * Returns the BER tag for this Common Data Transparent Template.
+   *
+   * @return the BER tag
+   */
   public BERTag getTag() {
     return tag;
   }

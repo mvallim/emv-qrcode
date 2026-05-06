@@ -38,6 +38,13 @@ import com.emv.qrcode.model.cpm.ApplicationTemplate;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
+/**
+ * Decoder for parsing Application Template from CPM QR code byte arrays.
+ * This decoder handles application-specific data and the application specific transparent template.
+ *
+ * @see DecoderCpm
+ * @see ApplicationTemplate
+ */
 public final class ApplicationTemplateDecoder extends DecoderCpm<ApplicationTemplate> {
 
   private static final Entry<Class<?>, BiConsumer<ApplicationTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, ApplicationTemplate::addAdditionalData);
@@ -64,6 +71,11 @@ public final class ApplicationTemplateDecoder extends DecoderCpm<ApplicationTemp
     mapConsumers.put(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER, consumerTagLengthValue(BERTLBinary.class, ApplicationTemplate::addAdditionalData));
   }
 
+  /**
+   * Constructs an ApplicationTemplateDecoder with the specified source byte array.
+   *
+   * @param source the CPM QR code byte array to decode
+   */
   public ApplicationTemplateDecoder(final byte[] source) {
     super(BERUtils.valueOf(source));
   }

@@ -22,30 +22,77 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.exception.DecodeValueException;
 
+/**
+ * Represents a BER-TLV element with a binary (hex-encoded string) value.
+ * This class is used for Consumer Presented Mode (CPM) QR code data fields that contain binary data.
+ *
+ * @see BERTLV
+ */
 public class BERTLBinary extends BERTLV {
 
   private static final long serialVersionUID = -2791656176543560953L;
 
+  /**
+   * Constructs a BERTLBinary with the specified tag and byte array value.
+   *
+   * @param tag the BER tag
+   * @param value the byte array value
+   */
   public BERTLBinary(final BERTag tag, final byte[] value) {
     super(tag, value);
   }
 
+  /**
+   * Constructs a BERTLBinary with the specified tag bytes and byte array value.
+   *
+   * @param tag the tag as a byte array
+   * @param value the byte array value
+   */
   public BERTLBinary(final byte[] tag, final byte[] value) {
     super(tag, value);
   }
 
+  /**
+   * Constructs a BERTLBinary with the specified tag bytes and hex string value.
+   * The hex string is decoded to bytes.
+   *
+   * @param tag the tag as a byte array
+   * @param value the hex string value (will be decoded to bytes)
+   * @throws DecodeValueException if the hex string is invalid
+   */
   public BERTLBinary(final byte[] tag, final String value) {
     super(tag, StringUtils.isNotEmpty(value) ? toPrimitives(value) : EMPTY_BYTES);
   }
 
+  /**
+   * Constructs a BERTLBinary with the specified tag and hex string value.
+   * The hex string is decoded to bytes.
+   *
+   * @param tag the BER tag
+   * @param value the hex string value (will be decoded to bytes)
+   * @throws DecodeValueException if the hex string is invalid
+   */
   public BERTLBinary(final BERTag tag, final String value) {
     super(tag, StringUtils.isNotEmpty(value) ? toPrimitives(value) : EMPTY_BYTES);
   }
 
+  /**
+   * Sets the value as a hex string. The hex string is decoded to bytes.
+   *
+   * @param value the hex string value to set
+   * @throws DecodeValueException if the hex string is invalid
+   */
   public final void setValue(final String value) {
     setValue(StringUtils.isNotEmpty(value) ? toPrimitives(value) : EMPTY_BYTES);
   }
 
+  /**
+   * Converts a hex string to a byte array.
+   *
+   * @param value the hex string to decode
+   * @return the decoded byte array
+   * @throws DecodeValueException if the hex string is invalid
+   */
   private static byte[] toPrimitives(final String value) {
     try {
       return Hex.decodeHex(value);

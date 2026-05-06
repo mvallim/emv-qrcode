@@ -23,15 +23,22 @@ import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for AdditionalDataFieldTemplate in Merchant Presented Mode.
+ * Delegates validation of the template value to AdditionalDataFieldValidator.
+ *
+ * @see com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate
+ * @see com.emv.qrcode.model.mpm.AdditionalDataField
+ */
 // @formatter:off
 class AdditionalDataFieldTemplateValidator extends AbstractValidator<AdditionalDataFieldTemplate> {
 
+  /**
+   * Defines validation rules for AdditionalDataFieldTemplate.
+   * Delegates validation to AdditionalDataFieldValidator when the value is present.
+   */
   @Override
   public void rules() {
-
-    /**
-    *
-    */
    ruleFor(AdditionalDataFieldTemplate::getValue)
      .whenever(not(nullValue()))
        .withValidator(new AdditionalDataFieldValidator());

@@ -32,6 +32,18 @@ import com.emv.qrcode.core.utils.TLVUtils;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
+/**
+ * Decoder for MerchantInformationLanguage in Merchant Presented Mode (MPM).
+ * Decodes TLV (Tag-Length-Value) encoded strings into MerchantInformationLanguage objects
+ * by mapping EMVCo tag values to appropriate data types and setter methods.
+ *
+ * <p>Handles Language Preference (tag 00), Merchant Name (tag 01), Merchant City (tag 02),
+ * and RFU tags (03-99) within the Merchant Information Language Template.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantInformationLanguage
+ * @see com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes
+ * @see DecoderMpm
+ */
 // @formatter:off
 public final class MerchantInformationLanguageDecoder extends DecoderMpm<MerchantInformationLanguage> {
 

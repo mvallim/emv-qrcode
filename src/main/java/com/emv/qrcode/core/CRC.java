@@ -16,25 +16,26 @@
 
 package com.emv.qrcode.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+/**
+ * Utility class for computing Cyclic Redundancy Checks (CRC) used in EMV QR
+ * code specifications. This class implements CRC-16/CCITT-FALSE algorithm as
+ * specified in ISO/IEC 13239.
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CRC {
 
-  private CRC() {
-    super();
-  }
-
   /**
-   * Information technology—Telecommunications and information exchange between
-   * systems—High-level data link control (HDLC) procedures.
+   * Computes CRC-16/CCITT-FALSE checksum for the given byte array. The checksum
+   * is calculated according to ISO/IEC 13239 using the polynomial '1021' (hex)
+   * and initial value 'FFFF' (hex).
    *
-   * The checksum shall be calculated according to [ISO/IEC 13239] using the
-   * polynomial '1021' (hex) and initial value 'FFFF' (hex).
-   *
-   * Implements CRC-16/CCITT-FALSE
-   *
-   * @see https://en.wikipedia.org/wiki/Cyclic_redundancy_check
-   *
-   * @param value
-   * @return CRC16 integer
+   * @param value the byte array to compute CRC for
+   * @return the computed CRC16 value as an integer
+   * @see <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">Cyclic
+   *      Redundancy Check</a>
    */
   public static int crc16(final byte[] value) {
     final int polynomial = 0x1021; // 0001 0000 0010 0001 (0, 5, 12)
@@ -45,8 +46,8 @@ public final class CRC {
 
     for (final byte b : bytes) {
       for (int i = 0; i < 8; i++) {
-        final boolean bit = (b >> 7 - i & 1) == 1;
-        final boolean c15 = (result >> 15 & 1) == 1;
+        final boolean bit = ((b >> (7 - i)) & 1) == 1;
+        final boolean c15 = ((result >> 15) & 1) == 1;
         result <<= 1;
         if (c15 ^ bit) {
           result ^= polynomial;

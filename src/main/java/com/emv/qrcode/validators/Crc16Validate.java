@@ -29,15 +29,24 @@ import com.emv.qrcode.core.CRC;
 import br.com.fluentvalidator.AbstractValidator;
 import br.com.fluentvalidator.Validator;
 import br.com.fluentvalidator.context.ValidationResult;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 // @formatter:off
+/**
+ * Validator class for CRC16 checksum validation in Merchant Presented Mode (MPM) QR codes.
+ * This class uses FluentValidator to validate that the CRC16 checksum is correct.
+ *
+ * <p>The CRC16 validation ensures data integrity by verifying that the checksum at the
+ * end of the QR code string matches the calculated value of the preceding data.</p>
+ *
+ * @see com.emv.qrcode.core.CRC
+ * @see br.com.fluentvalidator.Validator
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Crc16Validate {
 
   private static final Validator<String> VALIDATOR = new Crc16Validator();
-
-  private Crc16Validate() {
-    super();
-  }
 
   public static final ValidationResult validate(final String instance) {
     return VALIDATOR.validate(instance);
