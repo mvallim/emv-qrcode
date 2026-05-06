@@ -70,16 +70,31 @@ public final class DecodersCpmMap {
     MAP_DECODERS.put(PayloadFormatIndicator.class, PayloadFormatIndicatorDecoder.class);
   }
 
+  /**
+   * Returns an unmodifiable view of the CPM decoder configuration map.
+   * @return an unmodifiable map of model classes to their corresponding decoder classes
+   */
   public static Map<Class<?>, Class<? extends DecoderCpm<?>>> getConfiguration() {
     return Collections.unmodifiableMap(MAP_DECODERS);
   }
 
+  /**
+   * Replaces the decoder class for the specified model class if it is already registered.
+   * @param tagClass the model class whose decoder is to be replaced
+   * @param decoderClass the new decoder class to associate with the model class
+   */
   public static void replaceDecoder(final Class<?> tagClass, final Class<? extends DecoderCpm<?>> decoderClass) {
     if (MAP_DECODERS.containsKey(tagClass)) {
       MAP_DECODERS.replace(tagClass, decoderClass);
     }
   }
 
+  /**
+   * Registers the specified decoder class for the given model class.
+   * If the model class is not yet registered, it will be added; otherwise, its decoder will be replaced.
+   * @param tagClass the model class to associate with the decoder
+   * @param decoderClass the decoder class to register
+   */
   public static void putDecoder(final Class<?> tagClass, final Class<? extends DecoderCpm<?>> decoderClass) {
     MAP_DECODERS.put(tagClass, decoderClass);
   }
