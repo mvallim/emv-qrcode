@@ -19,26 +19,22 @@ package com.emv.qrcode.model.mpm;
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
- * Represents reserved Merchant Account Information in a Merchant Presented Mode (MPM) QR code.
- * This class is used for merchant account information that doesn't have additional fields.
+ * Represents reserved Merchant Account Information in a Merchant Presented Mode
+ * (MPM) QR code. This class is used for merchant account information that
+ * doesn't have additional fields.
  *
  * @see MerchantAccountInformation
  */
 @Getter
+@NoArgsConstructor
 public class MerchantAccountInformationReserved implements MerchantAccountInformation {
 
   private static final long serialVersionUID = -5918006580406564067L;
 
   private String value;
-
-  /**
-   * Constructs an empty MerchantAccountInformationReserved.
-   */
-  public MerchantAccountInformationReserved() {
-    super();
-  }
 
   /**
    * Constructs a MerchantAccountInformationReserved with the specified value.

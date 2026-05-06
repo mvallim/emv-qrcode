@@ -28,6 +28,7 @@ import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents Payment System Specific data in a Merchant Presented Mode (MPM) QR code.
@@ -36,6 +37,7 @@ import lombok.Getter;
  * @see TagLengthString
  */
 @Getter
+@NoArgsConstructor
 public class PaymentSystemSpecific implements Serializable {
 
   private static final long serialVersionUID = 6244729218605588349L;
@@ -45,13 +47,6 @@ public class PaymentSystemSpecific implements Serializable {
 
   // Context Specific Data
   private final Map<String, TagLengthString> paymentSystemSpecific = new LinkedHashMap<>();
-
-  /**
-   * Constructs an empty PaymentSystemSpecific.
-   */
-  public PaymentSystemSpecific() {
-    super();
-  }
 
   /**
    * Constructs a PaymentSystemSpecific with the specified Globally Unique Identifier.

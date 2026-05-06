@@ -69,8 +69,10 @@ public class AdditionalDataField implements Serializable {
   // Additional Consumer Data Request
   private TagLengthString additionalConsumerDataRequest;
 
+  // Merchant TaxId
   private TagLengthString merchantTaxId;
 
+  // Merchant Channel
   private TagLengthString merchantChannel;
 
   // RFU for EMVCo
@@ -160,10 +162,20 @@ public class AdditionalDataField implements Serializable {
     this.additionalConsumerDataRequest = new TagLengthString(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, additionalConsumerDataRequest);
   }
 
+  /**
+   * Sets the Merchant Tax ID (tag 10).
+   *
+   * @param merchantTaxId the merchant tax ID
+   */
   public final void setMerchantTaxId(final String merchantTaxId) {
     this.merchantTaxId = new TagLengthString(AdditionalDataFieldCodes.ID_MERCHANT_TAX_ID, merchantTaxId);
   }
 
+  /**
+   * Sets the Merchant Channel (tag 11).
+   *
+   * @param merchantChannel the merchant channel
+   */
   public final void setMerchantChannel(final String merchantChannel) {
     this.merchantChannel = new TagLengthString(AdditionalDataFieldCodes.ID_MERCHANT_CHANNEL, merchantChannel);
   }

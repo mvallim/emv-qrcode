@@ -75,8 +75,14 @@ public final class AdditionalDataFieldCodes {
    */
   public static final String ID_ADDITIONAL_CONSUMER_DATA_REQUEST = "09";
 
+  /**
+   * (O) Merchant Tax Id - tax identification merchant.
+   */
   public static final String ID_MERCHANT_TAX_ID = "10";
 
+  /**
+   * (O) Merchant Channel - merchant channel establishes the environment.
+   */
   public static final String ID_MERCHANT_CHANNEL = "11";
 
   /**

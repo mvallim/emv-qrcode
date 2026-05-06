@@ -27,6 +27,7 @@ import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents Merchant Account Information with additional fields in a Merchant Presented Mode (MPM) QR code.
@@ -35,6 +36,7 @@ import lombok.Getter;
  * @see MerchantAccountInformation
  */
 @Getter
+@NoArgsConstructor
 public class MerchantAccountInformationReservedAdditional implements MerchantAccountInformation {
 
   private static final long serialVersionUID = 3394308551644415429L;
@@ -44,13 +46,6 @@ public class MerchantAccountInformationReservedAdditional implements MerchantAcc
 
   // Payment network specific
   private final Map<String, TagLengthString> paymentNetworkSpecific = new LinkedHashMap<>();
-
-  /**
-   * Constructs an empty MerchantAccountInformationReservedAdditional.
-   */
-  public MerchantAccountInformationReservedAdditional() {
-    super();
-  }
 
   /**
    * Constructs a MerchantAccountInformationReservedAdditional with the specified Globally Unique Identifier.

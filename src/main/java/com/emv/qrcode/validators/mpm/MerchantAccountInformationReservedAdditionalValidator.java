@@ -34,6 +34,7 @@ import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+// @formatter:off
 /**
  * Validator for MerchantAccountInformationReservedAdditional in Merchant Presented Mode.
  * Validates the additional reserved merchant account information fields including
@@ -45,7 +46,6 @@ import br.com.fluentvalidator.AbstractValidator;
  * @see com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional
  * @see com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes
  */
-// @formatter:off
 class MerchantAccountInformationReservedAdditionalValidator extends AbstractValidator<MerchantAccountInformationReservedAdditional> {
 
   /**
@@ -56,6 +56,9 @@ class MerchantAccountInformationReservedAdditionalValidator extends AbstractVali
   @Override
   public void rules() {
 
+    /**
+     * GloballyUniqueIdentifier
+     */
     ruleFor("GloballyUniqueIdentifier", MerchantAccountInformationReservedAdditional::getGloballyUniqueIdentifier)
 
       .must(not(stringEmptyOrNull(TagLengthString::getTag)))
@@ -88,6 +91,9 @@ class MerchantAccountInformationReservedAdditionalValidator extends AbstractVali
         .withAttempedValue(of(MerchantAccountInformationReservedAdditional::getGloballyUniqueIdentifier).andThen(TagLengthString::getValue))
         .critical();
 
+    /**
+     * PaymentNetworkSpecific
+     */
     ruleForEach(of(MerchantAccountInformationReservedAdditional::getPaymentNetworkSpecific).andThen(Map::values))
       .whenever(greaterThan(Collection::size, 0))
         .withValidator(new TagLengthStringValidator("MerchantAccountInformation.PaymentNetworkSpecific", "01", "99", 99));
