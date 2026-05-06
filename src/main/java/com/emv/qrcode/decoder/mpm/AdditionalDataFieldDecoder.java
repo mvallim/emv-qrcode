@@ -33,6 +33,7 @@ import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
 
+// @formatter:off
 /**
  * Decoder for AdditionalDataField in Merchant Presented Mode (MPM).
  * Decodes TLV (Tag-Length-Value) encoded strings into AdditionalDataField objects
@@ -45,7 +46,6 @@ import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
  * @see com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes
  * @see DecoderMpm
  */
-// @formatter:off
 public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataField> {
 
   private static final Map<String, Entry<Class<?>, BiConsumer<AdditionalDataField, ?>>> mapConsumers = new HashMap<>();
@@ -62,6 +62,8 @@ public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataF
     mapConsumers.put(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO, consumerTagLengthValue(TagLengthString.class, AdditionalDataField::addRFUforEMVCo));
     mapConsumers.put(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC, consumerTagLengthValue(PaymentSystemSpecificTemplate.class, AdditionalDataField::addPaymentSystemSpecific));
     mapConsumers.put(AdditionalDataFieldCodes.ID_ADDITIONAL_CONSUMER_DATA_REQUEST, consumerTagLengthValue(String.class, AdditionalDataField::setAdditionalConsumerDataRequest));
+    mapConsumers.put(AdditionalDataFieldCodes.ID_MERCHANT_TAX_ID, consumerTagLengthValue(String.class, AdditionalDataField::setMerchantTaxId));
+    mapConsumers.put(AdditionalDataFieldCodes.ID_MERCHANT_CHANNEL, consumerTagLengthValue(String.class, AdditionalDataField::setMerchantChannel));
   }
 
   public AdditionalDataFieldDecoder(final String source) {
@@ -119,13 +121,13 @@ public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataF
   }
 
   private boolean betweenRFUForEMVCORange(final String value) {
-    return value.compareTo(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO_RANGE_START) >= 0
-        && value.compareTo(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO_RANGE_END) <= 0;
+    return (value.compareTo(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO_RANGE_START) >= 0)
+        && (value.compareTo(AdditionalDataFieldCodes.ID_RFU_FOR_EMVCO_RANGE_END) <= 0);
   }
 
   private boolean betweenPaymentSystemSpecificRange(final String value) {
-    return value.compareTo(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START) >= 0
-        && value.compareTo(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_END) <= 0;
+    return (value.compareTo(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_START) >= 0)
+        && (value.compareTo(AdditionalDataFieldCodes.ID_PAYMENT_SYSTEM_SPECIFIC_TEMPLATES_RANGE_END) <= 0);
   }
 
 }
