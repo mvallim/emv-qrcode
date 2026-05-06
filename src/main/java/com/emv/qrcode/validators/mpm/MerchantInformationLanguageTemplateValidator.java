@@ -23,15 +23,22 @@ import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for MerchantInformationLanguageTemplate in Merchant Presented Mode.
+ * Delegates validation of the template value to MerchantInformationLanguageValidator.
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate
+ * @see com.emv.qrcode.model.mpm.MerchantInformationLanguage
+ */
 // @formatter:off
 class MerchantInformationLanguageTemplateValidator extends AbstractValidator<MerchantInformationLanguageTemplate> {
 
+  /**
+   * Defines validation rules for MerchantInformationLanguageTemplate.
+   * Delegates validation to MerchantInformationLanguageValidator when the value is present.
+   */
   @Override
   public void rules() {
-
-    /**
-     *
-     */
     ruleFor(MerchantInformationLanguageTemplate::getValue)
       .whenever(not(nullValue()))
         .withValidator(new MerchantInformationLanguageValidator());

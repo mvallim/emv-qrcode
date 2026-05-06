@@ -36,9 +36,26 @@ import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for AdditionalDataField in Merchant Presented Mode QR codes.
+ * Validates all sub-fields within the Additional Data Field Template (ID 62),
+ * including bill number, mobile number, store label, loyalty number, and others.
+ *
+ * <p>Each sub-field is validated for proper tag value, tag format (numeric, 2 characters),
+ * and value length constraints as defined by the EMVCo specification.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.AdditionalDataField
+ * @see com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes
+ */
 // @formatter:off
 class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField> {
 
+  /**
+   * Defines validation rules for AdditionalDataField.
+   * Validates all optional fields including BillNumber, MobileNumber, StoreLabel,
+   * LoyaltyNumber, ReferenceLabel, CustomerLabel, TerminalLabel, PurposeTransaction,
+   * and AdditionalConsumerDataRequest.
+   */
   @Override
   public void rules() {
 

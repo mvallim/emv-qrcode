@@ -19,6 +19,14 @@ package com.emv.qrcode.decoder.cpm;
 import com.emv.qrcode.core.model.cpm.BERTLAlphanumeric;
 import com.emv.qrcode.core.utils.BERUtils;
 
+/**
+ * Decoder for BERTLAlphanumeric data in Consumer Presented Mode (CPM).
+ * Decodes BER-TLV encoded byte arrays into BERTLAlphanumeric objects
+ * which represent alphanumeric data with a BER-TLV tag and length prefix.
+ *
+ * @see com.emv.qrcode.core.model.cpm.BERTLAlphanumeric
+ * @see DecoderCpm
+ */
 public final class BERTLAlphanumericDecoder extends DecoderCpm<BERTLAlphanumeric> {
 
   public BERTLAlphanumericDecoder(final byte[] source) {

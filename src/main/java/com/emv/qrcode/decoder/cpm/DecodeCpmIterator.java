@@ -23,6 +23,12 @@ import java.util.function.Consumer;
 import com.emv.qrcode.core.utils.BERUtils;
 
 // @formatter:off
+/**
+ * Iterator for parsing BER-TLV-encoded Consumer Presented Mode (CPM) QR code byte arrays.
+ * This iterator returns each BER-TLV chunk (tag + length + value) from the source array.
+ *
+ * @see BERUtils
+ */
 final class DecodeCpmIterator implements Iterator<byte[]> {
 
   private Integer current;
@@ -31,6 +37,11 @@ final class DecodeCpmIterator implements Iterator<byte[]> {
 
   private final byte[] source;
 
+  /**
+   * Constructs a DecodeCpmIterator for the specified source byte array.
+   *
+   * @param source the CPM QR code byte array to iterate over
+   */
   public DecodeCpmIterator(final byte[] source) {
     current = 0;
     max = source.length;

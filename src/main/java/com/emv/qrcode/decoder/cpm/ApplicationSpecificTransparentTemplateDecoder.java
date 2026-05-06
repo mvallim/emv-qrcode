@@ -36,6 +36,18 @@ import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.ApplicationSpecificTransparentTemplate;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
+/**
+ * Decoder for ApplicationSpecificTransparentTemplate in Consumer Presented Mode (CPM).
+ * Decodes BER-TLV encoded byte arrays into ApplicationSpecificTransparentTemplate objects
+ * by mapping EMVCo tag values to appropriate BERTLV data types.
+ *
+ * <p>The decoder uses a static map to associate each tag with its corresponding
+ * data type and consumer function for populating the template.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.ApplicationSpecificTransparentTemplate
+ * @see com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes
+ * @see DecoderCpm
+ */
 public final class ApplicationSpecificTransparentTemplateDecoder extends DecoderCpm<ApplicationSpecificTransparentTemplate> {
 
   private static final Entry<Class<?>, BiConsumer<ApplicationSpecificTransparentTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, ApplicationSpecificTransparentTemplate::addAdditionalData);

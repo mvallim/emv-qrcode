@@ -23,6 +23,12 @@ import java.util.function.Consumer;
 import com.emv.qrcode.core.utils.TLVUtils;
 
 // @formatter:off
+/**
+ * Iterator for parsing TLV-encoded Merchant Presented Mode (MPM) QR code strings.
+ * This iterator returns each TLV chunk (tag + length + value) from the source string.
+ *
+ * @see TLVUtils
+ */
 final class DecodeMpmIterator implements Iterator<String> {
 
   private Integer current;
@@ -31,6 +37,11 @@ final class DecodeMpmIterator implements Iterator<String> {
 
   private final String source;
 
+  /**
+   * Constructs a DecodeMpmIterator for the specified source string.
+   *
+   * @param source the MPM QR code string to iterate over
+   */
   public DecodeMpmIterator(final String source) {
     current = 0;
     max = source.length();

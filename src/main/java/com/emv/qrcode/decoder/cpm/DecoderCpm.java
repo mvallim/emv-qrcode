@@ -29,43 +29,71 @@ import com.emv.qrcode.core.configuration.DecodersCpmMap;
 import com.emv.qrcode.core.exception.PresentedModeException;
 
 // @formatter:off
+/**
+ * Abstract base class for decoding Consumer Presented Mode (CPM) QR code data.
+ * This class provides the foundation for all CPM decoders that parse BER-TLV-encoded byte arrays.
+ *
+ * @param <T> the type of decoded object
+ * @see DecodeCpmIterator
+ * @see DecodersCpmMap
+ */
 public abstract class DecoderCpm<T> {
 
   private static final Map<Class<?>, Constructor<? extends DecoderCpm<?>>> ctorMap = new ConcurrentHashMap<>();
 
   protected final Iterator<byte[]> iterator;
 
+  /**
+   * Constructs a DecoderCpm with the specified source byte array.
+   *
+   * @param source the CPM QR code byte array to decode
+   */
   protected DecoderCpm(final byte[] source) {
     this.iterator = new DecodeCpmIterator(source);
   }
 
+  /**
+   * Decodes the source byte array and returns the decoded object.
+   *
+   * @return the decoded object
+   * @throws PresentedModeException if decoding fails
+   */
   protected abstract T decode() throws PresentedModeException;
 
+  /**
+   * Creates a map entry that associates a class with a consumer for tag-length-value decoding.
+   *
+   * @param <C> the type of the consumer's first argument
+   * @param <T> the type of the consumer's second argument
+   * @param clazz the class to use as a key
+   * @param consumer the consumer to associate with the class
+   * @return a map entry pairing the class and consumer
+   */
   protected static <C, T> Entry<Class<?>, BiConsumer<C, ?>> consumerTagLengthValue(final Class<T> clazz, final BiConsumer<C, T> consumer) {
     return new SimpleEntry<>(clazz, consumer);
   }
 
   /**
-   * Decode CPM using Base64 string encoded
+   * Decodes a Base64-encoded string into the specified target class.
    *
-   * @param <T> target class
-   * @param source base64 string CPM
-   * @param clazz target class
-   * @return target class result
-   * @throws PresentedModeException
+   * @param <T> the type of the target class
+   * @param source the Base64-encoded CPM QR code string to decode
+   * @param clazz the target class to decode into
+   * @return the decoded object of type T
+   * @throws PresentedModeException if decoding fails
    */
   public static final <T> T decode(final String source, final Class<T> clazz) throws PresentedModeException {
     return decode(Base64.getDecoder().decode(source), clazz);
   }
 
   /**
-   * Decode CPM using byte array
+   * Decodes a byte array into the specified target class.
    *
-   * @param <T> target class
-   * @param source byte array CPM
-   * @param clazz target class
-   * @return target class result
-   * @throws PresentedModeException
+   * @param <T> the type of the target class
+   * @param source the CPM QR code byte array to decode
+   * @param clazz the target class to decode into
+   * @return the decoded object of type T
+   * @throws PresentedModeException if decoding fails
    */
   public static final <T> T decode(final byte[] source, final Class<T> clazz) throws PresentedModeException {
     try {

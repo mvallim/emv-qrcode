@@ -27,6 +27,14 @@ import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for UnreservedTemplate in Merchant Presented Mode.
+ * Validates the template tag range and delegates validation of the template
+ * value to UnreservedValidator.
+ *
+ * @see com.emv.qrcode.model.mpm.UnreservedTemplate
+ * @see com.emv.qrcode.model.mpm.Unreserved
+ */
 // @formatter:off
 class UnreservedTemplateValidator extends AbstractValidator<UnreservedTemplate> {
 
@@ -34,12 +42,24 @@ class UnreservedTemplateValidator extends AbstractValidator<UnreservedTemplate> 
   private final String tagEnd;
   private final Integer maxSizeValue;
 
+  /**
+   * Constructs a new UnreservedTemplateValidator.
+   *
+   * @param tagStart the starting tag value for the valid range
+   * @param tagEnd the ending tag value for the valid range
+   * @param maxSizeValue the maximum allowed size for the template value
+   */
   public UnreservedTemplateValidator(final String tagStart, final String tagEnd, final Integer maxSizeValue) {
     this.tagStart = tagStart;
     this.tagEnd = tagEnd;
     this.maxSizeValue = maxSizeValue;
   }
 
+  /**
+   * Defines validation rules for UnreservedTemplate.
+   * Validates that the template tag is within the specified range and
+   * the value size is within limits, then delegates to UnreservedValidator.
+   */
   @Override
   public void rules() {
 

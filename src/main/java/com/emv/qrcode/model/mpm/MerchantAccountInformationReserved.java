@@ -20,6 +20,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import lombok.Getter;
 
+/**
+ * Represents reserved Merchant Account Information in a Merchant Presented Mode (MPM) QR code.
+ * This class is used for merchant account information that doesn't have additional fields.
+ *
+ * @see MerchantAccountInformation
+ */
 @Getter
 public class MerchantAccountInformationReserved implements MerchantAccountInformation {
 
@@ -27,10 +33,18 @@ public class MerchantAccountInformationReserved implements MerchantAccountInform
 
   private String value;
 
+  /**
+   * Constructs an empty MerchantAccountInformationReserved.
+   */
   public MerchantAccountInformationReserved() {
     super();
   }
 
+  /**
+   * Constructs a MerchantAccountInformationReserved with the specified value.
+   *
+   * @param value the merchant account information value
+   */
   public MerchantAccountInformationReserved(final String value) {
     this.value = value;
   }

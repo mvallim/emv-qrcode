@@ -16,17 +16,39 @@
 
 package com.emv.qrcode.model.mpm.constants;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+/**
+ * Constants for Merchant Account Information template sub-field tags. These
+ * constants define the EMVCo-assigned tag values for fields within the Merchant
+ * Account Information templates (tags 02-51) in Merchant Presented Mode.
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantAccountInformation
+ * @see com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate
+ * @since EMVCo QR Code Specification v1.0
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MerchantAccountInformationFieldCodes {
 
+  /**
+   * Globally Unique Identifier - identifies the payment system or network.
+   */
   public static final String ID_GLOBALLY_UNIQUE_IDENTIFIER = "00";
+
+  /**
+   * Start of Payment Network Specific data range (01-99).
+   */
   public static final String ID_PAYMENT_NETWORK_SPECIFIC_START = "01";
+
+  /**
+   * End of Payment Network Specific data range (01-99).
+   */
   public static final String ID_PAYMENT_NETWORK_SPECIFIC_END = "99";
 
-  // Reserved
+  /**
+   * Reserved: Alias for Payment Network Specific data range start.
+   */
   public static final String ID_PAYMENT_NETWORK_SPECIFIC = ID_PAYMENT_NETWORK_SPECIFIC_START;
-
-  private MerchantAccountInformationFieldCodes() {
-    super();
-  }
 
 }

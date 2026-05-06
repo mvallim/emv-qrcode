@@ -18,6 +18,12 @@ package com.emv.qrcode.model.mpm;
 
 import java.io.Serializable;
 
+/**
+ * Interface representing Merchant Account Information in a Merchant Presented Mode (MPM) QR code.
+ * This is a marker interface for types that can be used as values in MerchantAccountInformationTemplate.
+ *
+ * @see MerchantAccountInformationTemplate
+ */
 public interface MerchantAccountInformation extends Serializable {
 
 }

@@ -29,6 +29,12 @@ import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
 import lombok.Getter;
 
+/**
+ * Represents Merchant Information Language data in a Merchant Presented Mode (MPM) QR code.
+ * This class contains language-specific merchant information like language preference, name, and city.
+ *
+ * @see TagLengthString
+ */
 @Getter
 public class MerchantInformationLanguage implements Serializable {
 
@@ -46,18 +52,38 @@ public class MerchantInformationLanguage implements Serializable {
   // RFU for EMVCo
   private final Map<String, TagLengthString> rFUforEMVCo = new LinkedHashMap<>();
 
+  /**
+   * Sets the Language Preference (tag 00).
+   *
+   * @param languagePreference the language preference (ISO 639-1 code)
+   */
   public final void setLanguagePreference(final String languagePreference) {
     this.languagePreference = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_LANGUAGE_PREFERENCE, languagePreference);
   }
 
+  /**
+   * Sets the Merchant Name (tag 01).
+   *
+   * @param merchantName the merchant name
+   */
   public final void setMerchantName(final String merchantName) {
     this.merchantName = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_MERCHANT_NAME, merchantName);
   }
 
+  /**
+   * Sets the Merchant City (tag 02).
+   *
+   * @param merchantCity the merchant city
+   */
   public final void setMerchantCity(final String merchantCity) {
     this.merchantCity = new TagLengthString(MerchantInformationLanguageFieldCodes.ID_MERCHANT_CITY, merchantCity);
   }
 
+  /**
+   * Adds a Reserved for Future Use (RFU) field for EMVCo.
+   *
+   * @param tagLengthString the RFU field to add
+   */
   public final void addRFUforEMVCo(final TagLengthString tagLengthString) {
     rFUforEMVCo.put(tagLengthString.getTag(), tagLengthString);
   }

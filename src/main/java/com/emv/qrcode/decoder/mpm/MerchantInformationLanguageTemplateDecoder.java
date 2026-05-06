@@ -21,8 +21,20 @@ import com.emv.qrcode.model.mpm.MerchantInformationLanguage;
 import com.emv.qrcode.model.mpm.MerchantInformationLanguageTemplate;
 
 // @formatter:off
+/**
+ * Decoder for parsing Merchant Information Language Template from MPM QR code strings.
+ * This decoder extracts the MerchantInformationLanguage value from the template.
+ *
+ * @see DecoderMpm
+ * @see MerchantInformationLanguageTemplate
+ */
 public final class MerchantInformationLanguageTemplateDecoder extends DecoderMpm<MerchantInformationLanguageTemplate> {
 
+  /**
+   * Constructs a MerchantInformationLanguageTemplateDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public MerchantInformationLanguageTemplateDecoder(final String source) {
     super(source);
   }

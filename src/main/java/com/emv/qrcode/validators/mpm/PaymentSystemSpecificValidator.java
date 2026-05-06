@@ -34,9 +34,22 @@ import com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for PaymentSystemSpecific data in Merchant Presented Mode.
+ * Validates the Globally Unique Identifier and any payment system-specific
+ * data elements within the Payment System Specific template.
+ *
+ * @see com.emv.qrcode.model.mpm.PaymentSystemSpecific
+ * @see com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes
+ */
 // @formatter:off
 class PaymentSystemSpecificValidator extends AbstractValidator<PaymentSystemSpecific> {
 
+  /**
+   * Defines validation rules for PaymentSystemSpecific.
+   * Validates GloballyUniqueIdentifier (mandatory, tag "00", max 32 chars)
+   * and PaymentSystemSpecific data (optional, tags 01-99, max 99 chars each).
+   */
   @Override
   public void rules() {
 

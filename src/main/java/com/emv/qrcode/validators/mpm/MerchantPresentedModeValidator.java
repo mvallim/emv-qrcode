@@ -47,6 +47,29 @@ import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Main validator for MerchantPresentedMode (MPM) QR code data.
+ * This validator orchestrates validation of all components within an MPM QR code,
+ * including payload format indicator, merchant account information, transaction data,
+ * and additional field templates.
+ *
+ * <p>Validates according to EMVCo QR Code Specification v1.0:
+ * <ul>
+ *   <li>Payload Format Indicator (mandatory, tag "00")</li>
+ *   <li>Point of Initiation Method (optional, tag "01")</li>
+ *   <li>Merchant Account Information (tags 02-51)</li>
+ *   <li>Merchant Category Code (mandatory, tag "52")</li>
+ *   <li>Transaction Currency (mandatory, tag "53")</li>
+ *   <li>Transaction Amount (conditional, tag "54")</li>
+ *   <li>Country Code (mandatory, tag "58")</li>
+ *   <li>Merchant Name and City (mandatory, tags "59" and "60")</li>
+ *   <li>CRC (mandatory, tag "63")</li>
+ * </ul></p>
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantPresentedMode
+ * @see com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes
+ * @since EMVCo QR Code Specification v1.0
+ */
 // @formatter:off
 public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPresentedMode> {
 
@@ -54,6 +77,11 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
 
   private static final String REGEX_PERCENTAGE = "^(\\d{0,2}(\\.)?(\\.\\d{0,2})?|100(\\.)?(\\.00?)?)$";
 
+  /**
+   * Defines all validation rules for MerchantPresentedMode.
+   * Includes validation for all mandatory and optional fields with
+   * appropriate constraints for tags, values, and formats.
+   */
   @Override
   public void rules() {
 

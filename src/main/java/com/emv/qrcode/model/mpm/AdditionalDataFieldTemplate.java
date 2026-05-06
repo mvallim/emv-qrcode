@@ -25,6 +25,13 @@ import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import lombok.Setter;
 
+/**
+ * Represents an Additional Data Field Template in a Merchant Presented Mode (MPM) QR code.
+ * This class implements TLV (Tag-Length-Value) where the value is an AdditionalDataField.
+ *
+ * @see TLV
+ * @see AdditionalDataField
+ */
 @Setter
 public class AdditionalDataFieldTemplate implements TLV<String, AdditionalDataField> {
 
