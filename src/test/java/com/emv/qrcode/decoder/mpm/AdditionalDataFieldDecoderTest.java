@@ -17,8 +17,8 @@
 package com.emv.qrcode.decoder.mpm;
 
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
@@ -37,7 +37,7 @@ public class AdditionalDataFieldDecoderTest {
 
   @Test
   public void testSuccessDecode() throws PresentedModeException {
-    final AdditionalDataField additionalDataField = DecoderMpm.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataField.class);
+    final AdditionalDataField additionalDataField = DecoderMpm.decode("62800102120202670302090402540502ab0602fg0702kl0802pq0902tu1002TX1102MC5010000110101i", AdditionalDataField.class);
 
     assertThat(additionalDataField.getAdditionalConsumerDataRequest(), not(nullValue()));
     assertThat(additionalDataField.getBillNumber(), not(nullValue()));
@@ -52,41 +52,50 @@ public class AdditionalDataFieldDecoderTest {
     assertThat(additionalDataField.getTerminalLabel(), not(nullValue()));
 
     assertThat(additionalDataField.getAdditionalConsumerDataRequest().getTag(), equalTo("09"));
-    assertThat(additionalDataField.getAdditionalConsumerDataRequest().getLength(), equalTo(5));
-    assertThat(additionalDataField.getAdditionalConsumerDataRequest().getValue(), equalTo("tuvxy"));
+    assertThat(additionalDataField.getAdditionalConsumerDataRequest().getLength(), equalTo(2));
+    assertThat(additionalDataField.getAdditionalConsumerDataRequest().getValue(), equalTo("tu"));
 
     assertThat(additionalDataField.getBillNumber().getTag(), equalTo("01"));
-    assertThat(additionalDataField.getBillNumber().getLength(), equalTo(5));
-    assertThat(additionalDataField.getBillNumber().getValue(), equalTo("12345"));
+    assertThat(additionalDataField.getBillNumber().getLength(), equalTo(2));
+    assertThat(additionalDataField.getBillNumber().getValue(), equalTo("12"));
 
     assertThat(additionalDataField.getCustomerLabel().getTag(), equalTo("06"));
-    assertThat(additionalDataField.getCustomerLabel().getLength(), equalTo(5));
-    assertThat(additionalDataField.getCustomerLabel().getValue(), equalTo("fghij"));
+    assertThat(additionalDataField.getCustomerLabel().getLength(), equalTo(2));
+    assertThat(additionalDataField.getCustomerLabel().getValue(), equalTo("fg"));
 
     assertThat(additionalDataField.getLoyaltyNumber().getTag(), equalTo("04"));
-    assertThat(additionalDataField.getLoyaltyNumber().getLength(), equalTo(5));
-    assertThat(additionalDataField.getLoyaltyNumber().getValue(), equalTo("54321"));
+    assertThat(additionalDataField.getLoyaltyNumber().getLength(), equalTo(2));
+    assertThat(additionalDataField.getLoyaltyNumber().getValue(), equalTo("54"));
 
     assertThat(additionalDataField.getMobileNumber().getTag(), equalTo("02"));
-    assertThat(additionalDataField.getMobileNumber().getLength(), equalTo(5));
-    assertThat(additionalDataField.getMobileNumber().getValue(), equalTo("67890"));
+    assertThat(additionalDataField.getMobileNumber().getLength(), equalTo(2));
+    assertThat(additionalDataField.getMobileNumber().getValue(), equalTo("67"));
 
     assertThat(additionalDataField.getPurposeTransaction().getTag(), equalTo("08"));
-    assertThat(additionalDataField.getPurposeTransaction().getLength(), equalTo(5));
-    assertThat(additionalDataField.getPurposeTransaction().getValue(), equalTo("pqres"));
+    assertThat(additionalDataField.getPurposeTransaction().getLength(), equalTo(2));
+    assertThat(additionalDataField.getPurposeTransaction().getValue(), equalTo("pq"));
 
     assertThat(additionalDataField.getReferenceLabel().getTag(), equalTo("05"));
-    assertThat(additionalDataField.getReferenceLabel().getLength(), equalTo(5));
-    assertThat(additionalDataField.getReferenceLabel().getValue(), equalTo("abcde"));
+    assertThat(additionalDataField.getReferenceLabel().getLength(), equalTo(2));
+    assertThat(additionalDataField.getReferenceLabel().getValue(), equalTo("ab"));
 
     assertThat(additionalDataField.getStoreLabel().getTag(), equalTo("03"));
-    assertThat(additionalDataField.getStoreLabel().getLength(), equalTo(5));
-    assertThat(additionalDataField.getStoreLabel().getValue(), equalTo("09876"));
+    assertThat(additionalDataField.getStoreLabel().getLength(), equalTo(2));
+    assertThat(additionalDataField.getStoreLabel().getValue(), equalTo("09"));
 
     assertThat(additionalDataField.getTerminalLabel().getTag(), equalTo("07"));
-    assertThat(additionalDataField.getTerminalLabel().getLength(), equalTo(5));
-    assertThat(additionalDataField.getTerminalLabel().getValue(), equalTo("klmno"));
+    assertThat(additionalDataField.getTerminalLabel().getLength(), equalTo(2));
+    assertThat(additionalDataField.getTerminalLabel().getValue(), equalTo("kl"));
 
+    assertThat(additionalDataField.getMerchantTaxId(), not(nullValue()));
+    assertThat(additionalDataField.getMerchantTaxId().getTag(), equalTo("10"));
+    assertThat(additionalDataField.getMerchantTaxId().getLength(), equalTo(2));
+    assertThat(additionalDataField.getMerchantTaxId().getValue(), equalTo("TX"));
+
+    assertThat(additionalDataField.getMerchantChannel(), not(nullValue()));
+    assertThat(additionalDataField.getMerchantChannel().getTag(), equalTo("11"));
+    assertThat(additionalDataField.getMerchantChannel().getLength(), equalTo(2));
+    assertThat(additionalDataField.getMerchantChannel().getValue(), equalTo("MC"));
   }
 
   @Test
@@ -104,9 +113,9 @@ public class AdditionalDataFieldDecoderTest {
 
   @Test
   public void testSuccessDecodeEncode() throws PresentedModeException {
-    final AdditionalDataField additionalDataField = DecoderMpm.decode("62950105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i", AdditionalDataField.class);
+    final AdditionalDataField additionalDataField = DecoderMpm.decode("62800102120202670302090402540502ab0602fg0702kl0802pq0902tu1002TX1102MC5010000110101i", AdditionalDataField.class);
 
-    assertThat(additionalDataField.toString(), equalTo("0105123450205678900305098760405543210505abcde0605fghij0705klmno0805pqres0905tuvxy5010000110101i"));
+    assertThat(additionalDataField.toString(), equalTo("0102120202670302090402540502ab0602fg0702kl0802pq0902tu1002TX1102MC5010000110101i"));
   }
 
   @Test

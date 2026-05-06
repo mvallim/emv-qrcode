@@ -43,17 +43,7 @@ import br.com.fluentvalidator.context.Error;
 import br.com.fluentvalidator.handler.HandlerInvalidField;
 import br.com.fluentvalidator.predicate.PredicateBuilder;
 
-/**
- * Validator for CommonDataTemplate in Consumer Presented Mode (CPM) QR codes.
- * Validates the Common Data Template (tag 0x62) fields and ensures no duplicate
- * tags exist between Application Templates and Common Data Template.
- *
- * <p>This validator also checks for duplicate tag definitions across templates,
- * which is not allowed per EMVCo specifications.</p>
- *
- * @see com.emv.qrcode.model.cpm.CommonDataTemplate
- * @see com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes#ID_COMMON_DATA_TEMPLATE
- */
+// @formatter:off
 /**
  * Validator for CommonDataTemplate in Consumer Presented Mode (CPM) QR codes.
  * Validates the Common Data Template (tag 0x62) fields and ensures no duplicate
@@ -67,7 +57,6 @@ import br.com.fluentvalidator.predicate.PredicateBuilder;
  * @see com.emv.qrcode.model.cpm.ApplicationTemplate
  * @see com.emv.qrcode.model.cpm.ConsumerPresentedMode
  */
-// @formatter:off
 class CommonDataTemplateValidator extends AbstractValidator<CommonDataTemplate> {
 
   private final Function<CommonDataTemplate, ConsumerPresentedMode> cpm = fn -> getPropertyOnContext("cpm", ConsumerPresentedMode.class);

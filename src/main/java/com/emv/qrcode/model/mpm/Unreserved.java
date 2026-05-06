@@ -28,8 +28,10 @@ import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class Unreserved implements Serializable {
 
   private static final long serialVersionUID = -3465559955367881407L;
@@ -39,13 +41,6 @@ public class Unreserved implements Serializable {
 
   // Context Specific Data
   private final Map<String, TagLengthString> contextSpecificData = new LinkedHashMap<>();
-
-  /**
-   * Constructs an empty Unreserved.
-   */
-  public Unreserved() {
-    super();
-  }
 
   /**
    * Constructs an Unreserved with the specified Globally Unique Identifier.
