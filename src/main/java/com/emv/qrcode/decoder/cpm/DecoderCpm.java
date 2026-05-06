@@ -37,6 +37,7 @@ import com.emv.qrcode.core.exception.PresentedModeException;
  * @see DecodeCpmIterator
  * @see DecodersCpmMap
  */
+@SuppressWarnings("java:S112")
 public abstract class DecoderCpm<T> {
 
   private static final Map<Class<?>, Constructor<? extends DecoderCpm<?>>> ctorMap = new ConcurrentHashMap<>();
@@ -49,7 +50,7 @@ public abstract class DecoderCpm<T> {
    * @param source the CPM QR code byte array to decode
    */
   protected DecoderCpm(final byte[] source) {
-    this.iterator = new DecodeCpmIterator(source);
+    iterator = new DecodeCpmIterator(source);
   }
 
   /**
