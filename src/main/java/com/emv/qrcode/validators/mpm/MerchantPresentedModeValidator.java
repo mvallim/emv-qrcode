@@ -56,17 +56,18 @@ import br.com.fluentvalidator.AbstractValidator;
  * mandatory fields and may contain various optional fields with format constraints.</p>
  *
  * <p>Key validation rules include:
- * <ul>
- *   <li>Payload Format Indicator must be "01"</li>
- *   <li>Point of Initiation Method must be "11" or "12" (if present)</li>
- *   <li>Merchant Category Code must be 4 digits</li>
- *   <li>Transaction Currency must be 3 digits (ISO 4217)</li>
- *   <li>Transaction Amount must be a valid number (if present)</li>
- *   <li>Tip or Convenience Indicator validation with conditional fields</li>
- *   <li>Country Code must be 2 digits (ISO 3166-1)</li>
- *   <li>Merchant Name and City are mandatory</li>
- *   <li>At least one Merchant Account Information template required</li>
- * </ul></p>
+ *   <ul>
+ *     <li>Payload Format Indicator must be "01"</li>
+ *     <li>Point of Initiation Method must be "11" or "12" (if present)</li>
+ *     <li>Merchant Category Code must be 4 digits</li>
+ *     <li>Transaction Currency must be 3 digits (ISO 4217)</li>
+ *     <li>Transaction Amount must be a valid number (if present)</li>
+ *     <li>Tip or Convenience Indicator validation with conditional fields</li>
+ *     <li>Country Code must be 2 digits (ISO 3166-1)</li>
+ *     <li>Merchant Name and City are mandatory</li>
+ *     <li>At least one Merchant Account Information template required</li>
+ *   </ul>
+ * </p>
  *
  * @see com.emv.qrcode.model.mpm.MerchantPresentedMode
  * @see com.emv.qrcode.validators.mpm.AdditionalDataFieldTemplateValidator
