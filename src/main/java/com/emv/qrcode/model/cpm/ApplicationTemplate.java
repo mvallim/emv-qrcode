@@ -54,6 +54,7 @@ public class ApplicationTemplate extends AdditionalData implements BERTemplate<b
 
   /**
    * Sets the Application Specific Transparent Template contained in this template.
+   * This template contains application-specific transparent data within the Application Template.
    *
    * @param applicationSpecificTransparentTemplate the application specific transparent template
    */

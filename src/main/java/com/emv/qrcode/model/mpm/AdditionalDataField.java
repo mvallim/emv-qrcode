@@ -31,7 +31,8 @@ import lombok.Getter;
 
 /**
  * Represents Additional Data Field in a Merchant Presented Mode (MPM) QR code.
- * This class contains various optional data fields like bill number, mobile number, store label, etc.
+ * This class contains various optional data fields like bill number, mobile
+ * number, store label, etc.
  *
  * @see TagLengthString
  * @see PaymentSystemSpecificTemplate
@@ -67,6 +68,12 @@ public class AdditionalDataField implements Serializable {
 
   // Additional Consumer Data Request
   private TagLengthString additionalConsumerDataRequest;
+
+  // Merchant TaxId
+  private TagLengthString merchantTaxId;
+
+  // Merchant Channel
+  private TagLengthString merchantChannel;
 
   // RFU for EMVCo
   private final Map<String, TagLengthString> rFUforEMVCo = new LinkedHashMap<>();
@@ -156,6 +163,24 @@ public class AdditionalDataField implements Serializable {
   }
 
   /**
+   * Sets the Merchant Tax ID (tag 10).
+   *
+   * @param merchantTaxId the merchant tax ID
+   */
+  public final void setMerchantTaxId(final String merchantTaxId) {
+    this.merchantTaxId = new TagLengthString(AdditionalDataFieldCodes.ID_MERCHANT_TAX_ID, merchantTaxId);
+  }
+
+  /**
+   * Sets the Merchant Channel (tag 11).
+   *
+   * @param merchantChannel the merchant channel
+   */
+  public final void setMerchantChannel(final String merchantChannel) {
+    this.merchantChannel = new TagLengthString(AdditionalDataFieldCodes.ID_MERCHANT_CHANNEL, merchantChannel);
+  }
+
+  /**
    * Adds a Reserved for Future Use (RFU) field for EMVCo.
    *
    * @param rFUforEMVCo the RFU field to add
@@ -187,6 +212,8 @@ public class AdditionalDataField implements Serializable {
     Optional.ofNullable(terminalLabel).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(purposeTransaction).ifPresent(tlv -> sb.append(tlv.toString()));
     Optional.ofNullable(additionalConsumerDataRequest).ifPresent(tlv -> sb.append(tlv.toString()));
+    Optional.ofNullable(merchantTaxId).ifPresent(tlv -> sb.append(tlv.toString()));
+    Optional.ofNullable(merchantChannel).ifPresent(tlv -> sb.append(tlv.toString()));
 
     for (final Entry<String, TagLengthString> entry : rFUforEMVCo.entrySet()) {
       Optional.ofNullable(entry.getValue()).ifPresent(tlv -> sb.append(tlv.toString()));

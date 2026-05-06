@@ -133,7 +133,7 @@ public class MerchantPresentedModeValidatorTest {
     paymentSystemSpecificTemplate.setValue(paymentSystemSpecific);
 
     final TagLengthString rFUforEMVCo = new TagLengthString();
-    rFUforEMVCo.setTag("10");
+    rFUforEMVCo.setTag("12");
     rFUforEMVCo.setValue("abcd");
 
     final AdditionalDataField additionalDataFieldValue = new AdditionalDataField();

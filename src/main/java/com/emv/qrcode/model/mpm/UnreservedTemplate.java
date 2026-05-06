@@ -23,9 +23,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TLV;
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
+@NoArgsConstructor
 public class UnreservedTemplate implements TLV<String, Unreserved> {
 
   private static final long serialVersionUID = -1445641777082739037L;
@@ -34,19 +36,32 @@ public class UnreservedTemplate implements TLV<String, Unreserved> {
 
   private Unreserved value;
 
-  public UnreservedTemplate() {
-    super();
-  }
-
+  /**
+   * Constructs an UnreservedTemplate with the specified tag.
+   *
+   * @param tag the tag identifier
+   */
   public UnreservedTemplate(final String tag) {
     setTag(tag);
   }
 
+  /**
+   * Constructs an UnreservedTemplate with the specified tag and Globally Unique Identifier.
+   *
+   * @param tag the tag identifier
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   */
   public UnreservedTemplate(final String tag, final String globallyUniqueIdentifier) {
     setTag(tag);
     setValue(new Unreserved(globallyUniqueIdentifier));
   }
 
+  /**
+   * Adds context-specific data to the Unreserved template.
+   *
+   * @param tag the context-specific data tag
+   * @param value the context-specific data value
+   */
   public void addContextSpecificData(final String tag, final String value) {
     setValue(Optional.ofNullable(getValue()).orElse(new Unreserved()));
     getValue().addContextSpecificData(tag, value);

@@ -76,9 +76,19 @@ public final class AdditionalDataFieldCodes {
   public static final String ID_ADDITIONAL_CONSUMER_DATA_REQUEST = "09";
 
   /**
+   * (O) Merchant Tax Id - tax identification merchant.
+   */
+  public static final String ID_MERCHANT_TAX_ID = "10";
+
+  /**
+   * (O) Merchant Channel - merchant channel establishes the environment.
+   */
+  public static final String ID_MERCHANT_CHANNEL = "11";
+
+  /**
    * (O) Start of RFU (Reserved for Future Use) range for EMVCo (10-49).
    */
-  public static final String ID_RFU_FOR_EMVCO_RANGE_START = "10";
+  public static final String ID_RFU_FOR_EMVCO_RANGE_START = "12";
 
   /**
    * (O) End of RFU (Reserved for Future Use) range for EMVCo (10-49).
