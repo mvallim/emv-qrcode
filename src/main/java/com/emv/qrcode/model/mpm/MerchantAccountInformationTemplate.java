@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.emv.qrcode.core.model.TLV;
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -32,6 +33,7 @@ import lombok.Setter;
  * @see MerchantAccountInformation
  */
 @Setter
+@NoArgsConstructor
 public class MerchantAccountInformationTemplate implements TLV<String, MerchantAccountInformation> {
 
   private static final long serialVersionUID = 1504801865799183162L;
@@ -39,13 +41,6 @@ public class MerchantAccountInformationTemplate implements TLV<String, MerchantA
   private String tag;
 
   private MerchantAccountInformation value;
-
-  /**
-   * Constructs an empty MerchantAccountInformationTemplate.
-   */
-  public MerchantAccountInformationTemplate() {
-    super();
-  }
 
   /**
    * Constructs a MerchantAccountInformationTemplate with the specified tag.

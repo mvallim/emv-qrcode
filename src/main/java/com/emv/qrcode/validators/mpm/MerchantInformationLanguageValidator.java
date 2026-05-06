@@ -35,6 +35,7 @@ import com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+// @formatter:off
 /**
  * Validator for MerchantInformationLanguage in Merchant Presented Mode QR codes.
  * Validates the language-specific merchant information including language preference,
@@ -43,7 +44,6 @@ import br.com.fluentvalidator.AbstractValidator;
  * @see com.emv.qrcode.model.mpm.MerchantInformationLanguage
  * @see com.emv.qrcode.model.mpm.constants.MerchantInformationLanguageFieldCodes
  */
-// @formatter:off
 class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInformationLanguage> {
 
   /**
@@ -55,7 +55,7 @@ class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInf
   public void rules() {
 
     /**
-     *
+     * LanguagePreference
      */
     ruleFor(MerchantInformationLanguage::getLanguagePreference)
 
@@ -90,7 +90,7 @@ class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInf
         .critical();
 
     /**
-     *
+     * MerchantName
      */
     ruleFor(MerchantInformationLanguage::getMerchantName)
 
@@ -125,7 +125,7 @@ class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInf
         .critical();
 
     /**
-     *
+     * MerchantCity
      */
     ruleFor(MerchantInformationLanguage::getMerchantCity)
 
@@ -165,6 +165,9 @@ class MerchantInformationLanguageValidator extends AbstractValidator<MerchantInf
         .withAttempedValue(of(MerchantInformationLanguage::getMerchantCity).andThen(TagLengthString::getValue))
         .critical();
 
+    /**
+     * RFUforEMVCo
+     */
     ruleForEach(of(MerchantInformationLanguage::getRFUforEMVCo).andThen(Map::values))
       .whenever(greaterThan(Collection::size, 0))
         .withValidator(new TagLengthStringValidator("MerchantInformationLanguage.RFUforEMVCo", "03", "99", 99));

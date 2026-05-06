@@ -39,10 +39,14 @@ import br.com.fluentvalidator.AbstractValidator;
 /**
  * Validator for AdditionalDataField in Merchant Presented Mode QR codes.
  * Validates all sub-fields within the Additional Data Field Template (ID 62),
- * including bill number, mobile number, store label, loyalty number, and others.
+ * including bill number, mobile number, store label, loyalty number, and
+ * others.
  *
- * <p>Each sub-field is validated for proper tag value, tag format (numeric, 2 characters),
- * and value length constraints as defined by the EMVCo specification.</p>
+ * <p>
+ * Each sub-field is validated for proper tag value, tag format (numeric, 2
+ * characters), and value length constraints as defined by the EMVCo
+ * specification.
+ * </p>
  *
  * @see com.emv.qrcode.model.mpm.AdditionalDataField
  * @see com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes
@@ -60,7 +64,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
   public void rules() {
 
     /**
-     *
+     * BillNumber
      */
     ruleFor(AdditionalDataField::getBillNumber)
 
@@ -101,7 +105,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * MobileNumber
      */
     ruleFor(AdditionalDataField::getMobileNumber)
 
@@ -142,7 +146,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * StoreLabel
      */
     ruleFor(AdditionalDataField::getStoreLabel)
 
@@ -183,7 +187,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * LoyaltyNumber
      */
     ruleFor(AdditionalDataField::getLoyaltyNumber)
 
@@ -224,7 +228,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * ReferenceLabel
      */
     ruleFor(AdditionalDataField::getReferenceLabel)
 
@@ -265,7 +269,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * CustomerLabel
      */
     ruleFor(AdditionalDataField::getCustomerLabel)
 
@@ -306,7 +310,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * TerminalLabel
      */
     ruleFor(AdditionalDataField::getTerminalLabel)
 
@@ -347,7 +351,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * TerminalLabel
      */
     ruleFor(AdditionalDataField::getPurposeTransaction)
 
@@ -388,7 +392,7 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * AdditionalConsumerDataRequest
      */
     ruleFor(AdditionalDataField::getAdditionalConsumerDataRequest)
 
@@ -429,20 +433,102 @@ class AdditionalDataFieldValidator extends AbstractValidator<AdditionalDataField
         .critical();
 
     /**
-     *
+     * MerchantTaxId
+     */
+    ruleFor(AdditionalDataField::getMerchantTaxId)
+
+      .must(not(stringEmptyOrNull(TagLengthString::getTag)))
+        .when(not(nullValue()))
+        .withMessage("MerchantTaxId tag is mandatory")
+        .withAttempedValue(of(AdditionalDataField::getMerchantTaxId).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(stringSize(TagLengthString::getTag, 2))
+        .when(not(nullValue()))
+        .withMessage("MerchantTaxId tag must be size equal two")
+        .withAttempedValue(of(AdditionalDataField::getMerchantTaxId).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(isNumeric(TagLengthString::getTag))
+        .when(not(nullValue()))
+        .withMessage("MerchantTaxId tag must be number")
+        .withAttempedValue(of(AdditionalDataField::getMerchantTaxId).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(stringEquals(TagLengthString::getTag, AdditionalDataFieldCodes.ID_MERCHANT_TAX_ID))
+        .when(not(nullValue()))
+        .withMessage(String.format("MerchantTaxId tag must be '%s'", AdditionalDataFieldCodes.ID_MERCHANT_TAX_ID))
+        .withAttempedValue(of(AdditionalDataField::getMerchantTaxId).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(not(stringEmptyOrNull(TagLengthString::getValue)))
+        .when(not(nullValue()))
+        .withMessage("MerchantTaxId value is mandatory")
+        .withAttempedValue(of(AdditionalDataField::getMerchantTaxId).andThen(TagLengthString::getValue))
+        .critical()
+
+      .must(stringSizeLessThanOrEqual(TagLengthString::getValue, 20))
+        .when(not(nullValue()))
+        .withMessage("MerchantTaxId value must less then or equal size twenty")
+        .withAttempedValue(of(AdditionalDataField::getMerchantTaxId).andThen(TagLengthString::getValue))
+        .critical();
+
+    /**
+     * MerchantChannel
+     */
+    ruleFor(AdditionalDataField::getMerchantChannel)
+
+      .must(not(stringEmptyOrNull(TagLengthString::getTag)))
+        .when(not(nullValue()))
+        .withMessage("MerchantChannel tag is mandatory")
+        .withAttempedValue(of(AdditionalDataField::getMerchantChannel).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(stringSize(TagLengthString::getTag, 2))
+        .when(not(nullValue()))
+        .withMessage("MerchantChannel tag must be size equal two")
+        .withAttempedValue(of(AdditionalDataField::getMerchantChannel).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(isNumeric(TagLengthString::getTag))
+        .when(not(nullValue()))
+        .withMessage("MerchantChannel tag must be number")
+        .withAttempedValue(of(AdditionalDataField::getMerchantChannel).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(stringEquals(TagLengthString::getTag, AdditionalDataFieldCodes.ID_MERCHANT_CHANNEL))
+        .when(not(nullValue()))
+        .withMessage(String.format("MerchantChannel tag must be '%s'", AdditionalDataFieldCodes.ID_MERCHANT_CHANNEL))
+        .withAttempedValue(of(AdditionalDataField::getMerchantChannel).andThen(TagLengthString::getTag))
+        .critical()
+
+      .must(not(stringEmptyOrNull(TagLengthString::getValue)))
+        .when(not(nullValue()))
+        .withMessage("MerchantChannel value is mandatory")
+        .withAttempedValue(of(AdditionalDataField::getMerchantChannel).andThen(TagLengthString::getValue))
+        .critical()
+
+      .must(stringSize(TagLengthString::getValue, 3))
+        .when(not(nullValue()))
+        .withMessage("MerchantChannel value must equal size three")
+        .withAttempedValue(of(AdditionalDataField::getMerchantChannel).andThen(TagLengthString::getValue))
+        .critical();
+
+    /**
+     * RFUforEMVCo
      */
     ruleFor("RFUforEMVCo", AdditionalDataField::getRFUforEMVCo)
-      .must(betweenInclusive(Map::size, 1, 39))
+      .must(betweenInclusive(Map::size, 1, 37))
         .when(greaterThan(Map::size, 0))
-        .withMessage("RFUforEMVCo list size must be between one and thirty-nine")
+        .withMessage("RFUforEMVCo list size must be between one and thirty-seven")
         .withAttempedValue(of(AdditionalDataField::getRFUforEMVCo).andThen(Map::size));
 
     ruleForEach(of(AdditionalDataField::getRFUforEMVCo).andThen(Map::values))
       .whenever(greaterThan(Collection::size, 0))
-        .withValidator(new TagLengthStringValidator("AdditionalDataField.RFUforEMVCo", "10", "49", 99));
+        .withValidator(new TagLengthStringValidator("AdditionalDataField.RFUforEMVCo", "12", "49", 99));
 
     /**
-     *
+     * PaymentSystemSpecific
      */
     ruleFor("PaymentSystemSpecific", AdditionalDataField::getPaymentSystemSpecific)
       .must(betweenInclusive(Map::size, 1, 49))

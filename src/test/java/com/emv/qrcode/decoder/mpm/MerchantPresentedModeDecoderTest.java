@@ -177,13 +177,13 @@ public class MerchantPresentedModeDecoderTest {
 
   @Test
   public void testSuccessDecodeAdditionalDataFieldTemplate() throws PresentedModeException {
-    final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("6233030412340603***0708A60086670902ME", MerchantPresentedMode.class);
+    final MerchantPresentedMode merchantPresentMode = DecoderMpm.decode("6245030412340603***0708A60086670902ME1002TX1102MC", MerchantPresentedMode.class);
 
     assertThat(merchantPresentMode, not(nullValue()));
 
     assertThat(merchantPresentMode.getAdditionalDataField(), not(nullValue()));
     assertThat(merchantPresentMode.getAdditionalDataField().getTag(), equalTo("62"));
-    assertThat(merchantPresentMode.getAdditionalDataField().getLength(), equalTo(33));
+    assertThat(merchantPresentMode.getAdditionalDataField().getLength(), equalTo(45));
     assertThat(merchantPresentMode.getAdditionalDataField().getValue(), not(nullValue()));
 
     assertThat(merchantPresentMode.getAdditionalDataField().getValue().getStoreLabel(), not(nullValue()));
@@ -205,6 +205,16 @@ public class MerchantPresentedModeDecoderTest {
     assertThat(merchantPresentMode.getAdditionalDataField().getValue().getAdditionalConsumerDataRequest().getTag(), equalTo("09"));
     assertThat(merchantPresentMode.getAdditionalDataField().getValue().getAdditionalConsumerDataRequest().getLength(), equalTo(02));
     assertThat(merchantPresentMode.getAdditionalDataField().getValue().getAdditionalConsumerDataRequest().getValue(), equalTo("ME"));
+
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantTaxId(), not(nullValue()));
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantTaxId().getTag(), equalTo("10"));
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantTaxId().getLength(), equalTo(02));
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantTaxId().getValue(), equalTo("TX"));
+
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantChannel(), not(nullValue()));
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantChannel().getTag(), equalTo("11"));
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantChannel().getLength(), equalTo(02));
+    assertThat(merchantPresentMode.getAdditionalDataField().getValue().getMerchantChannel().getValue(), equalTo("MC"));
 
   }
 
