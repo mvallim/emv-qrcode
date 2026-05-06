@@ -16,23 +16,19 @@
 
 package com.emv.qrcode.model.mpm;
 
-import com.emv.qrcode.core.model.mpm.TagLengthString;
-import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
-import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
-/**
- * Represents Unreserved data in a Merchant Presented Mode (MPM) QR code.
- * This class contains a Globally Unique Identifier and context-specific data.
- *
- * @see TagLengthString
- */
+import org.apache.commons.lang3.StringUtils;
+
+import com.emv.qrcode.core.model.mpm.TagLengthString;
+import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
+
+import lombok.Getter;
+
 @Getter
 public class Unreserved implements Serializable {
 
@@ -57,7 +53,7 @@ public class Unreserved implements Serializable {
    * @param globallyUniqueIdentifier the globally unique identifier value
    */
   public Unreserved(final String globallyUniqueIdentifier) {
-    this.setGloballyUniqueIdentifier(globallyUniqueIdentifier);
+    setGloballyUniqueIdentifier(globallyUniqueIdentifier);
   }
 
   /**

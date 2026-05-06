@@ -16,27 +16,15 @@
 
 package com.emv.qrcode.model.mpm;
 
-import com.emv.qrcode.core.model.TLV;
-import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * Represents an Unreserved Template in Merchant Presented Mode (MPM).
- * This class models a template for proprietary or future use within tags 80-99
- * of an MPM QR code.
- *
- * <p>Each Unreserved Template contains a Globally Unique Identifier and
- * optional context-specific data. The template uses TLV (Tag-Length-Value)
- * encoding.</p>
- *
- * @see com.emv.qrcode.core.model.TLV
- * @see com.emv.qrcode.model.mpm.Unreserved
- * @see com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes
- * @since EMVCo QR Code Specification v1.0
- */
+import org.apache.commons.lang3.StringUtils;
+
+import com.emv.qrcode.core.model.TLV;
+
+import lombok.Setter;
+
 @Setter
 public class UnreservedTemplate implements TLV<String, Unreserved> {
 
@@ -51,17 +39,17 @@ public class UnreservedTemplate implements TLV<String, Unreserved> {
   }
 
   public UnreservedTemplate(final String tag) {
-    this.setTag(tag);
+    setTag(tag);
   }
 
   public UnreservedTemplate(final String tag, final String globallyUniqueIdentifier) {
-    this.setTag(tag);
-    this.setValue(new Unreserved(globallyUniqueIdentifier));
+    setTag(tag);
+    setValue(new Unreserved(globallyUniqueIdentifier));
   }
 
-  public void addContextSpecificData(final String tag, final String value) {   
-    this.setValue(Optional.ofNullable(this.getValue()).orElse(new Unreserved()));
-    this.getValue().addContextSpecificData(tag, value);
+  public void addContextSpecificData(final String tag, final String value) {
+    setValue(Optional.ofNullable(getValue()).orElse(new Unreserved()));
+    getValue().addContextSpecificData(tag, value);
   }
 
   @Override
