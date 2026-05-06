@@ -50,25 +50,29 @@ import br.com.fluentvalidator.AbstractValidator;
 /**
  * Main validator for MerchantPresentedMode (MPM) QR code data.
  * This validator orchestrates validation of all components within an MPM QR code,
- * including payload format indicator, merchant account information, transaction data,
- * and additional field templates.
+ * including mandatory fields, optional fields, and complex validation rules.
  *
- * <p>Validates according to EMVCo QR Code Specification v1.0:
+ * <p>According to EMVCo specifications, an MPM QR code must contain specific
+ * mandatory fields and may contain various optional fields with format constraints.</p>
+ *
+ * <p>Key validation rules include:
  * <ul>
- *   <li>Payload Format Indicator (mandatory, tag "00")</li>
- *   <li>Point of Initiation Method (optional, tag "01")</li>
- *   <li>Merchant Account Information (tags 02-51)</li>
- *   <li>Merchant Category Code (mandatory, tag "52")</li>
- *   <li>Transaction Currency (mandatory, tag "53")</li>
- *   <li>Transaction Amount (conditional, tag "54")</li>
- *   <li>Country Code (mandatory, tag "58")</li>
- *   <li>Merchant Name and City (mandatory, tags "59" and "60")</li>
- *   <li>CRC (mandatory, tag "63")</li>
+ *   <li>Payload Format Indicator must be "01"</li>
+ *   <li>Point of Initiation Method must be "11" or "12" (if present)</li>
+ *   <li>Merchant Category Code must be 4 digits</li>
+ *   <li>Transaction Currency must be 3 digits (ISO 4217)</li>
+ *   <li>Transaction Amount must be a valid number (if present)</li>
+ *   <li>Tip or Convenience Indicator validation with conditional fields</li>
+ *   <li>Country Code must be 2 digits (ISO 3166-1)</li>
+ *   <li>Merchant Name and City are mandatory</li>
+ *   <li>At least one Merchant Account Information template required</li>
  * </ul></p>
  *
  * @see com.emv.qrcode.model.mpm.MerchantPresentedMode
+ * @see com.emv.qrcode.validators.mpm.AdditionalDataFieldTemplateValidator
+ * @see com.emv.qrcode.validators.mpm.MerchantInformationLanguageTemplateValidator
+ * @see com.emv.qrcode.validators.mpm.MerchantAccountInformationTemplateValidator
  * @see com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes
- * @since EMVCo QR Code Specification v1.0
  */
 // @formatter:off
 public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPresentedMode> {

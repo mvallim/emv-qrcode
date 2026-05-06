@@ -22,6 +22,16 @@ import com.emv.qrcode.model.cpm.PayloadFormatIndicator;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for PayloadFormatIndicator in Consumer Presented Mode (CPM) QR codes.
+ * Ensures the Payload Format Indicator value matches the expected format ("CPV01").
+ *
+ * <p>According to EMVCo specifications, the Payload Format Indicator must
+ * contain the exact value "CPV01" to indicate CPM specification version 01.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.PayloadFormatIndicator
+ * @see com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes#ID_PAYLOAD_FORMAT_INDICATOR
+ */
 // @formatter:off
 class PayloadFormatIndicatorValidator extends AbstractValidator<PayloadFormatIndicator> {
 
