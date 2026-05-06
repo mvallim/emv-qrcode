@@ -18,17 +18,31 @@ package com.emv.qrcode.core.exception;
 
 import java.text.MessageFormat;
 
+/**
+ * Exception thrown when a value cannot be properly decoded due to invalid characters.
+ * This typically occurs when the value contains characters outside the expected hexadecimal range [0-9a-fA-F].
+ */
 public class DecodeValueException extends PresentedModeException {
 
   private static final long serialVersionUID = 3381404607920642729L;
 
   private final String value;
 
+  /**
+   * Constructs a new DecodeValueException with the specified invalid value.
+   *
+   * @param value the invalid value that could not be decoded
+   */
   public DecodeValueException(final String value) {
     super(MessageFormat.format("Characters outside of the expected range Hex ''[0-9a-fA-F]''. Invalid value ''{0}''", value));
     this.value = value;
   }
 
+  /**
+   * Returns the invalid value that caused this exception.
+   *
+   * @return the invalid value
+   */
   public String getValue() {
     return value;
   }

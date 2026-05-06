@@ -25,7 +25,7 @@ import java.io.IOException;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.model.cpm.PayloadFormatIndicator;

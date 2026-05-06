@@ -40,22 +40,46 @@ public class Unreserved implements Serializable {
   // Context Specific Data
   private final Map<String, TagLengthString> contextSpecificData = new LinkedHashMap<>();
 
+  /**
+   * Constructs an empty Unreserved.
+   */
   public Unreserved() {
     super();
   }
 
+  /**
+   * Constructs an Unreserved with the specified Globally Unique Identifier.
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   */
   public Unreserved(final String globallyUniqueIdentifier) {
     setGloballyUniqueIdentifier(globallyUniqueIdentifier);
   }
 
+  /**
+   * Sets the Globally Unique Identifier (tag 00).
+   *
+   * @param globallyUniqueIdentifier the globally unique identifier value
+   */
   public final void setGloballyUniqueIdentifier(final String globallyUniqueIdentifier) {
     this.globallyUniqueIdentifier = new TagLengthString(UnreservedTemplateFieldCodes.ID_GLOBALLY_UNIQUE_IDENTIFIER, globallyUniqueIdentifier);
   }
 
+  /**
+   * Adds a context-specific data field.
+   *
+   * @param tagLengthString the TagLengthString to add
+   */
   public final void addContextSpecificData(final TagLengthString tagLengthString) {
     contextSpecificData.put(tagLengthString.getTag(), tagLengthString);
   }
 
+  /**
+   * Adds a context-specific data field with the specified tag and value.
+   *
+   * @param tag the field tag
+   * @param value the field value
+   */
   public final void addContextSpecificData(final String tag, final String value) {
     contextSpecificData.put(tag, new TagLengthString(tag, value));
   }

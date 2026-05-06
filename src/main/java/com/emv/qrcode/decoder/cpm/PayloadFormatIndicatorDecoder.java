@@ -21,6 +21,15 @@ import com.emv.qrcode.core.model.cpm.BERTag;
 import com.emv.qrcode.core.utils.BERUtils;
 import com.emv.qrcode.model.cpm.PayloadFormatIndicator;
 
+/**
+ * Decoder for PayloadFormatIndicator in Consumer Presented Mode (CPM).
+ * Decodes BER-TLV encoded byte arrays into PayloadFormatIndicator objects
+ * which contain the tag and value indicating the CPM specification version.
+ *
+ * @see com.emv.qrcode.model.cpm.PayloadFormatIndicator
+ * @see com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes#ID_PAYLOAD_FORMAT_INDICATOR
+ * @see DecoderCpm
+ */
 public final class PayloadFormatIndicatorDecoder extends DecoderCpm<PayloadFormatIndicator> {
 
   public PayloadFormatIndicatorDecoder(final byte[] source) {

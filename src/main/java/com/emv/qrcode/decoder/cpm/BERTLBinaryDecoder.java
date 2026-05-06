@@ -19,8 +19,20 @@ package com.emv.qrcode.decoder.cpm;
 import com.emv.qrcode.core.model.cpm.BERTLBinary;
 import com.emv.qrcode.core.utils.BERUtils;
 
+/**
+ * Decoder for parsing BER-TLV Binary data from CPM QR code byte arrays.
+ * This decoder creates BERTLBinary objects from BER-encoded byte arrays.
+ *
+ * @see DecoderCpm
+ * @see BERTLBinary
+ */
 public final class BERTLBinaryDecoder extends DecoderCpm<BERTLBinary> {
 
+  /**
+   * Constructs a BERTLBinaryDecoder with the specified source byte array.
+   *
+   * @param source the CPM QR code byte array to decode
+   */
   public BERTLBinaryDecoder(final byte[] source) {
     super(source);
   }

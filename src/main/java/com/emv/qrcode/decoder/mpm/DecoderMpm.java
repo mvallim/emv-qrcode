@@ -28,30 +28,58 @@ import com.emv.qrcode.core.configuration.DecodersMpmMap;
 import com.emv.qrcode.core.exception.PresentedModeException;
 
 // @formatter:off
+/**
+ * Abstract base class for decoding Merchant Presented Mode (MPM) QR code data.
+ * This class provides the foundation for all MPM decoders that parse TLV-encoded strings.
+ *
+ * @param <T> the type of decoded object
+ * @see DecodeMpmIterator
+ * @see DecodersMpmMap
+ */
 public abstract class DecoderMpm<T> {
 
   private static final Map<Class<?>, Constructor<? extends DecoderMpm<?>>> ctorMap = new ConcurrentHashMap<>();
 
   protected final Iterator<String> iterator;
 
+  /**
+   * Constructs a DecoderMpm with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   protected DecoderMpm(final String source) {
     this.iterator = new DecodeMpmIterator(source);
   }
 
+  /**
+   * Decodes the source string and returns the decoded object.
+   *
+   * @return the decoded object
+   * @throws PresentedModeException if decoding fails
+   */
   protected abstract T decode() throws PresentedModeException;
 
+  /**
+   * Creates a map entry that associates a class with a consumer for tag-length-value decoding.
+   *
+   * @param <C> the type of the consumer's first argument
+   * @param <T> the type of the consumer's second argument
+   * @param clazz the class to use as a key
+   * @param consumer the consumer to associate with the class
+   * @return a map entry pairing the class and consumer
+   */
   protected static <C, T> Entry<Class<?>, BiConsumer<C, ?>> consumerTagLengthValue(final Class<T> clazz, final BiConsumer<C, T> consumer) {
     return new SimpleEntry<>(clazz, consumer);
   }
 
   /**
-   * Decode MPM using string
+   * Decodes an MPM string into the specified target class.
    *
-   * @param <T> target class
-   * @param source string MPM
-   * @param clazz target class
-   * @return target class result
-   * @throws PresentedModeException
+   * @param <T> the type of the target class
+   * @param source the MPM QR code string to decode
+   * @param clazz the target class to decode into
+   * @return the decoded object of type T
+   * @throws PresentedModeException if decoding fails
    */
   public static <T> T decode(final String source, final Class<T> clazz) throws PresentedModeException {
     try {

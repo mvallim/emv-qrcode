@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.core.model.mpm.TagLengthString;

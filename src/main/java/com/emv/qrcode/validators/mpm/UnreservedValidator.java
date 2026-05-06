@@ -34,9 +34,22 @@ import com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for Unreserved template data in Merchant Presented Mode QR codes.
+ * Validates the Unreserved template fields including the Globally Unique Identifier
+ * and any context-specific data elements.
+ *
+ * @see com.emv.qrcode.model.mpm.Unreserved
+ * @see com.emv.qrcode.model.mpm.constants.UnreservedTemplateFieldCodes
+ */
 // @formatter:off
 class UnreservedValidator extends AbstractValidator<Unreserved> {
 
+  /**
+   * Defines validation rules for Unreserved.
+   * Validates GloballyUniqueIdentifier (mandatory, tag "00", max 32 chars)
+   * and ContextSpecificData (optional, tags 01-99, max 99 chars each).
+   */
   @Override
   public void rules() {
 

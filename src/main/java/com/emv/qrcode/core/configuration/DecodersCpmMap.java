@@ -42,6 +42,17 @@ import com.emv.qrcode.model.cpm.CommonDataTransparentTemplate;
 import com.emv.qrcode.model.cpm.ConsumerPresentedMode;
 import com.emv.qrcode.model.cpm.PayloadFormatIndicator;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+/**
+ * Configuration class that maps Consumer Presented Mode (CPM) model classes to
+ * their corresponding decoder classes. This registry allows the framework to
+ * dynamically select the appropriate decoder for a given BER-TLV data type.
+ *
+ * @see DecoderCpm
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DecodersCpmMap {
 
   private static final Map<Class<?>, Class<? extends DecoderCpm<?>>> MAP_DECODERS = new ConcurrentHashMap<>();
@@ -59,10 +70,6 @@ public final class DecodersCpmMap {
     MAP_DECODERS.put(PayloadFormatIndicator.class, PayloadFormatIndicatorDecoder.class);
   }
 
-  private DecodersCpmMap() {
-    super();
-  }
-
   public static Map<Class<?>, Class<? extends DecoderCpm<?>>> getConfiguration() {
     return Collections.unmodifiableMap(MAP_DECODERS);
   }
@@ -77,6 +84,12 @@ public final class DecodersCpmMap {
     MAP_DECODERS.put(tagClass, decoderClass);
   }
 
+  /**
+   * Returns the decoder class registered for the given model class.
+   *
+   * @param clazz the model class to look up
+   * @return the corresponding decoder class, or null if not found
+   */
   public static Class<? extends DecoderCpm<?>> getDecoder(final Class<?> clazz) {
     return MAP_DECODERS.get(clazz);
   }

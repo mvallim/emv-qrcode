@@ -25,6 +25,19 @@ import org.apache.commons.codec.binary.Hex;
 import com.emv.qrcode.core.model.TLV;
 import com.emv.qrcode.core.utils.BERUtils;
 
+/**
+ * Abstract base class for BER-TLV (Basic Encoding Rules - Tag-Length-Value) data objects
+ * used in Consumer Presented Mode (CPM) QR codes.
+ *
+ * <p>This class provides the core functionality for TLV data structures using BER encoding
+ * as defined by ISO 7816 and used in EMV specifications. Each BERTLV object has
+ * a BERTag, a length, and a byte array value.</p>
+ *
+ * @see com.emv.qrcode.core.model.TLV
+ * @see com.emv.qrcode.core.model.cpm.BERTag
+ * @see com.emv.qrcode.core.utils.BERUtils
+ * @since EMVCo QR Code Specification v1.0
+ */
 public abstract class BERTLV implements TLV<BERTag, byte[]> {
 
   private static final long serialVersionUID = 1286326121944790325L;

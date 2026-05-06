@@ -18,8 +18,20 @@ package com.emv.qrcode.core.model.cpm;
 
 import java.io.IOException;
 
+/**
+ * Interface for BER (Basic Encoding Rules) templates used in Consumer Presented Mode (CPM) QR codes.
+ * Templates are constructed data elements that contain other BER-TLV elements.
+ *
+ * @param <T> the type of bytes representation (typically byte[])
+ */
 public interface BERTemplate<T> {
 
+  /**
+   * Returns the byte array representation of this template.
+   *
+   * @return the bytes of this template
+   * @throws IOException if an I/O error occurs
+   */
   public T getBytes() throws IOException;
 
 }

@@ -24,6 +24,19 @@ import com.emv.qrcode.core.model.TLV;
 
 import lombok.Setter;
 
+/**
+ * Represents a Payment System Specific Template in Merchant Presented Mode (MPM).
+ * This class models a template that contains payment system-specific data
+ * within tags 50-99 of an MPM QR code.
+ *
+ * <p>The template uses TLV (Tag-Length-Value) encoding where the tag identifies
+ * the template, and the value contains a PaymentSystemSpecific object.</p>
+ *
+ * @see com.emv.qrcode.core.model.TLV
+ * @see com.emv.qrcode.model.mpm.PaymentSystemSpecific
+ * @see com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes
+ * @since EMVCo QR Code Specification v1.0
+ */
 @Setter
 public class PaymentSystemSpecificTemplate implements TLV<String, PaymentSystemSpecific> {
 

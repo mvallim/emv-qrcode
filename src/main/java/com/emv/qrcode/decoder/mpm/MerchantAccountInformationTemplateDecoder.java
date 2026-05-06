@@ -24,8 +24,20 @@ import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 // @formatter:off
+/**
+ * Decoder for parsing Merchant Account Information Template data from MPM QR code strings.
+ * This decoder handles both reserved and reserved additional merchant account information types.
+ *
+ * @see DecoderMpm
+ * @see MerchantAccountInformationTemplate
+ */
 public final class MerchantAccountInformationTemplateDecoder extends DecoderMpm<MerchantAccountInformationTemplate> {
 
+  /**
+   * Constructs a MerchantAccountInformationTemplateDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public MerchantAccountInformationTemplateDecoder(final String source) {
     super(source);
   }
@@ -55,11 +67,17 @@ public final class MerchantAccountInformationTemplateDecoder extends DecoderMpm<
     return result;
   }
 
+  /**
+   * Checks if a tag is in the Merchant Account Information Reserved range (02-25).
+   */
   private boolean betweenAccountInformationReservedRange(final String value) {
     return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_START) >= 0
         && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_END) <= 0;
   }
 
+  /**
+   * Checks if a tag is in the Merchant Account Information Reserved Additional range (26-40).
+   */
   private boolean betweenAccountInformationaReservedAdditionalRange(final String value) {
     return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_START) >= 0
         && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_END) <= 0;

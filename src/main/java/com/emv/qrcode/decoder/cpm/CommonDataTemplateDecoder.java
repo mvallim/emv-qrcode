@@ -38,6 +38,13 @@ import com.emv.qrcode.model.cpm.CommonDataTransparentTemplate;
 import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
 
+/**
+ * Decoder for parsing Common Data Template from CPM QR code byte arrays.
+ * This decoder handles common data fields and the common data transparent template.
+ *
+ * @see DecoderCpm
+ * @see CommonDataTemplate
+ */
 public final class CommonDataTemplateDecoder extends DecoderCpm<CommonDataTemplate> {
 
   private static final Entry<Class<?>, BiConsumer<CommonDataTemplate, ?>> defaultEntry = consumerTagLengthValue(BERTLBinary.class, CommonDataTemplate::addAdditionalData);
@@ -64,6 +71,11 @@ public final class CommonDataTemplateDecoder extends DecoderCpm<CommonDataTempla
     mapConsumers.put(TagTransactionProcessingCodes.ID_UNPREDICTABLE_NUMBER, consumerTagLengthValue(BERTLBinary.class, CommonDataTemplate::addAdditionalData));
   }
 
+  /**
+   * Constructs a CommonDataTemplateDecoder with the specified source byte array.
+   *
+   * @param source the CPM QR code byte array to decode
+   */
   public CommonDataTemplateDecoder(final byte[] source) {
     super(BERUtils.valueOf(source));
   }

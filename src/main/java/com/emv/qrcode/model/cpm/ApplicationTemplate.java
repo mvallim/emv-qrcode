@@ -27,6 +27,13 @@ import com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes;
 
 import lombok.Getter;
 
+/**
+ * Represents an Application Template in a Consumer Presented Mode (CPM) QR code.
+ * This template contains application-specific data and optionally an Application Specific Transparent Template.
+ *
+ * @see BERTemplate
+ * @see AdditionalData
+ */
 @Getter
 public class ApplicationTemplate extends AdditionalData implements BERTemplate<byte[]> {
 
@@ -36,10 +43,20 @@ public class ApplicationTemplate extends AdditionalData implements BERTemplate<b
 
   private ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate;
 
+  /**
+   * Returns the BER tag for this Application Template.
+   *
+   * @return the BER tag
+   */
   public BERTag getTag() {
     return tag;
   }
 
+  /**
+   * Sets the Application Specific Transparent Template contained in this template.
+   *
+   * @param applicationSpecificTransparentTemplate the application specific transparent template
+   */
   public void setApplicationSpecificTransparentTemplate(final ApplicationSpecificTransparentTemplate applicationSpecificTransparentTemplate) {
     this.applicationSpecificTransparentTemplate = applicationSpecificTransparentTemplate;
   }

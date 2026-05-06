@@ -37,6 +37,13 @@ import com.emv.qrcode.model.mpm.UnreservedTemplate;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 // @formatter:off
+/**
+ * Decoder for parsing Merchant Presented Mode (MPM) QR code strings into MerchantPresentedMode objects.
+ * This decoder handles all standard MPM fields and templates.
+ *
+ * @see DecoderMpm
+ * @see MerchantPresentedMode
+ */
 public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPresentedMode> {
 
   private static final Map<String, Entry<Class<?>, BiConsumer<MerchantPresentedMode, ?>>> mapConsumers = new HashMap<>();
@@ -64,6 +71,11 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     mapConsumers.put(MerchantPresentedModeCodes.ID_CRC, consumerTagLengthValue(String.class, MerchantPresentedMode::setCRC));
   }
 
+  /**
+   * Constructs a MerchantPresentedModeDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public MerchantPresentedModeDecoder(final String source) {
     super(source);
   }
@@ -107,6 +119,12 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     return result;
   }
 
+  /**
+   * Derives the consumer key for a given tag ID, handling range-based tags.
+   *
+   * @param id the tag ID to derive from
+   * @return the derived consumer key
+   */
   private String derivateId(final String id) {
 
     if (betweenAccountInformationReservedRange(id)) {
@@ -128,21 +146,33 @@ public final class MerchantPresentedModeDecoder extends DecoderMpm<MerchantPrese
     return id;
   }
 
+  /**
+   * Checks if a tag is in the Merchant Account Information Reserved range (02-25).
+   */
   private boolean betweenAccountInformationReservedRange(final String value) {
     return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_START) >= 0
         && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_RANGE_END) <= 0;
   }
 
+  /**
+   * Checks if a tag is in the Merchant Account Information Reserved Additional range (26-40).
+   */
   private boolean betweenAccountInformationaReservedAdditionalRange(final String value) {
     return value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_START) >= 0
         && value.compareTo(MerchantPresentedModeCodes.ID_MERCHANT_ACCOUNT_INFORMATION_RESERVED_ADDITIONAL_RANGE_END) <= 0;
   }
 
+  /**
+   * Checks if a tag is in the RFU for EMVCo range (41-50).
+   */
   private boolean betweenRFUForEMVCORange(final String value) {
     return value.compareTo(MerchantPresentedModeCodes.ID_RFU_FOR_EMVCO_RANGE_START) >= 0
         && value.compareTo(MerchantPresentedModeCodes.ID_RFU_FOR_EMVCO_RANGE_END) <= 0;
   }
 
+  /**
+   * Checks if a tag is in the Unreserved Templates range (80-99).
+   */
   private boolean betweenUnreservedTemplatesRange(final String value) {
     return value.compareTo(MerchantPresentedModeCodes.ID_UNRESERVED_TEMPLATES_RANGE_START) >= 0
         && value.compareTo(MerchantPresentedModeCodes.ID_UNRESERVED_TEMPLATES_RANGE_END) <= 0;

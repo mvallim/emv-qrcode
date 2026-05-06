@@ -20,26 +20,63 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Represents a BER-TLV element with an alphanumeric (UTF-8 string) value.
+ * This class is used for Consumer Presented Mode (CPM) QR code data fields that contain text data.
+ *
+ * @see BERTLV
+ */
 public class BERTLAlphanumeric extends BERTLV {
 
   private static final long serialVersionUID = 4743677275454890695L;
 
+  /**
+   * Constructs a BERTLAlphanumeric with the specified tag and byte array value.
+   *
+   * @param tag the BER tag
+   * @param value the byte array value
+   */
   public BERTLAlphanumeric(final BERTag tag, final byte[] value) {
     super(tag, value);
   }
 
+  /**
+   * Constructs a BERTLAlphanumeric with the specified tag bytes and byte array value.
+   *
+   * @param tag the tag as a byte array
+   * @param value the byte array value
+   */
   public BERTLAlphanumeric(final byte[] tag, final byte[] value) {
     super(tag, value);
   }
 
+  /**
+   * Constructs a BERTLAlphanumeric with the specified tag bytes and string value.
+   * The string is converted to UTF-8 bytes.
+   *
+   * @param tag the tag as a byte array
+   * @param value the string value (will be converted to UTF-8 bytes)
+   */
   public BERTLAlphanumeric(final byte[] tag, final String value) {
     super(tag, StringUtils.isNotEmpty(value) ? value.getBytes(StandardCharsets.UTF_8) : EMPTY_BYTES);
   }
 
+  /**
+   * Constructs a BERTLAlphanumeric with the specified tag and string value.
+   * The string is converted to UTF-8 bytes.
+   *
+   * @param tag the BER tag
+   * @param value the string value (will be converted to UTF-8 bytes)
+   */
   public BERTLAlphanumeric(final BERTag tag, final String value) {
     super(tag, StringUtils.isNotEmpty(value) ? value.getBytes(StandardCharsets.UTF_8) : EMPTY_BYTES);
   }
 
+  /**
+   * Sets the value as a string. The string is converted to UTF-8 bytes.
+   *
+   * @param value the string value to set
+   */
   public final void setValue(final String value) {
     setValue(StringUtils.isNotEmpty(value) ? value.getBytes(StandardCharsets.UTF_8) : EMPTY_BYTES);
   }

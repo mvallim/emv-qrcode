@@ -1,0 +1,17 @@
+name: SonarQube
+
+on:
+  push:
+    branches:
+      - master
+      - release/**
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  gates:
+    uses: ./.github/workflows/ci-gates.yml
+    secrets: inherit

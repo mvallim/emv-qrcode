@@ -33,6 +33,13 @@ import com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 // @formatter:off
+/**
+ * Decoder for parsing Merchant Account Information Reserved Additional data from MPM QR code strings.
+ * This decoder handles the Globally Unique Identifier and payment network-specific fields.
+ *
+ * @see DecoderMpm
+ * @see MerchantAccountInformationReservedAdditional
+ */
 public final class MerchantAccountInformationReservedAdditionalDecoder extends DecoderMpm<MerchantAccountInformationReservedAdditional> {
 
   private static final Map<String, Entry<Class<?>, BiConsumer<MerchantAccountInformationReservedAdditional, ?>>> mapConsumers = new HashMap<>();
@@ -42,6 +49,11 @@ public final class MerchantAccountInformationReservedAdditionalDecoder extends D
     mapConsumers.put(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC, consumerTagLengthValue(TagLengthString.class, MerchantAccountInformationReservedAdditional::addPaymentNetworkSpecific));
   }
 
+  /**
+   * Constructs a MerchantAccountInformationReservedAdditionalDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public MerchantAccountInformationReservedAdditionalDecoder(final String source) {
     super(TLVUtils.valueOf(source));
   }
@@ -83,6 +95,12 @@ public final class MerchantAccountInformationReservedAdditionalDecoder extends D
     return result;
   }
 
+  /**
+   * Derives the consumer key for a given tag ID, handling range-based tags.
+   *
+   * @param id the tag ID to derive from
+   * @return the derived consumer key
+   */
   private String derivateId(final String id) {
 
     if (betweenPaymentNetworkSpecificRange(id)) {
@@ -92,6 +110,9 @@ public final class MerchantAccountInformationReservedAdditionalDecoder extends D
     return id;
   }
 
+  /**
+   * Checks if a tag is in the Payment Network Specific range (01-99).
+   */
   private boolean betweenPaymentNetworkSpecificRange(final String value) {
     return value.compareTo(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC_START) >= 0
         && value.compareTo(MerchantAccountInformationFieldCodes.ID_PAYMENT_NETWORK_SPECIFIC_END) <= 0;

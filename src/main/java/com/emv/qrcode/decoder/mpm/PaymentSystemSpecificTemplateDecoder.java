@@ -22,8 +22,20 @@ import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 
 // @formatter:off
+/**
+ * Decoder for parsing Payment System Specific Template from MPM QR code strings.
+ * This decoder extracts the PaymentSystemSpecific value from the template.
+ *
+ * @see DecoderMpm
+ * @see PaymentSystemSpecificTemplate
+ */
 public final class PaymentSystemSpecificTemplateDecoder extends DecoderMpm<PaymentSystemSpecificTemplate> {
 
+  /**
+   * Constructs a PaymentSystemSpecificTemplateDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public PaymentSystemSpecificTemplateDecoder(final String source) {
     super(source);
   }

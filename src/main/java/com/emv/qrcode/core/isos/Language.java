@@ -25,9 +25,10 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.Getter;
 
 /**
+ * Enumeration representing ISO 639-1 language codes used in EMV QR code specifications.
+ * Each enum constant contains the two-letter language code.
  *
- * ISO 639-1 language codes
- *
+ * @see <a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a>
  */
 @Getter
 public enum Language {
@@ -52,6 +53,11 @@ public enum Language {
 
   private final String lang;
 
+  /**
+   * Constructs a Language enum constant with the specified language code.
+   *
+   * @param lang the ISO 639-1 two-letter language code
+   */
   private Language(final String lang) {
     this.lang = lang;
   }
@@ -61,10 +67,22 @@ public enum Language {
     return lang;
   }
 
+  /**
+   * Returns the Language enum constant for the given language code.
+   *
+   * @param lang the language code to look up (case-insensitive)
+   * @return the corresponding Language enum constant, or null if not found
+   */
   public static Language entryOf(final String lang) {
     return StringUtils.isNoneBlank(lang) ? mapString.get(lang.toUpperCase()) : null;
   }
 
+  /**
+   * Checks if a language code exists in the enumeration.
+   *
+   * @param lang the language code to check (case-insensitive)
+   * @return true if the language code exists, false otherwise
+   */
   public static boolean exists(final String lang) {
     return StringUtils.isNoneBlank(lang) && mapString.containsKey(lang.toUpperCase());
   }

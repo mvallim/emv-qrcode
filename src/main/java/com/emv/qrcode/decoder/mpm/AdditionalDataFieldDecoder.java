@@ -33,6 +33,18 @@ import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes;
 
+/**
+ * Decoder for AdditionalDataField in Merchant Presented Mode (MPM).
+ * Decodes TLV (Tag-Length-Value) encoded strings into AdditionalDataField objects
+ * by mapping EMVCo tag values to appropriate data types and setter methods.
+ *
+ * <p>The decoder handles tags 01-09 for specific data fields and tags 10-49
+ * for RFU (Reserved for Future Use) and tags 50-99 for Payment System Specific.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.AdditionalDataField
+ * @see com.emv.qrcode.model.mpm.constants.AdditionalDataFieldCodes
+ * @see DecoderMpm
+ */
 // @formatter:off
 public final class AdditionalDataFieldDecoder extends DecoderMpm<AdditionalDataField> {
 
