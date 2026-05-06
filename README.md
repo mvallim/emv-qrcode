@@ -53,7 +53,7 @@ You can pull it from the central Maven repositories:
 <dependency>
     <groupId>com.github.mvallim</groupId>
     <artifactId>emv-qrcode</artifactId>
-    <version>0.1.4</version>
+    <version>0.1.5</version>
 </dependency>
 ```
 
@@ -73,7 +73,7 @@ If you want to try a snapshot version, add the following repository:
 #### Gradle
 
 ```groovy
-implementation 'com.github.mvallim:emv-qrcode:0.1.4'
+implementation 'com.github.mvallim:emv-qrcode:0.1.5'
 ```
 
 If you want to try a snapshot version, add the following repository:
