@@ -24,6 +24,13 @@ import com.emv.qrcode.core.model.TLV;
 
 import lombok.Setter;
 
+/**
+ * Represents a Merchant Account Information Template in a Merchant Presented Mode (MPM) QR code.
+ * This class implements TLV (Tag-Length-Value) where the value is a MerchantAccountInformation type.
+ *
+ * @see TLV
+ * @see MerchantAccountInformation
+ */
 @Setter
 public class MerchantAccountInformationTemplate implements TLV<String, MerchantAccountInformation> {
 
@@ -33,14 +40,28 @@ public class MerchantAccountInformationTemplate implements TLV<String, MerchantA
 
   private MerchantAccountInformation value;
 
+  /**
+   * Constructs an empty MerchantAccountInformationTemplate.
+   */
   public MerchantAccountInformationTemplate() {
     super();
   }
 
+  /**
+   * Constructs a MerchantAccountInformationTemplate with the specified tag.
+   *
+   * @param tag the tag identifier
+   */
   public MerchantAccountInformationTemplate(final String tag) {
     this(tag, null);
   }
 
+  /**
+   * Constructs a MerchantAccountInformationTemplate with the specified tag and value.
+   *
+   * @param tag the tag identifier
+   * @param value the merchant account information value
+   */
   public MerchantAccountInformationTemplate(final String tag, final MerchantAccountInformation value) {
     setTag(tag);
     setValue(value);
@@ -56,6 +77,13 @@ public class MerchantAccountInformationTemplate implements TLV<String, MerchantA
     return value;
   }
 
+  /**
+   * Returns the value cast to a specific MerchantAccountInformation subtype.
+   *
+   * @param <T> the type to cast to
+   * @param clazz the class of the type to cast to
+   * @return the value cast to the specified type, or null if not an instance
+   */
   public <T extends MerchantAccountInformation> T getTypeValue(final Class<T> clazz) {
     return clazz.isInstance(value) ? clazz.cast(value) : null;
   }

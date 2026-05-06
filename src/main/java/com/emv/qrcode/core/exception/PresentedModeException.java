@@ -16,10 +16,19 @@
 
 package com.emv.qrcode.core.exception;
 
+/**
+ * Base exception class for errors that occur during EMV QR code presented mode processing.
+ * This exception is thrown when invalid operations or data are encountered in merchant or consumer presented modes.
+ */
 public class PresentedModeException extends RuntimeException {
 
   private static final long serialVersionUID = -3799054723266654250L;
 
+  /**
+   * Constructs a new PresentedModeException with the specified detail message.
+   *
+   * @param message the detail message explaining the reason for the exception
+   */
   public PresentedModeException(final String message) {
     super(message);
   }

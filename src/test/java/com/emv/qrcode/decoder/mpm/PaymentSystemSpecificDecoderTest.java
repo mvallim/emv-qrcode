@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.InvalidTagException;
@@ -49,12 +49,12 @@ public class PaymentSystemSpecificDecoderTest {
 
   @Test
   public void testFailDecode() throws PresentedModeException {
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode("51240004abcd0004abcd10041234", PaymentSystemSpecific.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderMpm.decode("51240004abcd0004abcd10041234", PaymentSystemSpecific.class));
     assertThat(duplicateTagException.getTag(), equalTo("00"));
     assertThat(duplicateTagException.getValue(), equalTo("0004abcd"));
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'PaymentSystemSpecific' informed already contains '00' tag"));
 
-    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode("5116AA04abcd10041234", PaymentSystemSpecific.class), InvalidTagException.class);
+    final InvalidTagException invalidTagException = catchThrowableOfType(InvalidTagException.class, () -> DecoderMpm.decode("5116AA04abcd10041234", PaymentSystemSpecific.class));
     assertThat(invalidTagException.getTag(), equalTo("AA"));
     assertThat(invalidTagException.getValue(), equalTo("AA04abcd"));
     assertThat(invalidTagException.getMessage(), equalTo("Scope: 'PaymentSystemSpecific' invalid 'AA' tag"));

@@ -34,9 +34,25 @@ import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for MerchantAccountInformationReservedAdditional in Merchant Presented Mode.
+ * Validates the additional reserved merchant account information fields including
+ * the Globally Unique Identifier and payment network-specific data.
+ *
+ * <p>This validator handles tags 26-51 which are reserved for additional
+ * payment system-specific use.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional
+ * @see com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes
+ */
 // @formatter:off
 class MerchantAccountInformationReservedAdditionalValidator extends AbstractValidator<MerchantAccountInformationReservedAdditional> {
 
+  /**
+   * Defines validation rules for MerchantAccountInformationReservedAdditional.
+   * Validates GloballyUniqueIdentifier (mandatory, tag "00", max 32 chars)
+   * and PaymentNetworkSpecific data (optional, tags 01-99, max 99 chars each).
+   */
   @Override
   public void rules() {
 

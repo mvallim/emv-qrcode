@@ -20,6 +20,17 @@ import com.emv.qrcode.core.exception.PresentedModeException;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
 import com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate;
 
+/**
+ * Decoder for AdditionalDataFieldTemplate in Merchant Presented Mode (MPM).
+ * Decodes TLV (Tag-Length-Value) encoded strings into AdditionalDataFieldTemplate objects.
+ *
+ * <p>The template contains an AdditionalDataField value which is decoded using
+ * the AdditionalDataFieldDecoder.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.AdditionalDataFieldTemplate
+ * @see com.emv.qrcode.model.mpm.AdditionalDataField
+ * @see DecoderMpm
+ */
 // @formatter:off
 public final class AdditionalDataFieldTemplateDecoder extends DecoderMpm<AdditionalDataFieldTemplate> {
 

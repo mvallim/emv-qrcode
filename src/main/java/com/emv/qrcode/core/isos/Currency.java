@@ -25,9 +25,10 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.Getter;
 
 /**
+ * Enumeration representing ISO 4217 currency codes used in EMV QR code specifications.
+ * Each enum constant contains the three-letter currency code and the numeric currency code.
  *
- * ISO 4217 currency codes
- *
+ * @see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>
  */
 @Getter
 public enum Currency {
@@ -59,6 +60,12 @@ public enum Currency {
   private final String code;
   private final String number;
 
+  /**
+   * Constructs a Currency enum constant with the specified codes.
+   *
+   * @param code the ISO 4217 three-letter currency code
+   * @param number the ISO 4217 numeric currency code
+   */
   private Currency(final String code, final String number) {
     this.code = code;
     this.number = number;
@@ -69,10 +76,22 @@ public enum Currency {
     return code;
   }
 
+  /**
+   * Returns the Currency enum constant for the given currency code.
+   *
+   * @param code the currency code to look up (case-insensitive, three-letter format)
+   * @return the corresponding Currency enum constant, or null if not found
+   */
   public static Currency entryOf(final String code) {
     return StringUtils.isNoneBlank(code) ? mapString.get(code.toUpperCase()) : null;
   }
 
+  /**
+   * Checks if a currency code exists in the enumeration.
+   *
+   * @param code the currency code to check (case-insensitive)
+   * @return true if the currency code exists, false otherwise
+   */
   public static boolean exists(final String code) {
     return StringUtils.isNoneBlank(code) && mapString.containsKey(code.toUpperCase());
   }

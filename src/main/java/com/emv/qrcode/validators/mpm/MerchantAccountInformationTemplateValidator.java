@@ -32,6 +32,18 @@ import com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for MerchantAccountInformationTemplate in Merchant Presented Mode.
+ * Validates the template tag range and delegates validation to appropriate
+ * validators based on the type of MerchantAccountInformation contained.
+ *
+ * <p>Templates with tags 02-25 are validated as MerchantAccountInformationReserved,
+ * while tags 26-51 are validated as MerchantAccountInformationReservedAdditional.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantAccountInformationTemplate
+ * @see com.emv.qrcode.model.mpm.MerchantAccountInformationReserved
+ * @see com.emv.qrcode.model.mpm.MerchantAccountInformationReservedAdditional
+ */
 // @formatter:off
 class MerchantAccountInformationTemplateValidator extends AbstractValidator<MerchantAccountInformationTemplate> {
 
@@ -39,12 +51,24 @@ class MerchantAccountInformationTemplateValidator extends AbstractValidator<Merc
   private final String tagEnd;
   private final Integer maxSizeValue;
 
+  /**
+   * Constructs a new MerchantAccountInformationTemplateValidator.
+   *
+   * @param tagStart the starting tag value for the valid range
+   * @param tagEnd the ending tag value for the valid range
+   * @param maxSizeValue the maximum allowed size for the template value
+   */
   public MerchantAccountInformationTemplateValidator(final String tagStart, final String tagEnd, final Integer maxSizeValue) {
     this.tagStart = tagStart;
     this.tagEnd = tagEnd;
     this.maxSizeValue = maxSizeValue;
   }
 
+  /**
+   * Defines validation rules for MerchantAccountInformationTemplate.
+   * Validates tag range, value size, and delegates to specific validators
+   * based on whether the template contains reserved or additional data.
+   */
   @Override
   public void rules() {
 

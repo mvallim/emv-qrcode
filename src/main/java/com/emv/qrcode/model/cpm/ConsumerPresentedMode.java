@@ -31,6 +31,22 @@ import com.emv.qrcode.core.model.cpm.BERTemplate;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a Consumer Presented Mode (CPM) QR code data structure.
+ * This class models the complete CPM QR code as defined by EMVCo,
+ * containing a Payload Format Indicator, Application Templates, and optionally
+ * a Common Data Template and other templates.
+ *
+ * <p>The CPM QR code is used when the consumer presents the QR code to the merchant
+ * for payment processing. It uses BER-TLV (Basic Encoding Rules - Tag-Length-Value)
+ * encoding for data representation.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.PayloadFormatIndicator
+ * @see com.emv.qrcode.model.cpm.ApplicationTemplate
+ * @see com.emv.qrcode.model.cpm.CommonDataTemplate
+ * @see com.emv.qrcode.core.model.cpm.BERTemplate
+ * @since EMVCo QR Code Specification v1.0
+ */
 @Getter
 public class ConsumerPresentedMode implements Serializable {
 
@@ -50,14 +66,30 @@ public class ConsumerPresentedMode implements Serializable {
   // Other template
   private final List<BERTemplate<byte[]>> otherTemplates = new LinkedList<>();
 
+  /**
+   * Adds an Application Template to the QR code data.
+   *
+   * @param applicationTemplate the application template to add
+   */
   public void addApplicationTemplate(final ApplicationTemplate applicationTemplate) {
     applicationTemplates.add(applicationTemplate);
   }
 
+  /**
+   * Adds an other template to the QR code data.
+   *
+   * @param otherTemplate the other template to add
+   */
   public void addOtherTemplate(final BERTemplate<byte[]> otherTemplate) {
     otherTemplates.add(otherTemplate);
   }
 
+  /**
+   * Converts the QR code data to a byte array.
+   *
+   * @return the byte array representation of the QR code data
+   * @throws IOException if an I/O error occurs
+   */
   public byte[] getBytes() throws IOException {
     try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
@@ -81,10 +113,22 @@ public class ConsumerPresentedMode implements Serializable {
     }
   }
 
+  /**
+   * Converts the QR code data to a Base64 encoded string.
+   *
+   * @return the Base64 encoded string
+   * @throws IOException if an I/O error occurs
+   */
   public String toBase64() throws IOException {
     return Base64.encodeBase64String(getBytes());
   }
 
+  /**
+   * Converts the QR code data to a hexadecimal string representation.
+   *
+   * @return the hexadecimal encoded string
+   * @throws IOException if an I/O error occurs
+   */
   public String toHex() throws IOException {
     return Hex.encodeHexString(getBytes(), false);
   }

@@ -21,8 +21,20 @@ import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.core.utils.TLVUtils;
 
 // @formatter:off
+/**
+ * Decoder for decoding Merchant Presented Mode (MPM) QR code data into a TagLengthString.
+ * This decoder parses TLV-encoded strings into TagLengthString objects.
+ *
+ * @see DecoderMpm
+ * @see TagLengthString
+ */
 public final class TagLengthStringDecoder extends DecoderMpm<TagLengthString> {
 
+  /**
+   * Constructs a TagLengthStringDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public TagLengthStringDecoder(final String source) {
     super(source);
   }

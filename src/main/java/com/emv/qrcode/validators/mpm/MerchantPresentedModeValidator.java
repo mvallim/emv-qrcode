@@ -47,6 +47,33 @@ import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Main validator for MerchantPresentedMode (MPM) QR code data.
+ * This validator orchestrates validation of all components within an MPM QR code,
+ * including mandatory fields, optional fields, and complex validation rules.
+ *
+ * <p>According to EMVCo specifications, an MPM QR code must contain specific
+ * mandatory fields and may contain various optional fields with format constraints.</p>
+ *
+ * <p>Key validation rules include:</p>
+ * <ul>
+ *   <li>Payload Format Indicator must be "01"</li>
+ *   <li>Point of Initiation Method must be "11" or "12" (if present)</li>
+ *   <li>Merchant Category Code must be 4 digits</li>
+ *   <li>Transaction Currency must be 3 digits (ISO 4217)</li>
+ *   <li>Transaction Amount must be a valid number (if present)</li>
+ *   <li>Tip or Convenience Indicator validation with conditional fields</li>
+ *   <li>Country Code must be 2 digits (ISO 3166-1)</li>
+ *   <li>Merchant Name and City are mandatory</li>
+ *   <li>At least one Merchant Account Information template required</li>
+ * </ul>
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantPresentedMode
+ * @see com.emv.qrcode.validators.mpm.AdditionalDataFieldTemplateValidator
+ * @see com.emv.qrcode.validators.mpm.MerchantInformationLanguageTemplateValidator
+ * @see com.emv.qrcode.validators.mpm.MerchantAccountInformationTemplateValidator
+ * @see com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes
+ */
 // @formatter:off
 public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPresentedMode> {
 
@@ -54,6 +81,11 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
 
   private static final String REGEX_PERCENTAGE = "^(\\d{0,2}(\\.)?(\\.\\d{0,2})?|100(\\.)?(\\.00?)?)$";
 
+  /**
+   * Defines all validation rules for MerchantPresentedMode.
+   * Includes validation for all mandatory and optional fields with
+   * appropriate constraints for tags, values, and formats.
+   */
   @Override
   public void rules() {
 

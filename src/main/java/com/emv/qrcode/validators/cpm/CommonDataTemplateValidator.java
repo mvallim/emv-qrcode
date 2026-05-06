@@ -43,11 +43,40 @@ import br.com.fluentvalidator.context.Error;
 import br.com.fluentvalidator.handler.HandlerInvalidField;
 import br.com.fluentvalidator.predicate.PredicateBuilder;
 
+/**
+ * Validator for CommonDataTemplate in Consumer Presented Mode (CPM) QR codes.
+ * Validates the Common Data Template (tag 0x62) fields and ensures no duplicate
+ * tags exist between Application Templates and Common Data Template.
+ *
+ * <p>This validator also checks for duplicate tag definitions across templates,
+ * which is not allowed per EMVCo specifications.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.CommonDataTemplate
+ * @see com.emv.qrcode.model.cpm.constants.ConsumerPresentedModeFieldCodes#ID_COMMON_DATA_TEMPLATE
+ */
+/**
+ * Validator for CommonDataTemplate in Consumer Presented Mode (CPM) QR codes.
+ * Validates the Common Data Template (tag 0x62) fields and ensures no duplicate
+ * tags exist between Application Templates and Common Data Template.
+ *
+ * <p>This validator also checks for duplicate tag definitions across templates,
+ * which is not allowed per EMVCo specifications. It validates field lengths
+ * for all data elements according to the specification.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.CommonDataTemplate
+ * @see com.emv.qrcode.model.cpm.ApplicationTemplate
+ * @see com.emv.qrcode.model.cpm.ConsumerPresentedMode
+ */
 // @formatter:off
 class CommonDataTemplateValidator extends AbstractValidator<CommonDataTemplate> {
 
   private final Function<CommonDataTemplate, ConsumerPresentedMode> cpm = fn -> getPropertyOnContext("cpm", ConsumerPresentedMode.class);
 
+  /**
+   * Defines validation rules for CommonDataTemplate.
+   * Validates field lengths for all data elements and checks for duplicate
+   * tags between Application Templates and Common Data Template.
+   */
   @Override
   public void rules() {
 
@@ -124,6 +153,11 @@ class CommonDataTemplateValidator extends AbstractValidator<CommonDataTemplate> 
 
   }
 
+  /**
+   * Handler for reporting duplicate tag errors in CommonDataTemplate.
+   * Collects all tags from Application Templates and checks for duplicates
+   * in the CommonDataTemplate's additional data.
+   */
   private final class HandlerInvalidDuplicateTags implements HandlerInvalidField<CommonDataTemplate> {
     @Override
     public Collection<Error> handle(final CommonDataTemplate attemptedValue) {
@@ -148,6 +182,12 @@ class CommonDataTemplateValidator extends AbstractValidator<CommonDataTemplate> 
     }
   }
 
+  /**
+   * Creates a predicate that validates no duplicate tags exist between
+   * Application Templates and CommonDataTemplate.
+   *
+   * @return a Predicate that returns true if no duplicates are found
+   */
   private Predicate<CommonDataTemplate> validateDuplicateTags() {
     return PredicateBuilder.<CommonDataTemplate>from(not(nullValue())).and(cdt -> {
       final ConsumerPresentedMode consumerPresentedMode = cpm.apply(cdt);

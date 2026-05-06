@@ -27,6 +27,17 @@ import com.emv.qrcode.core.model.mpm.TagLengthString;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for Tag-Length-String (TLS) data structures in Merchant Presented Mode.
+ * Validates that the tag value is within the specified range and the string value
+ * length is within the allowed maximum size.
+ *
+ * <p>This validator is used to validate fields within templates that use the
+ * Tag-Length-String encoding format as defined by EMVCo.</p>
+ *
+ * @see com.emv.qrcode.core.model.mpm.TagLengthString
+ * @see br.com.fluentvalidator.AbstractValidator
+ */
 // @formatter:off
 class TagLengthStringValidator extends AbstractValidator<TagLengthString> {
 
@@ -35,6 +46,14 @@ class TagLengthStringValidator extends AbstractValidator<TagLengthString> {
   private final Integer maxSizeValue;
   private final String fieldName;
 
+  /**
+   * Constructs a new TagLengthStringValidator with the specified parameters.
+   *
+   * @param fieldName the name of the field being validated (used in error messages)
+   * @param tagStart the starting tag value for the valid range (inclusive)
+   * @param tagEnd the ending tag value for the valid range (inclusive)
+   * @param maxSizeValue the maximum allowed length for the string value
+   */
   public TagLengthStringValidator(final String fieldName, final String tagStart, final String tagEnd, final Integer maxSizeValue) {
     this.fieldName = fieldName;
     this.tagStart = tagStart;

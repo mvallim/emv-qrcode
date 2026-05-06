@@ -29,9 +29,35 @@ import com.emv.qrcode.model.cpm.ApplicationTemplate;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for ApplicationTemplate in Consumer Presented Mode (CPM) QR codes.
+ * Validates the Application Template (tag 0x61) fields including
+ * Application Definition File Name, Application Label, Application PAN,
+ * Application Version Number, Cardholder Name, and other transaction-related data.
+ *
+ * @see com.emv.qrcode.model.cpm.ApplicationTemplate
+ * @see com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes
+ */
+/**
+ * Validator for ApplicationTemplate in Consumer Presented Mode (CPM) QR codes.
+ * Validates the Application Template (tag 0x61) fields including
+ * Application Definition File Name, Application Label, Application PAN,
+ * and other transaction-related data.
+ *
+ * <p>This validator ensures that all mandatory fields are present and that
+ * optional fields meet the EMVCo specification requirements for length and format.</p>
+ *
+ * @see com.emv.qrcode.model.cpm.ApplicationTemplate
+ * @see com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes
+ */
 // @formatter:off
 class ApplicationTemplateValidator extends AbstractValidator<ApplicationTemplate> {
 
+	/**
+	 * Defines validation rules for ApplicationTemplate.
+	 * Validates field lengths for all optional and mandatory fields
+	 * within the Application Template according to EMVCo specifications.
+	 */
 	@Override
   public void rules() {
 

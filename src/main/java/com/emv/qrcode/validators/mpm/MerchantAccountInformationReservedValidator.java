@@ -22,9 +22,22 @@ import com.emv.qrcode.model.mpm.MerchantAccountInformationReserved;
 
 import br.com.fluentvalidator.AbstractValidator;
 
+/**
+ * Validator for MerchantAccountInformationReserved in Merchant Presented Mode.
+ * Validates the reserved merchant account information value length.
+ *
+ * <p>This validator handles tags 02-25 which are reserved for specific
+ * payment network use as defined by EMVCo.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.MerchantAccountInformationReserved
+ */
 // @formatter:off
 class MerchantAccountInformationReservedValidator extends AbstractValidator<MerchantAccountInformationReserved> {
 
+  /**
+   * Defines validation rules for MerchantAccountInformationReserved.
+   * Validates that the value length is between 1 and 99 characters.
+   */
   @Override
   public void rules() {
 

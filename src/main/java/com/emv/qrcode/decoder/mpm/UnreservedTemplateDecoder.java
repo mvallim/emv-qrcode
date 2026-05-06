@@ -22,8 +22,20 @@ import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
 // @formatter:off
+/**
+ * Decoder for parsing Unreserved Template from MPM QR code strings.
+ * This decoder extracts the Unreserved value from the template.
+ *
+ * @see DecoderMpm
+ * @see UnreservedTemplate
+ */
 public final class UnreservedTemplateDecoder extends DecoderMpm<UnreservedTemplate> {
 
+  /**
+   * Constructs an UnreservedTemplateDecoder with the specified source string.
+   *
+   * @param source the MPM QR code string to decode
+   */
   public UnreservedTemplateDecoder(final String source) {
     super(source);
   }

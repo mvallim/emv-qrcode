@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DuplicateTagException;
 import com.emv.qrcode.core.exception.InvalidTagException;
@@ -61,12 +61,12 @@ public class MerchantInformationLanguageDecoderTest {
 
   @Test
   public void testFailDecode() throws PresentedModeException {
-    final DuplicateTagException duplicateTagException = catchThrowableOfType(() -> DecoderMpm.decode("64340002ZH0002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguage.class), DuplicateTagException.class);
+    final DuplicateTagException duplicateTagException = catchThrowableOfType(DuplicateTagException.class, () -> DecoderMpm.decode("64340002ZH0002ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguage.class));
     assertThat(duplicateTagException.getTag(), equalTo("00"));
     assertThat(duplicateTagException.getValue(), equalTo("0002ZH"));
     assertThat(duplicateTagException.getMessage(), equalTo("Scope: 'MerchantInformationLanguage' informed already contains '00' tag"));
 
-    final InvalidTagException invalidTagException = catchThrowableOfType(() -> DecoderMpm.decode("6428AA02ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguage.class), InvalidTagException.class);
+    final InvalidTagException invalidTagException = catchThrowableOfType(InvalidTagException.class, () -> DecoderMpm.decode("6428AA02ZH0104最佳运输0202北京0304abcd", MerchantInformationLanguage.class));
     assertThat(invalidTagException.getTag(), equalTo("AA"));
     assertThat(invalidTagException.getValue(), equalTo("AA02ZH"));
     assertThat(invalidTagException.getMessage(), equalTo("Scope: 'MerchantInformationLanguage' invalid 'AA' tag"));

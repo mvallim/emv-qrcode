@@ -18,6 +18,10 @@ package com.emv.qrcode.core.exception;
 
 import java.text.MessageFormat;
 
+/**
+ * Exception thrown when a duplicate tag is detected during EMV QR code decoding.
+ * This exception is raised when a tag that already exists in the current scope is encountered again.
+ */
 public class DuplicateTagException extends PresentedModeException {
 
   private static final long serialVersionUID = 3271139876825199269L;
@@ -26,16 +30,33 @@ public class DuplicateTagException extends PresentedModeException {
 
   private final String value;
 
+  /**
+   * Constructs a new DuplicateTagException with the specified scope, tag, and value.
+   *
+   * @param scope the scope where the duplicate tag was found
+   * @param tag the duplicate tag identifier
+   * @param value the value associated with the duplicate tag
+   */
   public DuplicateTagException(final String scope, final String tag, final String value) {
     super(MessageFormat.format("Scope: ''{0}'' informed already contains ''{1}'' tag", scope, tag));
     this.tag = tag;
     this.value = value;
   }
 
+  /**
+   * Returns the duplicate tag identifier that caused this exception.
+   *
+   * @return the duplicate tag
+   */
   public String getTag() {
     return tag;
   }
 
+  /**
+   * Returns the value associated with the duplicate tag.
+   *
+   * @return the value of the duplicate tag
+   */
   public String getValue() {
     return value;
   }

@@ -48,6 +48,17 @@ import com.emv.qrcode.model.mpm.PaymentSystemSpecificTemplate;
 import com.emv.qrcode.model.mpm.Unreserved;
 import com.emv.qrcode.model.mpm.UnreservedTemplate;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+/**
+ * Configuration class that maps Merchant Presented Mode (MPM) model classes to
+ * their corresponding decoder classes. This registry allows the framework to
+ * dynamically select the appropriate decoder for a given data type.
+ *
+ * @see DecoderMpm
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DecodersMpmMap {
 
   private static final Map<Class<?>, Class<? extends DecoderMpm<?>>> MAP_DECODERS = new ConcurrentHashMap<>();
@@ -69,10 +80,12 @@ public final class DecodersMpmMap {
     MAP_DECODERS.put(PaymentSystemSpecific.class, PaymentSystemSpecificDecoder.class);
   }
 
-  private DecodersMpmMap() {
-    super();
-  }
-
+  /**
+   * Returns the decoder class registered for the given model class.
+   *
+   * @param clazz the model class to look up
+   * @return the corresponding decoder class, or null if not found
+   */
   public static Class<? extends DecoderMpm<?>> getDecoder(final Class<?> clazz) {
     return MAP_DECODERS.get(clazz);
   }

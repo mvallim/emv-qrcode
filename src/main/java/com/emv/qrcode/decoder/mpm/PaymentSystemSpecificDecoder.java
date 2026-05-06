@@ -33,6 +33,18 @@ import com.emv.qrcode.model.mpm.PaymentSystemSpecific;
 import com.emv.qrcode.model.mpm.constants.MerchantAccountInformationFieldCodes;
 import com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes;
 
+/**
+ * Decoder for PaymentSystemSpecific in Merchant Presented Mode (MPM).
+ * Decodes TLV (Tag-Length-Value) encoded strings into PaymentSystemSpecific objects
+ * by mapping EMVCo tag values to appropriate data types and setter methods.
+ *
+ * <p>Handles Globally Unique Identifier (tag 00) and Payment Network Specific
+ * data (tags 01-99) within Payment System Specific templates.</p>
+ *
+ * @see com.emv.qrcode.model.mpm.PaymentSystemSpecific
+ * @see com.emv.qrcode.model.mpm.constants.PaymentSystemSpecificFieldCodes
+ * @see DecoderMpm
+ */
 // @formatter:off
 public final class PaymentSystemSpecificDecoder extends DecoderMpm<PaymentSystemSpecific> {
 

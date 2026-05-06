@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.emv.qrcode.core.exception.DecodeValueException;
 import com.emv.qrcode.model.cpm.constants.TagTransactionProcessingCodes;
@@ -59,7 +59,7 @@ public class BERTLBinaryTest {
 
   @Test
   public void testFail() throws IOException {
-    final DecodeValueException decodeValueException = catchThrowableOfType(() -> new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "AG000000666666"), DecodeValueException.class);
+    final DecodeValueException decodeValueException = catchThrowableOfType(DecodeValueException.class, () -> new BERTLBinary(TagTransactionProcessingCodes.ID_APPLICATION_DEFINITION_FILE_NAME, "AG000000666666"));
     assertThat(decodeValueException.getMessage(), equalTo("Characters outside of the expected range Hex '[0-9a-fA-F]'. Invalid value 'AG000000666666'"));
     assertThat(decodeValueException.getValue(), equalTo("AG000000666666"));
   }
