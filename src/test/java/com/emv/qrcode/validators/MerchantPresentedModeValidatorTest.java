@@ -16,6 +16,7 @@
 
 package com.emv.qrcode.validators;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,64 @@ public class MerchantPresentedModeValidatorTest {
     final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
 
     assertTrue(validationResult.isValid());
+  }
+
+  @Test
+  public void testFailWhenTransactionAmountIsZero() {
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
+    merchantPresentMode.setTransactionAmount("0.00");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertFalse(validationResult.isValid());
+    assertTrue(validationResult.getErrors().stream().anyMatch(error ->
+        "TransactionAmount value must be greater than zero".equals(error.getMessage())));
+  }
+
+  @Test
+  public void testFailWhenTransactionAmountIsOnlyADecimalMark() {
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
+    merchantPresentMode.setTransactionAmount(".");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertFalse(validationResult.isValid());
+    assertTrue(validationResult.getErrors().stream().anyMatch(error ->
+        "TransactionAmount value must be a valid number".equals(error.getMessage())));
+  }
+
+  @Test
+  public void testFailWhenTransactionAmountHasNoIntegerPart() {
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
+    merchantPresentMode.setTransactionAmount(".50");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertFalse(validationResult.isValid());
+    assertTrue(validationResult.getErrors().stream().anyMatch(error ->
+        "TransactionAmount value must be a valid number".equals(error.getMessage())));
+  }
+
+  @Test
+  public void testSuccessWhenTransactionAmountHasATrailingDecimalMark() {
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
+    merchantPresentMode.setTransactionAmount("10.");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertTrue(validationResult.isValid());
+  }
+
+  @Test
+  public void testFailWhenConvenienceFeeFixedIsZero() {
+    final MerchantPresentedMode merchantPresentMode = getValidMerchantPresentMode();
+    merchantPresentMode.setValueOfConvenienceFeeFixed("0.00");
+
+    final ValidationResult validationResult = MerchantPresentedModeValidate.validate(merchantPresentMode);
+
+    assertFalse(validationResult.isValid());
+    assertTrue(validationResult.getErrors().stream().anyMatch(error ->
+        "ValueOfConvenienceFeeFixed value must be greater than zero".equals(error.getMessage())));
   }
 
   private MerchantPresentedMode getValidMerchantPresentMode() {
