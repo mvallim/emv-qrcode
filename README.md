@@ -10,7 +10,7 @@ Java Based EMV QR Code Generator and Parser (MPM, CPM)
 
 ## Features
 
-* _**Compatible JDK 8, 11, 17 and 21**_
+* _**Compatible JDK 8, 11, 17, 21 and 25**_
 
 * Ready of specification for **Merchant Presented Mode v1.1**
   * Encode MPM
@@ -53,7 +53,7 @@ You can pull it from the central Maven repositories:
 <dependency>
     <groupId>com.github.mvallim</groupId>
     <artifactId>emv-qrcode</artifactId>
-    <version>0.1.5</version>
+    <version>0.1.6</version>
 </dependency>
 ```
 
@@ -73,7 +73,7 @@ If you want to try a snapshot version, add the following repository:
 #### Gradle
 
 ```groovy
-implementation 'com.github.mvallim:emv-qrcode:0.1.5'
+implementation 'com.github.mvallim:emv-qrcode:0.1.6'
 ```
 
 If you want to try a snapshot version, add the following repository:

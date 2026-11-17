@@ -22,6 +22,7 @@ import static br.com.fluentvalidator.predicate.ComparablePredicate.equalTo;
 import static br.com.fluentvalidator.predicate.ComparablePredicate.greaterThan;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
+import static br.com.fluentvalidator.predicate.StringPredicate.isNumber;
 import static br.com.fluentvalidator.predicate.StringPredicate.isNumeric;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEquals;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import com.emv.qrcode.core.model.mpm.TagLengthString;
 import com.emv.qrcode.model.mpm.AdditionalDataField;
@@ -46,6 +48,7 @@ import com.emv.qrcode.model.mpm.MerchantPresentedMode;
 import com.emv.qrcode.model.mpm.constants.MerchantPresentedModeCodes;
 
 import br.com.fluentvalidator.AbstractValidator;
+import br.com.fluentvalidator.predicate.PredicateBuilder;
 
 /**
  * Main validator for MerchantPresentedMode (MPM) QR code data.
@@ -61,7 +64,7 @@ import br.com.fluentvalidator.AbstractValidator;
  *   <li>Point of Initiation Method must be "11" or "12" (if present)</li>
  *   <li>Merchant Category Code must be 4 digits</li>
  *   <li>Transaction Currency must be 3 digits (ISO 4217)</li>
- *   <li>Transaction Amount must be a valid number (if present)</li>
+ *   <li>Transaction Amount, if present, must be a number greater than zero</li>
  *   <li>Tip or Convenience Indicator validation with conditional fields</li>
  *   <li>Country Code must be 2 digits (ISO 3166-1)</li>
  *   <li>Merchant Name and City are mandatory</li>
@@ -77,7 +80,7 @@ import br.com.fluentvalidator.AbstractValidator;
 // @formatter:off
 public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPresentedMode> {
 
-  private static final String REGEX_NUMBER = "^((\\d*)(\\.)?(\\d{0,2})?)$";
+  private static final String REGEX_NUMBER = "^\\d+(\\.\\d{0,2})?$";
 
   private static final String REGEX_PERCENTAGE = "^(\\d{0,2}(\\.)?(\\.\\d{0,2})?|100(\\.)?(\\.00?)?)$";
 
@@ -308,6 +311,12 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
         .when(not(nullValue()))
         .withMessage("TransactionAmount value must be a valid number")
         .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
+        .critical()
+        
+      .must(positiveAmount())
+        .when(not(nullValue()))
+        .withMessage("TransactionAmount value must be greater than zero")
+        .withAttempedValue(of(MerchantPresentedMode::getTransactionAmount).andThen(TagLengthString::getValue))
         .critical();
 
     /**
@@ -407,6 +416,12 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
       .must(stringMatches(TagLengthString::getValue, REGEX_NUMBER))
         .when(not(nullValue()))
         .withMessage("ValueOfConvenienceFeeFixed value must be a valid number")
+        .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
+        .critical()
+
+      .must(positiveAmount())
+        .when(not(nullValue()))
+        .withMessage("ValueOfConvenienceFeeFixed value must be greater than zero")
         .withAttempedValue(of(MerchantPresentedMode::getValueOfConvenienceFeeFixed).andThen(TagLengthString::getValue))
         .critical();
 
@@ -788,6 +803,12 @@ public class MerchantPresentedModeValidator extends AbstractValidator<MerchantPr
     return obj -> new BigDecimal(fnc.apply(obj));
   }
 
+  private static Predicate<TagLengthString> positiveAmount() {
+    return PredicateBuilder.<TagLengthString>from(not(nullValue()))
+	  .and(not(nullValue(TagLengthString::getValue)))
+	  .and(isNumber(TagLengthString::getValue))
+	  .and(tag -> new BigDecimal(tag.getValue()).compareTo(BigDecimal.ZERO) > 0);
+  }
 }
 
 // @formatter:on

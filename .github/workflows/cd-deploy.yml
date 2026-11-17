@@ -12,6 +12,8 @@ jobs:
   publish:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    env:
+      MAVEN_ARGS: "--no-transfer-progress"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
